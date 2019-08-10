@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Loadable from 'react-loadable'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import asyncComponent from 'components/AsyncComponent';
+import ComponentLoading from 'components/loading/ComponentLoading'
 
-export default App;
+const AsyncNotFound = asyncComponent(() => import('pages/NotFound'));
+const AsyncHome = Loadable({
+  loader: () => import('pages/Home'),
+  loading: ComponentLoading
+});
+
+export default ({ childProps }) =>
+  <Router>
+    <Switch>
+      <Route
+        path="/"
+        exact
+        component={AsyncHome}
+        props={childProps}
+      />
+
+      {/* Finally, catch all unmatched routes */}
+      <Route component={AsyncNotFound} />
+    </Switch>
+  </Router>
+;
