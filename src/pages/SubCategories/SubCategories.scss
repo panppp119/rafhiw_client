@@ -1,0 +1,9 @@
+$desktop: 1280px;
+
+#subcategories-page {
+  width: 100%;
+
+  @media screen and (min-width: $desktop) {
+    padding: 24px 0;
+  }
+}
