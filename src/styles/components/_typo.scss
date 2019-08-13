@@ -1,0 +1,44 @@
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  padding: 0;
+  line-height: auto;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+}
+
+body,
+p {
+  font-size: var(--body_size);
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+h5 {
+  font-size: var(--small_size);
+}

@@ -1,0 +1,34 @@
+#root {
+  --black: #212121;
+  --white: #f6f6f6;
+
+  --grey: #707070;
+  --grey-light: #c1bebe;
+
+  --success: #2ecc71;
+  --success-dark: #149349;
+
+  --error: #ee4733;
+  --error-dark: #c33527;
+
+  --warning: #f7cb19;
+  --warning-dark: #cca504;
+
+  --primary: #eb760f;
+  --primary_light: #f59d1f;
+  --primary_dark: #da1a32;
+}
+
+.theme-orange {
+  --primary: #eb760f;
+  --primary_light: #f59d1f;
+  --primary_dark: #da1a32;
+}
+
+.theme-dark {
+  --primary: var(--black);
+  --primary_light: var(--black);
+  --primary_dark: var(--black);
+
+  --secondary: rgb(247, 202, 24);
+}

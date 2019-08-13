@@ -1,0 +1,63 @@
+$desktop: 1280px;
+
+#top-nav {
+  color: var(--primary);
+
+  @media screen and (min-width: $desktop) {
+    color: var(--white);
+  }
+
+  .first {
+    background-color: var(--primary_dark);
+
+    li {
+      line-height: 40px;
+
+      &.display {
+        flex-grow: 3;
+      }
+
+      &.empty {
+        flex-grow: 15;
+      }
+    }
+  }
+
+  .second {
+    background-color: var(--primary);
+
+    li {
+      line-height: 60px;
+
+      &.logo {
+        flex-grow: 3;
+      }
+
+      &.search {
+        flex-grow: 16;
+      }
+    }
+  }
+
+  .third {
+    background-color: var(--primary_light);
+  }
+
+  li {
+    text-align: center;
+    line-height: 50px;
+    text-transform: uppercase;
+
+    &.search {
+      flex-grow: 4;
+    }
+
+    a {
+      color: var(--primary);
+
+      @media screen and (min-width: $desktop) {
+        color: var(--white);
+      }
+    }
+  }
+}

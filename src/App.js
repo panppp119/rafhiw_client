@@ -1,9 +1,11 @@
 import React from 'react';
 import Loadable from 'react-loadable'
-import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import asyncComponent from 'components/AsyncComponent';
 import ComponentLoading from 'components/loading/ComponentLoading'
+
+import './styles/main.scss'
 
 const AsyncNotFound = asyncComponent(() => import('pages/NotFound'));
 const AsyncHome = Loadable({

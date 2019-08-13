@@ -1,9 +1,13 @@
 import React from 'react'
 
+import UserLayout from 'components/layouts/UserLayout'
+
 class Home extends React.Component {
   render () {
     return (
-      <h1>Home Page</h1>
+      <UserLayout>
+        <h1>Home</h1>
+      </UserLayout>
     )
   }
 }
