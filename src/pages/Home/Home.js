@@ -2,11 +2,61 @@ import React from 'react'
 
 import UserLayout from 'components/layouts/UserLayout'
 
+import './Home.scss'
+
 class Home extends React.Component {
   render () {
     return (
       <UserLayout>
-        <h1>Home</h1>
+        <div id="home-page">
+          <div className="container">
+            <div className="categories desktop">
+              <h3>หมวดหมู่</h3>
+
+              <ul>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+              </ul>
+            </div>
+            
+            <div className="highlight">
+              <h3>Highlight</h3>
+            </div>
+
+            <div className="categories mobile">
+              <h3>หมวดหมู่</h3>
+
+              <ul>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+                <li>Cat1</li>
+              </ul>
+            </div>
+
+            <div className="recommended">
+              <h3>สินค้าแนะนำ</h3>
+            </div>
+          </div>
+        </div>
       </UserLayout>
     )
   }

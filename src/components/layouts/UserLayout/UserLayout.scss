@@ -5,7 +5,9 @@ $desktop: 1280px;
   height: 100%;
 
   .layout-content {
+    width: 100%;
     height: calc(100% - 100px);
+    overflow-y: auto;
 
     @media screen and (min-width: $desktop) {
       height: calc(100% - 150px);

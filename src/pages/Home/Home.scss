@@ -1,0 +1,60 @@
+$desktop: 1280px;
+
+#home-page {
+  width: 100%;
+
+  @media screen and (min-width: $desktop) {
+    padding: 24px 0;
+  }
+
+  h3 {
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 2px solid var(--primary);
+  }
+
+  .highlight {
+    width: 100%;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(50% - 32px);
+      display: inline-block;
+      vertical-align: top;
+      padding: 0 16px;
+    }
+  }
+
+  .categories {
+    width: 100%;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(25% - 32px);
+      display: inline-block !important;
+      padding: 0 16px;
+
+      &.mobile {
+        display: none !important;
+      }
+    }
+
+    ul {
+      display: block;
+
+      li {
+        line-height: 24px;
+        padding: 8px;
+      }
+    }
+  }
+
+  .recommended {
+    width: 100%;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(25% - 32px);
+      display: inline-block;
+      vertical-align: top;
+      padding: 0 16px;
+    }
+  }
+}

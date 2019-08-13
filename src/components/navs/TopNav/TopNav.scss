@@ -54,6 +54,7 @@ $desktop: 1280px;
 
     a {
       color: var(--primary);
+      display: block;
 
       @media screen and (min-width: $desktop) {
         color: var(--white);
