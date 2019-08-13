@@ -1,9 +1,17 @@
 import React from 'react'
 
+import UserLayout from 'components/layouts/UserLayout'
+
 const ComponentLoading = ({isLoading, error}) => {
   // Handle the loading state
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <UserLayout>
+        <div className="container">
+          <div>Loading...</div>
+        </div>
+      </UserLayout>
+    )
   }
   // Handle the error state
   else if (error) {
