@@ -21,7 +21,7 @@ class TopNav extends React.Component {
             <ul className='container'>
               <li className='display'>การแสดงผล</li>
               <li className='empty' />
-              <li><Link to='/profile'><FaUser /></Link></li>
+              <li><Link to='/sign_in'><FaUser /></Link></li>
               <li><FaBell /></li>
             </ul>
           </div>

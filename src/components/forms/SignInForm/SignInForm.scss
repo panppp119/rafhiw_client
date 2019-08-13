@@ -1,0 +1,35 @@
+#signin-form {
+  max-width: 350px;
+  width: 100%;
+  margin: auto;
+  box-shadow: 2px 2px 5px var(--primary_light);
+
+  h2 {
+    border-bottom: 2px solid var(--primary);
+    padding: 8px;
+    text-align: center;
+  }
+
+  button {
+    background-color: var(--primary);
+    color: var(--white);
+
+    &:hover {
+      background-color: var(--primary_dark);
+    }
+  }
+
+  .register {
+    text-align: center;
+    margin-bottom: 16px;
+
+    span {
+      padding: 0 4px;
+      font-size: 14px;
+
+      a {
+        color: var(--primary);
+      }
+    }
+  }
+}

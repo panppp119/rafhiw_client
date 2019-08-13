@@ -14,7 +14,7 @@ class BottomNav extends React.Component {
             <li><Link to='/events'><FaFlag /></Link></li>
             <li><Link to='/products'><FaList /></Link></li>
             <li><FaBell /></li>
-            <li><Link to='/profile'><FaUser /></Link></li>
+            <li><Link to='/sign_in'><FaUser /></Link></li>
           </ul>
         </div>
       </div>
