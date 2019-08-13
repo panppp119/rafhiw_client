@@ -13,6 +13,14 @@ $desktop: 1280px;
     border-bottom: 2px solid var(--primary);
   }
 
+  .row {
+    margin-bottom: 16px;
+
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 24px;
+    }
+  }
+
   .highlight {
     width: 100%;
 
@@ -55,6 +63,24 @@ $desktop: 1280px;
       display: inline-block;
       vertical-align: top;
       padding: 0 16px;
+    }
+  }
+
+  .events, .products {
+    width: 100%;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(100% - 32px);
+      padding: 0 16px;
+    }
+
+    h3 {
+      text-align: left;
+      padding: 8px;
+
+      @media screen and (min-width: $desktop) {
+        padding: 8px 16px;
+      }
     }
   }
 }
