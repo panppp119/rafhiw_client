@@ -11,10 +11,10 @@ class BottomNav extends React.Component {
         <div className="mobile">
           <ul>
             <li><Link to='/'><FaHome /></Link></li>
-            <li><Link to='/'><FaFlag /></Link></li>
-            <li><Link to='/'><FaList /></Link></li>
-            <li><Link to='/'><FaBell /></Link></li>
-            <li><Link to='/'><FaUser /></Link></li>
+            <li><Link to='/events'><FaFlag /></Link></li>
+            <li><Link to='/products'><FaList /></Link></li>
+            <li><FaBell /></li>
+            <li><Link to='/profile'><FaUser /></Link></li>
           </ul>
         </div>
       </div>

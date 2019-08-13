@@ -11,8 +11,8 @@ class TopNav extends React.Component {
         <div className="mobile">
           <ul>
             <li className='search'>ค้นหา</li>
-            <li><Link to='/'><FaOpencart /></Link></li>
-            <li><Link to='/'><FaCommentDots /></Link></li>
+            <li><Link to='/cart'><FaOpencart /></Link></li>
+            <li><Link to='/messages'><FaCommentDots /></Link></li>
           </ul>
         </div>
 
@@ -21,8 +21,8 @@ class TopNav extends React.Component {
             <ul className='container'>
               <li className='display'>การแสดงผล</li>
               <li className='empty' />
-              <li><Link to='/'><FaUser /></Link></li>
-              <li><Link to='/'><FaBell /></Link></li>
+              <li><Link to='/profile'><FaUser /></Link></li>
+              <li><FaBell /></li>
             </ul>
           </div>
 
@@ -30,15 +30,15 @@ class TopNav extends React.Component {
             <ul className='container'>
               <li className='logo'><Link to='/'>โลโก้</Link></li>
               <li className='search'>ค้นหา</li>
-              <li><Link to='/'><FaOpencart /></Link></li>
+              <li><Link to='/cart'><FaOpencart /></Link></li>
             </ul>
           </div>
 
           <div className="third">
             <ul className='container'>
               <li><Link to='/'>หน้าหลัก</Link></li>
-              <li>สินค้ายอดฮิต</li>
-              <li>งานลดราคา</li>
+              <li><Link to='/products'>สินค้า</Link></li>
+              <li><Link to='/events'>งานลดราคา</Link></li>
             </ul>
           </div>
         </div>
