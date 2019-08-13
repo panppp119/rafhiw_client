@@ -4,6 +4,11 @@ $desktop: 1280px;
   max-width: $desktop;
   width: 100%;
   margin: auto;
+
+  @media screen and (min-width: $desktop) {
+    width: calc(100% - 32px);
+    padding: 0 16px;
+  }
 }
 
 ul {
