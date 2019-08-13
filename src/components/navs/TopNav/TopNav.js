@@ -28,7 +28,7 @@ class TopNav extends React.Component {
 
           <div className="second">
             <ul className='container'>
-              <li className='logo'>โลโก้</li>
+              <li className='logo'><Link to='/'>โลโก้</Link></li>
               <li className='search'>ค้นหา</li>
               <li><Link to='/'><FaOpencart /></Link></li>
             </ul>
@@ -36,7 +36,7 @@ class TopNav extends React.Component {
 
           <div className="third">
             <ul className='container'>
-              <li>หน้าหลัก</li>
+              <li><Link to='/'>หน้าหลัก</Link></li>
               <li>สินค้ายอดฮิต</li>
               <li>งานลดราคา</li>
             </ul>
