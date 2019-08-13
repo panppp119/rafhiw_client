@@ -25,10 +25,6 @@ class RegisterForm extends React.Component {
           <span>มีบัญชีอยู่แล้ว</span>
           <span><Link to='/sign_in'>เข้าสู่ระบบ</Link></span>
         </div>
-
-        <hr/>
-
-
       </div>
     )
   }
