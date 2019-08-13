@@ -36,9 +36,9 @@ $desktop: 1280px;
     width: 100%;
 
     @media screen and (min-width: $desktop) {
-      width: calc(25% - 32px);
+      width: 25%;
       display: inline-block !important;
-      padding: 0 16px;
+      box-shadow: 2px 2px 5px var(--primary_light);
 
       &.mobile {
         display: none !important;
@@ -51,6 +51,10 @@ $desktop: 1280px;
       li {
         line-height: 24px;
         padding: 8px;
+
+        @media screen and (min-width: $desktop) {
+          padding: 9px 16px;
+        }
       }
     }
   }
@@ -59,10 +63,10 @@ $desktop: 1280px;
     width: 100%;
 
     @media screen and (min-width: $desktop) {
-      width: calc(25% - 32px);
+      width: 25%;
       display: inline-block;
       vertical-align: top;
-      padding: 0 16px;
+      box-shadow: 2px 2px 5px var(--primary_light);
     }
   }
 
@@ -71,7 +75,6 @@ $desktop: 1280px;
 
     @media screen and (min-width: $desktop) {
       width: calc(100% - 32px);
-      padding: 0 16px;
     }
 
     h3 {

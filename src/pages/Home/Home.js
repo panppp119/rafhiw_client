@@ -31,7 +31,6 @@ class Home extends React.Component {
               </div>
 
               <div className="highlight">
-                <h3>Highlight</h3>
               </div>
 
               <div className="categories mobile">
