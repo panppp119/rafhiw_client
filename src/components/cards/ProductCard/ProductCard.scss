@@ -1,0 +1,29 @@
+$desktop: 1280px;
+
+#product-card {
+  width: 100%;
+  padding: 8px;
+  text-decoration: none;
+
+  &:visited {
+    color: var(--black);
+  }
+
+  .image {
+    background-position: center;
+    background-size: cover;
+    background-color: var(--gray_light);
+    width: 100%;
+    height: 150px;
+    margin-bottom: 8px;
+    margin: auto;
+
+    @media screen and (min-width: $desktop) {
+      height: 200px;
+    }
+  }
+
+  .countdown-timer {
+    margin-top: 8px;
+  }
+}

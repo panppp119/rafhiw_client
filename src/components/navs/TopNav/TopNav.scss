@@ -16,10 +16,56 @@ $desktop: 1280px;
       &.display {
         flex-grow: 3;
         text-align: left;
+
+        .size1 {
+          font-size: 12px;
+          padding: 0 8px;
+        }
+
+        .size2 {
+          font-size: 14px;
+          padding: 0 8px;
+        }
+
+        .size3 {
+          font-size: 16px;
+          padding: 0 8px;
+        }
       }
 
       &.empty {
         flex-grow: 15;
+      }
+
+      &.user {
+        position: relative;
+
+        &:hover {
+          ul {
+            display: block;
+          }
+        }
+
+        ul {
+          position: absolute;
+          bottom: -40px;
+          height: 100%;
+          display: none;
+
+          li {
+            width: 100px;
+            line-height: 40px;
+            text-align: left;
+            padding: 0 8px;
+            background-color: var(--white);
+            cursor: pointer;
+            color: var(--primary);
+
+            a {
+              color: var(--primary);
+            }
+          }
+        }
       }
     }
   }
@@ -32,6 +78,15 @@ $desktop: 1280px;
 
       &.logo {
         flex-grow: 3;
+
+        a {
+          height: 60px;
+
+          img {
+            height: 80%;
+            vertical-align: middle;
+          }
+        }
       }
 
       &.search {

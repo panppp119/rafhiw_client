@@ -1,6 +1,7 @@
 import React from 'react'
 
 import UserLayout from 'components/layouts/UserLayout'
+import { EventCard, ProductCard } from 'components/cards'
 
 import './Home.scss'
 
@@ -60,12 +61,66 @@ class Home extends React.Component {
             <div className="row">
               <div className="events">
                 <h3>งานลดราคา</h3>
+
+                <div className="mobile">
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                </div>
+
+                <div className="desktop">
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                  <div className="column">
+                    <EventCard />
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="row">
               <div className="products">
                 <h3>สินค้า</h3>
+
+                <div className="mobile">
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                </div>
+
+                <div className="desktop">
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                  <div className="column">
+                    <ProductCard />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

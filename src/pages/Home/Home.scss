@@ -86,4 +86,13 @@ $desktop: 1280px;
       }
     }
   }
+
+  .column {
+    width: calc(100% / 2);
+    display: inline-flex;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(100% / 5);
+    }
+  }
 }
