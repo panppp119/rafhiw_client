@@ -35,7 +35,9 @@ class SellerForm extends React.Component {
     // });
   };
 
-  sameAddress = (e, { checked }) => {
+  sameAddress = (e) => {
+    const checked = e.target.checked
+
     this.setState({
       sameAddress: checked,
       now_address: checked ? this.state.id_address : ''
@@ -59,12 +61,6 @@ class SellerForm extends React.Component {
       { key: 'ms', text: 'นาง', value: 2 },
       { key: 'mrs', text: 'นางสาว', value: 3 },
       { key: 'other', text: 'อื่นๆ', value: 4 }
-    ];
-
-    const gender = [
-      { key: 'm', text: 'ชาย', value: 1 },
-      { key: 'f', text: 'หญิง', value: 2 },
-      { key: 't', text: 'เพศทางเลือก', value: 3 }
     ];
 
     var previewConfig = {
@@ -134,20 +130,6 @@ class SellerForm extends React.Component {
         </div>
 
         <div className="form-field">
-          <label>เพศ</label>
-          <select name="gender"
-            id=""
-            onChange={(e) => this.handleChange(e, 'gender')}
-          >
-            {
-              gender.map((g, i) => {
-                return <option key={i} value={g.value}>{g.text}</option>
-              })
-            }
-          </select>
-        </div>
-
-        <div className="form-field">
           <label htmlFor="">ที่อยู่ตามบัตรประชาชน</label>
           <textarea name="id_address"
             value={this.state.id_address}
@@ -166,8 +148,8 @@ class SellerForm extends React.Component {
         </div>
 
         <div className="form-field">
-          <label htmlFor="">ที่อยู่ปัจจุบัน</label>
-          <input type="checkbox" onChange={this.sameAddress} />
+          <label htmlFor="">ที่อยู่ปัจจุบัน</label><br />
+          <input type="checkbox" onChange={this.sameAddress} /> ใช้ที่อยู่ตามบัตรประขาขน <br />
           <textarea name="now_address"
             value={this.state.now_address}
             onChange={(e) => this.handleChange(e, 'now_address')}
