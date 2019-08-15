@@ -1,0 +1,92 @@
+.add-product-form {
+  text-align: left;
+
+  .field {
+    width: 100%;
+  }
+
+  .inline.fields .field {
+    width: auto;
+  }
+
+  .dz-progress {
+    display: none;
+  }
+
+  .dropzone .dz-preview.dz-image-preview {
+    background: none;
+  }
+
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+
+  .ui.button {
+    background-color: var(--primary);
+    color: var(--white);
+
+    &:hover {
+      background-color: var(--primary-dark);
+      color: var(--white);
+    }
+  }
+
+  h4 > span {
+    color: var(--error);
+    font-size: 12px;
+  }
+
+  .add-event {
+    padding: 14px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    margin-top: 7px;
+    position: relative;
+
+    .event-action {
+      text-align: center;
+
+      .button {
+        margin-right: 14px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .option {
+    padding: 14px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    margin-top: 7px;
+    position: relative;
+
+    .option-title {
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    i {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      cursor: pointer;
+      margin-right: 0;
+
+      &::before {
+        padding: 7px;
+      }
+    }
+  }
+
+  .add-option {
+    text-align: center;
+    margin-bottom: 21px;
+  }
+}

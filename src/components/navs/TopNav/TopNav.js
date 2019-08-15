@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaCart, FaCommentDots, FaBell, FaUser, FaFont } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './TopNav.scss'
@@ -16,7 +16,7 @@ class TopNav extends React.Component {
         <div className="mobile">
           <ul>
             <li className='search'>ค้นหา</li>
-            <li><Link to='/cart'><FaCart /></Link></li>
+            <li><Link to='/cart'><FaShoppingCart /></Link></li>
             <li><Link to='/messages'><FaCommentDots /></Link></li>
           </ul>
         </div>
@@ -33,7 +33,7 @@ class TopNav extends React.Component {
               <li className='empty' />
               <li className='user'><FaUser />
                 <ul>
-                  <li><Link to='/profile'>บัญชีของฉัน</Link></li>
+                  <li><Link to='/account'>บัญชีของฉัน</Link></li>
                   <li><Link to='/store'>ร้านของฉัน</Link></li>
                   <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
                   <li onClick={this.signOut}>ออกจากระบบ</li>
@@ -49,7 +49,7 @@ class TopNav extends React.Component {
                 <Link to='/'><img src={logo} alt="logot" /></Link>
               </li>
               <li className='search'>ค้นหา</li>
-              <li><Link to='/cart'><FaCart /></Link></li>
+              <li><Link to='/cart'><FaShoppingCart /></Link></li>
             </ul>
           </div>
 

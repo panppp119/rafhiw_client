@@ -1,0 +1,50 @@
+.profile {
+  border: 1px solid var(--grey);
+
+  @media screen and (max-width: 767px) {
+    border: 0px !important;
+    background-color: #f2f2f2;
+  }
+
+  .head {
+    padding: 8px 16px;
+    border-bottom: 2px solid var(--primary);
+    min-height: 65px;
+
+    @media screen and (max-width: 767px) {
+      padding: 16px 16px;
+    }
+
+    p {
+      font-size: var(--font_small);
+      margin-top: 7px;
+    }
+
+    i.icon.edit {
+      margin-right: 0;
+      position: absolute;
+      right: 30px;
+      top: 24px;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.5rem;
+
+      &::before {
+        padding: 7px;
+      }
+    }
+  }
+
+  .body {
+    padding: 14px;
+    position: relative;
+
+    @media screen and (max-width: 767px) {
+      padding: 10px !important;
+    }
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+}

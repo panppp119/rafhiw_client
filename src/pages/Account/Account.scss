@@ -1,0 +1,49 @@
+$desktop: 1280px;
+
+#account-page {
+  width: 100%;
+
+  @media screen and (min-width: $desktop) {
+    padding: 24px 0;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    .menu {
+      flex-grow: 1;
+
+      ul {
+        display: block;
+        padding-right: 16px;
+
+        li {
+          line-height: 40px;
+          padding: 0 8px;
+          background-color: var(--white);
+
+          &:hover {
+            background-color: var(--primary);
+            color: var(--white);
+          }
+
+          a {
+            display: block;
+            text-decoration: none;
+            color: var(--primary);
+
+            &:hover {
+              color: var(--white);
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      flex-grow: 5;
+
+    }
+  }
+}
