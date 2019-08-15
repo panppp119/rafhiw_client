@@ -1,5 +1,4 @@
 import React from 'react';
-import { Form, Button, Select } from 'semantic-ui-react';
 
 import './BankAccountForm.scss';
 
@@ -21,50 +20,58 @@ class BankAccountForm extends React.Component {
     ];
 
     return (
-      <Form className="bank-account-form">
-        <Form.Field
-          name="ิbank_name"
-          control={Select}
-          options={banks}
-          label="ธนาคาร"
-          placeholder="ธนาคาร"
-          onChange={this.handleChange}
-        />
+      <form className="bank-account-form">
+        <div className="form-field">
+          <label>สาขา</label>
+          <select name="bank"
+            id=""
+            onChange={this.handleChange}
+          >
+            {
+              banks.map((bank, i) => {
+                return <option key={i} value={bank.value}>{bank.content}</option>
+              })
+            }
+          </select>
+        </div>
 
-        <Form.Input
-          fluid
-          type="text"
-          name="bank_branch"
-          label="สาขา"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>สาขา</label>
+          <input type="text"
+            name="bank_branch"
+            value={this.state.bank_branch}
+            autoComplete="off"
+            onChange={this.handleChange}
+          />
+        </div>
 
-        <Form.Input
-          fluid
-          type="number"
-          name="account_name"
-          label="ชื่อบัญชี"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>ชื่อบัญชี</label>
+          <input type="text"
+            name="account_name"
+            value={this.state.account_name}
+            autoComplete="off"
+            onChange={this.handleChange}
+          />
+        </div>
 
-        <Form.Input
-          fluid
-          type="number"
-          name="account_number"
-          label="หมายเลขบัญชี"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>หมายเลขบัญชี</label>
+          <input type="text"
+            name="account_number"
+            value={this.state.account_number}
+            autoComplete="off"
+            onChange={this.handleChange}
+          />
+        </div>
 
-        <Button type="submit" onClick={this.handleSend}>
+        <button type="submit" className='primary' onClick={this.handleSend}>
           ยืนยัน
-        </Button>
-        <Button className="cancel" onClick={() => this.props.cancel('bank')}>
+        </button>
+        <button className="cancel" onClick={() => this.props.cancel('bank')}>
           ยกเลิก
-        </Button>
-      </Form>
+        </button>
+      </form>
     );
   }
 }

@@ -1,26 +1,19 @@
+$desktop: 1280px;
+
 .address-form {
-  text-align: left;
+  padding: 0;
+  width: 100%;
 
-  .field {
-    width: 100%;
-  }
-
-  .ui.button {
-    background-color: var(--primary);
+  button {
     color: var(--white);
-    margin-bottom: 14px;
+    margin-bottom: 8px;
 
-    &:hover {
-      background-color: var(--primary-dark);
-      color: var(--white);
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 16px;
     }
 
-    &.cancel {
-      background-color: var(--error) !important;
-
-      &:hover {
-        background-color: var(--error-dark) !important;
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }

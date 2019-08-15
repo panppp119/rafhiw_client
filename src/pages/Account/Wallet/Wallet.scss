@@ -1,51 +1,33 @@
-@import 'styles/variables/font';
+$desktop: 1280px;
 
-.my-wallet {
-  border: 1px solid var(--grey);
+.wallet {
+  border: none;
 
-  @media screen and (max-width: 767px) {
-    margin-top: 20px;
-    margin-left: -15px;
-    margin-right: -15px;
-    border: 0px !important;
-    background-color: #f2f2f2;
+  @media screen and (min-width: $desktop) {
+    border: 1px solid var(--grey);
   }
 
   .head {
-    padding: 8px 16px;
+    padding: 8px;
     border-bottom: 2px solid var(--primary);
-    min-height: 65px;
+    min-height: 50px;
 
-    @media screen and (max-width: 767px) {
-      padding: 16px 16px;
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
     }
 
     p {
-      font-size: $font-size-small;
+      font-size: var(--font_small);
       margin-top: 7px;
     }
   }
 
   .body {
-    padding: 14px;
     position: relative;
+    padding-top: 8px;
 
-    .ui.grid {
-      margin: 0;
-
-      .column.cards {
-        border-left: 1px solid var(--grey);
-      }
-    }
-
-    .ui.button {
-      background-color: var(--primary);
-      color: var(--white);
-
-      &:hover {
-        background-color: var(--primary-dark);
-        color: var(--white);
-      }
+    @media screen and (min-width: $desktop) {
+      padding-top: 16px;
     }
   }
 

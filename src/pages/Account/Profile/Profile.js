@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProfileForm from 'components/forms/ProfileForm';
+// import ProfileForm from 'components/forms/ProfileForm';
 // import ProfileTable from 'components/tables/ProfileTable';
 
 import './Profile.scss';
@@ -11,7 +11,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { user } = this.props;
+    // const { user } = this.props;
 
     return (
       <div className="profile">

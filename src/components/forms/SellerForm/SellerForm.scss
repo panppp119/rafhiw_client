@@ -1,6 +1,6 @@
 $desktop: 1280px;
 
-.card-form {
+.seller-form {
   text-align: left;
   padding: 0;
 
@@ -8,7 +8,7 @@ $desktop: 1280px;
     margin-top: 8px;
 
     @media screen and (min-width: $desktop) {
-      margin-top: 16px;
+      margin-top: 16px
     }
   }
 
@@ -16,7 +16,7 @@ $desktop: 1280px;
     margin-bottom: 8px;
 
     @media screen and (min-width: $desktop) {
-      margin-bottom: 16px;
+      margin-bottom: 16px
     }
   }
 }

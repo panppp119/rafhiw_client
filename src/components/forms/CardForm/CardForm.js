@@ -1,106 +1,126 @@
 import React from 'react';
-import { Form, Button } from 'semantic-ui-react';
 
 import './CardForm.scss';
 
 class CardForm extends React.Component {
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
+  state = {
+    card_holder: '',
+    card_number: '',
+    expired_month: '',
+    expired_year: '',
+    cvv: '',
+    bill_address: '',
+    zip_code: ''
+  }
+  handleChange (e, name) {
+    this.setState({ [name]: e.target.value });
   };
 
   handleSend = e => {
-    const card = {
-      user_id: this.props.user.get('id'),
-      name: this.state.card_holder,
-      number: this.state.card_number,
-      expired_month: this.state.expired_month,
-      expired_year: this.state.expired_year,
-      bill_address: this.state.bill_address,
-      zip_code: this.state.zip_code
-    };
+    // const card = {
+    //   user_id: this.props.user.get('id'),
+    //   name: this.state.card_holder,
+    //   number: this.state.card_number,
+    //   expired_month: this.state.expired_month,
+    //   expired_year: this.state.expired_year,
+    //   bill_address: this.state.bill_address,
+    //   zip_code: this.state.zip_code
+    // };
 
-    this.props.create(card).then(() => {
-      this.props.cancel('card');
-    });
+    // this.props.create(card).then((e) => {
+    //   this.props.cancel('card');
+    // });
   };
 
   render() {
     return (
-      <Form className="card-form">
-        <Form.Input
-          type="text"
-          name="card_holder"
-          label="ชื่อที่ปรากฎบนบัตร"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+      <form className="card-form">
+        <div className="form-field">
+          <label>ชื่อที่ปรากฎบนบัตร</label>
+          <input type="text"
+            name="card_holder"
+            value={this.state.card_holder || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'card_holder')}
+          />
+        </div>
 
-        <Form.Input
-          type="number"
-          name="card_number"
-          label="หมายเลขบัตรเครดิต"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>หมายเลขบัตรเครดิต</label>
+          <input type="text"
+            name="card_number"
+            value={this.state.card_number || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'card_number')}
+          />
+        </div>
 
-        <Form.Field>
-          <label>วันหมดอายุ</label>
-
-          <Form.Group>
-            <Form.Input
-              type="number"
+        <div className="form-group">
+          <div className="form-field">
+            <input type="text"
               name="expired_month"
               placeholder="เดือน"
-              onChange={this.handleChange}
+              value={this.state.expired_month || ''}
               autoComplete="off"
+              onChange={(e) => this.handleChange(e, 'expired_month')}
             />
-            <Form.Input
-              type="number"
+          </div>
+
+          <div className="form-field">
+            <input type="text"
               name="expired_year"
               placeholder="ปี"
-              onChange={this.handleChange}
+              value={this.state.expired_year || ''}
               autoComplete="off"
+              onChange={(e) => this.handleChange(e, 'expired_year')}
             />
-          </Form.Group>
-        </Form.Field>
+          </div>
+        </div>
 
-        <Form.Input
-          type="number"
-          name="cvv"
-          label="CVV"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>CVV</label>
+          <input type="text"
+            name="cvv"
+            value={this.state.cvv || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'cvv')}
+          />
+        </div>
 
-        <Form.TextArea
-          name="bill_address"
-          label="ที่อยู่ในการวางบิล"
-          onChange={this.handleChange}
-        />
+        <div className="form-field">
+          <label>ที่อยู่ในการวางบิล</label>
+          <textarea name="bill_address"
+            value={this.state.bill_address || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'bill_address')}
+          />
+        </div>
 
-        <Form.Input
-          type="number"
-          name="zip_code"
-          label="รหัสไปรษณีย์"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <label>รหัสไปรษณีย์</label>
+          <input type="text"
+            name="zip_code"
+            value={this.state.zip_code || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'zip_code')}
+          />
+        </div>
 
-        <Button
+        <button
           type="submit"
+          className='primary'
           onClick={this.handleSend}
-          loading={this.props.loading}
         >
           ยืนยัน
-        </Button>
-        <Button
-          className="cancel"
-          onClick={() => this.props.cancel('card')}
-          disabled={this.props.loading}
+        </button>
+        <button
+          className="error"
+          onClick={(e) => this.props.cancel('card')}
+          // disabled={this.props.loading}
         >
           ยกเลิก
-        </Button>
-      </Form>
+        </button>
+      </form>
     );
   }
 }

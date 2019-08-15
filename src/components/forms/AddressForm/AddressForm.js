@@ -84,10 +84,10 @@ class AddressForm extends React.Component {
           </div>
         </div>
 
-        <button type="submit" onClick={this.handleSend}>
+        <button type="submit" className='primary' onClick={this.handleSend}>
           ยืนยัน
         </button>
-        <button className="cancel" onClick={() => this.props.cancel()}>
+        <button className="error" onClick={() => this.props.cancel()}>
           ยกเลิก
         </button>
       </form>

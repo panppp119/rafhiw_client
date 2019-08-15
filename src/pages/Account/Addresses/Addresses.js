@@ -31,8 +31,8 @@ class Addresses extends React.Component {
   // };
 
   render() {
-    const { addresses, createAddress } = this.props;
-    const { showAddressForm } = this.state;
+    // const { addresses, createAddress } = this.props;
+    // const { showAddressForm } = this.state;
 
     return (
       <div className="addresses">
@@ -42,7 +42,7 @@ class Addresses extends React.Component {
         </div>
 
         <div className="body">
-
+          <AddressForm />
         </div>
       </div>
     );

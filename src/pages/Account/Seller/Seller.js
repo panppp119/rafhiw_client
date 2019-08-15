@@ -1,36 +1,35 @@
 import React from 'react';
-import { Map } from 'immutable';
-import { Dimmer, Loader } from 'semantic-ui-react';
+// import { Map } from 'immutable';
 
 import SellerForm from 'components/forms/SellerForm';
 
 import './Seller.scss';
 
 class Seller extends React.Component {
-  static defaultProps = {
-    requestSeller: Map()
-  };
+  // static defaultProps = {
+  //   requestSeller: Map()
+  // };
 
-  componentDidMount() {
-    this.props.loadRequestRole();
-  }
+  // componentDidMount() {
+  //   this.props.loadRequestRole();
+  // }
 
   render() {
-    const { user } = this.props;
+    // const { user } = this.props;
 
     return (
-      <div className="my-seller">
+      <div className="seller">
         <div className="head">
           <h3 className="ui header">ยืนยันตัวตนผู้ขาย</h3>
           <p>จัดการข้อมูลส่วนตัวคุณเพื่อความปลอดภัยของบัญชีผู้ใช้นี้</p>
         </div>
 
         <div className="body">
-          <Dimmer inverted active={user.isEmpty() && this.props.loadingUser}>
+          {/* <Dimmer inverted active={user.isEmpty() && this.props.loadingUser}>
             <Loader inverted />
-          </Dimmer>
+          </Dimmer> */}
 
-          {this.props.requestSeller.isEmpty() ? (
+          {/* {this.props.requestSeller.isEmpty() ? (
             <SellerForm
               user={user}
               requestRole={this.props.requestRole}
@@ -41,7 +40,9 @@ class Seller extends React.Component {
             />
           ) : (
             <p>รอการยืนยัน</p>
-          )}
+          )} */}
+
+          <SellerForm />
         </div>
       </div>
     );

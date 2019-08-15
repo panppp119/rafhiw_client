@@ -1,13 +1,13 @@
 import React from 'react'
-import { withRouter, Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import { FaUser, FaWallet, FaStore, FaMapMarkedAlt, FaStar, FaHistory } from 'react-icons/fa'
 
 import UserLayout from 'components/layouts/UserLayout'
 
 import Profile from './Profile';
-// import Wallet from './Wallet';
+import Wallet from './Wallet';
 import Addresses from './Addresses';
-// import Seller from './Seller';
+import Seller from './Seller';
 // import History from './History';
 // import Reviews from './Reviews';
 
@@ -47,19 +47,19 @@ class Account extends React.Component {
                   path="/account"
                   render={() => <Profile {...this.props} />}
                 />
-                {/* <Route
+                <Route
                   path="/account/wallet"
                   render={() => <Wallet {...this.props} />}
-                /> */}
+                />
                 <Route
                   path="/account/addresses"
                   render={() => <Addresses {...this.props} />}
                 />
-                {/* <Route
+                <Route
                   path="/account/seller"
                   render={() => <Seller {...this.props} />}
                 />
-                <Route
+                {/* <Route
                   path="/account/history"
                   render={() => <History {...this.props} />}
                 />
