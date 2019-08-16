@@ -8,8 +8,8 @@ import Profile from './Profile';
 import Wallet from './Wallet';
 import Addresses from './Addresses';
 import Seller from './Seller';
-// import History from './History';
-// import Reviews from './Reviews';
+import History from './History';
+import Reviews from './Reviews';
 
 import './Account.scss'
 
@@ -59,14 +59,14 @@ class Account extends React.Component {
                   path="/account/seller"
                   render={() => <Seller {...this.props} />}
                 />
-                {/* <Route
+                <Route
                   path="/account/history"
                   render={() => <History {...this.props} />}
                 />
                 <Route
                   path="/account/reviews"
                   render={() => <Reviews {...this.props} />}
-                /> */}
+                />
               </Switch>
             </div>
           </div>

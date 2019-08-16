@@ -29,4 +29,13 @@ $desktop: 1280px;
   label {
     padding-right: 8px;
   }
+
+  p {
+    font-size: var(--font_small);
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 16px
+    }
+  }
 }

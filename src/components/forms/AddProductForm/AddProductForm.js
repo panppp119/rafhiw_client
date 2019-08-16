@@ -63,9 +63,9 @@ class AddProductForm extends React.Component {
   //   const attachments = this.state.attachments;
   //   const product = {
   //     name_en: this.state.name_en,
-  //     name_th: this.state.name_th,
+  //     name: this.state.name,
   //     description_en: this.state.description_en,
-  //     description_th: this.state.description_th,
+  //     description: this.state.description,
   //     start_date: Moment(this.state.event.start_date).format(
   //       'YYYY-MM-DD HH:mm:ss'
   //     ),
@@ -144,8 +144,8 @@ class AddProductForm extends React.Component {
   //   const { event } = this.state;
   //
   //   const ev = {
-  //     name_th: event.name_th,
-  //     description_th: event.description_th,
+  //     name: event.name,
+  //     description: event.description,
   //     location_name: event.location_name,
   //     location_lat: event.location_lat,
   //     location_lng: event.location_lng,
@@ -188,7 +188,7 @@ class AddProductForm extends React.Component {
     // !events.isEmpty() &&
     //   events.map(event =>
     //     eventOptions.push({
-    //       text: event.get('name_th'),
+    //       text: event.get('name'),
     //       value: event.get('id')
     //     })
     //   );
@@ -196,7 +196,7 @@ class AddProductForm extends React.Component {
     // !categories.isEmpty() &&
     //   categories.map(category =>
     //     categoryOptions.push({
-    //       text: category.get('name_th'),
+    //       text: category.get('name'),
     //       value: category.get('id')
     //     })
     //   );
@@ -204,7 +204,7 @@ class AddProductForm extends React.Component {
     // !sub_categories.isEmpty() &&
     //   sub_categories.map(sc =>
     //     sub_categories_options.push({
-    //       text: sc.get('name_th'),
+    //       text: sc.get('name'),
     //       value: sc.get('id')
     //     })
     //   );
@@ -266,79 +266,171 @@ class AddProductForm extends React.Component {
             />
           </div>
         </div>
-          <Form.Field>
-            <label>เริ่มต้น</label>
-            <DatePicker
-              selected={this.state.start_date}
-              onChange={date => this.handleChangeDate(date, 'start_date')}
-              peekNextMonth
-              showTimeSelect
-              dropdownMode="select"
-              dateFormat="dd/MM/yy HH:mm"
-            />
-          </Form.Field>
 
-          <Form.Field>
-            <label>สิ้นสุด</label>
-            <DatePicker
-              selected={this.state.end_date || this.state.start_date}
-              onChange={date => this.handleChangeDate(date, 'end_date')}
-              peekNextMonth
-              showTimeSelect
-              dropdownMode="select"
-              dateFormat="dd/MM/yy HH:mm"
-            />
-          </Form.Field>
-        </Form.Group>
-
-        <h4>ภาพสินค้า</h4>
-        <Form.Field>
+        <div className="form-field">
+          <label>ภาพสินค้า</label>
           <DropzoneComponent
             config={previewConfig}
             eventHandlers={eventProductHandlers}
             djsConfig={djsConfig}
           />
-        </Form.Field>
+        </div>
 
-        <h4>ข้อมูลทั่วไป</h4>
-        <Form.Input
-          type="text"
-          label="ชื่อสินค้า"
-          name="name_th"
-          onChange={this.handleChange}
-          autoComplete="off"
-        />
+        <div className="form-field">
+          <h3>ข้อมูลทั่วไป</h3>
 
-        <Form.TextArea
-          label="รายละเอียดสินค้า"
-          name="description_th"
-          onChange={this.handleChange}
-        />
-
-        <Form.Group>
-          <Form.Field
-            name="category_id"
-            control={Select}
-            options={categoryOptions}
-            label="หมวดหมู่"
-            placeholder="หมวดหมู่"
-            onChange={this.handleChange}
+          <label>ชื่อสินค้า</label>
+          <input type="text"
+            name="name"
+            value={this.state.name || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'name')}
           />
+        </div>
 
-          <Form.Field
-            name="sub_category_id"
-            control={Select}
-            options={sub_categories_options}
-            label="หมวดหมู่ย่อย"
-            placeholder="หมวดหมู่ย่อย"
-            onChange={this.handleChange}
+        <div className="form-field">
+          <label htmlFor="">รายละเอียดสินค้า</label>
+          <textarea name="description"
+            value={this.state.description}
+            onChange={(e) => this.handleChange(e, 'description')}
+           />
+        </div>
+
+        <div className="form-group">
+          <div className="form-field">
+            <label>หมวดหมู่</label>
+            <select name="category_id"
+              id=""
+              onChange={(e) => this.handleChange(e, 'category_id')}
+            >
+              {/* {
+                title.map((t, i) => {
+                  return <option key={i} value={t.value}>{t.text}</option>
+                })
+              } */}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label>หมวดหมู่ย่อย</label>
+            <select name="sub_category_id"
+              id=""
+              onChange={(e) => this.handleChange(e, 'sub_category_id')}
+            >
+              {/* {
+                title.map((t, i) => {
+                  return <option key={i} value={t.value}>{t.text}</option>
+                })
+              } */}
+            </select>
+          </div>
+        </div>
+
+        <div className="form-field">
+          <h3>ข้อมงานลดราคา <span>*กรุณาเลือกจากงานที่มีอยู่แล้วก่อนทำการเพิ่ม</span>ูลทั่วไป</h3>
+
+          <input type="text"
+            name="event_id"
+            placeholder='งาน'
+            value={this.state.event_id || ''}
+            autoComplete="off"
+            onChange={(e) => this.handleChange(e, 'event_id')}
           />
-        </Form.Group>
+        </div>
 
-        <h4>
-          งานลดราคา <span>*กรุณาเลือกจากงานที่มีอยู่แล้วก่อนทำการเพิ่ม</span>
-        </h4>
-        {!events.isEmpty() && (
+        <div className="add-event">
+          <div className="form-field">
+            <label>ชื่องาน</label>
+            <select name="name"
+              id=""
+              onChange={(e) => this.handleChange(e, 'name')}
+            >
+              {/* {
+                title.map((t, i) => {
+                  return <option key={i} value={t.value}>{t.text}</option>
+                })
+              } */}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="">รายละเอียดงาน</label>
+            <textarea name="description"
+              value={this.state.description}
+              onChange={(e) => this.handleChange(e, 'description')}
+             />
+          </div>
+
+          <div className="form-group">
+            <div className="form-field">
+              <label>เริ่มต้น</label>
+              <DatePicker
+                selected={this.state.event.start_date}
+                onChange={date =>
+                  this.handleChangeEventDate(date, 'start_date')
+                }
+                peekNextMonth
+                showTimeSelect
+                dropdownMode="select"
+                dateFormat="dd/MM/yy HH:mm"
+              />
+            </div>
+
+            <div className="form-field">
+              <label>สิ้นสุด</label>
+              <DatePicker
+                selected={
+                  this.state.event.end_date || this.state.event.start_date
+                }
+                onChange={date =>
+                  this.handleChangeEventDate(date, 'end_date')
+                }
+                peekNextMonth
+                showTimeSelect
+                dropdownMode="select"
+                dateFormat="dd/MM/yy HH:mm"
+              />
+            </div>
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="">รายละเอียดงาน</label>
+            <textarea name="description"
+              value={this.state.description}
+              onChange={(e) => this.handleChange(e, 'description')}
+             />
+          </div>
+
+          <div className="form-field">
+            <DropzoneComponent
+              config={previewConfig}
+              eventHandlers={eventHandlers}
+              djsConfig={djsEventConfig}
+            />
+          </div>
+
+          <div className="form-field">
+            <label>สถานที่จัดงาน</label>
+            <GMap place onCenterChanged={this.onCenterChanged} />
+          </div>
+
+          <button className='primary' onClick={this.submitEvent}>
+            เพิ่มงาน
+          </button>
+          <button className='error' onClick={this.addEvent}>
+            ยกเลิก
+          </button>
+        </div>
+
+        <div className="add-option"
+          style={{ display: this.state.addEvent && 'none' }}
+        >
+          <button className='primary' onClick={this.addEvent}>
+            เพิ่มงาน
+          </button>
+        </div>
+
+        {/* {!events.isEmpty() && (
           <Form.Field
             name="event_id"
             control={Select}
@@ -352,14 +444,14 @@ class AddProductForm extends React.Component {
             <Form.Input
               type="text"
               label="ชื่องาน"
-              name="name_th"
+              name="name"
               onChange={this.handleChangeEvent}
               autoComplete="off"
             />
 
             <Form.TextArea
               label="รายละเอียดงาน"
-              name="description_th"
+              name="description"
               onChange={this.handleChangeEvent}
             />
 
@@ -417,132 +509,122 @@ class AddProductForm extends React.Component {
               <Button color="red" content="ยกเลิก" onClick={this.addEvent} />
             </Form.Field>
           </div>
-        )}
-        <div
-          className="add-option"
-          style={{ display: this.state.addEvent && 'none' }}
-        >
-          <Button content="เพิ่มงาน" color="yellow" onClick={this.addEvent} />
+        )} */}
+
+        <div className="product-options">
+          <h3>ตัวเลือกสินค้า</h3>
+
+          {options.size !== 0 &&
+            options.map((option, i) => {
+              let optionId = `Option - ${i + 1}`;
+
+              return (
+                <div className="option" key={i}>
+                  <h4 className="option-title">{optionId}</h4>
+
+                  {i !== 0 && (
+                    <Icon
+                      name="times"
+                      color="red"
+                      onClick={() => this.removeOption(i)}
+                    />
+                  )}
+
+                  <div className="form-field">
+                    <label htmlFor="">ชื่อตัวเลือก</label>
+                    <input type="text"
+                      name="name"
+                      value={this.state.name || ''}
+                      autoComplete="off"
+                      onChange={(e) => this.handleChangeOption(e, 'name')}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <div className="form-field">
+                      <label htmlFor="">จำนวน</label>
+                      <input type="number"
+                        name="stock"
+                        value={this.state.stock || ''}
+                        autoComplete="off"
+                        onChange={(e) => this.handleChangeOption(e, 'stock')}
+                      />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="">ราคาสินค้า</label>
+                      <input type="number"
+                        name="price_amt"
+                        value={this.state.price_amt || ''}
+                        autoComplete="off"
+                        onChange={(e) => this.handleChangeOption(e, 'price_amt')}
+                      />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="">ราคาลด</label>
+                      <input type="number"
+                        name="discount_amt"
+                        value={this.state.discount_amt || ''}
+                        autoComplete="off"
+                        onChange={(e) => this.handleChangeOption(e, 'discount_amt')}
+                      />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="">ค่าหิ้วต่อชิ้น</label>
+                      <input type="number"
+                        name="hiw_amt"
+                        value={this.state.hiw_amt || ''}
+                        autoComplete="off"
+                        onChange={(e) => this.handleChangeOption(e, 'hiw_amt')}
+                      />
+                    </div>
+
+                    <div className="form-field">
+                      <label htmlFor="">ค่าส่งต่อชิ้น</label>
+                      <input type="number"
+                        name="ship_amt"
+                        value={this.state.ship_amt || ''}
+                        autoComplete="off"
+                        onChange={(e) => this.handleChangeOption(e, 'ship_amt')}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
 
-        <h4>ตัวเลือกสินค้า</h4>
-        {options.size !== 0 &&
-          options.map((option, i) => {
-            let optionId = `Option - ${i + 1}`;
-
-            return (
-              <div className="option" key={i}>
-                <h4 className="option-title">{optionId}</h4>
-
-                {i !== 0 && (
-                  <Icon
-                    name="times"
-                    color="red"
-                    onClick={() => this.removeOption(i)}
-                  />
-                )}
-
-                <Form.Input
-                  type="text"
-                  label="ชื่อตัวเลือก"
-                  name="name"
-                  error={this.state.options[i]['name'] === ''}
-                  onChange={(e, { name, value }) =>
-                    this.handleChangeOption(e, name, value, i)
-                  }
-                  autoComplete="off"
-                />
-
-                <Form.Group>
-                  <Form.Input
-                    type="number"
-                    label="จำนวน"
-                    name="stock"
-                    error={this.state.options[i]['number'] === ''}
-                    onChange={(e, { name, value }) =>
-                      this.handleChangeOption(e, name, value, i)
-                    }
-                    autoComplete="off"
-                  />
-
-                  <Form.Input
-                    type="number"
-                    label="ราคาสินค้า"
-                    name="price_amount"
-                    error={this.state.options[i]['name'] === ''}
-                    onChange={(e, { name, value }) =>
-                      this.handleChangeOption(e, name, value, i)
-                    }
-                    autoComplete="off"
-                  />
-
-                  <Form.Input
-                    type="number"
-                    label="ราคาลด"
-                    name="discount_amount"
-                    error={this.state.options[i]['name'] === ''}
-                    onChange={(e, { name, value }) =>
-                      this.handleChangeOption(e, name, value, i)
-                    }
-                    autoComplete="off"
-                  />
-
-                  <Form.Input
-                    type="number"
-                    label="ค่าหิ้วต่อชิ้น"
-                    name="hiw_amount"
-                    error={this.state.options[i]['hiw_amount'] === ''}
-                    onChange={(e, { name, value }) =>
-                      this.handleChangeOption(e, name, value, i)
-                    }
-                    autoComplete="off"
-                  />
-
-                  <Form.Input
-                    type="number"
-                    label="ค่าส่งต่อชิ้น"
-                    name="ship_amount"
-                    error={this.state.options[i]['ship_amount'] === ''}
-                    onChange={(e, { name, value }) =>
-                      this.handleChangeOption(e, name, value, i)
-                    }
-                    autoComplete="off"
-                  />
-                </Form.Group>
-              </div>
-            );
-          })}
         <div className="add-option">
-          <Button
-            content="เพิ่มตัวเลือก"
-            color="yellow"
-            onClick={this.addOption}
-          />
+          <button className='primary' onClick={this.addOption}>
+            เพิ่มตัวเลือก
+          </button>
         </div>
 
-        <Form.Group inline>
-          <label>เตรียมส่งนานกว่าปกติ</label>
-          <Form.Radio
-            label="ใช่"
+        <div className="form-group">
+          <label htmlFor="">เตรียมส่งนานกว่าปกติ</label>
+          <input type="radio"
+            name="long_time"
             value={1}
             checked={long_time}
             onChange={this.longTime}
-          />
-
-          <Form.Radio
-            label="ไม่ใช่"
+          /> ใช่ <br />
+          <input type="radio"
+            name="long_time"
             value={0}
             checked={!long_time}
             onChange={this.longTime}
-          />
+          /> ไม่ใช่ <br />
 
           <span>
             ฉันจะจัดส่งสินค้าภายใน 2 วัน
             (ไม่รวมวันหยุดนักขัตฤกษ์และวันหยุดทำการของบริษัทขนส่ง)
           </span>
-        </Form.Group>
+        </div>
 
-        <button
+        <button className='primary'
           type="submit"
           onClick={this.handleSubmit}
           // loading={this.props.loadingAttachments}

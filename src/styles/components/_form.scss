@@ -45,18 +45,22 @@ form {
   }
 
   .form-group {
-    display: flex;
+    display: block;
 
-    .form-field {
-      width: 100%;
+    @media screen and (min-width: $desktop) {
+      display: flex;
+
+      .form-field {
+        width: 100%;
+      }
     }
   }
 
   .form-field {
-    flex-grow: 1;
     padding: 8px;
 
     @media screen and (min-width: $desktop) {
+      flex-grow: 1;
       padding: 16px;
     }
   }

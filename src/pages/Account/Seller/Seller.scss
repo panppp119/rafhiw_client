@@ -3,7 +3,7 @@ $desktop: 1280px;
 .seller {
   border: none;
 
-  @media screen and (max-width: $desktop) {
+  @media screen and (min-width: $desktop) {
     border: 1px solid var(--grey);
   }
 
@@ -12,13 +12,13 @@ $desktop: 1280px;
     border-bottom: 2px solid var(--primary);
     min-height: 50px;
 
-    @media screen and (max-width: 767px) {
+    @media screen and (min-width: $desktop) {
       padding: 16px;
     }
 
     p {
       font-size: var(--font_small);
-      margin-top: 7px;
+      margin-top: 8px;
     }
   }
 
