@@ -44,6 +44,10 @@ const AsyncAccount = Loadable({
   loader: () => import('pages/Account'),
   loading: ComponentLoading
 });
+const AsyncStore = Loadable({
+  loader: () => import('pages/Store'),
+  loading: ComponentLoading
+});
 
 const history = createBrowserHistory();
 const store = configStore(history);
@@ -91,6 +95,11 @@ export default ({ childProps }) =>
         <Route
           path="/account"
           component={AsyncAccount}
+          props={childProps}
+        />
+        <Route
+          path="/store"
+          component={AsyncStore}
           props={childProps}
         />
 

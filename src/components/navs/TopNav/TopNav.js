@@ -34,7 +34,7 @@ class TopNav extends React.Component {
               <li className='user'><FaUser />
                 <ul>
                   <li><Link to='/account'>บัญชีของฉัน</Link></li>
-                  <li><Link to='/store'>ร้านของฉัน</Link></li>
+                  <li><Link to='/store'>ร้านค้า</Link></li>
                   <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
                   <li onClick={this.signOut}>ออกจากระบบ</li>
                 </ul>

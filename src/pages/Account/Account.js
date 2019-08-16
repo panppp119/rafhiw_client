@@ -4,12 +4,7 @@ import { FaUser, FaWallet, FaStore, FaMapMarkedAlt, FaStar, FaHistory } from 're
 
 import UserLayout from 'components/layouts/UserLayout'
 
-import Profile from './Profile';
-import Wallet from './Wallet';
-import Addresses from './Addresses';
-import Seller from './Seller';
-import History from './History';
-import Reviews from './Reviews';
+import { Profile, Wallet, Addresses, Seller, History, Reviews } from './routes'
 
 import './Account.scss'
 
