@@ -6,4 +6,30 @@ $desktop: 1280px;
   @media screen and (min-width: $desktop) {
     padding: 24px 0;
   }
+
+  .products {
+    width: 100%;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(100% - 32px);
+    }
+
+    h3 {
+      text-align: left;
+      padding: 8px;
+
+      @media screen and (min-width: $desktop) {
+        padding: 8px 16px;
+      }
+    }
+  }
+
+  .column {
+    width: calc(100% / 2);
+    display: inline-flex;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(100% / 5);
+    }
+  }
 }
