@@ -11,7 +11,7 @@ class Register extends React.Component {
       <UserLayout>
         <div id="register-page">
           <div className="container">
-            <RegisterForm />
+            <RegisterForm {...this.props} />
           </div>
         </div>
       </UserLayout>
