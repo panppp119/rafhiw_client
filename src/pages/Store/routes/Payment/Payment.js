@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import SellerOrderTable from 'components/tables/SellerOrderTable';
+import StoreOrderTable from 'components/tables/StoreOrderTable';
 
 import './Payment.scss';
 
@@ -23,7 +23,8 @@ class Payment extends React.Component {
 
     return (
       <div className="payment section">
-        {/* <SellerOrderTable orders={orderList} /> */}
+        {/* <StoreOrderTable orders={orderList} /> */}
+        <StoreOrderTable />
       </div>
     );
   }

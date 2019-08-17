@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Map } from 'immutable';
 //
-// import EventTable from 'components/tables/EventTable';
+import EventTable from 'components/tables/EventTable';
 
 import './Events.scss';
 
@@ -23,7 +23,7 @@ class Events extends React.Component {
   render() {
     return (
       <div className="events section">
-        {/* <EventTable {...this.props} /> */}
+        <EventTable {...this.props} />
       </div>
     );
   }

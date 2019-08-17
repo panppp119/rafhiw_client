@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import SellerOrderTable from 'components/tables/SellerOrderTable';
+import StoreOrderTable from 'components/tables/StoreOrderTable';
 
 import './Succeeded.scss';
 
@@ -25,7 +25,8 @@ class Succeeded extends React.Component {
 
     return (
       <div className="succeeded section">
-        {/* <SellerOrderTable state orders={orderList} /> */}
+        {/* <StoreOrderTable state orders={orderList} /> */}
+        <StoreOrderTable />
       </div>
     );
   }

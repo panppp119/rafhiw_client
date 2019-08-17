@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import SellerOrderTable from 'components/tables/SellerOrderTable';
+import StoreOrderTable from 'components/tables/StoreOrderTable';
 
 import './Shipping.scss';
 
@@ -28,7 +28,7 @@ class Shipping extends React.Component {
 
     return (
       <div className="shipping section">
-        {/* <SellerOrderTable
+        {/* <StoreOrderTable
           track
           state
           orders={orderList}
@@ -36,6 +36,7 @@ class Shipping extends React.Component {
           updateTrackingId={this.props.updateTrackingId}
           loadOrders={this.props.loadOrders}
         /> */}
+        <StoreOrderTable />
       </div>
     );
   }

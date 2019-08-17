@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import ProductsTable from 'components/tables/ProductsTable';
+import ProductsTable from 'components/tables/ProductsTable';
 
 import './OutOfStock.scss';
 
@@ -33,6 +33,7 @@ class OutOfStock extends React.Component {
           loadProducts={loadProducts}
           deleteProduct={deleteProduct}
         /> */}
+        <ProductsTable />
       </div>
     );
   }

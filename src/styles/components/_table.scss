@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+
+  th, td {
+    padding: 8px;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px
+    }
+  }
+
+  th {
+    background-color: var(--gray_light);
+  }
+
+  td {
+    border-bottom: 1px solid var(--gray_light);
+
+    img {
+      max-width: 100px;
+    }
+  }
+}

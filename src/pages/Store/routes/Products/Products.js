@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Map } from 'immutable';
 //
-// import ProductsTable from 'components/tables/ProductsTable';
+import ProductsTable from 'components/tables/ProductsTable';
 
 import './Products.scss';
 
@@ -24,6 +24,7 @@ class Products extends React.Component {
     return (
       <div className="products section">
         {/* <ProductsTable {...this.props} option action category /> */}
+        <ProductsTable {...this.props} />
       </div>
     );
   }
