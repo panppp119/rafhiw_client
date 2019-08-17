@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FaGoogle } from 'react-icons/fa'
 
 import './SignInForm.scss'
 
@@ -23,7 +24,12 @@ class SignInForm extends React.Component {
 
         <hr/>
 
-
+        <div className="social-signin">
+          <button type="submit" className='google'>
+            <FaGoogle />
+            เข้าสู่ระบบด้วย Google
+          </button>
+        </div>
       </div>
     )
   }

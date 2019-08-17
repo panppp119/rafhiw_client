@@ -10,10 +10,6 @@ $desktop: 1280px;
   .events {
     width: 100%;
 
-    @media screen and (min-width: $desktop) {
-      width: calc(100% - 32px);
-    }
-
     h3 {
       text-align: left;
       padding: 8px;

@@ -8,6 +8,7 @@ import { ConnectedRouter } from 'connected-react-router/immutable';
 import configStore from 'utils/configStore';
 import asyncComponent from 'components/AsyncComponent';
 import ComponentLoading from 'components/loading/ComponentLoading'
+import StoreLoading from 'components/loading/StoreLoading'
 
 import './styles/main.scss'
 
@@ -46,7 +47,7 @@ const AsyncAccount = Loadable({
 });
 const AsyncStore = Loadable({
   loader: () => import('pages/Store'),
-  loading: ComponentLoading
+  loading: StoreLoading
 });
 
 const history = createBrowserHistory();
