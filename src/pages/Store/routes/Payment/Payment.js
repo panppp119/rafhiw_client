@@ -22,7 +22,7 @@ class Payment extends React.Component {
     // const orderList = orders.filter(order => order.get('status') === 1);
 
     return (
-      <div className="payment section">
+      <div className="payment">
         {/* <StoreOrderTable orders={orderList} /> */}
         <StoreOrderTable />
       </div>

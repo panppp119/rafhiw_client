@@ -21,7 +21,7 @@ class Active extends React.Component {
     // const pds = products.filter(p => p.get('active') === 1);
 
     return (
-      <div className="active section">
+      <div className="active">
         {/* <ProductsTable
           option
           action

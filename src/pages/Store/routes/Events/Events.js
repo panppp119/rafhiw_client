@@ -22,7 +22,7 @@ class Events extends React.Component {
 
   render() {
     return (
-      <div className="events section">
+      <div className="events">
         <EventTable {...this.props} />
       </div>
     );

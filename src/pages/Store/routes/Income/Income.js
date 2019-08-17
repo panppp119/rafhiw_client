@@ -57,7 +57,7 @@ class Income extends React.Component {
     // ];
 
     return (
-      <div className="income section">
+      <div className="income">
         <div className="total-income">
           <h1>รายรับทั้งหมด</h1>
           <h1>

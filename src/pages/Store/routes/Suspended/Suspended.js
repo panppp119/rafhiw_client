@@ -7,7 +7,7 @@ import './Suspended.scss';
 class Suspended extends React.Component {
   render() {
     return (
-      <div className="suspended section">
+      <div className="suspended">
         <ProductsTable {...this.props} />
       </div>
     );

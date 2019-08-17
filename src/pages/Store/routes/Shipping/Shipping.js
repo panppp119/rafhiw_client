@@ -27,7 +27,7 @@ class Shipping extends React.Component {
     // );
 
     return (
-      <div className="shipping section">
+      <div className="shipping">
         {/* <StoreOrderTable
           track
           state

@@ -23,7 +23,7 @@ class OutOfStock extends React.Component {
     // );
 
     return (
-      <div className="out-of-stock section">
+      <div className="out-of-stock">
         {/* <ProductsTable
           option
           action

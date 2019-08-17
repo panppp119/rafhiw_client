@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Switch, Route } from 'react-router-dom'
 
-import UserLayout from 'components/layouts/UserLayout'
+import StoreLayout from 'components/layouts/StoreLayout'
 import {
   Active,
   Events,
@@ -20,7 +20,7 @@ class Store extends React.Component {
     const { match } = this.props;
 
     return (
-      <UserLayout>
+      <StoreLayout>
         <div id="store-page">
           <div className="container">
             <div className="tab mobile">
@@ -34,7 +34,7 @@ class Store extends React.Component {
                 <option value="succeeded">สำเร็จแล้ว</option>
               </select>
             </div>
-            
+
             <div className="tab desktop">
               <ul>
                 <li><Link to='/store'>งานของฉัน</Link></li>
@@ -94,7 +94,7 @@ class Store extends React.Component {
             </div>
           </div>
         </div>
-      </UserLayout>
+      </StoreLayout>
     )
   }
 }

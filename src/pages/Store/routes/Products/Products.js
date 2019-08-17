@@ -22,7 +22,7 @@ class Products extends React.Component {
 
   render() {
     return (
-      <div className="products section">
+      <div className="products">
         {/* <ProductsTable {...this.props} option action category /> */}
         <ProductsTable {...this.props} />
       </div>

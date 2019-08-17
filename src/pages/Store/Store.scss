@@ -10,6 +10,13 @@ $desktop: 1280px;
   ul li a {
     text-decoration: none;
     color: var(--primary);
+    text-align: center;
+    display: block;
+    padding: 8px;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+    }
 
     &:hover {
       text-decoration: underline;
