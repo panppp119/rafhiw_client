@@ -29,6 +29,7 @@ class RegisterForm extends React.Component {
     const {
       email,
       password,
+      confirm_password,
       first_name,
       last_name,
       agree,
@@ -46,7 +47,15 @@ class RegisterForm extends React.Component {
       disability_id
     };
 
-    this.props.signUp(data, this.props.history);
+    if (password === confirm_password && password !== '') {
+      this.props.register(data);
+    }
+    else {
+      this.props.addFlashMessage({
+        type: 'error',
+        text: 'ยืนยันรหัสผ่านไม่ตรงกับรหัสผ่าน กรุณาลองใหม่อีกครั้ง'
+      })
+    }
   };
 
   onChange = (e, name) => {
@@ -64,13 +73,11 @@ class RegisterForm extends React.Component {
   render () {
     const { disabilities } = this.props
 
-    console.log(this.state)
-
     return (
       <div id="register-form">
         <h2>ลงทะเบียนสมาชิก</h2>
 
-        <form action="">
+        <form>
           <input type="text" placeholder="ชื่อ" onChange={(e) => this.onChange(e, 'first_name')} />
           <input type="text" placeholder="นามสกุล" onChange={(e) => this.onChange(e, 'last_name')} />
           <input type="text" placeholder="อีเมล" onChange={(e) => this.onChange(e, 'email')} />
@@ -97,7 +104,7 @@ class RegisterForm extends React.Component {
             }
           </select>
 
-          <button type="submit">ลงทะเบียน</button>
+          <button className='primary' onClick={this.onSubmit}>ลงทะเบียน</button>
         </form>
 
         <div className="signin">

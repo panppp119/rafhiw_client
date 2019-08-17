@@ -4,7 +4,10 @@ $desktop: 1280px;
   max-width: 350px;
   width: 100%;
   margin: auto;
-  box-shadow: 2px 2px 5px var(--primary_light);
+
+  @media screen and (min-width: $desktop) {
+    box-shadow: 2px 2px 5px var(--primary_light);
+  }
 
   h2 {
     border-bottom: 2px solid var(--primary);

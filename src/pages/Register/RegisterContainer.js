@@ -3,6 +3,7 @@ import { List } from 'immutable';
 
 import { register } from 'actions/auth';
 import { fetchDisabilities } from 'actions/info'
+import { addFlashMessage } from 'actions/ui'
 
 import Register from './Register';
 
@@ -14,7 +15,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   loadDisabilities: () => fetchDisabilities(),
-  signUp: (data) => register(data)
+  register: (data) => register(data),
+  addFlashMessage: (data) => addFlashMessage(data)
 };
 
 export default connect(

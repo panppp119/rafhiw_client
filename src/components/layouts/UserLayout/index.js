@@ -1,3 +1,3 @@
-import UserLayout from './UserLayout'
+import UserLayoutContainer from './UserLayoutContainer'
 
-export default UserLayout
+export default UserLayoutContainer

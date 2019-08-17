@@ -1,5 +1,6 @@
 import React from 'react'
 
+// import FlashMessage from 'components/FlashMessage';
 import { StoreTopNav, BottomNav } from 'components/navs'
 
 import './StoreLayout.scss'
@@ -9,6 +10,7 @@ class StoreLayout extends React.Component {
     return (
       <div className="store-layout">
         <StoreTopNav />
+        {/* <FlashMessage /> */}
 
         <div className="layout-content">
           {this.props.children}

@@ -1,0 +1,28 @@
+$desktop: 1280px;
+
+.flash-message {
+  width: 100%;
+
+  .message {
+    width: 100%;
+    border-radius: 5px;
+
+    &.success {
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    &.error {
+      border: 1px solid var(--error);
+      color: var(--error);
+    }
+
+    p {
+      padding: 8px;
+
+      @media screen and (min-width: $desktop) {
+        padding: 16px;
+      }
+    }
+  }
+}
