@@ -6,8 +6,14 @@ import logo from './logo.png'
 import './TopNav.scss'
 
 class TopNav extends React.Component {
+  componentDidMoun () {
+    this.props.checkSession()
+  }
+  
   signOut = () => {
     console.log('sign_out')
+
+    this.props.signout()
   }
 
   render () {

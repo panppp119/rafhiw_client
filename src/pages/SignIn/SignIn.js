@@ -11,7 +11,7 @@ class SignIn extends React.Component {
       <UserLayout>
         <div id="signin-page">
           <div className="container">
-            <SignInForm />
+            <SignInForm {...this.props} />
           </div>
         </div>
       </UserLayout>

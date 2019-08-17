@@ -5,7 +5,17 @@ import { FaGoogle } from 'react-icons/fa'
 import './SignInForm.scss'
 
 class SignInForm extends React.Component {
+  state = { ggError: null };
+
+  ggSignIn = e => {
+    e.preventDefault();
+
+    this.props.oauth('google');
+  };
+
   render () {
+    const { ggError } = this.state;
+
     return (
       <div id="signin-form">
         <h2>เข้าสู่ระบบ</h2>
@@ -25,10 +35,12 @@ class SignInForm extends React.Component {
         <hr/>
 
         <div className="social-signin">
-          <button type="submit" className='google'>
+          <button className='google' onClick={this.ggSignIn}>
             <FaGoogle />
             เข้าสู่ระบบด้วย Google
           </button>
+
+          {ggError && <p className="error">{ggError.message}</p>}
         </div>
       </div>
     )

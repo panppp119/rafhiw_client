@@ -1,0 +1,33 @@
+.google-map-container {
+  position: relative;
+  width: 100%;
+  height: 250px;
+
+  .google-map {
+    width: 100%;
+    height: 100%;
+  }
+
+  .google-map-marker {
+    position: absolute;
+    width: 100%;
+    top: -20px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    color: var(--error);
+  }
+
+  .google-map-places-container {
+    position: absolute;
+    padding: 15px;
+    width: 100%;
+
+    .google-map-places-input {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.5rem;
+    }
+  }
+}

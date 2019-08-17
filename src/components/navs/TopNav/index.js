@@ -1,3 +1,3 @@
-import TopNav from './TopNav'
+import TopNavContainer from './TopNavContainer'
 
-export default TopNav
+export default TopNavContainer
