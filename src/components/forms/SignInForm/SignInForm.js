@@ -22,7 +22,7 @@ class SignInForm extends React.Component {
 
         <form action="">
           <input type="text" placeholder="อีเมล" />
-          <input type="text" placeholder="รหัสผ่าน" />
+          <input type="password" placeholder="รหัสผ่าน" />
 
           <button type="submit">เข้าสู่ระบบ</button>
         </form>

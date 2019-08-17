@@ -81,8 +81,8 @@ class RegisterForm extends React.Component {
           <input type="text" placeholder="ชื่อ" onChange={(e) => this.onChange(e, 'first_name')} />
           <input type="text" placeholder="นามสกุล" onChange={(e) => this.onChange(e, 'last_name')} />
           <input type="text" placeholder="อีเมล" onChange={(e) => this.onChange(e, 'email')} />
-          <input type="text" placeholder="รหัสผ่าน" onChange={(e) => this.onChange(e, 'password')} />
-          <input type="text" placeholder="ยืนยันรหัสผ่าน" onChange={(e) => this.onChange(e, 'confirm_password')} />
+          <input type="password" placeholder="รหัสผ่าน" onChange={(e) => this.onChange(e, 'password')} />
+          <input type="password" placeholder="ยืนยันรหัสผ่าน" onChange={(e) => this.onChange(e, 'confirm_password')} />
 
           <DatePicker
             selected={this.state.birthday}
