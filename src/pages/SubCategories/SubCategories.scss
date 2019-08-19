@@ -1,9 +1,27 @@
 $desktop: 1280px;
 
-#subcategories-page {
+#sub-categories-page {
   width: 100%;
 
   @media screen and (min-width: $desktop) {
     padding: 24px 0;
+  }
+
+  h3 {
+    text-align: center;
+    color: var(--primary);
+  }
+
+  .products {
+    width: 100%;
+  }
+
+  .column {
+    width: calc(100% / 2);
+    display: inline-flex;
+
+    @media screen and (min-width: $desktop) {
+      width: calc(100% / 5);
+    }
   }
 }

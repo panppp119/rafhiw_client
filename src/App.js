@@ -79,12 +79,12 @@ export default ({ childProps }) =>
           props={childProps}
         />
         <Route
-          path="/categories"
+          path='/c/:slug'
           component={AsyncCategories}
           props={childProps}
         />
         <Route
-          path="/sub_categories"
+          path="/sc/:slug"
           component={AsyncSubCategories}
           props={childProps}
         />

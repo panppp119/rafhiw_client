@@ -1,9 +1,9 @@
-import * as CONST from 'constants/categories';
+import * as CONST from 'constants/sub_categories';
 import request from 'utils/request';
 
 import { addFlashMessage } from './ui';
 
-export const fetchCategories = (schema, query) => (dispatch, getState) => {
+export const fetchSubCategories = (schema, query) => (dispatch, getState) => {
   const type = schema._key;
   const url = `/${type}`;
 
@@ -33,9 +33,9 @@ export const fetchCategories = (schema, query) => (dispatch, getState) => {
     });
 };
 
-export const fetchCategory = (id, schema) => (dispatch, getState) => {
+export const fetchSubCategory = (slug, schema) => (dispatch, getState) => {
   const type = schema._key;
-  const url = `/${type}/${id}`;
+  const url = `/${type}/${slug}`;
 
   dispatch({ type: CONST.FETCH_SUB_CATEGORY, schema });
 

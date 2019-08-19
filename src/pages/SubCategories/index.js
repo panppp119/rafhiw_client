@@ -1,3 +1,3 @@
-import SubCategories from './SubCategories'
+import SubCategoriesContainer from './SubCategoriesContainer'
 
-export default SubCategories
+export default SubCategoriesContainer

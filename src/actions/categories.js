@@ -33,9 +33,9 @@ export const fetchCategories = (schema, query) => (dispatch, getState) => {
     });
 };
 
-export const fetchCategory = (id, schema) => (dispatch, getState) => {
+export const fetchCategory = (slug, schema) => (dispatch, getState) => {
   const type = schema._key;
-  const url = `/${type}/${id}`;
+  const url = `/${type}/${slug}`;
 
   dispatch({ type: CONST.FETCH_CATEGORY, schema });
 

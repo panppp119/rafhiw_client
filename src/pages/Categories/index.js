@@ -1,3 +1,3 @@
-import Categories from './Categories'
+import CategoriesContainer from './CategoriesContainer'
 
-export default Categories
+export default CategoriesContainer
