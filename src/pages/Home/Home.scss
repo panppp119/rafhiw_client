@@ -51,9 +51,71 @@ $desktop: 1280px;
       li {
         line-height: 24px;
         padding: 8px;
+        position: relative;
+        border-bottom: 1px solid var(--primary);
+        background-color: white;
 
         @media screen and (min-width: $desktop) {
           padding: 9px 16px;
+
+          &:hover {
+            .sub-cats {
+              display: block !important;
+              position: absolute;
+              top: 0;
+              right: -251px;
+              min-width: 250px;
+              box-shadow: 2px 2px 5px var(--primary_light);
+            }
+          }
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        a {
+          background-color: white;
+          color: var(--black);
+          text-decoration: none;
+          display: block;
+
+          &:hover {
+            color: var(--primary);
+          }
+        }
+      }
+    }
+
+    ul.sub-cats {
+      display: none !important;
+    }
+
+    .select-category {
+      padding: 8px;
+
+      @media screen and (min-width: $desktop) {
+        padding: 16px;
+      }
+
+      select {
+        width: 100%;
+        height: 40px;
+        background-color: white;
+        border-radius: 5px;
+        border: 1px solid var(--primary);
+        padding: 8px;
+
+        @media screen and (min-width: $desktop) {
+          padding: 16px;
+        }
+      }
+
+      button {
+        margin-top: 8px;
+
+        @media screen and (min-width: $desktop) {
+          margin-top: 16px;
         }
       }
     }

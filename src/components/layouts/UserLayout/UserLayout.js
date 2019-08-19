@@ -1,6 +1,7 @@
 import React from 'react'
 import Helmet from 'react-helmet';
 import Moment from 'moment';
+import Classnames from 'classnames';
 
 import FlashMessage from 'components/FlashMessage';
 import { TopNav, BottomNav } from 'components/navs'
@@ -44,10 +45,12 @@ class UserLayout extends React.Component {
   render () {
     const { flash_message } = this.props;
 
-    console.log(flash_message)
-
     return (
-      <div id="user-layout">
+      <div id="user-layout"
+        className={Classnames([
+          this.props.themeColor,
+          this.props.fontSize
+        ])}>
         <TopNav />
 
         <Helmet title='Rafhiw' />

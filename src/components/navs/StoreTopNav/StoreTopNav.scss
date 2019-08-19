@@ -84,7 +84,6 @@ $desktop: 1280px;
 
     li {
       line-height: 80px;
-      flex-grow: 16;
 
       &.logo {
         flex-grow: 1;
@@ -99,8 +98,28 @@ $desktop: 1280px;
         }
       }
 
-      h3 {
-        line-height: 92px;
+      &.search {
+        flex-grow: 16;
+      }
+    }
+  }
+
+  li {
+    text-align: center;
+    line-height: 50px;
+    text-transform: uppercase;
+
+    &.search {
+      flex-grow: 4;
+    }
+
+    a {
+      color: var(--primary);
+      display: block;
+      text-decoration: none;
+
+      @media screen and (min-width: $desktop) {
+        color: var(--white);
       }
     }
   }

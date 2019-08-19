@@ -5,13 +5,13 @@ import Numeral from 'numeral';
 import './CountdownTimer.scss';
 
 class CountdownTimer extends React.Component {
-  defaultProps = {
+  static defaultProps = {
     days: 0,
     hours: 0,
     seconds: 0,
     completed: true
   }
-  
+
   renderer = ({ days, hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a completed state

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
@@ -49,6 +49,11 @@ class StoreTopNav extends React.Component {
                 <Link to='/'><img src={logo} alt="logot" /></Link>
               </li>
               <li><h3>ร้านค้า</h3></li>
+              <li className='add-product'>
+                <Link to='/store/add_product'>
+                  <FaPlus /> เพิ่มสินค้า
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

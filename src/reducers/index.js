@@ -8,6 +8,7 @@ const rootReducer = history =>
     info: require('./info').default,
 
     auth: require('./auth').default,
+    categories: require('./categories').default,
   });
 
 export default rootReducer;
