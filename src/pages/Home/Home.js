@@ -99,7 +99,7 @@ class Home extends React.Component {
 
             <div className="row">
               <div className="events">
-                <h3>งานลดราคา<Link to='/products'>เพิ่มเติม</Link></h3>
+                <h3>งานลดราคา<Link to='/events'>เพิ่มเติม</Link></h3>
 
                 <div className="mobile">
                   {

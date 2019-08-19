@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import ClassNames from 'classnames'
+import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont } from 'react-icons/fa'
 
 import logo from './logo.png'
@@ -9,7 +10,7 @@ class TopNav extends React.Component {
   componentDidMoun () {
     this.props.checkSession()
   }
-  
+
   signOut = () => {
     console.log('sign_out')
 
@@ -17,6 +18,8 @@ class TopNav extends React.Component {
   }
 
   render () {
+    const { location } = this.props
+
     return (
       <div id="top-nav">
         <div className="mobile">
@@ -61,9 +64,15 @@ class TopNav extends React.Component {
 
           <div className="third">
             <ul className='container'>
-              <li><Link to='/'>หน้าหลัก</Link></li>
-              <li><Link to='/products'>สินค้า</Link></li>
-              <li><Link to='/events'>งานลดราคา</Link></li>
+              <li className={ClassNames({ active: location.pathname === '/'})}>
+                <Link to='/'>หน้าหลัก</Link>
+              </li>
+              <li className={ClassNames({ active: location.pathname === '/products'})}>
+                <Link to='/products'>สินค้า</Link>
+              </li>
+              <li className={ClassNames({ active: location.pathname === '/events'})}>
+                <Link to='/events'>งานลดราคา</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -72,4 +81,4 @@ class TopNav extends React.Component {
   }
 }
 
-export default TopNav
+export default withRouter(TopNav)

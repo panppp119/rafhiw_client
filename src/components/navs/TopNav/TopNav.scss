@@ -126,5 +126,10 @@ $desktop: 1280px;
         color: var(--white);
       }
     }
+
+    &.active a {
+      background-color: white;
+      color: var(--primary);
+    }
   }
 }
