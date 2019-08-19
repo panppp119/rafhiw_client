@@ -3,10 +3,10 @@ import { push } from 'react-router-redux';
 
 import * as CONST from 'constants/auth';
 import firebase from 'utils/configFirebase';
-// import userSchema from 'schemas/user';
+import userSchema from 'schemas/user';
 
 import { addFlashMessage } from './ui';
-// import { fetchUser } from './user';
+import { fetchUser } from './user';
 
 const auth = firebase.auth();
 
@@ -34,10 +34,8 @@ export const oauth = provider => (dispatch, getState) => {
 
       if (userInfo.isNewUser && provider === 'google') {
         dispatch(register(user));
-        console.log(1, user)
       } else {
         dispatch(signin({ email: profile.email, provider }));
-        console.log(2)
       }
     })
     .catch(() => {
@@ -75,6 +73,7 @@ export const signin = data => (dispatch, getState) => {
 
         dispatch({ type: CONST.SIGN_IN_SUCCEEDED, auth: authen });
         dispatch(push('/'));
+        dispatch(fetchUser(userSchema))
         dispatch(
           addFlashMessage({
             type: 'success',
@@ -126,7 +125,7 @@ export const signout = () => (dispatch, getState) => {
 
   dispatch({ type: CONST.SIGN_OUT });
 
-  if (getState().getIn(['auth', 'provider']) === 'gmail') {
+  if (getState().getIn(['auth', 'provider']) === 'google') {
     auth.signOut();
   }
 
@@ -139,6 +138,8 @@ export const signout = () => (dispatch, getState) => {
 
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(localStorage.getItem('auth'));
+
+  console.log('check session', authen)
 
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });

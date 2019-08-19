@@ -29,9 +29,10 @@ export default (
 
     case SIGN_OUT_SUCCEEDED:
       return state
-        .setIn('loading', false)
-        .setIn('disabilities', fromJS([]))
-        .setIn('roles', fromJS([]));
+        .setIn(['disabilities', 'loading'], false)
+        .setIn(['roles', 'loading'], false)
+        .set(['disabilities', 'data'], fromJS([]))
+        .set(['roles', 'data'], fromJS([]))
 
     case ADD_FLASH_MESSAGE:
       return state.set('loading', false);

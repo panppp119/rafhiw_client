@@ -8,12 +8,12 @@ import './TopNav.scss'
 
 class TopNav extends React.Component {
   componentDidMoun () {
-    this.props.checkSession()
+    if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
+      this.props.checkSession();
+    }
   }
 
   signOut = () => {
-    console.log('sign_out')
-
     this.props.signout()
   }
 

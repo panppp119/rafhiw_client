@@ -9,6 +9,9 @@ const rootReducer = history =>
 
     auth: require('./auth').default,
     categories: require('./categories').default,
+    sub_categories: require('./sub_categories').default,
+    events: require('./events').default,
+    user: require('./user').default,
   });
 
 export default rootReducer;
