@@ -7,38 +7,35 @@ import './Events.scss'
 
 class Events extends React.Component {
   render () {
+    const { events } = this.props
+
     return (
       <UserLayout>
         <div id="events-page">
           <div className="container">
             <div className="events">
-              <h3>งานลดราคา</h3>
-
               <div className="mobile">
-                <div className="column">
-                  <EventCard />
-                </div>
-                <div className="column">
-                  <EventCard />
-                </div>
+                {
+                  !events.isEmpty() ? events.map((event, i) => {
+                    return (
+                      <div className="column">
+                        <EventCard {...event} />
+                      </div>
+                    )
+                  }) : <p>ไม่มีงาน</p>
+                }
               </div>
 
               <div className="desktop">
-                <div className="column">
-                  <EventCard />
-                </div>
-                <div className="column">
-                  <EventCard />
-                </div>
-                <div className="column">
-                  <EventCard />
-                </div>
-                <div className="column">
-                  <EventCard />
-                </div>
-                <div className="column">
-                  <EventCard />
-                </div>
+                {
+                  !events.isEmpty() ? events.map((event, i) => {
+                    return (
+                      <div className="column">
+                        <EventCard {...event} />
+                      </div>
+                    )
+                  }) : <p>ไม่มีงาน</p>
+                }
               </div>
             </div>
           </div>

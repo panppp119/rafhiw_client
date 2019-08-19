@@ -28,4 +28,9 @@ $desktop: 1280px;
       width: calc(100% / 5);
     }
   }
+
+  p {
+    text-align: center;
+    color: var(--gray_light);
+  }
 }

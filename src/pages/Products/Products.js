@@ -7,38 +7,35 @@ import './Products.scss'
 
 class Products extends React.Component {
   render () {
+    const { products } = this.props
+
     return (
       <UserLayout>
         <div id="products-page">
           <div className="container">
             <div className="products">
-              <h3>สินค้า</h3>
-
               <div className="mobile">
-                <div className="column">
-                  <ProductCard />
-                </div>
-                <div className="column">
-                  <ProductCard />
-                </div>
+                {
+                  !products.isEmpty() ? products.map((product, i) => {
+                    return (
+                      <div className="column">
+                        <ProductCard {...product} />
+                      </div>
+                    )
+                  }) : <p>ไม่มีสินค้า</p>
+                }
               </div>
 
               <div className="desktop">
-                <div className="column">
-                  <ProductCard />
-                </div>
-                <div className="column">
-                  <ProductCard />
-                </div>
-                <div className="column">
-                  <ProductCard />
-                </div>
-                <div className="column">
-                  <ProductCard />
-                </div>
-                <div className="column">
-                  <ProductCard />
-                </div>
+                {
+                  !products.isEmpty() ? products.map((product, i) => {
+                    return (
+                      <div className="column">
+                        <ProductCard {...product} />
+                      </div>
+                    )
+                  }) : <p>ไม่มีสินค้า</p>
+                }
               </div>
             </div>
           </div>
