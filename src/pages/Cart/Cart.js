@@ -210,11 +210,11 @@ class Cart extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <td>สินค้า (ตัวเลือก)</td>
-                    <td>ราคาต่อชิ้น</td>
-                    <td>จำนวน</td>
-                    <td>ราคารวม</td>
-                    <td>แอคชัน</td>
+                    <th>สินค้า (ตัวเลือก)</th>
+                    <th>ราคาต่อชิ้น</th>
+                    <th>จำนวน</th>
+                    <th>ราคารวม</th>
+                    <th>แอคชัน</th>
                   </tr>
                 </thead>
 
@@ -317,7 +317,7 @@ class Cart extends React.Component {
                     })
                   ) : (
                     <tr>
-                      <td><h3>ไม่มีสินค้าในตะกร้า</h3></td>
+                      <td colSpan='5'><p className='no-item'>ไม่มีสินค้าในตะกร้า</p></td>
                     </tr>
                   )}
                 </tbody>
@@ -357,24 +357,12 @@ class Cart extends React.Component {
             </div>
 
             <div className="payment">
-              <div className="column">
-                {this.state.checkout && (
-                  <div className="transfer">
-                    <h3>ช่องทางการชำระเงิน</h3>
-                  </div>
-                )}
-              </div>
-
-              <div className="column">
-                <div className="submit-order">
-                  <button
-                    disabled={cartProducts.size === 0 || pause}
-                    onClick={e => this.checkout(e, pause, total)}
-                  >
-                    สั่งซื้อสินค้า
-                  </button>
-                </div>
-              </div>
+              <button className='primary'
+                disabled={cartProducts.size === 0 || pause}
+                onClick={e => this.checkout(e, pause, total)}
+              >
+                สั่งซื้อสินค้า
+              </button>
             </div>
           </div>
         </div>

@@ -7,4 +7,57 @@ $desktop: 1280px;
   @media screen and (min-width: $desktop) {
     padding: 24px 0;
   }
+
+  table {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 16px;
+    }
+
+    th {
+      background-color: var(--gray);
+      color: var(--white);
+    }
+
+    td {
+      p.no-item {
+        text-align: center;
+        color: var(--gray_light);
+      }
+    }
+  }
+
+  .cart-total {
+    text-align: right;
+    padding: 8px;
+    margin-bottom: 8px;
+    background-color: var(--white);
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    h4, h3 {
+      min-width: 100px;
+      display: inline-block;
+
+      @media screen and (min-width: $desktop) {
+        min-width: 250px;
+      }
+    }
+
+    h3 {
+      color: var(--primary);
+    }
+  }
+
+  .payment {
+    padding: 8px;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+    }
+  }
 }
