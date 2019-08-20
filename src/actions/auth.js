@@ -63,7 +63,7 @@ export const signin = data => (dispatch, getState) => {
           })
         );
       } else {
-        const provider = data.provider;
+        const provider = data.provider || 'email';
         const authen = {
           token: response.body.access_token,
           provider
@@ -139,19 +139,18 @@ export const signout = () => (dispatch, getState) => {
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(localStorage.getItem('auth'));
 
-  console.log('check session', authen)
-
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
-    auth.onAuthStateChanged(user => {
-      if (user !== null) {
-        // dispatch(fetchUser(userSchema));
-        console.log(user)
-      } else {
-        dispatch(signout());
-      }
-    });
+    if (authen.provider !== 'email') {
+      auth.onAuthStateChanged(user => {
+        if (user !== null) {
+          dispatch(fetchUser(userSchema));
+        } else {
+          dispatch(signout());
+        }
+      });
+    }
   } else {
     // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
     dispatch({ type: CONST.CHECK_SESSION });

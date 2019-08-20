@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './TopNav.scss'
 
 class TopNav extends React.Component {
-  componentDidMoun () {
+  componentDidMount () {
     if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
       this.props.checkSession();
     }
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (
+  //     (prevProps.user.isEmpty() && prevProps.user !== this.props.user) ||
+  //     prevProps.user !== this.props.user
+  //   ) {
+  //     this.props.loadCart();
+  //   }
+  // }
 
   signOut = () => {
     this.props.signout()
   }
 
   render () {
-    const { location } = this.props
+    const { location, user } = this.props
 
     return (
       <div id="top-nav">
@@ -40,13 +49,22 @@ class TopNav extends React.Component {
                 <span className='size3'><FaFont /></span>
               </li>
               <li className='empty' />
-              <li className='user'><FaUser />
-                <ul>
-                  <li><Link to='/account'>บัญชีของฉัน</Link></li>
-                  <li><Link to='/store'>ร้านค้า</Link></li>
-                  <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
-                  <li onClick={this.signOut}>ออกจากระบบ</li>
-                </ul>
+              <li className='user'>
+                {
+                  user.isEmpty() ? (
+                    <Link to='/sign_in'><FaSignInAlt /></Link>
+                  ) : (
+                    <Fragment>
+                      <FaUser />
+                      <ul>
+                        <li><Link to='/account'>บัญชีของฉัน</Link></li>
+                        <li><Link to='/store'>ร้านค้า</Link></li>
+                        <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
+                        <li onClick={this.signOut}>ออกจากระบบ</li>
+                      </ul>
+                    </Fragment>
+                  )
+                }
               </li>
               <li><FaBell /></li>
             </ul>

@@ -7,19 +7,27 @@ $desktop: 1280px;
     padding: 24px 0;
   }
 
-  ul li a {
-    text-decoration: none;
-    color: var(--primary);
-    text-align: center;
-    display: block;
-    padding: 8px;
+  ul li {
+    a {
+      text-decoration: none;
+      color: var(--black);
+      text-align: center;
+      display: block;
+      padding: 8px;
 
-    @media screen and (min-width: $desktop) {
-      padding: 16px;
+      @media screen and (min-width: $desktop) {
+        padding: 16px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+        color: var(--primary);
+      }
     }
 
-    &:hover {
+    &.active a {
       text-decoration: underline;
+      color: var(--primary);
     }
   }
 

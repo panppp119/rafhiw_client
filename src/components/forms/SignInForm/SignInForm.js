@@ -7,11 +7,26 @@ import './SignInForm.scss'
 class SignInForm extends React.Component {
   state = { ggError: null };
 
+  handleChange (e, name) {
+    this.setState({ [name]: e.target.value })
+  }
+
   ggSignIn = e => {
     e.preventDefault();
 
     this.props.oauth('google');
   };
+
+  emailSignin = e => {
+    e.preventDefault()
+
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    this.props.signin(user)
+  }
 
   render () {
     const { ggError } = this.state;
@@ -21,10 +36,18 @@ class SignInForm extends React.Component {
         <h2>เข้าสู่ระบบ</h2>
 
         <form action="">
-          <input type="text" placeholder="อีเมล" />
-          <input type="password" placeholder="รหัสผ่าน" />
+          <input type="email"
+            name='email'
+            placeholder="อีเมล"
+            onChange={(e) => this.handleChange(e, 'email')}
+          />
+          <input type="password"
+            name='password'
+            placeholder="รหัสผ่าน"
+            onChange={(e) => this.handleChange(e, 'password')}
+          />
 
-          <button type="submit">เข้าสู่ระบบ</button>
+          <button onClick={this.emailSignin}>เข้าสู่ระบบ</button>
         </form>
 
         <div className="register">

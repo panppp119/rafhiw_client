@@ -17,10 +17,8 @@ export const fetchUser = schema => (dispatch, getState) => {
     .then(response => {
       if (response.body.error && response.body.error === 'Token is not valid or expired.') {
         dispatch(signout())
-        console.log(1)
       }
       else {
-        console.log(2)
         dispatch({
           type: CONST.FETCH_USER_SUCCEEDED,
           response,
