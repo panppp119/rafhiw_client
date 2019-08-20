@@ -14,6 +14,7 @@ class Account extends React.Component {
     const { user } = this.props
 
     const roles = user.get('roles') || List()
+    roles.filter(role => role === 'seller')
 
     return (
       <UserLayout>
@@ -25,7 +26,7 @@ class Account extends React.Component {
                 <li><Link to='/account/wallet'><FaWallet /></Link></li>
                 <li><Link to='/account/addresses'><FaMapMarkedAlt /></Link></li>
                 {
-                  roles.filter(role => role === 'admin') === 0 ? (
+                  roles.filter(role => role === 'seller').size !== 0 ? (
                     <li>
                       <Link to='/account/seller'><FaStore /></Link>
                     </li>
@@ -41,7 +42,7 @@ class Account extends React.Component {
                 <li><Link to='/account/wallet'>บัญชีธนาคาร/บัตร</Link></li>
                 <li><Link to='/account/addresses'>ที่อยู่</Link></li>
                 {
-                  roles.filter(role => role === 'admin') === 0 ? (
+                  roles.filter(role => role === 'seller').size === 0 ? (
                     <li>
                       <Link to='/account/seller'>ยืนยันตัวตนผู้ขาย</Link>
                     </li>

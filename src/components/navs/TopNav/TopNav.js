@@ -62,7 +62,7 @@ class TopNav extends React.Component {
                       <ul>
                         <li><Link to='/account'>บัญชีของฉัน</Link></li>
                         {
-                          roles.filter(role => role === 'admin') > 0 ? (
+                          roles.filter(role => role === 'seller').size !== 0 ? (
                             <li><Link to='/store'>ร้านค้า</Link></li>
                           ) : null
                         }

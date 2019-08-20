@@ -139,16 +139,40 @@ export const signout = () => (dispatch, getState) => {
 
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(localStorage.getItem('auth'));
+  const pathname = getState().getIn(['router', 'location', 'pathname'], '');
 
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
     authen.provider !== 'email' ? auth.onAuthStateChanged(user => {
-      user === null ? dispatch(signout()) : dispatch(fetchUser(userSchema));
+      if (user === null) {
+        if (
+          pathname !== '/products' &&
+          pathname !== '/' &&
+          pathname !== '/events' &&
+          pathname !== '/cart' &&
+          pathname !== '/sign_in' &&
+          pathname !== '/register'
+        ) {
+          dispatch(signout());
+        }
+      }
+      else {
+        dispatch(fetchUser(userSchema));
+      }
     }) : dispatch(fetchUser(userSchema));
   } else {
-    // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
     dispatch({ type: CONST.CHECK_SESSION });
-    dispatch(signout());
+
+    if (
+      pathname !== '/products' &&
+      pathname !== '/' &&
+      pathname !== '/events' &&
+      pathname !== '/cart' &&
+      pathname !== '/sign_in' &&
+      pathname !== '/register'
+    ) {
+      dispatch(signout());
+    }
   }
 };
