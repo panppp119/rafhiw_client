@@ -12,6 +12,8 @@ const rootReducer = history =>
     sub_categories: require('./sub_categories').default,
     events: require('./events').default,
     user: require('./user').default,
+    addresses: require('./addresses').default,
+    cards: require('./cards').default,
   });
 
 export default rootReducer;

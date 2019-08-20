@@ -23,7 +23,7 @@ class AddressForm extends React.Component {
     delete address['sameAddress'];
 
     this.props.createAddress(address).then(res => {
-      // this.props.loadAddresses();
+      this.props.loadAddresses();
       this.props.cancel();
     });
   };
@@ -35,7 +35,7 @@ class AddressForm extends React.Component {
           <label>ที่อยู่</label>
           <input type="text"
             name="address"
-            value={this.state.address}
+            value={this.state.address || ''}
             autoComplete="off"
             onChange={this.handleChange}
           />
@@ -46,7 +46,7 @@ class AddressForm extends React.Component {
             <label>แขวง/ตำบล</label>
             <input type="text"
               name="sub_district"
-              value={this.state.sub_district}
+              value={this.state.sub_district || ''}
               autoComplete="off"
               onChange={this.handleChange}
             />
@@ -56,7 +56,7 @@ class AddressForm extends React.Component {
             <label>เขต/อำเภอ</label>
             <input type="text"
               name="district"
-              value={this.state.district}
+              value={this.state.district || ''}
               autoComplete="off"
               onChange={this.handleChange}
             />
@@ -68,7 +68,7 @@ class AddressForm extends React.Component {
             <label>จังหวัด</label>
             <input type="text"
               name="province"
-              value={this.state.province}
+              value={this.state.province || ''}
               autoComplete="off"
               onChange={this.handleChange}
             />
@@ -78,7 +78,7 @@ class AddressForm extends React.Component {
             <label>รหัสไปรษณีย์</label>
             <input type="text"
               name="zip_code"
-              value={this.state.zip_code}
+              value={this.state.zip_code || ''}
               autoComplete="off"
               onChange={this.handleChange}
             />

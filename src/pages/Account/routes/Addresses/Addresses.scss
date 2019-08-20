@@ -29,6 +29,29 @@ $desktop: 1280px;
     @media screen and (min-width: $desktop) {
       padding-top: 16px;
     }
+
+    .address {
+      padding: 8px;
+      margin-bottom: 16px;
+      border-radius: 5px;
+      border: 1px solid #eb760f;
+      position: relative;
+
+      @media screen and (min-width: $desktop) {
+        padding: 16px;
+      }
+
+      svg {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        padding: 16px;
+        margin: auto;
+        cursor: pointer;
+        color: var(--error);
+      }
+    }
   }
 
   h3 {

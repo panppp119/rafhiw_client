@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-// import { Map, List } from 'immutable';
+import { FaTrash } from 'react-icons/fa'
 
 import BankAccountForm from 'components/forms/BankAccountForm';
 import CardForm from 'components/forms/CardForm';
@@ -7,19 +7,14 @@ import CardForm from 'components/forms/CardForm';
 import './Wallet.scss';
 
 class Wallet extends React.Component {
-  // static defaultProps = {
-  //   user: Map(),
-  //   cards: List()
-  // };
-
   state = {
     card: false,
     bank: false
   };
 
-  // componentDidMount() {
-  //   this.props.cards.isEmpty() && this.props.loadCards();
-  // }
+  componentDidMount() {
+    this.props.cards.isEmpty() && this.props.loadCards();
+  }
 
   handleClick (name) {
     this.setState({ [name]: true });
@@ -30,9 +25,9 @@ class Wallet extends React.Component {
   };
 
   delete = id => e => {
-    // if (window.confirm('ยืนยันที่จะลบบัตรนี้ทิ้ง')) {
-    //   this.props.removeCard(id);
-    // }
+    if (window.confirm('ยืนยันที่จะลบบัตรนี้ทิ้ง')) {
+      this.props.removeCard(id);
+    }
   };
 
   showBankForm() {
@@ -48,7 +43,7 @@ class Wallet extends React.Component {
   }
 
   showCardForm() {
-    // const { cards } = this.props;
+    const { cards } = this.props;
 
     if (this.state.card) {
       return (
@@ -57,7 +52,7 @@ class Wallet extends React.Component {
     } else {
       return (
         <Fragment>
-          {/* {
+          {
             !cards.isEmpty() && cards.map((card, i) => {
               return (
                 <div className="card-card" key={i}>
@@ -67,12 +62,12 @@ class Wallet extends React.Component {
                     {card.get('expired_month')}/{card.get('expired_year')}
                   </p>
                   <span onClick={this.delete(card.get('id'))}>
-                    <Icon name="trash" />
+                    <FaTrash />
                   </span>
                 </div>
               );
             })
-          } */}
+          }
 
           <button className='primary' onClick={() => this.handleClick('card')}>
             เพิ่มบัตรเครดิต/เดบิต
@@ -83,7 +78,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    // const { user, cards } = this.props;
+    // const { user } = this.props;
 
     // const allow = !user.isEmpty() && user.get('roles').includes('seller');
 
@@ -95,17 +90,11 @@ class Wallet extends React.Component {
         </div>
 
         <div className="body">
-          {/* <Dimmer inverted active={cards.isEmpty() && this.props.loadingCards}>
-            <Loader inverted />
-          </Dimmer> */}
-
           {this.showCardForm()}
 
-          {/* <Grid columns={2} stackable style={{ display: !allow && 'none' }}>
-            <Grid.Column>{this.showBankForm()}</Grid.Column>
-
-            <Grid.Column className="cards">{this.showCardForm()}</Grid.Column>
-          </Grid> */}
+          {/* {
+            allow && {this.showBankForm()}
+          } */}
         </div>
       </div>
     );

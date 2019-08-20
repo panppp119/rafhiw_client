@@ -9,30 +9,48 @@ class CardForm extends React.Component {
     expired_month: '',
     expired_year: '',
     cvv: '',
-    bill_address: '',
-    zip_code: ''
+    // bill_address: '',
+    // zip_code: ''
   }
-  handleChange (e, name) {
-    this.setState({ [name]: e.target.value });
+
+  handleChange = e => {
+    const name = e.target.name
+    const value = e.target.value
+
+    if (name === 'card_number' || name === 'expired_month' || name === 'expired_year') {
+      var number = value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+
+      this.setState({ [name]: number });
+    }
+    else {
+      this.setState({ [name]: value });
+    }
   };
 
   handleSend = e => {
-    // const card = {
-    //   user_id: this.props.user.get('id'),
-    //   name: this.state.card_holder,
-    //   number: this.state.card_number,
-    //   expired_month: this.state.expired_month,
-    //   expired_year: this.state.expired_year,
-    //   bill_address: this.state.bill_address,
-    //   zip_code: this.state.zip_code
-    // };
+    e.preventDefault()
 
-    // this.props.create(card).then((e) => {
-    //   this.props.cancel('card');
-    // });
+    const card = {
+      user_id: this.props.user.get('id'),
+      name: this.state.card_holder,
+      number: this.state.card_number,
+      expired_month: this.state.expired_month,
+      expired_year: this.state.expired_year,
+      // bill_address: this.state.bill_address || '',
+      // zip_code: this.state.zip_code || ''
+    };
+
+    this.props.addCard(card).then(() => {
+      this.props.cancel('card');
+    });
   };
 
   render() {
+    const { card_number} = this.state
+
+    var cn = card_number.match(/.{1,4}/g);
+    var new_card_number = card_number.length > 4 ? cn.join('-') : card_number
+
     return (
       <form className="card-form">
         <div className="form-field">
@@ -41,7 +59,7 @@ class CardForm extends React.Component {
             name="card_holder"
             value={this.state.card_holder || ''}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'card_holder')}
+            onChange={this.handleChange}
           />
         </div>
 
@@ -49,50 +67,56 @@ class CardForm extends React.Component {
           <label>หมายเลขบัตรเครดิต</label>
           <input type="text"
             name="card_number"
-            value={this.state.card_number || ''}
+            value={new_card_number || ''}
+            maxLength={19}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'card_number')}
+            onChange={this.handleChange}
           />
         </div>
 
         <div className="form-group">
           <div className="form-field">
+            <label>เดือน</label>
             <input type="text"
               name="expired_month"
-              placeholder="เดือน"
+              placeholder="00"
               value={this.state.expired_month || ''}
+              maxLength={2}
               autoComplete="off"
-              onChange={(e) => this.handleChange(e, 'expired_month')}
+              onChange={this.handleChange}
             />
           </div>
 
           <div className="form-field">
+            <label>ปี</label>
             <input type="text"
               name="expired_year"
-              placeholder="ปี"
+              placeholder="2019"
               value={this.state.expired_year || ''}
+              maxLength={4}
               autoComplete="off"
-              onChange={(e) => this.handleChange(e, 'expired_year')}
+              onChange={this.handleChange}
             />
           </div>
         </div>
 
         <div className="form-field">
           <label>CVV</label>
-          <input type="text"
+          <input type="password"
             name="cvv"
             value={this.state.cvv || ''}
+            maxLength={4}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'cvv')}
+            onChange={this.handleChange}
           />
         </div>
 
-        <div className="form-field">
+        {/* <div className="form-field">
           <label>ที่อยู่ในการวางบิล</label>
           <textarea name="bill_address"
             value={this.state.bill_address || ''}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'bill_address')}
+            onChange={this.handleChange}
           />
         </div>
 
@@ -101,10 +125,11 @@ class CardForm extends React.Component {
           <input type="text"
             name="zip_code"
             value={this.state.zip_code || ''}
+            maxLength={5}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'zip_code')}
+            onChange={this.handleChange}
           />
-        </div>
+        </div> */}
 
         <div className="form-field">
           <button

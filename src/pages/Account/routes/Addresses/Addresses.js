@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTrash } from 'react-icons/fa'
 
 import AddressForm from 'components/forms/AddressForm';
 
@@ -31,7 +32,7 @@ class Addresses extends React.Component {
   };
 
   render() {
-    const { addresses, createAddress } = this.props;
+    const { addresses } = this.props
     const { showAddressForm } = this.state;
 
     return (
@@ -42,7 +43,16 @@ class Addresses extends React.Component {
         </div>
 
         <div className="body">
-
+          {
+            addresses.map((address, i) => {
+              return (
+                <div className="address">
+                  <p>{address.get('address')} {address.get('sub_district')} {address.get('district')} {address.get('province')} {address.get('zip_code')}</p>
+                  <FaTrash />
+                </div>
+              )
+            })
+          }
 
           {
             showAddressForm ? (

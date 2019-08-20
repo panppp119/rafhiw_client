@@ -9,6 +9,8 @@ class BankAccountForm extends React.Component {
 
   handleSend = e => {
     e.preventDefault();
+
+
   };
 
   render() {
@@ -16,7 +18,8 @@ class BankAccountForm extends React.Component {
       { key: 'kbank', content: 'ธนาคารกสิกร', value: 'kbank' },
       { key: 'scb', content: 'ธนาคารไทยพาณิชย์', value: 'scb' },
       { key: 'bkk', content: 'ธนาคารกรุงเทพ', value: 'bkk' },
-      { key: 'ktb', content: 'ธนาคารกรุงไทย', value: 'ktb' }
+      { key: 'ktb', content: 'ธนาคารกรุงไทย', value: 'ktb' },
+      { key: 'tmb', content: 'ธนาคารทหารไทย', value: 'tmb' }
     ];
 
     return (
@@ -24,9 +27,9 @@ class BankAccountForm extends React.Component {
         <div className="form-field">
           <label>สาขา</label>
           <select name="bank"
-            id=""
             onChange={this.handleChange}
           >
+            <option default>เลือกธนาคาร</option>
             {
               banks.map((bank, i) => {
                 return <option key={i} value={bank.value}>{bank.content}</option>
@@ -39,7 +42,7 @@ class BankAccountForm extends React.Component {
           <label>สาขา</label>
           <input type="text"
             name="bank_branch"
-            value={this.state.bank_branch}
+            value={this.state.bank_branch || ''}
             autoComplete="off"
             onChange={this.handleChange}
           />
@@ -49,7 +52,7 @@ class BankAccountForm extends React.Component {
           <label>ชื่อบัญชี</label>
           <input type="text"
             name="account_name"
-            value={this.state.account_name}
+            value={this.state.account_name || ''}
             autoComplete="off"
             onChange={this.handleChange}
           />
@@ -59,7 +62,7 @@ class BankAccountForm extends React.Component {
           <label>หมายเลขบัญชี</label>
           <input type="text"
             name="account_number"
-            value={this.state.account_number}
+            value={this.state.account_number || ''}
             autoComplete="off"
             onChange={this.handleChange}
           />
