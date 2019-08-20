@@ -8,14 +8,14 @@ const ComponentLoading = ({isLoading, error}) => {
     return (
       <StoreLayout>
         <div className="container">
-          <h3 style={{ textAlign: 'center' }}>Loading...</h3>
+          <h3 style={{ textAlign: 'center', color: 'var(--primary)'  }}>Loading...</h3>
         </div>
       </StoreLayout>
     )
   }
   // Handle the error state
   else if (error) {
-    return <div>Sorry, there was a problem loading the page.</div>;
+    return <h3 style={{ color: 'var(--primary)' }}>ขออภัย, เกิดความผิดพลาดในการโหลดหน้า</h3>;
   }
   else {
     return null;

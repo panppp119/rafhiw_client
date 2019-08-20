@@ -22,6 +22,10 @@ form {
       flex-grow: 1;
       padding: 16px;
     }
+
+    label {
+      margin-bottom: 8px;
+    }
   }
 
   .react-datepicker-wrapper, .react-datepicker__input-container {

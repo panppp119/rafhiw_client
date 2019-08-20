@@ -82,7 +82,6 @@ class GMap extends React.Component {
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();
       const { location } = place.geometry;
-      // console.log(place.geometry);
 
       if (!place.geometry) {
         window.alert('No details available for input: "" + place.name + ""');

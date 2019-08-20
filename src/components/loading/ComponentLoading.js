@@ -15,7 +15,7 @@ const ComponentLoading = ({isLoading, error}) => {
   }
   // Handle the error state
   else if (error) {
-    return <h3 style={{ color: 'var(--primary)' }}>Sorry, there was a problem loading the page.</h3>;
+    return <h3 style={{ color: 'var(--primary)' }}>ขออภัย, เกิดความผิดพลาดในการโหลดหน้า</h3>;
   }
   else {
     return null;

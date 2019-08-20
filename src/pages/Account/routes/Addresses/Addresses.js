@@ -31,6 +31,12 @@ class Addresses extends React.Component {
     this.setState({ showAddressForm: false });
   };
 
+  deleteAddress (id) {
+    if (window.confirm('ยืนยันที่จะลบที่อยู่นี้')) {
+      this.props.deleteAddress(id);
+    }
+  }
+
   render() {
     const { addresses } = this.props
     const { showAddressForm } = this.state;
@@ -46,9 +52,9 @@ class Addresses extends React.Component {
           {
             addresses.map((address, i) => {
               return (
-                <div className="address">
+                <div className="address" key={i}>
                   <p>{address.get('address')} {address.get('sub_district')} {address.get('district')} {address.get('province')} {address.get('zip_code')}</p>
-                  <FaTrash />
+                  <FaTrash onClick={() => this.deleteAddress(address.get('id'))} />
                 </div>
               )
             })
