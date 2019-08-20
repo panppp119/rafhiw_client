@@ -30,14 +30,8 @@ $desktop: 1280px;
       padding-top: 16px;
     }
 
-    .button {
-      background-color: var(--primary);
-      color: var(--white);
-
-      &:hover {
-        background-color: var(--primary_dark);
-        color: var(--white);
-      }
+    button {
+      cursor: pointer;
     }
   }
 

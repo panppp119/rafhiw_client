@@ -7,25 +7,26 @@ class AddressForm extends React.Component {
     sameAddress: false
   };
 
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
+  handleChange = (e, name) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
-  // handleSend = e => {
-  //   e.preventDefault();
-  //
-  //   const { user } = this.props;
-  //   const address = {
-  //     ...this.state,
-  //     user_id: user.get('id')
-  //   };
-  //   delete address['sameAddress'];
-  //
-  //   this.props.createAddress(address).then(res => {
-  //     // this.props.loadAddresses();
-  //     this.props.cancel();
-  //   });
-  // };
+  handleSend = e => {
+    e.preventDefault();
+
+    const { user } = this.props;
+
+    const address = {
+      ...this.state,
+      user_id: user.get('id')
+    };
+    delete address['sameAddress'];
+
+    this.props.createAddress(address).then(res => {
+      // this.props.loadAddresses();
+      this.props.cancel();
+    });
+  };
 
   render() {
     return (

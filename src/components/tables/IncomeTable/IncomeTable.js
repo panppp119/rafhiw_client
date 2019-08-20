@@ -1,0 +1,78 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import Img from 'components/Img';
+import PriceConvert from 'components/converts/PriceConvert';
+
+import './IncomeTable.scss';
+
+const initialState = {
+  index: null
+};
+
+class IncomeTable extends React.Component {
+  state = initialState;
+
+  render() {
+    const { orderList, receipt } = this.props;
+
+    return (
+      <div className="seller-order-table">
+        <table>
+          <thead>
+            <tr>
+              <th>สินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคา</th>
+              <th>หลักฐาน</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {!orderList.isEmpty() ? (
+              orderList.map((order, i) => {
+                const product = order.get('product') || Map();
+                const option = order.get('option') || Map();
+
+                return (
+                  <tr key={i}>
+                    <td>
+                      <Img
+                        alt={product.get('name_th') + option.get('name')}
+                        src={order.getIn(['attachments', 0, 'image'])}
+                      />
+                      <div className="info">
+                        <Link to={`/products/${product.get('id')}`}>
+                          <h4>
+                            {product.get('name_th')} ({option.get('name')})
+                          </h4>
+                        </Link>
+                      </div>
+                    </td>
+
+                    <td>{order.get('quantity')}}</td>
+                    <td><PriceConvert price={order.get('total_amount')} /></td>
+                    <td>
+                      {receipt && (
+                        <Img
+                          src={order.get('center')}
+                          alt="หลักฐานการชำระสินค้า"
+                        />
+                      )}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td>ยังไม่มีรายการ</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+}
+
+export default IncomeTable;

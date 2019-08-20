@@ -1,8 +1,8 @@
 import React from 'react';
 // import { Tab } from 'semantic-ui-react';
 //
-// import IncomeTable from 'components/tables/IncomeTable';
-// import PriceConvert from 'components/converts/PriceConvert';
+import IncomeTable from 'components/tables/IncomeTable';
+import PriceConvert from 'components/converts/PriceConvert';
 
 import './Income.scss';
 
@@ -20,6 +20,9 @@ class Income extends React.Component {
 
   render() {
     // const { orders } = this.props;
+
+    // const ors_paid = orderList.filter(o => o.get('paid') === 1);
+    // const ors_wait = orderList.filter(o => o.get('paid') === 0);
     //
     // const orderList = orders.filter(order => order.get('status') === 7);
     //
@@ -66,7 +69,13 @@ class Income extends React.Component {
         </div>
 
         <div className="income-list">
-          {/* <Tab panes={panes} /> */}
+          <div className="wait">
+            {/* <IncomeTable orderList={ors_wait} /> */}
+          </div>
+
+          <div className="receive">
+            {/* <IncomeTable orderList={ors_receive} /> */}
+          </div>
         </div>
       </div>
     );

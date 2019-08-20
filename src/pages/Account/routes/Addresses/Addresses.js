@@ -9,30 +9,30 @@ class Addresses extends React.Component {
     showAddressForm: false
   };
 
-  // componentDidMount() {
-  //   this.props.addresses.isEmpty() &&
-  //     this.props.loadAddresses({ user_id: this.props.user.get('id') });
-  // }
-  //
-  // handleClick = e => {
-  //   this.setState({ showAddressForm: true });
-  // };
-  //
-  // removeAddress(id) {
-  //   if (window.confirm('ยืนยันที่จะลบที่อยู่นี้ใช่หรือไม่')) {
-  //     this.props.deleteAddress(id).then(res => {
-  //       this.props.loadAddresses();
-  //     });
-  //   }
-  // }
-  //
-  // cancel = () => {
-  //   this.setState({ showAddressForm: false });
-  // };
+  componentDidMount() {
+    this.props.addresses.isEmpty() &&
+      this.props.loadAddresses({ user_id: this.props.user.get('id') });
+  }
+
+  handleClick = e => {
+    this.setState({ showAddressForm: true });
+  };
+
+  removeAddress(id) {
+    if (window.confirm('ยืนยันที่จะลบที่อยู่นี้ใช่หรือไม่')) {
+      this.props.deleteAddress(id).then(res => {
+        this.props.loadAddresses();
+      });
+    }
+  }
+
+  cancel = () => {
+    this.setState({ showAddressForm: false });
+  };
 
   render() {
-    // const { addresses, createAddress } = this.props;
-    // const { showAddressForm } = this.state;
+    const { addresses, createAddress } = this.props;
+    const { showAddressForm } = this.state;
 
     return (
       <div className="addresses">

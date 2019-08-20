@@ -4,12 +4,11 @@ import * as CONST from 'constants/info'
 
 import { addFlashMessage } from './ui';
 
-export const fetchDisabilities = data => (dispatch, getState) => {
+export const fetchDisabilities = () => (dispatch, getState) => {
   dispatch({ type: CONST.FETCH_DISABILITIES });
 
   return request
     .get('/disabilities')
-    .send(data)
     .then(response => {
       if (response.body.error) {
         dispatch(
@@ -32,12 +31,11 @@ export const fetchDisabilities = data => (dispatch, getState) => {
     });
 };
 
-export const fetchRoles = data => (dispatch, getState) => {
-  dispatch({ type: CONST.FETCH_DISABILITIES });
+export const fetchRoles = () => (dispatch, getState) => {
+  dispatch({ type: CONST.FETCH_ROLES });
 
   return request
     .get('/roles')
-    .send(data)
     .then(response => {
       if (response.body.error) {
         dispatch(
@@ -47,7 +45,7 @@ export const fetchRoles = data => (dispatch, getState) => {
           })
         );
       } else {
-        dispatch({ type: CONST.FETCH_DISABILITIES_SUCCEEDED, response });
+        dispatch({ type: CONST.FETCH_ROLES_SUCCEEDED, response });
       }
     })
     .catch(error => {

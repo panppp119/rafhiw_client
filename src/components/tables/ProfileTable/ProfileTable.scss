@@ -1,0 +1,28 @@
+$desktop: 1280px;
+
+.profile-table {
+  width: 100%;
+
+  .avatar {
+    vertical-align: top;
+
+    p {
+      margin-bottom: 8px;
+    }
+  }
+
+  button {
+    margin-top: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-top: 16px;
+    }
+  }
+  .dropzone .dz-preview.dz-image-preview {
+    background: none;
+  }
+
+  .dz-progress {
+    display: none;
+  }
+}
