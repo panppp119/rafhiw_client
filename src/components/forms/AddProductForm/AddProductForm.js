@@ -2,8 +2,8 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import DropzoneComponent from 'react-dropzone-component';
 import Moment from 'moment';
+import { FaTrash } from 'react-icons/fa'
 // import Debounce from 'lodash.debounce';
-import { Form, Button, Select, Icon } from 'semantic-ui-react';
 
 import GMap from 'components/GMap';
 
@@ -20,222 +20,222 @@ class AddProductForm extends React.Component {
     event: {}
   };
 
-  // componentDidMount() {
-  //   this.props.loadEvents();
-  //   this.props.loadCategories();
-  // }
-  //
-  // handleChange = (e, { name, value }) => {
-  //   this.setState({ [name]: value });
-  //
-  //   name === 'category_id' &&
-  //     this.props.loadSubCategories({ category_id: value });
-  // };
-  //
-  // handleChangeDate(date, name) {
-  //   this.setState({ [name]: date });
-  // }
-  //
-  // handleChangeOption(e, name, value, key) {
-  //   let options = this.state.options;
-  //
-  //   if (
-  //     name === 'price_amount' ||
-  //     name === 'hiw_amount' ||
-  //     name === 'ship_amount' ||
-  //     name === 'discount_amount'
-  //   ) {
-  //     options[key][name] = value * 100;
-  //   } else {
-  //     options[key][name] = value;
-  //   }
-  //
-  //   this.setState({ options });
-  // }
-  //
-  // longTime = (e, { value }) => {
-  //   this.setState({ long_time: value === 1 });
-  // };
-  //
-  // handleSubmit = e => {
-  //   // e.preventDefault();
-  //
-  //   const attachments = this.state.attachments;
-  //   const product = {
-  //     name_en: this.state.name_en,
-  //     name: this.state.name,
-  //     description_en: this.state.description_en,
-  //     description: this.state.description,
-  //     start_date: Moment(this.state.event.start_date).format(
-  //       'YYYY-MM-DD HH:mm:ss'
-  //     ),
-  //     end_date: Moment(this.state.event.end_date).format('YYYY-MM-DD HH:mm:ss'),
-  //     hiw_amount: this.state.hiw_amount,
-  //     price_amount: this.state.price_amount,
-  //     stock: this.state.stock,
-  //     category_id: this.state.category_id,
-  //     sub_category_id: this.state.sub_category_id,
-  //     event_id: this.state.event_id,
-  //     options: this.state.options,
-  //     user_id: this.props.user.get('id')
-  //   };
-  //
-  //   this.props.createProduct(product).then(res => {
-  //     var id = (res && res.body) || 0;
-  //
-  //     id !== 0 &&
-  //       this.props.createAttachment(id, attachments, 'products').then(res => {
-  //         this.props.history.push('/sell/products');
-  //       });
-  //   });
-  // };
-  //
-  // addOption = e => {
-  //   e.preventDefault();
-  //
-  //   this.setState(prevState => ({
-  //     options: [...prevState.options, {}]
-  //   }));
-  // };
-  //
-  // addFile(file) {
-  //   let a = this.state.attachments || [];
-  //
-  //   a.push({ file });
-  //
-  //   this.setState({ attachments: a });
-  // }
-  //
-  // addEventFile(file) {
-  //   this.setState(prevState => ({
-  //     event: { ...prevState.event, file }
-  //   }));
-  // }
-  //
-  // removeOption(key) {
-  //   const options = this.state.options.splice(key, 1);
-  //
-  //   this.setState({ options });
-  // }
-  //
-  // addEvent = e => {
-  //   this.setState({ addEvent: this.state.addEvent === false ? true : false });
-  // };
-  //
-  // handleChangeEvent = (e, { name, value }) => {
-  //   this.setState(prevState => ({
-  //     event: { ...prevState.event, [name]: value }
-  //   }));
-  // };
-  //
-  // handleChangeEventDate(date, name) {
-  //   this.setState(prevState => ({
-  //     event: { ...prevState.event, [name]: date }
-  //   }));
-  // }
-  //
-  // onCenterChanged = location => {
-  //   this.setState(prevState => ({
-  //     event: { ...prevState.event, ...location }
-  //   }));
-  // };
-  //
-  // submitEvent = e => {
-  //   const { event } = this.state;
-  //
-  //   const ev = {
-  //     name: event.name,
-  //     description: event.description,
-  //     location_name: event.location_name,
-  //     location_lat: event.location_lat,
-  //     location_lng: event.location_lng,
-  //     start_date: Moment(event.start_date).format('YYYY-MM-DD HH:mm:ss'),
-  //     end_date: Moment(event.end_date).format('YYYY-MM-DD HH:mm:ss'),
-  //     user_id: this.props.user.get('id'),
-  //     attachments: [{ file: event.file }]
-  //   };
-  //
-  //   this.props.createEvent(ev).then(() => {
-  //     this.setState({ addEvent: false });
-  //   });
-  // };
-  //
-  // removeFile(file, type) {
-  //   if (type === 'event') {
-  //     const ev = this.state.event;
-  //     delete ev['file'];
-  //
-  //     this.setState(prevState => ({
-  //       event: { ...prevState.event, ...ev }
-  //     }));
-  //   } else {
-  //     const atchms = this.state.attachments;
-  //     const index = atchms.findIndex(a => a.file.size === file.size);
-  //
-  //     atchms.splice(index, 1);
-  //     this.setState({ attachments: atchms });
-  //   }
-  // }
+  componentDidMount() {
+    this.props.loadEvents();
+    this.props.loadCategories();
+  }
+
+  handleChange = (e, { name, value }) => {
+    this.setState({ [name]: value });
+
+    name === 'category_id' &&
+      this.props.loadSubCategories({ category_id: value });
+  };
+
+  handleChangeDate(date, name) {
+    this.setState({ [name]: date });
+  }
+
+  handleChangeOption(e, name, value, key) {
+    let options = this.state.options;
+
+    if (
+      name === 'price_amount' ||
+      name === 'hiw_amount' ||
+      name === 'ship_amount' ||
+      name === 'discount_amount'
+    ) {
+      options[key][name] = value * 100;
+    } else {
+      options[key][name] = value;
+    }
+
+    this.setState({ options });
+  }
+
+  longTime = (e, { value }) => {
+    this.setState({ long_time: value === 1 });
+  };
+
+  handleSubmit = e => {
+    // e.preventDefault();
+
+    // const attachments = this.state.attachments;
+    const product = {
+      name_en: this.state.name_en,
+      name: this.state.name,
+      description_en: this.state.description_en,
+      description: this.state.description,
+      start_date: Moment(this.state.event.start_date).format(
+        'YYYY-MM-DD HH:mm:ss'
+      ),
+      end_date: Moment(this.state.event.end_date).format('YYYY-MM-DD HH:mm:ss'),
+      hiw_amount: this.state.hiw_amount,
+      price_amount: this.state.price_amount,
+      stock: this.state.stock,
+      category_id: this.state.category_id,
+      sub_category_id: this.state.sub_category_id,
+      event_id: this.state.event_id,
+      options: this.state.options,
+      user_id: this.props.user.get('id')
+    };
+
+    this.props.createProduct(product).then(res => {
+      // var id = (res && res.body) || 0;
+      //
+      // id !== 0 &&
+      //   this.props.createAttachment(id, attachments, 'products').then(res => {
+      //     this.props.history.push('/sell/products');
+      //   });
+    });
+  };
+
+  addOption = e => {
+    e.preventDefault();
+
+    this.setState(prevState => ({
+      options: [...prevState.options, {}]
+    }));
+  };
+
+  addFile(file) {
+    let a = this.state.attachments || [];
+
+    a.push({ file });
+
+    this.setState({ attachments: a });
+  }
+
+  addEventFile(file) {
+    this.setState(prevState => ({
+      event: { ...prevState.event, file }
+    }));
+  }
+
+  removeOption(key) {
+    const options = this.state.options.splice(key, 1);
+
+    this.setState({ options });
+  }
+
+  addEvent = e => {
+    this.setState({ addEvent: this.state.addEvent === false ? true : false });
+  };
+
+  handleChangeEvent = (e, { name, value }) => {
+    this.setState(prevState => ({
+      event: { ...prevState.event, [name]: value }
+    }));
+  };
+
+  handleChangeEventDate(date, name) {
+    this.setState(prevState => ({
+      event: { ...prevState.event, [name]: date }
+    }));
+  }
+
+  onCenterChanged = location => {
+    this.setState(prevState => ({
+      event: { ...prevState.event, ...location }
+    }));
+  };
+
+  submitEvent = e => {
+    const { event } = this.state;
+
+    const ev = {
+      name: event.name,
+      description: event.description,
+      location_name: event.location_name,
+      location_lat: event.location_lat,
+      location_lng: event.location_lng,
+      start_date: Moment(event.start_date).format('YYYY-MM-DD HH:mm:ss'),
+      end_date: Moment(event.end_date).format('YYYY-MM-DD HH:mm:ss'),
+      user_id: this.props.user.get('id'),
+      attachments: [{ file: event.file }]
+    };
+
+    this.props.createEvent(ev).then(() => {
+      this.setState({ addEvent: false });
+    });
+  };
+
+  removeFile(file, type) {
+    if (type === 'event') {
+      const ev = this.state.event;
+      delete ev['file'];
+
+      this.setState(prevState => ({
+        event: { ...prevState.event, ...ev }
+      }));
+    } else {
+      const atchms = this.state.attachments;
+      const index = atchms.findIndex(a => a.file.size === file.size);
+
+      atchms.splice(index, 1);
+      this.setState({ attachments: atchms });
+    }
+  }
 
   render() {
-    // const { long_time, options } = this.state;
-    // const { categories, sub_categories, events } = this.props;
-    //
-    // var categoryOptions = [],
-    //   sub_categories_options = [],
-    //   eventOptions = [];
-    //
-    // !events.isEmpty() &&
-    //   events.map(event =>
-    //     eventOptions.push({
-    //       text: event.get('name'),
-    //       value: event.get('id')
-    //     })
-    //   );
-    //
-    // !categories.isEmpty() &&
-    //   categories.map(category =>
-    //     categoryOptions.push({
-    //       text: category.get('name'),
-    //       value: category.get('id')
-    //     })
-    //   );
-    //
-    // !sub_categories.isEmpty() &&
-    //   sub_categories.map(sc =>
-    //     sub_categories_options.push({
-    //       text: sc.get('name'),
-    //       value: sc.get('id')
-    //     })
-    //   );
-    //
-    // var previewConfig = {
-    //   iconFiletypes: ['.jpg', '.png'],
-    //   showFiletypeIcon: false,
-    //   postUrl: 'no-url'
-    // };
-    //
-    // var djsConfig = {
-    //   autoProcessQueue: false,
-    //   addRemoveLinks: true,
-    //   uploadMultiple: true
-    // };
-    //
-    // var djsEventConfig = {
-    //   autoProcessQueue: false,
-    //   addRemoveLinks: true,
-    //   maxFiles: 1
-    // };
-    //
-    // var eventProductHandlers = {
-    //   addedfile: file => this.addFile(file),
-    //   removedfile: file => this.removeFile(file, 'product')
-    // };
-    //
-    // var eventHandlers = {
-    //   addedfile: file => this.addEventFile(file),
-    //   removedfile: file => this.removeFile(file, 'event')
-    // };
+    const { long_time, options } = this.state;
+    const { categories, sub_categories, events } = this.props;
+
+    var categoryOptions = [],
+      sub_categories_options = [],
+      eventOptions = [];
+
+    !events.isEmpty() &&
+      events.map(event =>
+        eventOptions.push({
+          text: event.get('name'),
+          value: event.get('id')
+        })
+      );
+
+    !categories.isEmpty() &&
+      categories.map(category =>
+        categoryOptions.push({
+          text: category.get('name'),
+          value: category.get('id')
+        })
+      );
+
+    !sub_categories.isEmpty() &&
+      sub_categories.map(sc =>
+        sub_categories_options.push({
+          text: sc.get('name'),
+          value: sc.get('id')
+        })
+      );
+
+    var previewConfig = {
+      iconFiletypes: ['.jpg', '.png'],
+      showFiletypeIcon: false,
+      postUrl: 'no-url'
+    };
+
+    var djsConfig = {
+      autoProcessQueue: false,
+      addRemoveLinks: true,
+      uploadMultiple: true
+    };
+
+    var djsEventConfig = {
+      autoProcessQueue: false,
+      addRemoveLinks: true,
+      maxFiles: 1
+    };
+
+    var eventProductHandlers = {
+      addedfile: file => this.addFile(file),
+      removedfile: file => this.removeFile(file, 'product')
+    };
+
+    var eventHandlers = {
+      addedfile: file => this.addEventFile(file),
+      removedfile: file => this.removeFile(file, 'event')
+    };
 
     return (
       <form className="add-product-form">
@@ -414,49 +414,58 @@ class AddProductForm extends React.Component {
             <GMap place onCenterChanged={this.onCenterChanged} />
           </div>
 
-          <button className='primary' onClick={this.submitEvent}>
-            เพิ่มงาน
-          </button>
-          <button className='error' onClick={this.addEvent}>
-            ยกเลิก
-          </button>
+          <div className="form-field">
+            <button className='primary' onClick={this.submitEvent}>
+              เพิ่มงาน
+            </button>
+            <button className='error' onClick={this.addEvent}>
+              ยกเลิก
+            </button>
+          </div>
         </div>
 
         <div className="add-option"
           style={{ display: this.state.addEvent && 'none' }}
         >
           <button className='primary' onClick={this.addEvent}>
-            เพิ่มงาน
+            เพิ่มงานลดราคา
           </button>
         </div>
 
-        {/* {!events.isEmpty() && (
-          <Form.Field
-            name="event_id"
-            control={Select}
-            options={eventOptions}
-            placeholder="งาน"
-            onChange={this.handleChange}
-          />
+        {!events.isEmpty() && (
+          <div className="form-field">
+            <select name="event_id" onChange={this.handleChange}>
+              <option default>งาน</option>
+              {
+                eventOptions.map((eo, i) => {
+                  return (
+                    <option key={i} value={eo.value}>
+                      {eo.content}
+                    </option>
+                  )
+                })
+              }
+            </select>
+          </div>
         )}
         {this.state.addEvent && (
           <div className="add-event">
-            <Form.Input
-              type="text"
-              label="ชื่องาน"
-              name="name"
-              onChange={this.handleChangeEvent}
-              autoComplete="off"
-            />
+            <div className="form-field">
+              <label>ชื่องาน</label>
+              <input type="text"
+                name="name"
+                onChange={this.handleChangeEvent}
+                autoComplete="off"
+              />
+            </div>
 
-            <Form.TextArea
-              label="รายละเอียดงาน"
-              name="description"
-              onChange={this.handleChangeEvent}
-            />
+            <div className="form-field">
+              <label>รายละเอียดงาน</label>
+              <textarea name="description" onChange={this.handleChangeEvent} />
+            </div>
 
-            <Form.Group>
-              <Form.Field>
+            <div className="form-group">
+              <div className="form-field">
                 <label>เริ่มต้น</label>
                 <DatePicker
                   selected={this.state.event.start_date}
@@ -468,9 +477,9 @@ class AddProductForm extends React.Component {
                   dropdownMode="select"
                   dateFormat="dd/MM/yy HH:mm"
                 />
-              </Form.Field>
+              </div>
 
-              <Form.Field>
+              <div className="form-field">
                 <label>สิ้นสุด</label>
                 <DatePicker
                   selected={
@@ -484,32 +493,33 @@ class AddProductForm extends React.Component {
                   dropdownMode="select"
                   dateFormat="dd/MM/yy HH:mm"
                 />
-              </Form.Field>
-            </Form.Group>
+              </div>
+            </div>
 
-            <Form.Field>
+            <div className="form-field">
               <DropzoneComponent
                 config={previewConfig}
                 eventHandlers={eventHandlers}
                 djsConfig={djsEventConfig}
               />
-            </Form.Field>
+            </div>
 
-            <Form.Field>
+            <div className="form-field">
               <label>สถานที่จัดงาน</label>
               <GMap place onCenterChanged={this.onCenterChanged} />
-            </Form.Field>
+            </div>
 
-            <Form.Field className="event-action">
-              <Button
-                color="yellow"
-                content="เพิ่มงาน"
-                onClick={this.submitEvent}
-              />
-              <Button color="red" content="ยกเลิก" onClick={this.addEvent} />
-            </Form.Field>
+            <div className="form-field">
+              <button className='primary' onClick={this.submitEvent} >
+                เพิ่มงาน
+              </button>
+
+              <button className='error' onClick={this.addEvent}>
+                ยกเลิก
+              </button>
+            </div>
           </div>
-        )} */}
+        )}
 
         <div className="product-options">
           <h3>ตัวเลือกสินค้า</h3>
@@ -523,11 +533,7 @@ class AddProductForm extends React.Component {
                   <h4 className="option-title">{optionId}</h4>
 
                   {i !== 0 && (
-                    <Icon
-                      name="times"
-                      color="red"
-                      onClick={() => this.removeOption(i)}
-                    />
+                    <FaTrash onClick={() => this.removeOption(i)} />
                   )}
 
                   <div className="form-field">
@@ -627,7 +633,6 @@ class AddProductForm extends React.Component {
         <button className='primary'
           type="submit"
           onClick={this.handleSubmit}
-          // loading={this.props.loadingAttachments}
         >
           เพิ่มสินค้า
         </button>

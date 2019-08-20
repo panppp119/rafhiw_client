@@ -11,7 +11,8 @@ import {
   Products,
   Shipping,
   Succeeded,
-  Payment
+  Payment,
+  AddProduct
 } from './routes';
 
 import './Store.scss'
@@ -112,6 +113,11 @@ class Store extends React.Component {
                   exact
                   path={`${match.url}/income`}
                   render={() => <Income {...this.props} />}
+                />
+                <Route
+                  exact
+                  path={`${match.url}/add_product`}
+                  render={() => <AddProduct {...this.props} />}
                 />
               </Switch>
             </div>

@@ -1,14 +1,6 @@
 .add-product-form {
   text-align: left;
 
-  .field {
-    width: 100%;
-  }
-
-  .inline.fields .field {
-    width: auto;
-  }
-
   .dz-progress {
     display: none;
   }
@@ -20,16 +12,6 @@
   .react-datepicker-wrapper,
   .react-datepicker__input-container {
     width: 100%;
-  }
-
-  .ui.button {
-    background-color: var(--primary);
-    color: var(--white);
-
-    &:hover {
-      background-color: var(--primary_dark);
-      color: var(--white);
-    }
   }
 
   h4 > span {
@@ -47,14 +29,6 @@
 
     .event-action {
       text-align: center;
-
-      .button {
-        margin-right: 14px;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
     }
   }
 
@@ -72,21 +46,17 @@
       color: var(--primary);
     }
 
-    i {
+    svg {
       position: absolute;
       right: 14px;
       top: 14px;
       cursor: pointer;
       margin-right: 0;
-
-      &::before {
-        padding: 7px;
-      }
     }
   }
 
   .add-option {
     text-align: center;
-    margin-bottom: 21px;
+    margin-bottom: 8px;
   }
 }

@@ -1,0 +1,10 @@
+$desktop: 1280px;
+
+#cart-page {
+  width: 100%;
+  padding: 16px 0;
+
+  @media screen and (min-width: $desktop) {
+    padding: 24px 0;
+  }
+}

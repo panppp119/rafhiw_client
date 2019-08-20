@@ -10,7 +10,7 @@ $desktop: 1280px;
     overflow-y: auto;
 
     @media screen and (min-width: $desktop) {
-      height: calc(100% - 171px);
+      height: calc(100% - 121px);
     }
   }
 }

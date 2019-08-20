@@ -53,6 +53,10 @@ const AsyncStore = Loadable({
   loader: () => import('pages/Store'),
   loading: StoreLoading
 });
+const AsyncCart = Loadable({
+  loader: () => import('pages/Cart'),
+  loading: ComponentLoading
+});
 
 const history = createBrowserHistory();
 const store = configStore(history);
@@ -110,6 +114,11 @@ export default ({ childProps }) =>
         <Route
           path="/store"
           component={AsyncStore}
+          props={childProps}
+        />
+        <Route
+          path="/cart"
+          component={AsyncCart}
           props={childProps}
         />
 

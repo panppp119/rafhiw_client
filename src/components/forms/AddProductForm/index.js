@@ -1,3 +1,3 @@
-import AddProductFormContainer from './AddProductFormContainer';
+import AddProductForm from './AddProductForm';
 
-export default AddProductFormContainer;
+export default AddProductForm;

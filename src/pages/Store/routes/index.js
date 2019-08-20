@@ -7,6 +7,7 @@ import Shipping from './Shipping';
 import Succeeded from './Succeeded';
 import Suspended from './Suspended';
 import Payment from './Payment';
+import AddProduct from './AddProduct';
 
 export {
   Active,
@@ -17,5 +18,6 @@ export {
   Shipping,
   Succeeded,
   Suspended,
-  Payment
+  Payment,
+  AddProduct
 };
