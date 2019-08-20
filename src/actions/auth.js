@@ -133,6 +133,7 @@ export const signout = () => (dispatch, getState) => {
     localStorage.removeItem('auth');
 
     dispatch({ type: CONST.SIGN_OUT_SUCCEEDED });
+    dispatch(push('/'))
   });
 };
 
@@ -142,15 +143,9 @@ export const checkSession = () => (dispatch, getState) => {
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
-    if (authen.provider !== 'email') {
-      auth.onAuthStateChanged(user => {
-        if (user !== null) {
-          dispatch(fetchUser(userSchema));
-        } else {
-          dispatch(signout());
-        }
-      });
-    }
+    authen.provider !== 'email' ? auth.onAuthStateChanged(user => {
+      user === null ? dispatch(signout()) : dispatch(fetchUser(userSchema));
+    }) : dispatch(fetchUser(userSchema));
   } else {
     // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
     dispatch({ type: CONST.CHECK_SESSION });

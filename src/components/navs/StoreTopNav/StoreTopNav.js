@@ -1,13 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
 
 class StoreTopNav extends React.Component {
+  componentDidMount () {
+    if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
+      this.props.checkSession();
+    }
+  }
+
   signOut = () => {
-    console.log('sign_out')
+    this.props.signout()
   }
 
   render () {
@@ -31,11 +37,11 @@ class StoreTopNav extends React.Component {
                 <span className='size3'><FaFont /></span>
               </li>
               <li className='empty' />
-              <li className='user'><FaUser />
+              <li className='user'>
+                <FaUser />
                 <ul>
                   <li><Link to='/account'>บัญชีของฉัน</Link></li>
                   <li><Link to='/store'>ร้านค้า</Link></li>
-                  <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
                   <li onClick={this.signOut}>ออกจากระบบ</li>
                 </ul>
               </li>
@@ -62,4 +68,4 @@ class StoreTopNav extends React.Component {
   }
 }
 
-export default StoreTopNav
+export default withRouter(StoreTopNav)

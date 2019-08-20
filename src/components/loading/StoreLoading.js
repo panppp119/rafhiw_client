@@ -8,7 +8,7 @@ const ComponentLoading = ({isLoading, error}) => {
     return (
       <StoreLayout>
         <div className="container">
-          <div>Loading...</div>
+          <h3 style={{ textAlign: 'center' }}>Loading...</h3>
         </div>
       </StoreLayout>
     )

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
+import { List } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt } from 'react-icons/fa'
 
@@ -28,6 +29,8 @@ class TopNav extends React.Component {
 
   render () {
     const { location, user } = this.props
+
+    const roles = user.get('roles') || List()
 
     return (
       <div id="top-nav">
@@ -58,8 +61,11 @@ class TopNav extends React.Component {
                       <FaUser />
                       <ul>
                         <li><Link to='/account'>บัญชีของฉัน</Link></li>
-                        <li><Link to='/store'>ร้านค้า</Link></li>
-                        <li><Link to='/sign_in'>เข้าสู่ระบบ</Link></li>
+                        {
+                          roles.filter(role => role === 'admin') > 0 ? (
+                            <li><Link to='/store'>ร้านค้า</Link></li>
+                          ) : null
+                        }
                         <li onClick={this.signOut}>ออกจากระบบ</li>
                       </ul>
                     </Fragment>

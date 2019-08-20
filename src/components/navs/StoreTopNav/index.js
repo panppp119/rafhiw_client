@@ -1,3 +1,3 @@
-import StoreTopNav from './StoreTopNav'
+import StoreTopNavContainer from './StoreTopNavContainer'
 
-export default StoreTopNav
+export default StoreTopNavContainer

@@ -28,7 +28,7 @@ class SubCategories extends React.Component {
                         <ProductCard {...pd} />
                       </div>
                     )
-                  }) : <h3>ไม่มีสินค้า</h3>
+                  }) : <p>ไม่มีสินค้า</p>
                 }
               </div>
 
@@ -40,7 +40,7 @@ class SubCategories extends React.Component {
                         <ProductCard {...pd} />
                       </div>
                     )
-                  }) : <h3>ไม่มีสินค้า</h3>
+                  }) : <p>ไม่มีสินค้า</p>
                 }
               </div>
             </div>
