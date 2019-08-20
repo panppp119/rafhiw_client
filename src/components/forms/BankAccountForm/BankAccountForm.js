@@ -65,12 +65,14 @@ class BankAccountForm extends React.Component {
           />
         </div>
 
-        <button type="submit" className='primary' onClick={this.handleSend}>
-          ยืนยัน
-        </button>
-        <button className="cancel" onClick={() => this.props.cancel('bank')}>
-          ยกเลิก
-        </button>
+        <div className="form-field">
+          <button type="submit" className='primary' onClick={this.handleSend}>
+            ยืนยัน
+          </button>
+          <button className="cancel" onClick={() => this.props.cancel('bank')}>
+            ยกเลิก
+          </button>
+        </div>
       </form>
     );
   }

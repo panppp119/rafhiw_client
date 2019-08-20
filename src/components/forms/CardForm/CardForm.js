@@ -106,20 +106,22 @@ class CardForm extends React.Component {
           />
         </div>
 
-        <button
-          type="submit"
-          className='primary'
-          onClick={this.handleSend}
-        >
-          ยืนยัน
-        </button>
-        <button
-          className="error"
-          onClick={(e) => this.props.cancel('card')}
-          // disabled={this.props.loading}
-        >
-          ยกเลิก
-        </button>
+        <div className="form-field">
+          <button
+            type="submit"
+            className='primary'
+            onClick={this.handleSend}
+          >
+            ยืนยัน
+          </button>
+          <button
+            className="error"
+            onClick={(e) => this.props.cancel('card')}
+            // disabled={this.props.loading}
+          >
+            ยกเลิก
+          </button>
+        </div>
       </form>
     );
   }

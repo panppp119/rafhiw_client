@@ -6,12 +6,14 @@ import { Map } from 'immutable';
 import DateConvert from 'components/converts/DateConvert';
 
 import './ProfileTable.scss';
-import 'react-dropzone-component/styles/filepicker.css';
-import 'dropzone/dist/min/dropzone.min.css';
 
 var myDropzone;
 
 class ProfileTable extends React.Component {
+  static defaultProps = {
+    avatar: false
+  }
+
   state = {
     attachment: null
   };
@@ -86,22 +88,26 @@ class ProfileTable extends React.Component {
             <tr>
               <td><h4>Email</h4></td>
               <td><h4>{user.get('email')}</h4></td>
-              <td rowSpan='7' className='avatar'>
-                <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
+              {
+                this.props.avatar && (
+                  <td rowSpan='7' className='avatar'>
+                    <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 
-                <DropzoneComponent
-                  config={previewConfig}
-                  eventHandlers={eventHandlers}
-                  djsConfig={djsEventConfig}
-                />
+                    <DropzoneComponent
+                      config={previewConfig}
+                      eventHandlers={eventHandlers}
+                      djsConfig={djsEventConfig}
+                    />
 
-                <button className="primary"
-                  onClick={this.upload}
-                  disabled={this.state.attachment === null}
-                >
-                  อัพโหลด
-                </button>
-              </td>
+                    <button className="primary"
+                      onClick={this.upload}
+                      disabled={this.state.attachment === null}
+                    >
+                      อัพโหลด
+                    </button>
+                  </td>
+                )
+              }
             </tr>
 
             <tr>

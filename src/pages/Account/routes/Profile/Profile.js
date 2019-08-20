@@ -1,10 +1,13 @@
 import React from 'react';
+import DropzoneComponent from 'react-dropzone-component';
 import { FaEdit } from 'react-icons/fa'
 
 // import ProfileForm from 'components/forms/ProfileForm';
 import ProfileTable from 'components/tables/ProfileTable';
 
 import './Profile.scss';
+
+var myDropzone;
 
 class Profile extends React.Component {
   state = {
@@ -23,6 +26,25 @@ class Profile extends React.Component {
   render() {
     const { user, disabilities, upload, loadUser } = this.props;
 
+    var previewConfig = {
+      iconFiletypes: ['.jpg', '.png'],
+      showFiletypeIcon: false,
+      postUrl: 'no-url'
+    };
+
+    var djsEventConfig = {
+      autoProcessQueue: false,
+      addRemoveLinks: true,
+      maxFilesize: 1,
+      maxFiles: 1
+    };
+
+    var eventHandlers = {
+      init: dropzone => (myDropzone = dropzone),
+      addedfile: file => this.addFile(file),
+      removedfile: file => this.removeFile()
+    };
+
     return (
       <div className="profile">
         <div className="head">
@@ -33,11 +55,41 @@ class Profile extends React.Component {
         </div>
 
         <div className="body">
-          <ProfileTable
-            user={user}
-            disabilities={this.props.disabilities}
-            upload={this.props.upload}
-          />
+          <div className="mobile">
+            <div className="avatar">
+              <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
+
+              <DropzoneComponent
+                config={previewConfig}
+                eventHandlers={eventHandlers}
+                djsConfig={djsEventConfig}
+              />
+
+              <button className="primary"
+                onClick={this.upload}
+                disabled={this.state.attachment === null}
+              >
+                อัพโหลด
+              </button>
+            </div>
+
+            <div className="info">
+              <ProfileTable
+                user={user}
+                disabilities={this.props.disabilities}
+                upload={this.props.upload}
+              />
+            </div>
+          </div>
+
+          <div className="desktop">
+            <ProfileTable
+              user={user}
+              disabilities={this.props.disabilities}
+              upload={this.props.upload}
+              avatar
+            />
+          </div>
         </div>
       </div>
     );

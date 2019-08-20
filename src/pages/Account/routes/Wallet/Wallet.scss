@@ -24,11 +24,6 @@ $desktop: 1280px;
 
   .body {
     position: relative;
-    padding-top: 8px;
-
-    @media screen and (min-width: $desktop) {
-      padding-top: 16px;
-    }
   }
 
   .card-card {
@@ -55,5 +50,13 @@ $desktop: 1280px;
 
   h3 {
     margin-top: 0;
+  }
+
+  button {
+    margin-top: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-top: 16px;
+    }
   }
 }

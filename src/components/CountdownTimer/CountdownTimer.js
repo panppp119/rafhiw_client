@@ -18,20 +18,20 @@ class CountdownTimer extends React.Component {
       return (
         <div className="countdown-timer">
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(days).format('00')}</h3>
-            <h4 className="fixfontsize">วัน</h4>
+            <h3>{Numeral(days).format('00')}</h3>
+            <p>วัน</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(hours).format('00')}</h3>
-            <h4 className="fixfontsize">ชั่วโมง</h4>
+            <h3>{Numeral(hours).format('00')}</h3>
+            <p>ชั่วโมง</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(minutes).format('00')}</h3>
-            <h4 className="fixfontsize">นาที</h4>
+            <h3>{Numeral(minutes).format('00')}</h3>
+            <p>นาที</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(seconds).format('00')}</h3>
-            <h4 className="fixfontsize">วินาที</h4>
+            <h3>{Numeral(seconds).format('00')}</h3>
+            <p>วินาที</p>
           </div>
         </div>
       );
@@ -40,20 +40,20 @@ class CountdownTimer extends React.Component {
       return (
         <div className="countdown-timer">
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(days).format('00')}</h3>
-            <h4 className="fixfontsize">วัน</h4>
+            <h3>{Numeral(days).format('00')}</h3>
+            <p>วัน</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(hours).format('00')}</h3>
-            <h4 className="fixfontsize">ชั่วโมง</h4>
+            <h3>{Numeral(hours).format('00')}</h3>
+            <p>ชั่วโมง</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(minutes).format('00')}</h3>
-            <h4 className="fixfontsize">นาที</h4>
+            <h3>{Numeral(minutes).format('00')}</h3>
+            <p>นาที</p>
           </div>
           <div className="unit">
-            <h3 className="fixfontsize">{Numeral(seconds).format('00')}</h3>
-            <h4 className="fixfontsize">วินาที</h4>
+            <h3>{Numeral(seconds).format('00')}</h3>
+            <p>วินาที</p>
           </div>
         </div>
       );

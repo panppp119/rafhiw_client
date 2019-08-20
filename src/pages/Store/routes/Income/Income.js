@@ -1,8 +1,7 @@
 import React from 'react';
-// import { Tab } from 'semantic-ui-react';
-//
-import IncomeTable from 'components/tables/IncomeTable';
-import PriceConvert from 'components/converts/PriceConvert';
+
+// import IncomeTable from 'components/tables/IncomeTable';
+// import PriceConvert from 'components/converts/PriceConvert';
 
 import './Income.scss';
 

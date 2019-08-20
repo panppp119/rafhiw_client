@@ -8,7 +8,7 @@ import './ProductCard.scss'
 class ProductCard extends React.Component {
   render () {
     return (
-      <Link id="product-card" to='/' as='div'>
+      <Link id="product-card" to='/p/' as='div'>
         <div className="image"
           style={{
             backgroundImage: 'url()'

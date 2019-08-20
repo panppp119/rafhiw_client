@@ -42,7 +42,17 @@ class Addresses extends React.Component {
         </div>
 
         <div className="body">
-          <AddressForm />
+
+
+          {
+            showAddressForm ? (
+              <AddressForm cancel={this.cancel} {...this.props} />
+            ) : (
+              <button className='primary' onClick={this.handleClick}>
+                เพิ่มที่อยู่
+              </button>
+            )
+          }
         </div>
       </div>
     );

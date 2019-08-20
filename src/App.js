@@ -41,6 +41,10 @@ const AsyncProducts = Loadable({
   loader: () => import('pages/Products'),
   loading: ComponentLoading
 });
+const AsyncProduct = Loadable({
+  loader: () => import('pages/Product'),
+  loading: ComponentLoading
+});
 const AsyncAccount = Loadable({
   loader: () => import('pages/Account'),
   loading: ComponentLoading
@@ -94,6 +98,11 @@ export default ({ childProps }) =>
           props={childProps}
         />
         <Route
+          path="/p/:id"
+          component={AsyncProduct}
+          props={childProps}
+        />
+        <Route
           path="/account"
           component={AsyncAccount}
           props={childProps}
@@ -105,7 +114,7 @@ export default ({ childProps }) =>
         />
 
         {/* Finally, catch all unmatched routes */}
-        {/* <Route component={AsyncNotFound} /> */}
+        <Route component={AsyncNotFound} />
       </Switch>
     </ConnectedRouter>
   </Provider>

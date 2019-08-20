@@ -5,57 +5,29 @@ $desktop: 1280px;
     background-color: var(--primary);
     color: var(--white);
     margin-right: 4px;
-    width: 55px;
+    width: 40px;
     display: inline-block;
 
     @media screen and (min-width: $desktop) {
-      margin-left: 1px !important;
-      margin-right: 1px !important;
-      margin-bottom: 1px !important;
-      padding-top: 5px !important;
-      width: 47%;
-      height: 60px;
-      vertical-align: middle !important;
-      text-align: center;
+      width: 55px;
     }
   }
 
   h3 {
-    border-bottom: none !important;
-    padding: 0 !important;
+    font-size: 20px;
+    text-align: center;
 
     @media screen and (min-width: $desktop) {
-      // padding: 10px 0px 10px 0px !important;
-      // vertical-align: middle !important;
-      // margin: 0px;
-      // width: 25%;
-      // float: left;
+      font-size: 30px;
     }
   }
 
-  h4 {
-    display: block;
-    width: auto;
-    margin-top: 0 !important;
-    font-size: 0.5em !important;
+  p {
+    text-align: center;
+    font-size: var(--font_small);
 
     @media screen and (min-width: $desktop) {
-      // padding: 12px 0px 10px 0px !important;
-      // vertical-align: middle !important;
-      // width: 60%;
-      // float: left;
+      font-size: 16px;
     }
-  }
-  
-  h3.fixfontsize {
-    font-size: 30px !important;
-    font-weight: 1000 !important;
-
-    @media screen and (min-width: $desktop) {
-      margin-top: -5px;
-    }
-  }
-  h4.fixfontsize {
-    font-size: 16px !important;
   }
 }

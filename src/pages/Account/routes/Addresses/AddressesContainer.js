@@ -12,7 +12,7 @@ import Addresses from './Addresses';
 
 const mapStateToProps = (state, props) => ({
   addresses: state.getIn(['addresses', 'collection'], List()),
-  loadingAddresses: state.getIn(['user', 'loading', 'addresses'], false),
+  // loadingAddresses: state.getIn(['user', 'loading', 'addresses'], false),
   ...props
 });
 

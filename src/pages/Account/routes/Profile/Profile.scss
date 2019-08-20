@@ -26,12 +26,10 @@ $desktop: 1280px;
       position: absolute;
       right: 0;
       top: 0;
-      bottom: 0;
-      margin: auto;
       padding: 8px;
       cursor: pointer;
       outline: none;
-      font-size: 25px;
+      font-size: 20px;
 
       @media screen and (min-width: $desktop) {
         padding: 16px;
@@ -45,11 +43,6 @@ $desktop: 1280px;
 
   .body {
     position: relative;
-    padding-top: 8px;
-
-    @media screen and (min-width: $desktop) {
-      padding-top: 16px;
-    }
   }
 
   h3 {

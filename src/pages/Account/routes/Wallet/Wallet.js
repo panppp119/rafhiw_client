@@ -52,7 +52,7 @@ class Wallet extends React.Component {
 
     if (this.state.card) {
       return (
-        <CardForm />
+        <CardForm cancel={this.cancel} {...this.props} />
       );
     } else {
       return (
