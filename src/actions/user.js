@@ -1,4 +1,5 @@
 import * as CONST from 'constants/user';
+import { CREATE_ATTACHMENT, CREATE_ATTACHMENT_SUCCEEDED } from 'constants/attachments'
 import request from 'utils/request';
 
 import { addFlashMessage } from './ui';
@@ -114,6 +115,49 @@ export const fetchRequestRole = schema => (dispatch, getState) => {
         response,
         schema
       });
+    })
+    .catch(error => {
+      console.warn(error.message);
+
+      dispatch(
+        addFlashMessage({
+          type: 'error',
+          text: error.message
+        })
+      );
+    });
+};
+
+export const createAttachment = (id, attachments, schema, type) => (
+  dispatch,
+  getState
+) => {
+  const schema_type = schema._key;
+  const url = `/${schema_type}/attachments`;
+
+  dispatch({ type: CREATE_ATTACHMENT, schema });
+
+  const req = request.post(url);
+
+  attachments.forEach(attachment => {
+    req
+      .attach('image', attachment.file)
+      .field('user_id', id);
+
+    if (type){
+      req.field('type', type)
+    }
+  });
+
+  return req
+    .then(response => {
+      dispatch({
+        type: CREATE_ATTACHMENT_SUCCEEDED,
+        response,
+        schema
+      });
+
+      return response
     })
     .catch(error => {
       console.warn(error.message);

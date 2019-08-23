@@ -14,14 +14,14 @@ class TopNav extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (
-  //     (prevProps.user.isEmpty() && prevProps.user !== this.props.user) ||
-  //     prevProps.user !== this.props.user
-  //   ) {
-  //     this.props.loadCart();
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (
+      (prevProps.user.isEmpty() && prevProps.user !== this.props.user) ||
+      prevProps.user !== this.props.user
+    ) {
+      this.props.loadCart();
+    }
+  }
 
   signOut = () => {
     this.props.signout()
@@ -29,15 +29,22 @@ class TopNav extends React.Component {
 
   render () {
     const { location, user } = this.props
+    const { cartProducts } = this.props;
 
     const roles = user.get('roles') || List()
+    const totalQuantity = cartProducts.get('totalQuantity') || 0;
 
     return (
       <div id="top-nav">
         <div className="mobile">
           <ul>
             <li className='search'>ค้นหา</li>
-            <li><Link to='/cart'><FaShoppingCart /></Link></li>
+            <li>
+              <Link to='/cart'>
+                <FaShoppingCart />
+                {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
+              </Link>
+            </li>
             <li><Link to='/messages'><FaCommentDots /></Link></li>
           </ul>
         </div>
@@ -82,7 +89,12 @@ class TopNav extends React.Component {
                 <Link to='/'><img src={logo} alt="logot" /></Link>
               </li>
               <li className='search'>ค้นหา</li>
-              <li><Link to='/cart'><FaShoppingCart /></Link></li>
+              <li>
+                <Link to='/cart'>
+                  <FaShoppingCart />
+                  {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
+                </Link>
+              </li>
             </ul>
           </div>
 

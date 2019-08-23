@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
   fontSize: state.getIn(['ui', 'font'], 'age-first'),
   user: state.getIn(['user', 'data'], Map()),
   notifications: state.getIn(['utilities', 'notifications'], List()),
-  loadingUser: state.getIn(['user', 'loading'], false)
+  loadingUser: state.getIn(['user', 'loading'], false),
+  cartProducts: state.getIn(['cart', 'cartProducts'], Map()),
 });
 
 const mapDispatchToProps = {

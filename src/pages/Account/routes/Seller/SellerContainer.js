@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
 import { requestRole, fetchRequestRole } from 'actions/user';
-// import { createAttachment } from 'actions/attachments';
+import { createAttachment } from 'actions/user';
 import userSchema from 'schemas/user';
 // import attachmentSchema from 'schemas/attachment';
 
@@ -19,8 +19,8 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = {
   loadRequestRole: () => fetchRequestRole(userSchema),
   requestRole: data => requestRole(data, userSchema),
-  // addAttachment: (id, data, type) =>
-  //   createAttachment(id, data, type, attachmentSchema)
+  addAttachment: (id, data, type) =>
+    createAttachment(id, data, userSchema, type)
 };
 
 export default connect(

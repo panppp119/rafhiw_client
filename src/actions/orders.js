@@ -1,4 +1,5 @@
 import * as CONST from 'constants/orders';
+import { CREATE_ATTACHMENT, CREATE_ATTACHMENT_SUCCEEDED } from 'constants/attachments'
 import request from 'utils/request';
 // import attachmentSchema from 'schemas/attachment';
 
@@ -298,4 +299,43 @@ export const comfirmProduct = (id, schema) => (dispatch, getState) => {
 
 export const updateOrderId = (id, schema) => (dispatch, getState) => {
   dispatch({ type: CONST.UPDATE_ORDER_ID, value: id });
+};
+
+export const createAttachment = (id, attachments, key, schema) => (
+  dispatch,
+  getState
+) => {
+  const type = schema._key;
+  const url = `/${type}/attachments`;
+
+  dispatch({ type: CREATE_ATTACHMENT, schema });
+
+  const req = request.post(url);
+
+  attachments.forEach(attachment => {
+    req
+      .attach('image', attachment.file)
+      .field('invoice_id', id);
+  });
+
+  return req
+    .then(response => {
+      dispatch({
+        type: CREATE_ATTACHMENT_SUCCEEDED,
+        response,
+        schema
+      });
+
+      return response
+    })
+    .catch(error => {
+      console.warn(error.message);
+
+      dispatch(
+        addFlashMessage({
+          type: 'error',
+          text: error.message
+        })
+      );
+    });
 };

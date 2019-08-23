@@ -1,4 +1,5 @@
 import * as CONST from 'constants/products';
+import { CREATE_ATTACHMENT, CREATE_ATTACHMENT_SUCCEEDED } from 'constants/attachments'
 import request from 'utils/request';
 
 import { addFlashMessage } from './ui';
@@ -186,6 +187,45 @@ export const deleteProduct = (id, schema) => (dispatch, getState) => {
           text: 'ลบสินค้าสำเร็จ'
         })
       );
+
+      return response
+    })
+    .catch(error => {
+      console.warn(error.message);
+
+      dispatch(
+        addFlashMessage({
+          type: 'error',
+          text: error.message
+        })
+      );
+    });
+};
+
+export const createAttachment = (id, attachments, key, schema) => (
+  dispatch,
+  getState
+) => {
+  const type = schema._key;
+  const url = `/${type}/attachments`;
+
+  dispatch({ type: CREATE_ATTACHMENT, schema });
+
+  const req = request.post(url);
+
+  attachments.forEach(attachment => {
+    req
+      .attach('image', attachment.file)
+      .field('product_id', id);
+  });
+
+  return req
+    .then(response => {
+      dispatch({
+        type: CREATE_ATTACHMENT_SUCCEEDED,
+        response,
+        schema
+      });
 
       return response
     })

@@ -15,7 +15,7 @@ import UserLayout from 'components/layouts/UserLayout'
 
 import './Product.scss';
 
-class ProductView extends React.Component {
+class Product extends React.Component {
   state = {
     quantity: 1,
     option: 0,
@@ -77,7 +77,7 @@ class ProductView extends React.Component {
     this.setState({ showChat: bool });
   };
 
-  addProduct = (e, { name }) => {
+  addProduct = (e) => {
     const {
       createCart,
       updateCart,
@@ -87,6 +87,7 @@ class ProductView extends React.Component {
       cartProducts
     } = this.props;
     const { quantity, product_option_id } = this.state;
+    const name = e.target.name
 
     var poId = product_option_id || product.getIn(['options', 0, 'id']);
     var stock = product.getIn(['options', 0, 'stock']);
@@ -99,8 +100,10 @@ class ProductView extends React.Component {
 
     if (user.isEmpty() && cart.isEmpty()) {
       this.updateCartProducts(pd);
+      console.log(1)
     } else if (cart.isEmpty() && !user.isEmpty()) {
       this.updateCartProducts(pd);
+      console.log(2)
 
       createCart({
         products: cartProducts.get('products') || [pd],
@@ -108,6 +111,7 @@ class ProductView extends React.Component {
         user_id: user.get('id')
       });
     } else {
+      console.log(3)
       var pds =
         (!cartProducts.isEmpty() && cartProducts.get('products')) || List();
       var index = pds && pds.findIndex(p => p.product_option_id === poId);
@@ -170,7 +174,7 @@ class ProductView extends React.Component {
     const { quantity } = this.state;
 
     const options = product.get('options') || List();
-    const attachments = product.get('attachments') || List();
+    const attachments = product.get('images') || List();
 
     // const sections = [
     //   {
@@ -501,4 +505,4 @@ class ProductView extends React.Component {
   }
 }
 
-export default ProductView;
+export default Product;

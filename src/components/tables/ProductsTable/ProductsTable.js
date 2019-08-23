@@ -62,7 +62,7 @@ class ProductsTable extends React.Component {
                         }}
                       />
                       <div className="info">
-                        <Link to={`/products/`}>
+                        <Link to={`/p/${product.get('id')}`}>
                           <h4>{product.get('name')}</h4>
                         </Link>
                       </div>

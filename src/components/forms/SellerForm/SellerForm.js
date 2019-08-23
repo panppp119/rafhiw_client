@@ -7,8 +7,7 @@ import 'dropzone/dist/min/dropzone.min.css';
 
 class SellerForm extends React.Component {
   state = {
-    sameAddress: false,
-    gender: 0
+    sameAddress: false
   };
 
   handleChange = e => {
@@ -26,10 +25,12 @@ class SellerForm extends React.Component {
   };
 
   sendRequest = e => {
+    e.preventDefault()
+
     const { user } = this.props;
 
     const user_id = user.get('id');
-    // var attachment = { file: this.state.attachment };
+    var attachment = { file: this.state.attachment };
     var request = {
       ...this.state,
       user_id,
@@ -38,10 +39,10 @@ class SellerForm extends React.Component {
     };
 
     delete request['sameAddress'];
-    // delete request['attachment'];
+    delete request['attachment'];
 
     this.props.requestRole(request).then(() => {
-      // this.props.addAttachment(user_id, [attachment], 'seller');
+      this.props.addAttachment(user_id, [attachment], 'id_card');
     });
   };
 

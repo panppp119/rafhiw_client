@@ -29,16 +29,14 @@ class Seller extends React.Component {
             <SellerForm
               user={user}
               requestRole={this.props.requestRole}
-              loading={this.props.loadingRequest}
-              // addAttachment={this.props.addAttachment}
+              // loading={this.props.loadingRequest}
+              addAttachment={this.props.addAttachment}
               // loadingAttachment={this.props.loadingAttachment}
               {...this.props}
             />
           ) : (
             <p>รอการยืนยัน</p>
           )}
-
-          <SellerForm />
         </div>
       </div>
     );
