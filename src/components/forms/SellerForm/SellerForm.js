@@ -11,28 +11,38 @@ class SellerForm extends React.Component {
     gender: 0
   };
 
-  handleChange (e, name) {
-    this.setState({ [name]: e.target.value });
+  handleChange = e => {
+    const name = e.target.name
+    const value = e.target.value
+
+    if (name === 'id_card') {
+      var number = value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+
+      this.setState({ [name]: number })
+    }
+    else {
+      this.setState({ [name]: value });
+    }
   };
 
   sendRequest = e => {
-    // const { user } = this.props;
-    //
-    // const user_id = user.get('id');
+    const { user } = this.props;
+
+    const user_id = user.get('id');
     // var attachment = { file: this.state.attachment };
-    // var request = {
-    //   ...this.state,
-    //   user_id,
-    //   first_name: this.state.first_name || user.get('first_name'),
-    //   last_name: this.state.last_name || user.get('last_name')
-    // };
-    //
-    // delete request['sameAddress'];
+    var request = {
+      ...this.state,
+      user_id,
+      first_name: this.state.first_name || user.get('first_name'),
+      last_name: this.state.last_name || user.get('last_name')
+    };
+
+    delete request['sameAddress'];
     // delete request['attachment'];
-    //
-    // this.props.requestRole(request).then(() => {
-    //   this.props.addAttachment(user_id, [attachment], 'seller');
-    // });
+
+    this.props.requestRole(request).then(() => {
+      // this.props.addAttachment(user_id, [attachment], 'seller');
+    });
   };
 
   sameAddress = (e) => {
@@ -53,8 +63,8 @@ class SellerForm extends React.Component {
   }
 
   render() {
-    // const { first_name, last_name } = this.state;
-    // const { user } = this.props;
+    const { first_name, last_name } = this.state;
+    const { user } = this.props;
 
     const title = [
       { key: 'mr', text: 'นาย', value: 1 },
@@ -89,15 +99,14 @@ class SellerForm extends React.Component {
             name="id_card"
             value={this.state.id_card || ''}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'id_card')}
+            onChange={this.handleChange}
           />
         </div>
 
         <div className="form-field">
           <label>คำนำหน้า</label>
           <select name="title"
-            id=""
-            onChange={(e) => this.handleChange(e, 'title')}
+            onChange={this.handleChange}
           >
             {
               title.map((t, i) => {
@@ -114,7 +123,7 @@ class SellerForm extends React.Component {
               name="first_name"
               value={this.state.first_name || ''}
               autoComplete="off"
-              onChange={(e) => this.handleChange(e, 'first_name')}
+              onChange={this.handleChange}
             />
           </div>
 
@@ -124,7 +133,7 @@ class SellerForm extends React.Component {
               name="last_name"
               value={this.state.last_name || ''}
               autoComplete="off"
-              onChange={(e) => this.handleChange(e, 'last_name')}
+              onChange={this.handleChange}
             />
           </div>
         </div>
@@ -133,7 +142,7 @@ class SellerForm extends React.Component {
           <label htmlFor="">ที่อยู่ตามบัตรประชาชน</label>
           <textarea name="id_address"
             value={this.state.id_address}
-            onChange={(e) => this.handleChange(e, 'id_address')}
+            onChange={this.handleChange}
            />
         </div>
 
@@ -152,7 +161,7 @@ class SellerForm extends React.Component {
           <input type="checkbox" onChange={this.sameAddress} /> ใช้ที่อยู่ตามบัตรประขาขน <br />
           <textarea name="now_address"
             value={this.state.now_address}
-            onChange={(e) => this.handleChange(e, 'now_address')}
+            onChange={this.handleChange}
            />
         </div>
 
@@ -162,7 +171,7 @@ class SellerForm extends React.Component {
             name="zip_code"
             value={this.state.zip_code || ''}
             autoComplete="off"
-            onChange={(e) => this.handleChange(e, 'zip_code')}
+            onChange={this.handleChange}
           />
         </div>
 

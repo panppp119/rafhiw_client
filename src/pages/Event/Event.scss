@@ -1,0 +1,61 @@
+$desktop: 1280px;
+
+#event-page {
+  width: 100%;
+
+  @media screen and (min-width: $desktop) {
+    padding: 24px 0;
+  }
+
+  .column {
+    width: calc((100% / 2) - 16px);
+    display: inline-block;
+    padding: 8px;
+    vertical-align: top;
+
+    @media screen and (min-width: $desktop) {
+      width: calc((100% / 2) - 32px);
+      padding: 16px
+    }
+
+    .image {
+      text-align: center;
+      
+      img {
+        width: auto;
+        max-height: 500px;
+      }
+    }
+
+    h3, p {
+      margin-bottom: 16px;
+      white-space: pre-wrap;
+    }
+  }
+
+  .products {
+    width: 100%;
+
+    h3 {
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .column {
+      width: calc(100% / 2);
+
+      @media screen and (min-width: $desktop) {
+        width: calc(100% / 5);
+      }
+    }
+
+    p {
+      text-align: center;
+      color: var(--gray_light);
+      margin-top: 8px;
+
+      @media screen and (min-width: $desktop) {
+        margin-top: 16px;
+      }
+    }
+  }
+}

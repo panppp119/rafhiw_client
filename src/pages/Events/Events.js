@@ -6,6 +6,10 @@ import { EventCard } from 'components/cards'
 import './Events.scss'
 
 class Events extends React.Component {
+  componentDidMount () {
+    this.props.loadEvents()
+  }
+
   render () {
     const { events } = this.props
 
@@ -18,8 +22,8 @@ class Events extends React.Component {
                 {
                   !events.isEmpty() ? events.map((event, i) => {
                     return (
-                      <div className="column">
-                        <EventCard {...event} />
+                      <div className="column" key={i}>
+                        <EventCard event={event} />
                       </div>
                     )
                   }) : <p>ไม่มีงาน</p>
@@ -30,8 +34,8 @@ class Events extends React.Component {
                 {
                   !events.isEmpty() ? events.map((event, i) => {
                     return (
-                      <div className="column">
-                        <EventCard {...event} />
+                      <div className="column" key={i}>
+                        <EventCard event={event} />
                       </div>
                     )
                   }) : <p>ไม่มีงาน</p>

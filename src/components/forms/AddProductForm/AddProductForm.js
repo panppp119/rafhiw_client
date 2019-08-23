@@ -12,9 +12,9 @@ import 'dropzone/dist/min/dropzone.min.css';
 
 class AddProductForm extends React.Component {
   state = {
-    long_time: false,
+    long_time: 0,
     options: [{}],
-    attachments: [],
+    // attachments: [],
     addEvent: false,
     event: {}
   };
@@ -124,8 +124,8 @@ class AddProductForm extends React.Component {
     }
   }
 
-  longTime = (e, { value }) => {
-    this.setState({ long_time: value === 1 });
+  longTime = (e) => {
+    this.setState({ long_time: parseInt(e.target.value) });
   };
 
   onCenterChanged = location => {
@@ -553,13 +553,13 @@ class AddProductForm extends React.Component {
             <input type="radio"
               name="long_time"
               value={1}
-              checked={long_time}
+              checked={long_time === 1}
               onChange={this.longTime}
             /> ใช่
             <input type="radio"
               name="long_time"
               value={0}
-              checked={!long_time}
+              checked={long_time === 0}
               onChange={this.longTime}
             /> ไม่ใช่ <br />
           </div>

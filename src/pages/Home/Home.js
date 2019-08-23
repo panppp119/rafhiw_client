@@ -105,11 +105,11 @@ class Home extends React.Component {
                   {
                     !events.isEmpty() ? events.map((event, i) => {
                       return (
-                        <div className="column">
-                          <EventCard {...event} />
+                        <div className="column" key={i}>
+                          <EventCard event={event} />
                         </div>
                       )
-                    }) : <p>ไม่มีงาน</p>
+                    }) : <p className='no-item'>ไม่มีงาน</p>
                   }
                 </div>
 
@@ -117,11 +117,11 @@ class Home extends React.Component {
                   {
                     !events.isEmpty() ? events.map((event, i) => {
                       return (
-                        <div className="column">
-                          <EventCard {...event} />
+                        <div className="column" key={i}>
+                          <EventCard event={event} />
                         </div>
                       )
-                    }) : <p>ไม่มีงาน</p>
+                    }) : <p className='no-item'>ไม่มีงาน</p>
                   }
                 </div>
               </div>
@@ -135,11 +135,11 @@ class Home extends React.Component {
                   {
                     !products.isEmpty() ? products.map((product, i) => {
                       return (
-                        <div className="column">
-                          <ProductCard {...product} />
+                        <div className="column" key={i}>
+                          <ProductCard product={product} />
                         </div>
                       )
-                    }) : <p>ไม่มีสินค้า</p>
+                    }) : <p className='no-item'>ไม่มีสินค้า</p>
                   }
                 </div>
 
@@ -147,11 +147,11 @@ class Home extends React.Component {
                   {
                     !products.isEmpty() ? products.map((product, i) => {
                       return (
-                        <div className="column">
-                          <ProductCard {...product} />
+                        <div className="column" key={i}>
+                          <ProductCard product={product} />
                         </div>
                       )
-                    }) : <p>ไม่มีสินค้า</p>
+                    }) : <p className='no-item'>ไม่มีสินค้า</p>
                   }
                 </div>
               </div>

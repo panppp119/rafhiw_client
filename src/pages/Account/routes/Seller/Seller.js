@@ -1,21 +1,21 @@
 import React from 'react';
-// import { Map } from 'immutable';
+import { Map } from 'immutable';
 
 import SellerForm from 'components/forms/SellerForm';
 
 import './Seller.scss';
 
 class Seller extends React.Component {
-  // static defaultProps = {
-  //   requestSeller: Map()
-  // };
+  static defaultProps = {
+    requestSeller: Map()
+  };
 
-  // componentDidMount() {
-  //   this.props.loadRequestRole();
-  // }
+  componentDidMount() {
+    this.props.loadRequestRole();
+  }
 
   render() {
-    // const { user } = this.props;
+    const { user } = this.props;
 
     return (
       <div className="seller">
@@ -25,22 +25,18 @@ class Seller extends React.Component {
         </div>
 
         <div className="body">
-          {/* <Dimmer inverted active={user.isEmpty() && this.props.loadingUser}>
-            <Loader inverted />
-          </Dimmer> */}
-
-          {/* {this.props.requestSeller.isEmpty() ? (
+          {this.props.requestSeller.isEmpty() ? (
             <SellerForm
               user={user}
               requestRole={this.props.requestRole}
               loading={this.props.loadingRequest}
-              addAttachment={this.props.addAttachment}
-              loadingAttachment={this.props.loadingAttachment}
+              // addAttachment={this.props.addAttachment}
+              // loadingAttachment={this.props.loadingAttachment}
               {...this.props}
             />
           ) : (
             <p>รอการยืนยัน</p>
-          )} */}
+          )}
 
           <SellerForm />
         </div>

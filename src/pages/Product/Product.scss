@@ -36,6 +36,14 @@ $desktop: 1280px;
         padding-left: 16px;
       }
     }
+
+    .price {
+      color: var(--gray_light);
+    }
+
+    .discount {
+      margin-left: 8px;
+    }
   }
 
   .events, .products {
@@ -85,7 +93,7 @@ $desktop: 1280px;
     .info {
       display: inline-block;
       padding-left: 8px;
-      vertical-align: middle;
+      vertical-align: top;
 
       @media screen and (min-width: $desktop) {
         padding-left: 16px;
@@ -103,9 +111,11 @@ $desktop: 1280px;
 
   .actions {
     padding: 0 8px;
+    margin-top: 8px;
 
     @media screen and (min-width: $desktop) {
       padding: 0 16px;
+      margin-top: 16px;
     }
 
     button {
@@ -114,8 +124,19 @@ $desktop: 1280px;
     }
   }
 
-  .quantity-input span {
-    margin-left: 14px;
+  .quantity-input {
+    span {
+      margin-left: 14px;
+    }
+
+    button {
+      max-width: 40px;
+    }
+
+    input {
+      width: auto;
+      text-align: center;
+    }
   }
 
   img {

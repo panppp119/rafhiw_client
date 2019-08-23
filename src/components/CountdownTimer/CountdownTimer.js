@@ -19,19 +19,19 @@ class CountdownTimer extends React.Component {
         <div className="countdown-timer">
           <div className="unit">
             <h3>{Numeral(days).format('00')}</h3>
-            <p>วัน</p>
+            <p className='time'>วัน</p>
           </div>
           <div className="unit">
             <h3>{Numeral(hours).format('00')}</h3>
-            <p>ชั่วโมง</p>
+            <p className='time'>ชั่วโมง</p>
           </div>
           <div className="unit">
             <h3>{Numeral(minutes).format('00')}</h3>
-            <p>นาที</p>
+            <p className='time'>นาที</p>
           </div>
           <div className="unit">
             <h3>{Numeral(seconds).format('00')}</h3>
-            <p>วินาที</p>
+            <p className='time'>วินาที</p>
           </div>
         </div>
       );
@@ -41,19 +41,19 @@ class CountdownTimer extends React.Component {
         <div className="countdown-timer">
           <div className="unit">
             <h3>{Numeral(days).format('00')}</h3>
-            <p>วัน</p>
+            <p className='time'>วัน</p>
           </div>
           <div className="unit">
             <h3>{Numeral(hours).format('00')}</h3>
-            <p>ชั่วโมง</p>
+            <p className='time'>ชั่วโมง</p>
           </div>
           <div className="unit">
             <h3>{Numeral(minutes).format('00')}</h3>
-            <p>นาที</p>
+            <p className='time'>นาที</p>
           </div>
           <div className="unit">
             <h3>{Numeral(seconds).format('00')}</h3>
-            <p>วินาที</p>
+            <p className='time'>วินาที</p>
           </div>
         </div>
       );
@@ -61,10 +61,12 @@ class CountdownTimer extends React.Component {
   };
 
   render() {
+    const { item } = this.props
+    
     return (
-      this.props.item !== undefined && (
+      item !== undefined && (
         <Countdown
-          date={this.props.item.get('end_date')}
+          date={item.get('end_date')}
           renderer={this.renderer}
         />
       )

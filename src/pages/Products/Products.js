@@ -6,6 +6,10 @@ import { ProductCard } from 'components/cards'
 import './Products.scss'
 
 class Products extends React.Component {
+  componentDidMount() {
+    this.props.loadProducts();
+  }
+
   render () {
     const { products } = this.props
 
@@ -18,8 +22,8 @@ class Products extends React.Component {
                 {
                   !products.isEmpty() ? products.map((product, i) => {
                     return (
-                      <div className="column">
-                        <ProductCard {...product} />
+                      <div className="column" key={i}>
+                        <ProductCard product={product} />
                       </div>
                     )
                   }) : <p>ไม่มีสินค้า</p>
@@ -30,8 +34,8 @@ class Products extends React.Component {
                 {
                   !products.isEmpty() ? products.map((product, i) => {
                     return (
-                      <div className="column">
-                        <ProductCard {...product} />
+                      <div className="column" key={i}>
+                        <ProductCard product={product} />
                       </div>
                     )
                   }) : <p>ไม่มีสินค้า</p>

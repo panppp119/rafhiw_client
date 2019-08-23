@@ -11,9 +11,11 @@ const rootReducer = history =>
     categories: require('./categories').default,
     sub_categories: require('./sub_categories').default,
     events: require('./events').default,
+    products: require('./products').default,
     user: require('./user').default,
     addresses: require('./addresses').default,
     cards: require('./cards').default,
+    cart: require('./cart').default,
   });
 
 export default rootReducer;

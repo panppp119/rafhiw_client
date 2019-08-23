@@ -25,143 +25,143 @@ class ProductView extends React.Component {
   };
 
   componentDidMount() {
-    // const { user } = this.props;
+    const { user } = this.props;
     const id = this.props.match.params.id;
 
     this.props.loadProduct(id);
-    // !user.isEmpty() && this.props.loadCart();
+    !user.isEmpty() && this.props.loadCart();
 
     this.props.events.isEmpty() && this.props.loadEvents();
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-  //     this.props.loadCart(this.props.user.get('id'));
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
+      this.props.loadCart(this.props.user.get('id'));
+    }
+  }
 
-  // updateCartProducts(pd) {
-  //   const { cartProducts } = this.props;
-  //   const { quantity } = this.state;
-  //
-  //   var cps = cartProducts.toJS();
-  //
-  //   if (!cartProducts.isEmpty() && cartProducts.get('products')) {
-  //     var totalQuantity = cps.totalQuantity;
-  //     var pds = cps.products;
-  //     var index = pds.findIndex(
-  //       p => p.product_option_id === pd.product_option_id
-  //     );
-  //
-  //     if (index !== -1) {
-  //       pds[index] = {
-  //         quantity: quantity + pds[index].quantity,
-  //         product_option_id: pd.product_option_id,
-  //         product_id: this.props.product.get('id')
-  //       };
-  //     } else {
-  //       pds.push(pd);
-  //     }
-  //
-  //     totalQuantity += quantity;
-  //     cps = { products: pds, totalQuantity };
-  //     this.props.updateCartProducts(cps);
-  //   } else {
-  //     cps = { products: [pd], totalQuantity: quantity };
-  //
-  //     this.props.updateCartProducts(cps);
-  //   }
-  // }
+  updateCartProducts(pd) {
+    const { cartProducts } = this.props;
+    const { quantity } = this.state;
 
-  // handleClickChat = bool => {
-  //   this.setState({ showChat: bool });
-  // };
-  //
-  // addProduct = (e, { name }) => {
-  //   const {
-  //     createCart,
-  //     updateCart,
-  //     cart,
-  //     user,
-  //     product,
-  //     cartProducts
-  //   } = this.props;
-  //   const { quantity, product_option_id } = this.state;
-  //
-  //   var poId = product_option_id || product.getIn(['options', 0, 'id']);
-  //   var stock = product.getIn(['options', 0, 'stock']);
-  //
-  //   const pd = {
-  //     quantity: quantity,
-  //     product_option_id: poId,
-  //     product_id: product.get('id')
-  //   };
-  //
-  //   if (user.isEmpty() && cart.isEmpty()) {
-  //     this.updateCartProducts(pd);
-  //   } else if (cart.isEmpty() && !user.isEmpty()) {
-  //     this.updateCartProducts(pd);
-  //
-  //     createCart({
-  //       products: cartProducts.get('products') || [pd],
-  //       totalQuantity: cartProducts.get('totalQuantity') + quantity || quantity,
-  //       user_id: user.get('id')
-  //     });
-  //   } else {
-  //     var pds =
-  //       (!cartProducts.isEmpty() && cartProducts.get('products')) || List();
-  //     var index = pds && pds.findIndex(p => p.product_option_id === poId);
-  //
-  //     if (index !== -1) {
-  //       pds[index].quantity += quantity;
-  //     } else {
-  //       pds.push(pd);
-  //     }
-  //
-  //     if (index !== -1 && pds[index].quantity > stock) {
-  //       alert('ของในคลังสินค้าไม่เพียงพอ');
-  //     } else {
-  //       this.updateCartProducts(pd);
-  //
-  //       updateCart(cart.get('id'), {
-  //         products: pds || [pd],
-  //         totalQuantity:
-  //           cartProducts.get('totalQuantity') + quantity || quantity,
-  //         user_id: user.get('id')
-  //       });
-  //
-  //       if (name === 'buy') {
-  //         this.props.history.push('/cart');
-  //       }
-  //     }
-  //   }
-  // };
-  //
-  // decreaseQuantity(e, stock, id) {
-  //   const quantity = this.state.quantity - 1;
-  //
-  //   this.setState({
-  //     quantity: quantity <= 1 ? 1 : quantity,
-  //     product_option_id: id
-  //   });
-  // }
-  //
-  // increaseQuantity(e, stock, id) {
-  //   const quantity = this.state.quantity + 1;
-  //
-  //   this.setState({
-  //     quantity: quantity > stock ? stock : quantity,
-  //     product_option_id: id
-  //   });
-  // }
+    var cps = cartProducts.toJS();
 
-  handleSelectOption(e, key, id) {
+    if (!cartProducts.isEmpty() && cartProducts.get('products')) {
+      var totalQuantity = cps.totalQuantity;
+      var pds = cps.products;
+      var index = pds.findIndex(
+        p => p.product_option_id === pd.product_option_id
+      );
+
+      if (index !== -1) {
+        pds[index] = {
+          quantity: quantity + pds[index].quantity,
+          product_option_id: pd.product_option_id,
+          product_id: this.props.product.get('id')
+        };
+      } else {
+        pds.push(pd);
+      }
+
+      totalQuantity += quantity;
+      cps = { products: pds, totalQuantity };
+      this.props.updateCartProducts(cps);
+    } else {
+      cps = { products: [pd], totalQuantity: quantity };
+
+      this.props.updateCartProducts(cps);
+    }
+  }
+
+  handleClickChat = bool => {
+    this.setState({ showChat: bool });
+  };
+
+  addProduct = (e, { name }) => {
+    const {
+      createCart,
+      updateCart,
+      cart,
+      user,
+      product,
+      cartProducts
+    } = this.props;
+    const { quantity, product_option_id } = this.state;
+
+    var poId = product_option_id || product.getIn(['options', 0, 'id']);
+    var stock = product.getIn(['options', 0, 'stock']);
+
+    const pd = {
+      quantity: quantity,
+      product_option_id: poId,
+      product_id: product.get('id')
+    };
+
+    if (user.isEmpty() && cart.isEmpty()) {
+      this.updateCartProducts(pd);
+    } else if (cart.isEmpty() && !user.isEmpty()) {
+      this.updateCartProducts(pd);
+
+      createCart({
+        products: cartProducts.get('products') || [pd],
+        totalQuantity: cartProducts.get('totalQuantity') + quantity || quantity,
+        user_id: user.get('id')
+      });
+    } else {
+      var pds =
+        (!cartProducts.isEmpty() && cartProducts.get('products')) || List();
+      var index = pds && pds.findIndex(p => p.product_option_id === poId);
+
+      if (index !== -1) {
+        pds[index].quantity += quantity;
+      } else {
+        pds.push(pd);
+      }
+
+      if (index !== -1 && pds[index].quantity > stock) {
+        alert('ของในคลังสินค้าไม่เพียงพอ');
+      } else {
+        this.updateCartProducts(pd);
+
+        updateCart(cart.get('id'), {
+          products: pds || [pd],
+          totalQuantity:
+            cartProducts.get('totalQuantity') + quantity || quantity,
+          user_id: user.get('id')
+        });
+
+        if (name === 'buy') {
+          this.props.history.push('/cart');
+        }
+      }
+    }
+  };
+
+  decreaseQuantity(e, stock, id) {
+    const quantity = this.state.quantity - 1;
+
+    this.setState({
+      quantity: quantity <= 1 ? 1 : quantity,
+      product_option_id: id
+    });
+  }
+
+  increaseQuantity(e, stock, id) {
+    const quantity = this.state.quantity + 1;
+
+    this.setState({
+      quantity: quantity > stock ? stock : quantity,
+      product_option_id: id
+    });
+  }
+
+  handleSelectOption(e, key) {
     e.preventDefault();
 
     this.setState({
       option: key,
       quantity: 1,
-      product_option_id: id
+      product_option_id: e.target.name
     });
   }
 
@@ -174,19 +174,19 @@ class ProductView extends React.Component {
 
     // const sections = [
     //   {
-    //     title: product.getIn(['category', 'name_th']),
+    //     title: product.getIn(['category', 'name']),
     //     path: `/c/${product.getIn(['category', 'slug'])}`,
     //     link: true
     //   },
     //   {
-    //     title: product.getIn(['sub_category', 'name_th']),
+    //     title: product.getIn(['sub_category', 'name']),
     //     path: `/c/${product.getIn(['category', 'slug'])}/${product.getIn([
     //       'sub_category',
     //       'slug'
     //     ])}`,
     //     link: true
     //   },
-    //   { title: product.get('name_th') }
+    //   { title: product.get('name') }
     // ];
 
     const images = attachments
@@ -240,26 +240,26 @@ class ProductView extends React.Component {
                 <table>
                   <tbody>
                     <tr>
-                      <td><h3>{product.get('name_th')}</h3></td>
+                      <td><h3>{product.get('name')}</h3></td>
                       <td><CountdownTimer item={product} /></td>
                     </tr>
 
                     <tr>
                       <td><h4>หมวดหมู่สินค้า</h4></td>
                       <td>
-                        {product.getIn(['category', 'name_th'])} /{' '}
-                        {product.getIn(['sub_category', 'name_th'])}
+                        {product.getIn(['category', 'name'])} /{' '}
+                        {product.getIn(['sub_category', 'name'])}
                       </td>
                     </tr>
 
                     <tr>
                       <td><h4>ชื่องาน</h4></td>
-                      <td>{product.getIn(['event', 'name_th'])}</td>
+                      <td>{product.getIn(['event', 'name'])}</td>
                     </tr>
 
                     <tr>
                       <td><h4>รายละเอียด</h4></td>
-                      <td>{product.get('description_th')}</td>
+                      <td>{product.get('description')}</td>
                     </tr>
 
                     <tr>
@@ -282,9 +282,9 @@ class ProductView extends React.Component {
                       <td colSpan='2'>
                         {options.map((option, i) => {
                           return (
-                            <button name={option.get('id')} key={i}
-                              onClick={(e, { name }) =>
-                                this.handleSelectOption(e, i, name)
+                            <button name={option.get('id')} className='primary' key={i}
+                              onClick={(e) =>
+                                this.handleSelectOption(e, i)
                               }
                               active={this.state.option === i}
                             >
@@ -303,53 +303,53 @@ class ProductView extends React.Component {
                               <h4>ราคาสินค้า</h4>
                             </td>
                             <td>
-                              {option.get('discount_amount') !== 0 ? (
+                              {option.get('discount_amt') !== 0 ? (
                                 <Fragment>
                                   <span
-                                    className="error"
+                                    className="price"
                                     style={{ textDecoration: 'line-through' }}
                                   >
                                     <PriceConvert
-                                      price={option.get('price_amount')}
+                                      price={option.get('price_amt')}
                                     />
                                   </span>
-                                  <span>
+                                  <span className="discount">
                                     <PriceConvert
-                                      price={option.get('discount_amount')}
+                                      price={option.get('discount_amt')}
                                     />
                                   </span>
                                 </Fragment>
                               ) : (
                                 <span>
                                   <PriceConvert
-                                    price={option.get('price_amount')}
+                                    price={option.get('price_amt')}
                                   />
                                 </span>
                               )}
 
                               {/* <span>
                                 ค่าหิ้วสินค้า{' '}
-                                <PriceConvert price={option.get('hiw_amount')} />
+                                <PriceConvert price={option.get('hiw_amt')} />
                               </span>
 
                               <span>
                                 ค่าส่งสินค้า{' '}
-                                <PriceConvert price={option.get('ship_amount')} />
+                                <PriceConvert price={option.get('ship_amt')} />
                               </span> */}
                             </td>
                           </tr>
 
-                          <tr>
+                          {/* <tr>
                             <td>
                               <h4>รวมทั้งสิ้น</h4>
                             </td>
                             <td>
                               <span className="bgsale">
-                                <PriceConvert price={option.get('total')} />
+                                <PriceConvert price={option.get('discount_amt') === 0 ? option.get('price_amt') : option.get('discount_amt')} />
                               </span>
                               / 1 ชิ้น
                             </td>
-                          </tr>
+                          </tr> */}
 
                           <tr>
                             <td>
@@ -358,7 +358,8 @@ class ProductView extends React.Component {
                             <td>
                               <div className="quantity-input">
                                 <button disabled={quantity === 1}
-                                  onClick={(e, { name }) =>
+                                  className='primary'
+                                  onClick={(e) =>
                                     this.decreaseQuantity(
                                       e,
                                       option.get('stock'),
@@ -372,7 +373,8 @@ class ProductView extends React.Component {
                                 <input type="number" disabled value={quantity} />
 
                                 <button disabled={quantity === option.get('stock')}
-                                  onClick={(e, { name }) =>
+                                  className='primary'
+                                  onClick={(e) =>
                                     this.increaseQuantity(
                                       e,
                                       option.get('stock'),
@@ -396,10 +398,10 @@ class ProductView extends React.Component {
                 </table>
 
                 <div className="actions">
-                  <button onClick={this.addProduct}>
+                  <button className='primary' onClick={this.addProduct}>
                     เพิ่มไปยังรถเข็น
                   </button>
-                  <button onClick={this.addProduct}>
+                  <button className='primary' onClick={this.addProduct}>
                     ซื้อสินค้า
                   </button>
                 </div>
@@ -451,8 +453,6 @@ class ProductView extends React.Component {
                   <p>ไม่มีสินค้าใกล้เคียง</p>
                 )}
               </div>
-
-
             </div>
 
             <div className="events">

@@ -23,6 +23,28 @@ $desktop: 1280px;
     }
   }
 
+  p, h4 {
+    text-align: center;
+    color: var(--black);
+  }
+
+  span {
+    font-size: 16px;
+
+    &.price {
+      color: var(--gray_light);
+      text-decoration: overline;
+    }
+
+    &.discount {
+      padding: 0 8px;
+      background-color: var(--error);
+      color: var(--white);
+      border-radius: 5px;
+      margin-left: 8px;
+    }
+  }
+
   .countdown-timer {
     margin-top: 8px;
   }

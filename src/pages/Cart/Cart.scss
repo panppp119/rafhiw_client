@@ -52,12 +52,4 @@ $desktop: 1280px;
       color: var(--primary);
     }
   }
-
-  .payment {
-    padding: 8px;
-
-    @media screen and (min-width: $desktop) {
-      padding: 16px;
-    }
-  }
 }

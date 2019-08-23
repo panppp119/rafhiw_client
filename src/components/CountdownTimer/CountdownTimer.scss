@@ -1,21 +1,25 @@
 $desktop: 1280px;
 
 .countdown-timer {
+  text-align: center;
+  
   .unit {
     background-color: var(--primary);
     color: var(--white);
     margin-right: 4px;
-    width: 40px;
+    width: 32px;
     display: inline-block;
 
     @media screen and (min-width: $desktop) {
-      width: 55px;
+      width: 53px;
     }
   }
 
   h3 {
     font-size: 20px;
     text-align: center;
+    padding: 0 !important;
+    text-align: center !important;
 
     @media screen and (min-width: $desktop) {
       font-size: 30px;
@@ -28,6 +32,10 @@ $desktop: 1280px;
 
     @media screen and (min-width: $desktop) {
       font-size: 16px;
+    }
+
+    &.time {
+      color: var(--white) !important;
     }
   }
 }

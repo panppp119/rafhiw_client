@@ -29,6 +29,10 @@ const AsyncEvents = Loadable({
   loader: () => import('pages/Events'),
   loading: ComponentLoading
 });
+const AsyncEvent = Loadable({
+  loader: () => import('pages/Event'),
+  loading: ComponentLoading
+});
 const AsyncCategories = Loadable({
   loader: () => import('pages/Categories'),
   loading: ComponentLoading
@@ -84,6 +88,11 @@ export default ({ childProps }) =>
         <Route
           path="/events"
           component={AsyncEvents}
+          props={childProps}
+        />
+        <Route
+          path="/e/:id"
+          component={AsyncEvent}
           props={childProps}
         />
         <Route

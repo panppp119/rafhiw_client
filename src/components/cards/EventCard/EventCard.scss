@@ -22,4 +22,13 @@ $desktop: 1280px;
       height: 200px;
     }
   }
+
+  p, h4 {
+    color: var(--black);
+    text-align: center;
+
+    &.date {
+      font-size: var(--font_small);
+    }
+  }
 }

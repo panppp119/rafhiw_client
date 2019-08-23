@@ -3,15 +3,15 @@ import { Map, List } from 'immutable';
 
 import { fetchProduct, fetchProducts } from 'actions/products';
 import { fetchEvents } from 'actions/events';
-// import {
-//   fetchCart,
-//   createCart,
-//   updateCart,
-//   updateCartProducts
-// } from 'actions/cart';
+import {
+  fetchCart,
+  createCart,
+  updateCart,
+  updateCartProducts
+} from 'actions/cart';
 import productSchema from 'schemas/product';
 import eventSchema from 'schemas/event';
-// import cartSchema from 'schemas/cart';
+import cartSchema from 'schemas/cart';
 
 import Product from './Product';
 
@@ -19,8 +19,8 @@ const mapStateToProps = state => ({
   product: state.getIn(['products', 'data'], Map()),
   products: state.getIn(['products', 'collection'], List()),
   events: state.getIn(['events', 'collection'], List()),
-  // cartProducts: state.getIn(['cart', 'cartProducts'], Map()),
-  // cart: state.getIn(['cart', 'data'], Map()),
+  cartProducts: state.getIn(['cart', 'cartProducts'], Map()),
+  cart: state.getIn(['cart', 'data'], Map()),
   user: state.getIn(['user', 'data'], Map()),
   loadingProduct: state.getIn(['products', 'loading'], false)
 });
@@ -29,10 +29,10 @@ const mapDispatchToProps = {
   loadProduct: id => fetchProduct(id, productSchema),
   loadProducts: () => fetchProducts(productSchema),
   loadEvents: () => fetchEvents(eventSchema),
-  // loadCart: () => fetchCart(cartSchema),
-  // createCart: (body, cartProducts) => createCart(body, cartSchema),
-  // updateCart: (id, body) => updateCart(id, body, cartSchema),
-  // updateCartProducts: cartProducts => updateCartProducts(cartProducts)
+  loadCart: () => fetchCart(cartSchema),
+  createCart: (body, cartProducts) => createCart(body, cartSchema),
+  updateCart: (id, body) => updateCart(id, body, cartSchema),
+  updateCartProducts: cartProducts => updateCartProducts(cartProducts)
 };
 
 export default connect(

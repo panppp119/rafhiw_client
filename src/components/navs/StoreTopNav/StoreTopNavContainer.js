@@ -3,9 +3,9 @@ import { Map, List } from 'immutable';
 
 import { setTheme, setFontSize } from 'actions/ui';
 import { signout, checkSession } from 'actions/auth';
-// import { fetchCart } from 'actions/cart';
+import { fetchCart } from 'actions/cart';
 // import { fetchNotifications } from 'actions/utilities';
-// import cartSchema from 'schemas/cart';
+import cartSchema from 'schemas/cart';
 
 import StoreTopNav from './StoreTopNav';
 
@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setTheme: themeColor => setTheme(themeColor),
   setFont: age => setFontSize(age),
-  // loadCart: () => fetchCart(cartSchema),
+  loadCart: () => fetchCart(cartSchema),
   // loadNotifications: () => fetchNotifications(),
   signout: () => signout(),
   checkSession: () => checkSession()
