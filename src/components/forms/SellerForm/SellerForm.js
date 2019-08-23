@@ -63,9 +63,6 @@ class SellerForm extends React.Component {
   }
 
   render() {
-    const { first_name, last_name } = this.state;
-    const { user } = this.props;
-
     const title = [
       { key: 'mr', text: 'นาย', value: 1 },
       { key: 'ms', text: 'นาง', value: 2 },

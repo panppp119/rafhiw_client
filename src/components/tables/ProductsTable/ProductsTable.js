@@ -17,9 +17,9 @@ class ProductsTable extends React.Component {
 
   confirm = () => {
     this.setState({ show: false });
-    // this.props.deleteProduct(this.state.product_id).then(res => {
-    //   this.props.loadProducts();
-    // });
+    this.props.deleteProduct(this.state.product_id).then(res => {
+      this.props.loadProducts();
+    });
   };
 
   cancel = () => {
@@ -32,7 +32,7 @@ class ProductsTable extends React.Component {
   }
 
   render() {
-    // const { products, option, action, category } = this.props;
+    const { products, option, action, category } = this.props;
 
     return (
       <div className="products-table">
@@ -40,44 +40,61 @@ class ProductsTable extends React.Component {
           <thead>
             <tr>
               <th>สินค้า</th>
-              <th>ตัวเลือกสินค้า</th>
-              <th>หมวดหมู่</th>
-              <th>ตัวเลือก</th>
+              {option && <th>ตัวเลือกสินค้า</th>}
+              {category && <th>หมวดหมู่</th>}
+              {action && <th>ตัวเลือก</th>}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div
-                  className="image"
-                  style={{
-                    backgroundImage: `url()`
-                  }}
-                />
-                <div className="info">
-                  <Link to={`/products/`}>
-                    <h4>ชื่อสินค้า</h4>
-                  </Link>
-                </div>
-              </td>
-              <td>
-                <ul>
-                  <li>ตัวเลือก1</li>
-                  <li>ตัวเลือก2</li>
-                </ul>
-              </td>
-              <td>ประเภทสินค้า</td>
-              <td>
-                <button className='error'
-                  // onClick={() =>
-                  //   this.removeProduct(product.get('id'))
-                  //   disabled={product.get('active') === 0}
-                  // }
-                >
-                  ลบ
-                </button>
-              </td>
-            </tr>
+            {
+              !products.isEmpty() && products.map((product, i) => {
+                const options = product.get('options') || List()
+                const category = product.get('category') || Map()
+                const sub_category = product.get('sub_category') || Map()
+
+                return (
+                  <tr key={i}>
+                    <td>
+                      <div
+                        className="image"
+                        style={{
+                          backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+                        }}
+                      />
+                      <div className="info">
+                        <Link to={`/products/`}>
+                          <h4>{product.get('name')}</h4>
+                        </Link>
+                      </div>
+                    </td>
+                    {option && (
+                      <td>
+                        <ul>
+                          {
+                            options.map((opt, si) => {
+                              return <li key={i}>{opt.get('name')}</li>
+                            })
+                          }
+                        </ul>
+                      </td>
+                    )}
+                    {category && <td>{category.get('name')} / {sub_category.get('name')}</td>}
+                    {
+                      action && (
+                        <td>
+                          <button className='error'
+                            onClick={() => this.removeProduct(product.get('id'))}
+                            disabled={product.get('active') === 0}
+                          >
+                            ลบ
+                          </button>
+                        </td>
+                      )
+                    }
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
 

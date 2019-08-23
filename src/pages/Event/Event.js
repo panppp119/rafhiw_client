@@ -58,30 +58,28 @@ class Event extends React.Component {
               <h3>สินค้า</h3>
 
               <div className="mobile">
-                {!products.isEmpty() && products.length > 1 ? (
-                  products.slice(0, size)
-                    .map((product, i) => {
-                      return (
-                        <div className="column" key={i}>
-                          <ProductCard product={product} user={this.props.user} />
-                        </div>
-                      );
-                    })
+                {!products.isEmpty() ?
+                  products.slice(0, size).map((product, i) => {
+                    return (
+                      <div className="column" key={i}>
+                        <ProductCard product={product} />
+                      </div>
+                    );
+                  }
                 ) : (
                   <p>ไม่มีสินค้า</p>
                 )}
               </div>
 
               <div className="desktop">
-                {!products.isEmpty() && products.length > 1 ? (
-                  products.slice(0, size)
-                    .map((product, i) => {
-                      return (
-                        <div className="column" key={i}>
-                          <ProductCard product={product} user={this.props.user} />
-                        </div>
-                      );
-                    })
+                {!products.isEmpty() ?
+                  products.slice(0, size).map((product, i) => {
+                    return (
+                      <div className="column" key={i}>
+                        <ProductCard product={product} />
+                      </div>
+                    );
+                  }
                 ) : (
                   <p>ไม่มีสินค้า</p>
                 )}

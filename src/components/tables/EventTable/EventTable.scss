@@ -2,4 +2,28 @@ $desktop: 1280px;
 
 .event-table {
   overflow-x: hidden;
+
+  .no-item {
+    text-align: center;
+    color: var(--gray_light);
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+    background-color: var(--gray);
+  }
+
+  .info {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 8px;
+
+    @media screen and (min-width: $desktop) {
+      padding-left: 16px;
+    }
+  }
 }

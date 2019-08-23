@@ -1,9 +1,9 @@
 import React from 'react';
-// import Moment from 'moment';
 import { Link } from 'react-router-dom'
 import { Map, List } from 'immutable';
 
 import CountdownTimer from 'components/CountdownTimer';
+import DateConvert from 'components/converts/DateConvert';
 
 import './EventTable.scss';
 
@@ -17,16 +17,16 @@ class EventTable extends React.Component {
     num: 0
   };
 
-  setActive(i) {
-    if (i === this.state.num) {
-      this.setState({ num: 0, index: i });
-    } else {
-      this.setState({ num: i, index: i });
-    }
-  }
+  // setActive(i) {
+  //   if (i === this.state.num) {
+  //     this.setState({ num: 0, index: i });
+  //   } else {
+  //     this.setState({ num: i, index: i });
+  //   }
+  // }
 
   render() {
-    // const { events } = this.props;
+    const { events } = this.props;
     // const { num, index } = this.state;
 
     return (
@@ -39,28 +39,38 @@ class EventTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div
-                  className="image"
-                  style={{
-                    backgroundImage: `url()`
-                  }}
-                />
-                <div className="info">
-                  <Link to={`/events/`}>
-                    <h4>ชื่องาน</h4>
-                  </Link>
-                  <p>ชื่อสถานที่</p>
-                  <p>
-                    ระหว่างวันที{' '}
-                    {/* {Moment(event.get('start_date')).format('MM/DD/YY')}
-                    -{Moment(event.get('end_date')).format('MM/DD/YY')} */}
-                  </p>
-                </div>
-              </td>
-              <td><CountdownTimer /></td>
-            </tr>
+            {
+              !events.isEmpty() ? events.map((event, i) => {
+                return (
+                  <tr key={i}>
+                    <td>
+                      <div
+                        className="image"
+                        style={{
+                          backgroundImage: `url(${event.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+                        }}
+                      />
+                      <div className="info">
+                        <Link to={`/e/${event.get('id')}`}>
+                          <h4>{event.get('name')}</h4>
+                        </Link>
+                        <p>{event.getIn(['location', 'name'], '')}</p>
+                        <p>
+                          ระหว่างวันที{' '}
+                          <DateConvert date={event.get('start_date')} /> -{' '}
+                          <DateConvert date={event.get('end_date')} />
+                        </p>
+                      </div>
+                    </td>
+                    <td><CountdownTimer item={event} /></td>
+                  </tr>
+                )
+              }) : (
+                <tr>
+                  <td colSpan='2' className='no-item'>ไม่มีงาน</td>
+                </tr>
+              )
+            }
           </tbody>
         </table>
       </div>

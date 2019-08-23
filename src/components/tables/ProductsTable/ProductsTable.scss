@@ -7,4 +7,19 @@ $desktop: 1280px;
     display: block;
     list-style: circle;
   }
+
+  .image {
+    width: 100px;
+    height: 100px;
+    background-color: var(--gray);
+    background-size: cover;
+    background-position: center;
+    display: inline-block;
+  }
+
+  .info {
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 8px;
+  }
 }

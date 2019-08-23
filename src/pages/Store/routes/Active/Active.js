@@ -1,28 +1,29 @@
 import React from 'react';
+import { List } from 'immutable'
 
 import ProductsTable from 'components/tables/ProductsTable';
 
 import './Active.scss';
 
 class Active extends React.Component {
-  // componentDidMount() {
-  //   this.props.loadProducts({ user_id: this.props.user.get('id') });
-  // }
-  //
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-  //     this.props.loadProducts({ user_id: this.props.user.get('id') });
-  //   }
-  // }
+  componentDidMount() {
+    this.props.loadProducts({ user_id: this.props.user.get('id') });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
+      this.props.loadProducts({ user_id: this.props.user.get('id') });
+    }
+  }
 
   render() {
-    // const { products, loadProducts, deleteProduct, user } = this.props;
-    //
-    // const pds = products.filter(p => p.get('active') === 1);
+    const { products, loadProducts, deleteProduct, user } = this.props;
+
+    const pds = products.filter(p => p.get('active') === 1) || List();
 
     return (
       <div className="active">
-        {/* <ProductsTable
+        <ProductsTable
           option
           action
           category
@@ -30,8 +31,7 @@ class Active extends React.Component {
           user={user}
           loadProducts={loadProducts}
           deleteProduct={deleteProduct}
-        /> */}
-        <ProductsTable />
+        />
       </div>
     );
   }

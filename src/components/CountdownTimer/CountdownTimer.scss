@@ -2,7 +2,7 @@ $desktop: 1280px;
 
 .countdown-timer {
   text-align: center;
-  
+
   .unit {
     background-color: var(--primary);
     color: var(--white);
@@ -13,29 +13,31 @@ $desktop: 1280px;
     @media screen and (min-width: $desktop) {
       width: 53px;
     }
-  }
 
-  h3 {
-    font-size: 20px;
-    text-align: center;
-    padding: 0 !important;
-    text-align: center !important;
+    h3 {
+      font-size: 20px;
+      text-align: center;
+      padding: 0 !important;
+      text-align: center !important;
+      margin-bottom: 0 !important;
 
-    @media screen and (min-width: $desktop) {
-      font-size: 30px;
-    }
-  }
-
-  p {
-    text-align: center;
-    font-size: var(--font_small);
-
-    @media screen and (min-width: $desktop) {
-      font-size: 16px;
+      @media screen and (min-width: $desktop) {
+        font-size: 30px;
+      }
     }
 
-    &.time {
-      color: var(--white) !important;
+    p {
+      text-align: center;
+      font-size: var(--font_small);
+
+      @media screen and (min-width: $desktop) {
+        font-size: 16px;
+      }
+
+      &.time {
+        color: var(--white) !important;
+        margin: 0;
+      }
     }
   }
 }
