@@ -5,16 +5,15 @@ import Moment from 'moment';
 import { FaTrash } from 'react-icons/fa'
 
 import GMap from 'components/GMap';
+import EventForm from 'components/forms/EventForm'
 
-import './AddProductForm.scss';
-import 'react-dropzone-component/styles/filepicker.css';
-import 'dropzone/dist/min/dropzone.min.css';
+import './ProductForm.scss';
 
 class AddProductForm extends React.Component {
   state = {
     long_time: 0,
     options: [{}],
-    // attachments: [],
+    attachments: [],
     addEvent: false,
     event: {}
   };
@@ -67,7 +66,7 @@ class AddProductForm extends React.Component {
     }));
   };
 
-  handleChangeEventDate(date, name) {
+  handleChangeEventDate = (date, name) => {
     this.setState(prevState => ({
       event: { ...prevState.event, [name]: date }
     }));
@@ -155,7 +154,7 @@ class AddProductForm extends React.Component {
   };
 
   handleSubmit = e => {
-    // e.preventDefault();
+    e.preventDefault();
 
     // const attachments = this.state.attachments;
     const product = {
@@ -191,9 +190,11 @@ class AddProductForm extends React.Component {
     const { long_time, options } = this.state;
     const { categories, sub_categories, events } = this.props;
 
-    var categoryOptions = [],
-      sub_categories_options = [],
-      eventOptions = [];
+    console.log(this.state)
+
+    var categoryOptions = []
+    var sub_categories_options = []
+    var  eventOptions = [];
 
     !events.isEmpty() &&
       events.map(event =>
@@ -248,7 +249,7 @@ class AddProductForm extends React.Component {
     };
 
     return (
-      <form className="add-product-form">
+      <form className="product-form">
         <h3 className='head'>ระยะเวลารับหิ้ว</h3>
 
         <div className="form-group">
@@ -333,7 +334,7 @@ class AddProductForm extends React.Component {
               {
                 sub_categories.map((sub_category, i) => {
                   return (
-                    <option key={i} value={sub_category.get('slug')}>
+                    <option key={i} value={sub_category.get('id')}>
                       {sub_category.get('name')}
                     </option>
                   )
@@ -387,76 +388,18 @@ class AddProductForm extends React.Component {
         )}
 
         {this.state.addEvent && (
-          <div className="add-event">
-            <div className="form-field">
-              <label>ชื่องาน</label>
-              <input type="text"
-                name="name"
-                onChange={this.handleChangeEvent}
-                autoComplete="off"
-              />
-            </div>
-
-            <div className="form-field">
-              <label>รายละเอียดงาน</label>
-              <textarea name="description" onChange={this.handleChangeEvent} />
-            </div>
-
-            <div className="form-group">
-              <div className="form-field">
-                <label>เริ่มต้น</label>
-                <DatePicker
-                  selected={this.state.event.start_date}
-                  onChange={date =>
-                    this.handleChangeEventDate(date, 'start_date')
-                  }
-                  peekNextMonth
-                  showTimeSelect
-                  dropdownMode="select"
-                  dateFormat="dd/MM/yy HH:mm"
-                />
-              </div>
-
-              <div className="form-field">
-                <label>สิ้นสุด</label>
-                <DatePicker
-                  selected={
-                    this.state.event.end_date || this.state.event.start_date
-                  }
-                  onChange={date =>
-                    this.handleChangeEventDate(date, 'end_date')
-                  }
-                  peekNextMonth
-                  showTimeSelect
-                  dropdownMode="select"
-                  dateFormat="dd/MM/yy HH:mm"
-                />
-              </div>
-            </div>
-
-            <div className="form-field">
-              <DropzoneComponent
-                config={previewConfig}
-                eventHandlers={eventHandlers}
-                djsConfig={djsEventConfig}
-              />
-            </div>
-
-            <div className="form-field">
-              <label>สถานที่จัดงาน</label>
-              <GMap place onCenterChanged={this.onCenterChanged} />
-            </div>
-
-            <div className="form-field">
-              <button className='primary' onClick={this.submitEvent} >
-                เพิ่มงาน
-              </button>
-
-              <button className='error' onClick={this.addEvent}>
-                ยกเลิก
-              </button>
-            </div>
-          </div>
+          <EventForm
+            event={this.state.event}
+            previewConfig={previewConfig}
+            eventHandlers={eventHandlers}
+            djsConfig={djsConfig}
+            handleChangeEventDate={this.handleChangeEventDate}
+            handleChangeEvent={this.handleChangeEvent}
+            onCenterChanged={this.onCenterChanged}
+            submitEvent={this.submitEvent}
+            addEvent={this.addEvent}
+            {...this.props}
+          />
         )}
 
         <div className="product-options">

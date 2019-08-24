@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AddProductForm from 'components/forms/AddProductForm'
+import ProductForm from 'components/forms/ProductForm'
 
 import './AddProduct.scss';
 
@@ -8,7 +8,7 @@ class AddProduct extends React.Component {
   render() {
     return (
       <div className="add-product">
-        <AddProductForm {...this.props} />
+        <ProductForm {...this.props} />
       </div>
     );
   }

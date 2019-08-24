@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
 
 import { fetchDisabilities } from 'actions/info'
+import { fetchUser } from 'actions/user'
+import userSchema from 'schemas/user'
 import Account from './Account';
 
 const mapStateToProps = state => ({
@@ -10,7 +12,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  loadDisabilities: () => fetchDisabilities()
+  loadDisabilities: () => fetchDisabilities(),
+  loadUser: () => fetchUser(userSchema)
 };
 
 export default connect(

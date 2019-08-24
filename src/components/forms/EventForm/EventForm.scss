@@ -1,7 +1,8 @@
 $desktop: 1280px;
 
-.add-product-form {
+.event-form {
   text-align: left;
+  padding: 0;
 
   .dz-progress {
     display: none;
@@ -63,30 +64,6 @@ $desktop: 1280px;
     }
   }
 
-  .option {
-    padding: 14px;
-    border: 2px solid var(--primary);
-    border-radius: 10px;
-    margin-bottom: 14px;
-    margin-top: 7px;
-    position: relative;
-
-    .option-title {
-      margin-bottom: 7px;
-      text-transform: uppercase;
-      color: var(--primary);
-    }
-
-    svg {
-      position: absolute;
-      right: 14px;
-      top: 14px;
-      cursor: pointer;
-      margin-right: 0;
-      color: var(--error);
-    }
-  }
-
   .add-option {
     text-align: center;
     margin-bottom: 8px;
@@ -108,9 +85,5 @@ $desktop: 1280px;
 
   textarea {
     margin-top: 8px;
-  }
-
-  input[type='radio'] {
-    width: auto;
   }
 }
