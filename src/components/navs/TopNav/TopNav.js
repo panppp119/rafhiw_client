@@ -9,10 +9,8 @@ import './TopNav.scss'
 
 class TopNav extends React.Component {
   componentDidMount () {
-    if (typeof window !== 'undefined') {
-      if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
-        this.props.checkSession();
-      }
+    if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
+      this.props.checkSession();
     }
   }
 
