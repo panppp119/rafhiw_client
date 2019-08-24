@@ -23,6 +23,25 @@ class Profile extends React.Component {
     this.setState({ edit: true })
   }
 
+  upload = e => {
+    e.preventDefault()
+    const { user } = this.props
+    var attachment = { file: this.state.attachment };
+
+    this.props.upload(user.get('id'), [attachment], 'avatar').then(res => {
+      this.props.loadUser();
+      myDropzone.removeAllFiles();
+    });
+  }
+
+  addFile(file) {
+    this.setState({ attachment: file });
+  }
+
+  removeFile() {
+    this.setState({ attachment: null });
+  }
+
   render() {
     const { user, disabilities, upload, loadUser } = this.props;
 
@@ -57,6 +76,8 @@ class Profile extends React.Component {
         <div className="body">
           <div className="mobile">
             <div className="avatar">
+              <img src={user.get('image')} alt="user-avatar"/>
+              
               <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 
               <DropzoneComponent
@@ -87,6 +108,7 @@ class Profile extends React.Component {
               user={user}
               disabilities={this.props.disabilities}
               upload={this.props.upload}
+              loadUser={this.props.loadUser}
               avatar
             />
           </div>

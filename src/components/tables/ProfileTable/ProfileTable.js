@@ -22,7 +22,7 @@ class ProfileTable extends React.Component {
     const attachment = this.state.attachment;
 
     this.props
-      .upload(this.props.user.get('id'), attachment, 'user')
+      .upload(this.props.user.get('id'), attachment, 'avatar')
       .then(() => {
         this.props.loadUser();
         myDropzone.removeAllFiles();
@@ -91,6 +91,8 @@ class ProfileTable extends React.Component {
               {
                 this.props.avatar && (
                   <td rowSpan='7' className='avatar'>
+                    <img src={user.get('image')} alt="user-avatar"/>
+                    
                     <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 
                     <DropzoneComponent
