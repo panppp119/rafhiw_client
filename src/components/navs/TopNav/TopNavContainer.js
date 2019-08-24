@@ -4,8 +4,10 @@ import { Map, List } from 'immutable';
 import { setTheme, setFontSize } from 'actions/ui';
 import { signout, checkSession } from 'actions/auth';
 import { fetchCart } from 'actions/cart';
+import { fetchUser } from 'actions/user'
 // import { fetchNotifications } from 'actions/utilities';
 import cartSchema from 'schemas/cart';
+import userSchema from 'schemas/user';
 
 import TopNav from './TopNav';
 
@@ -22,6 +24,7 @@ const mapDispatchToProps = {
   setTheme: themeColor => setTheme(themeColor),
   setFont: age => setFontSize(age),
   loadCart: () => fetchCart(cartSchema),
+  loadUser: () => fetchUser(userSchema),
   // loadNotifications: () => fetchNotifications(),
   signout: () => signout(),
   checkSession: () => checkSession()

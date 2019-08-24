@@ -27,7 +27,7 @@ export const oauth = provider => (dispatch, getState) => {
         email: profile.email,
         provider,
         uid: response.user.uid,
-        image: profile.picture
+        image: profile.picture || 'https://rafhiw.com/uploads/default.png'
       };
 
       dispatch({ type: CONST.OAUTH_SUCCEEDED });

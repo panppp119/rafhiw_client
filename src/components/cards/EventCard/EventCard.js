@@ -20,7 +20,7 @@ class EventCard extends React.Component {
           style={{
             backgroundImage: `url(${event.get('image') || `https://rafhiw.com/uploads/default.png`})`
           }}
-          alt={event.get('name')}
+          aria-label={event.get('name')}
         />
 
         <div className="content">

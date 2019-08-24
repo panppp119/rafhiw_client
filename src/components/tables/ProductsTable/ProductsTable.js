@@ -60,6 +60,7 @@ class ProductsTable extends React.Component {
                         style={{
                           backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
                         }}
+                        aria-label={product.get('name')}
                       />
                       <div className="info">
                         <Link to={`/p/${product.get('id')}`}>

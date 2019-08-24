@@ -15,7 +15,6 @@ class ProductCard extends React.Component {
   render () {
     const { product } = this.props
 
-    const images = (!product.isEmpty() && product.get('images')) || List()
     const options =
       (product.get('options') &&
         product.get('options').sort((a, b) => {
@@ -31,9 +30,9 @@ class ProductCard extends React.Component {
       <Link id="product-card" to={`/p/${product.get('id')}`} as='div'>
         <div className="image"
           style={{
-            backgroundImage: `url(${images[0] || 'https://rafhiw.com/uploads/default.png'})`
+            backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
           }}
-          alt={product.get('name')}
+          aria-label={product.get('name')}
         />
 
         <div className="content">

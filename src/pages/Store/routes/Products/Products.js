@@ -11,12 +11,12 @@ class Products extends React.Component {
   };
 
   componentDidMount() {
-    this.props.loadProducts({ owner_id: this.props.user.get('id') });
+    this.props.loadProducts();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-      this.props.loadProducts({ owner_id: this.props.user.get('id') });
+      this.props.loadProducts();
     }
   }
 
