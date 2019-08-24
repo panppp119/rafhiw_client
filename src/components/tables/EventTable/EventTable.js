@@ -49,6 +49,7 @@ class EventTable extends React.Component {
                         style={{
                           backgroundImage: `url(${event.get('image') || 'https://rafhiw.com/uploads/default.png'})`
                         }}
+                        aria-label={event.get('name')}
                       />
                       <div className="info">
                         <Link to={`/e/${event.get('id')}`}>

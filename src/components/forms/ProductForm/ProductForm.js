@@ -4,7 +4,6 @@ import DropzoneComponent from 'react-dropzone-component';
 import Moment from 'moment';
 import { FaTrash } from 'react-icons/fa'
 
-import GMap from 'components/GMap';
 import EventForm from 'components/forms/EventForm'
 
 import './ProductForm.scss';
@@ -42,17 +41,7 @@ class AddProductForm extends React.Component {
     var value = e.target.value
     var name = e.target.name
 
-    if (
-      name === 'price_amt' ||
-      name === 'hiw_amt' ||
-      name === 'ship_amt' ||
-      name === 'discount_amt'
-    ) {
-      options[key][name] = value * 100;
-    } else {
-      options[key][name] = value;
-    }
-
+    options[key][name] = value;
     this.setState({ options });
   }
 
@@ -88,7 +77,7 @@ class AddProductForm extends React.Component {
     this.setState({ attachments: a });
   }
 
-  addEventFile(file) {
+  addEventFile = (file) => {
     this.setState(prevState => ({
       event: { ...prevState.event, file }
     }));
@@ -106,7 +95,7 @@ class AddProductForm extends React.Component {
     this.setState({ options: this.state.options });
   }
 
-  removeFile(file, type) {
+  removeFile = (file, type) => {
     if (type === 'event') {
       const ev = this.state.event;
       delete ev['file'];
@@ -134,8 +123,9 @@ class AddProductForm extends React.Component {
   };
 
   submitEvent = e => {
-    const { event } = this.state;
+    e.preventDefault()
 
+    const { event } = this.state;
     const ev = {
       name: event.name,
       description: event.description,
@@ -144,8 +134,8 @@ class AddProductForm extends React.Component {
       location_lng: event.location_lng,
       start_date: Moment(event.start_date).format('YYYY-MM-DD HH:mm:ss'),
       end_date: Moment(event.end_date).format('YYYY-MM-DD HH:mm:ss'),
-      user_id: this.props.user.get('id'),
-      attachments: [{ file: event.file }]
+      owner_id: this.props.user.get('id'),
+      attachment: { file: event.file }
     };
 
     this.props.createEvent(ev).then(() => {
@@ -156,41 +146,34 @@ class AddProductForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    // const attachments = this.state.attachments;
+    const attachments = this.state.attachments;
     const product = {
-      name_en: this.state.name_en,
       name: this.state.name,
-      description_en: this.state.description_en,
       description: this.state.description,
       start_date: Moment(this.state.event.start_date).format(
         'YYYY-MM-DD HH:mm:ss'
       ),
       end_date: Moment(this.state.event.end_date).format('YYYY-MM-DD HH:mm:ss'),
-      hiw_amt: this.state.hiw_amt,
-      price_amt: this.state.price_amt,
-      stock: this.state.stock,
       category_id: this.state.category_id,
       sub_category_id: this.state.sub_category_id,
       event_id: this.state.event_id,
       options: this.state.options,
-      user_id: this.props.user.get('id')
+      owner_id: this.props.user.get('id')
     };
 
     this.props.createProduct(product).then(res => {
-      // var id = (res && res.body) || 0;
-      //
-      // id !== 0 &&
-      //   this.props.createAttachment(id, attachments, 'products').then(res => {
-      //     this.props.history.push('/sell/products');
-      //   });
+      var id = (res && res.body) || 0;
+
+      id !== 0 &&
+        this.props.createAttachment(id, attachments).then(res => {
+          this.props.history.push('/sell/products');
+        });
     });
   };
 
   render() {
     const { long_time, options } = this.state;
     const { categories, sub_categories, events } = this.props;
-
-    console.log(this.state)
 
     var categoryOptions = []
     var sub_categories_options = []
@@ -232,20 +215,9 @@ class AddProductForm extends React.Component {
       uploadMultiple: true
     };
 
-    var djsEventConfig = {
-      autoProcessQueue: false,
-      addRemoveLinks: true,
-      maxFiles: 1
-    };
-
-    var eventProductHandlers = {
+    var eventHandlers = {
       addedfile: file => this.addFile(file),
       removedfile: file => this.removeFile(file, 'product')
-    };
-
-    var eventHandlers = {
-      addedfile: file => this.addEventFile(file),
-      removedfile: file => this.removeFile(file, 'event')
     };
 
     return (
@@ -282,7 +254,7 @@ class AddProductForm extends React.Component {
           <label>ภาพสินค้า</label>
           <DropzoneComponent
             config={previewConfig}
-            eventHandlers={eventProductHandlers}
+            eventHandlers={eventHandlers}
             djsConfig={djsConfig}
           />
         </div>
@@ -346,7 +318,7 @@ class AddProductForm extends React.Component {
 
         <h3>ข้อมูลงานลดราคา <span>*กรุณาเลือกจากงานที่มีอยู่แล้วก่อนทำการเพิ่มงาน</span></h3>
         <div className="form-field">
-          <select name="name"
+          <select name="event_id"
             onChange={this.handleChange}
           >
             <option default>งานลดราคา</option>
@@ -370,23 +342,6 @@ class AddProductForm extends React.Component {
           </button>
         </div>
 
-        {!events.isEmpty() && (
-          <div className="form-field">
-            <select name="event_id" onChange={this.handleChange}>
-              <option default>งาน</option>
-              {
-                eventOptions.map((eo, i) => {
-                  return (
-                    <option key={i} value={eo.value}>
-                      {eo.content}
-                    </option>
-                  )
-                })
-              }
-            </select>
-          </div>
-        )}
-
         {this.state.addEvent && (
           <EventForm
             event={this.state.event}
@@ -398,6 +353,8 @@ class AddProductForm extends React.Component {
             onCenterChanged={this.onCenterChanged}
             submitEvent={this.submitEvent}
             addEvent={this.addEvent}
+            addEventFile={this.addEventFile}
+            removeFile={this.removeFile}
             {...this.props}
           />
         )}
@@ -421,7 +378,7 @@ class AddProductForm extends React.Component {
                     <label htmlFor="">ชื่อตัวเลือก</label>
                     <input type="text"
                       name="name"
-                      value={this.state.name || ''}
+                      value={option.name || ''}
                       autoComplete="off"
                       onChange={(e) => this.handleChangeOption(e, i)}
                     />
@@ -432,7 +389,7 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">จำนวน</label>
                       <input type="number"
                         name="stock"
-                        value={this.state.stock || ''}
+                        value={option.stock || 0}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
                       />
@@ -442,7 +399,7 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">ราคาสินค้า</label>
                       <input type="number"
                         name="price_amt"
-                        value={this.state.price_amt || ''}
+                        value={option.price_amt || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
                       />
@@ -452,7 +409,7 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">ราคาลด</label>
                       <input type="number"
                         name="discount_amt"
-                        value={this.state.discount_amt || ''}
+                        value={option.discount_amt || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
                       />
@@ -462,7 +419,7 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">ค่าหิ้วต่อชิ้น</label>
                       <input type="number"
                         name="hiw_amt"
-                        value={this.state.hiw_amt || ''}
+                        value={option.hiw_amt || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
                       />
@@ -472,7 +429,7 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">ค่าส่งต่อชิ้น</label>
                       <input type="number"
                         name="ship_amt"
-                        value={this.state.ship_amt || ''}
+                        value={option.ship_amt || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
                       />

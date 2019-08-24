@@ -202,7 +202,7 @@ export const deleteProduct = (id, schema) => (dispatch, getState) => {
     });
 };
 
-export const createAttachment = (id, attachments, key, schema) => (
+export const createAttachment = (id, attachments, schema) => (
   dispatch,
   getState
 ) => {

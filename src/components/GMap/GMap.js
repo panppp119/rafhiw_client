@@ -68,7 +68,6 @@ class GMap extends React.Component {
     );
 
     autocomplete.bindTo('bounds', map);
-    autocomplete.setOptions({strictBounds: true})
 
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace();

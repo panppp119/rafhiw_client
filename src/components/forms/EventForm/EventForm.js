@@ -1,7 +1,6 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import DropzoneComponent from 'react-dropzone-component';
-import Moment from 'moment';
 
 import GMap from 'components/GMap';
 
@@ -20,6 +19,23 @@ class EventForm extends React.Component {
           value: event.get('id')
         })
       );
+
+    var previewConfig = {
+      iconFiletypes: ['.jpg', '.png'],
+      showFiletypeIcon: false,
+      postUrl: 'no-url'
+    };
+
+    var djsConfig = {
+      autoProcessQueue: false,
+      addRemoveLinks: true,
+      maxFiles: 1
+    };
+
+    var eventHandlers = {
+      addedfile: file => this.props.addEventFile(file),
+      removedfile: file => this.props.removeFile(file, 'event')
+    };
 
     return (
       <div className="add-event">
@@ -71,9 +87,9 @@ class EventForm extends React.Component {
 
         <div className="form-field">
           <DropzoneComponent
-            config={this.props.previewConfig}
-            eventHandlers={this.props.eventHandlers}
-            djsConfig={this.props.djsEventConfig}
+            config={previewConfig}
+            eventHandlers={eventHandlers}
+            djsConfig={djsConfig}
           />
         </div>
 
@@ -83,11 +99,11 @@ class EventForm extends React.Component {
         </div>
 
         <div className="form-field">
-          <button className='primary' onClick={this.submitEvent} >
+          <button className='primary' onClick={this.props.submitEvent} >
             เพิ่มงาน
           </button>
 
-          <button className='error' onClick={this.addEvent}>
+          <button className='error' onClick={this.props.addEvent}>
             ยกเลิก
           </button>
         </div>
