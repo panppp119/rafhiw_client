@@ -4,13 +4,15 @@ import request from 'utils/request';
 import { addFlashMessage } from './ui';
 
 export const updateCartProducts = cartProducts => (dispatch, getState) => {
-  localStorage.setItem(
-    'cartProducts',
-    JSON.stringify({
-      products: cartProducts.products,
-      totalQuantity: cartProducts.totalQuantity
-    })
-  );
+  if (typeof window !== 'undefined') {
+    localStorage.setItem(
+      'cartProducts',
+      JSON.stringify({
+        products: cartProducts.products,
+        totalQuantity: cartProducts.totalQuantity
+      })
+    );
+  }
 
   const response = cartProducts;
 
@@ -38,13 +40,15 @@ export const fetchCart = schema => (dispatch, getState) => {
         schema
       });
 
-      localStorage.setItem(
-        'cartProducts',
-        JSON.stringify({
-          products: response.body.products,
-          totalQuantity: response.body.total_quantity
-        })
-      );
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(
+          'cartProducts',
+          JSON.stringify({
+            products: response.body.products,
+            totalQuantity: response.body.total_quantity
+          })
+        );
+      }
 
       dispatch(
         updateCartProducts({

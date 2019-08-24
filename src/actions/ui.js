@@ -13,7 +13,9 @@ export const removeFlashMessage = () => (dispatch, getState) => {
 };
 
 export const setTheme = themeColor => dispatch => {
-  localStorage.setItem('theme', themeColor);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('theme', themeColor);
+  }
 
   dispatch({
     type: CONST.UPDATE_THEME,
@@ -35,7 +37,9 @@ export const setFontSize = age => dispatch => {
     ageClass = 'age-third';
   }
 
-  localStorage.setItem('font', ageClass);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('font', ageClass);
+  }
 
   dispatch({ type: CONST.UPDATE_FONT_SIZE, ageClass });
 };

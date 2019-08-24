@@ -5,7 +5,7 @@ import { ADD_FLASH_MESSAGE } from 'constants/ui';
 import { SIGN_OUT_SUCCEEDED } from 'constants/auth';
 
 const initialState = fromJS({
-  cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || fromJS([])
+  cartProducts: typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('cartProducts')) : fromJS([])
 });
 
 const cartReducer = (
@@ -42,7 +42,7 @@ const cartReducer = (
       return state.set('loading', false);
 
     case SIGN_OUT_SUCCEEDED:
-      localStorage.removeItem('cartProducts');
+      typeof window !== 'undefined' && localStorage.removeItem('cartProducts');
 
       return state.set('data', fromJS({})).set('cartProducts', fromJS([]));
 

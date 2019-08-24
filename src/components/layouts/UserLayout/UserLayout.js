@@ -25,8 +25,10 @@ class UserLayout extends React.Component {
     const hour = Moment().hour();
     const min = Moment().minute();
 
-    (hour < 8 || (hour > 18 && min > 30)) &&
-      (localStorage.getItem('changeTheme') === null && this.show());
+    if (typeof window !== 'undefined') {
+      (hour < 8 || (hour > 18 && min > 30)) &&
+        (localStorage.getItem('changeTheme') === null && this.show());
+    }
   }
 
   show = () => this.setState({ show: true });
@@ -38,7 +40,11 @@ class UserLayout extends React.Component {
     this.props.setTheme(
       hour < 8 || (hour > 18 && min > 30) ? 'theme-dark' : 'theme-orange'
     );
-    localStorage.setItem('changeTheme', true);
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('changeTheme', true);
+    }
+
     this.setState({ show: false });
   };
 
