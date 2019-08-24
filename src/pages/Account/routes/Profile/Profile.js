@@ -43,7 +43,8 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { user, disabilities, upload, loadUser } = this.props;
+    const { user } = this.props;
+    // const { user, disabilities, upload, loadUser } = this.props;
 
     var previewConfig = {
       iconFiletypes: ['.jpg', '.png'],
@@ -77,7 +78,7 @@ class Profile extends React.Component {
           <div className="mobile">
             <div className="avatar">
               <img src={user.get('image')} alt="user-avatar"/>
-              
+
               <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 
               <DropzoneComponent
