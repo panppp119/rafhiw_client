@@ -144,35 +144,12 @@ export const checkSession = () => (dispatch, getState) => {
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
-    authen.provider !== 'email' ? auth.onAuthStateChanged(user => {
-      if (user === null) {
-        if (
-          pathname !== '/products' &&
-          pathname !== '/' &&
-          pathname !== '/events' &&
-          pathname !== '/cart' &&
-          pathname !== '/sign_in' &&
-          pathname !== '/register'
-        ) {
-          dispatch(signout());
-        }
-      }
-      else {
+    authen.provider !== 'email' && auth.onAuthStateChanged(user => {
+      if (user !== null) {
         dispatch(fetchUser(userSchema));
       }
-    }) : dispatch(fetchUser(userSchema));
+    })
   } else {
     dispatch({ type: CONST.CHECK_SESSION });
-
-    if (
-      pathname !== '/products' &&
-      pathname !== '/' &&
-      pathname !== '/events' &&
-      pathname !== '/cart' &&
-      pathname !== '/sign_in' &&
-      pathname !== '/register'
-    ) {
-      dispatch(signout());
-    }
   }
 };

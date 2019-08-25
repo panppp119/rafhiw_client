@@ -173,8 +173,8 @@ class Product extends React.Component {
     const { product, events, products } = this.props;
     const { quantity } = this.state;
 
-    const options = product.get('options') || List();
-    const attachments = product.get('images') || List();
+    const options = !product.isEmpty() && product.get('options') || List();
+    const attachments = !product.isEmpty() && product.get('images') || List();
 
     // const sections = [
     //   {
