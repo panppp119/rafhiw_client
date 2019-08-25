@@ -35,8 +35,7 @@ class Cart extends React.Component {
     const {
       cart,
       user,
-      removeProduct,
-      updateCart,
+      removeProduct
     } = this.props;
 
     const cartProducts = cart.get('products') || List();
@@ -45,21 +44,22 @@ class Cart extends React.Component {
     const index = cartProducts
       .findIndex(product => product.get('product_option_id') === option_id);
 
-    var cpId, qt;
+    var cpId, qt, totalQt = 0;
 
     if (index >= 0) {
-      cpId = cartProducts.toJS()[index].id;
-      qt = cartProducts.get(index).get('quantity');
+      cpId = cartProducts.getIn([index, 'id']);
+      qt = cartProducts.getIn([index, 'quantity']) || 0;
+
+      cartProducts.map(p => {
+        return totalQt += p.quantity
+      })
     }
 
     if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
-      const totalQt = cart.get('total_qt') || 0
-      const quantity = totalQt - qt < 0 ? 0 : totalQt - qt;
-
-      removeProduct(cart.get('id'), { user_id: user.get('id'), cp_id: cpId });
-      updateCart(cart.get('id'), {
-        totalQuantity: quantity,
-        user_id: user.get('id')
+      removeProduct(cart.get('id'), {
+        user_id: user.get('id'),
+        cp_id: cpId,
+        cart_qt: totalQt - qt
       });
     }
   };
@@ -72,77 +72,81 @@ class Cart extends React.Component {
       removeProduct,
     } = this.props;
 
+    console.log(111)
+
     const cps = cart.get('products') || List();
-    const option_id = e.target.name;
+    const option_id = parseInt(e.target.name);
+    const index = cps.findIndex(cp => cp.getIn(['option', 'id']) === option_id)
+    const cp = cps.get(index)
+    const totalQt = cart.get('total_qt') || 0
+    const qt = 1
+    var quantity = cp.get('quantity')
+    var pds = []
 
-    cps.toJS().forEach((cp, i) => {
-      if (cp.option.id === option_id) {
-        cp.quantity--;
+    quantity--
 
-        var pds = [],
-          qt = 1;
-
-        if (cp.quantity < 1) {
-          if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
-            removeProduct(cart.get('id'), {
-              user_id: user.get('id'),
-              cp_id: cp.id
-            });
-
-            updateCart(cart.get('id'), {
-              totalQuantity: cart.get('total_qt') - qt,
-              user_id: user.get('id')
-            });
-          }
-        } else {
-          pds.push({
-            product_option_id: cp.option.id,
-            quantity: cp.quantity
-          });
-
-          updateCart(cart.get('id'), {
-            products: pds,
-            totalQuantity:
-              cart.get('total_qt') === 1
-                ? 1
-                : cart.get('total_qt') - qt,
-            user_id: user.get('id')
-          });
-        }
+    if (quantity < 0) {
+      if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
+        removeProduct(cart.get('id'), {
+          user_id: user.get('id'),
+          cp_id: cp.get('id'),
+          cart_qt: totalQt - qt
+        });
       }
-    });
+    }
+    else {
+      pds.push({
+        product_id: cp.get('product_id'),
+        product_option_id: option_id,
+        quantity: 1
+      });
+
+      updateCart(cart.get('id'), {
+        products: pds,
+        cart_qt: totalQt,
+        quantity: -quantity,
+        user_id: user.get('id')
+      });
+    }
   };
 
   increaseQuantity = (e) => {
     const { cart, user, updateCart } = this.props;
+    console.log(222)
 
-    const cartProducts = cart.get('products') || List();
-    const option_id = e.target.name;
+    const cps = cart.get('products') || List();
+    const option_id = parseInt(e.target.name);
+    const index = cps.findIndex(cp => cp.getIn(['option', 'id']) === option_id)
+    const cp = cps.get(index)
+    const stock = cp.getIn(['product', 'stock'])
+    const totalQt = cp.get('total_qt')
+    const qt = 1
+    var quantity = cp.get('quantity')
+    var pds = []
 
-    var pds = [],
-      qt = 1;
+    if (quantity > stock) {
+      quantity = stock
 
-    cartProducts.toJS().forEach(cp => {
-      if (cp.option.id === option_id) {
-        cp.quantity++;
+      updateCart(cart.get('id'), {
+        cart_qt: totalQt,
+        quantity: qt,
+        user_id: user.get('id')
+      });
+    }
+    else {
+      pds.push({
+        product_id: cp.get('product_id'),
+        product_option_id: option_id,
+        quantity: qt
+      });
 
-        if (cp.quantity > cp.option.stock) {
-          cp.quantity = cp.stock;
-          qt = 0;
-        } else {
-          pds.push({
-            product_option_id: cp.option.id,
-            quantity: cp.quantity
-          });
-
-          updateCart(cart.get('id'), {
-            products: pds,
-            totalQuantity: cart.get('total_qt') + qt,
-            user_id: user.get('id')
-          });
-        }
-      }
-    });
+      updateCart(cart.get('id'), {
+        products: pds,
+        cart_qt: cart.get('total_qt') || 0,
+        quantity: qt,
+        user_id: user.get('id')
+      });
+    }
   };
 
   checkout(e, pause, total) {

@@ -96,6 +96,7 @@ class SellerForm extends React.Component {
           <input type="text"
             name="id_card"
             value={this.state.id_card || ''}
+            maxLength={13}
             autoComplete="off"
             onChange={this.handleChange}
           />

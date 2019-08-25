@@ -82,8 +82,6 @@ export const updateCart = (id, cartProducts, schema) => (
   const url = `/${type}`;
   const accessToken = getState().getIn(['auth', 'access_token']) || '';
 
-  console.log(id, cartProducts)
-
   dispatch({ type: CONST.UPDATE_CART, schema });
 
   const req = request.put(url);

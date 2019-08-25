@@ -53,7 +53,6 @@ class Product extends React.Component {
       product
     } = this.props;
     const { quantity, product_option_id } = this.state;
-    const products = cart.get('products') || List()
 
     var poId = product_option_id || product.getIn(['options', 0, 'id']);
     var stock = product.getIn(['options', 0, 'stock']);
@@ -71,30 +70,25 @@ class Product extends React.Component {
       console.log(2)
       createCart({
         products: cart.get('products') || [pd],
-        totalQuantity: cart.get('total_qt') + quantity || quantity,
         user_id: user.get('id')
       });
     } else {
-      console.log(3, cart.toJS())
       var pds = cart.get('products') || List()
       var index = pds.findIndex(pd => pd.get('product_option_id') === poId)
 
       if (index !== -1) {
         pds.getIn([index, 'quantity'], pdQt => pdQt + quantity)
-        console.log('3-1')
 
         if (pds.getIn([index, 'quantity']) > stock) {
           alert('ของในคลังสินค้าไม่เพียงพอ');
-          console.log('3-1-1')
         }
         else {
           const name = e.target.name
 
-          console.log('3-1-2')
           updateCart(cart.get('id'), {
             products: pds.size > 0 ? pds : [pd],
-            totalQuantity:
-              cart.get('totalQuantity') + quantity || quantity,
+            cart_qt: cart.get('total_qt') || 0,
+            quantity: quantity || 0,
             user_id: user.get('id')
           }).then(() => {
             if (name === 'buy') {
@@ -104,40 +98,15 @@ class Product extends React.Component {
         }
       }
       else {
-        console.log('3-2')
         pds.push(pd)
 
         updateCart(cart.get('id'), {
           products: pds.size > 0 ? pds : [pd],
-          totalQuantity:
-            cart.get('totalQuantity') + quantity || quantity,
+          cart_qt: cart.get('total_qt') || 0,
+          quantity: quantity || 0,
           user_id: user.get('id')
         });
       }
-      // var pds =
-      //   (!cartProducts.isEmpty() && cartProducts.get('products')) || List();
-      // var index = pds && pds.findIndex(p => p.product_option_id === poId);
-      //
-      // if (index !== -1) {
-      //   pds[index].quantity += quantity;
-      // } else {
-      //   pds.push(pd);
-      // }
-      //
-      // if (index !== -1 && pds[index].quantity > stock) {
-      //   alert('ของในคลังสินค้าไม่เพียงพอ');
-      // } else {
-      //   updateCart(cart.get('id'), {
-      //     products: pds.length > 0 ? pds : [pd],
-      //     totalQuantity:
-      //       cartProducts.get('totalQuantity') + quantity || quantity,
-      //     user_id: user.get('id')
-      //   });
-      //
-      //   if (name === 'buy') {
-      //     this.props.history.push('/cart');
-      //   }
-      // }
     }
   };
 

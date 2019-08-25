@@ -1,9 +1,7 @@
 import * as CONST from 'constants/orders';
 import { CREATE_ATTACHMENT, CREATE_ATTACHMENT_SUCCEEDED } from 'constants/attachments'
 import request from 'utils/request';
-// import attachmentSchema from 'schemas/attachment';
 
-// import { createAttachment } from './attachments';
 import { addFlashMessage } from './ui';
 
 export const fetchOrder = (id, schema) => (dispatch, getState) => {
