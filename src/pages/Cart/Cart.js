@@ -40,11 +40,10 @@ class Cart extends React.Component {
     } = this.props;
 
     const cartProducts = cart.get('products') || List();
-    const option_id = e.target.name;
+    const option_id = parseInt(e.target.name);
 
     const index = cartProducts
-      .toJS()
-      .findIndex(product => product.product_option_id === option_id);
+      .findIndex(product => product.get('product_option_id') === option_id);
 
     var cpId, qt;
 

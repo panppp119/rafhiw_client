@@ -53,7 +53,6 @@ class Product extends React.Component {
       product
     } = this.props;
     const { quantity, product_option_id } = this.state;
-    const name = e.target.name
     const products = cart.get('products') || List()
 
     var poId = product_option_id || product.getIn(['options', 0, 'id']);
@@ -90,7 +89,9 @@ class Product extends React.Component {
           console.log('3-1-1')
         }
         else {
-          console.log('3-1-2')
+          const name = e.target.name
+
+          console.log('3-1-2', name)
           updateCart(cart.get('id'), {
             products: products.size > 0 ? products : [pd],
             totalQuantity:
@@ -105,7 +106,14 @@ class Product extends React.Component {
       }
       else {
         console.log('3-2')
-        // products.push(pd)
+        products.push(pd)
+
+        updateCart(cart.get('id'), {
+          products: products.size > 0 ? products : [pd],
+          totalQuantity:
+            cart.get('totalQuantity') + quantity || quantity,
+          user_id: user.get('id')
+        });
       }
       // var pds =
       //   (!cartProducts.isEmpty() && cartProducts.get('products')) || List();
