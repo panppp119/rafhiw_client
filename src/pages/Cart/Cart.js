@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Moment from 'moment';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import { Link } from 'react-router-dom';
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa'
 
@@ -16,11 +16,7 @@ class Cart extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.user.get('id')) {
-      this.props.cart.isEmpty() && this.props.loadCart();
-    } else {
-      this.props.loadCart();
-    }
+    this.props.loadCart();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +37,6 @@ class Cart extends React.Component {
       user,
       removeProduct,
       updateCart,
-      updateCartProducts
     } = this.props;
 
     const cartProducts = cart.get('products') || List();
@@ -60,19 +55,15 @@ class Cart extends React.Component {
 
     if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
       const quantity =
-        cart.get('total_quantity') - qt < 0
+        cart.get('total_qt') - qt < 0
           ? 0
-          : cart.get('total_quantity') - qt;
-
-      const products = cartProducts.splice(1, index);
+          : cart.get('total_qt') - qt;
 
       removeProduct(cart.get('id'), { user_id: user.get('id'), cp_id: cpId });
       updateCart(cart.get('id'), {
         totalQuantity: quantity,
         user_id: user.get('id')
       });
-
-      updateCartProducts({ products: products, totalQuantity: quantity });
     }
   };
 
@@ -82,7 +73,6 @@ class Cart extends React.Component {
       user,
       updateCart,
       removeProduct,
-      updateCartProducts
     } = this.props;
 
     const cps = cart.get('products') || List();
@@ -103,12 +93,8 @@ class Cart extends React.Component {
             });
 
             updateCart(cart.get('id'), {
-              totalQuantity: cart.get('total_quantity') - qt,
+              totalQuantity: cart.get('total_qt') - qt,
               user_id: user.get('id')
-            });
-
-            updateCartProducts({
-              totalQuantity: cart.get('total_quantity') - qt
             });
           }
         } else {
@@ -120,9 +106,9 @@ class Cart extends React.Component {
           updateCart(cart.get('id'), {
             products: pds,
             totalQuantity:
-              cart.get('total_quantity') === 1
+              cart.get('total_qt') === 1
                 ? 1
-                : cart.get('total_quantity') - qt,
+                : cart.get('total_qt') - qt,
             user_id: user.get('id')
           });
         }
@@ -154,7 +140,7 @@ class Cart extends React.Component {
 
           updateCart(cart.get('id'), {
             products: pds,
-            totalQuantity: cart.get('total_quantity') + qt,
+            totalQuantity: cart.get('total_qt') + qt,
             user_id: user.get('id')
           });
         }
@@ -170,7 +156,7 @@ class Cart extends React.Component {
     const data = {
       ...cart,
       user_id: this.props.user.get('id'),
-      total_amount: parseInt(total)
+      total_amt: parseInt(total)
     };
 
     if (pause) {
@@ -189,9 +175,9 @@ class Cart extends React.Component {
     const { cart } = this.props;
 
     var total = 0;
-    var hiw_amount = 0;
-    var ship_amount = 0;
-    var price_amount = 0;
+    var hiw_amt = 0;
+    var ship_amt = 0;
+    var price_amt = 0;
 
     const cartProducts = cart.get('products') || List();
 
@@ -222,23 +208,23 @@ class Cart extends React.Component {
                   {!cartProducts.isEmpty() ? (
                     cartProducts.map((cp, i) => {
                       var product = cp.get('product') || Map();
-                      var name_th = product.get('name_th');
+                      var name = product.get('name');
                       var quantity = cp.get('quantity');
                       var option = cp.get('option') || Map();
                       var price =
-                        option.get('discount_amount') === 0
-                          ? option.get('price_amount')
-                          : option.get('discount_amount');
+                        option.get('discount_amt') === 0
+                          ? option.get('price_amt')
+                          : option.get('discount_amt');
                       var sub_total = price * quantity;
                       var outofdate = Moment(product.get('end_date')).isBefore(
                         Moment()
                       );
 
                       total += outofdate ? 0 : sub_total;
-                      hiw_amount = outofdate ? 0 : option.get('hiw_amount');
-                      ship_amount = outofdate ? 0 : option.get('ship_amount');
+                      hiw_amt = outofdate ? 0 : option.get('hiw_amt');
+                      ship_amt = outofdate ? 0 : option.get('ship_amt');
 
-                      price_amount = total;
+                      price_amt = total;
 
                       return (
                         <tr key={i}
@@ -249,7 +235,7 @@ class Cart extends React.Component {
                           <td>
                             <img
                               src={cp.getIn(['attachments', 0, 'image'])}
-                              alt={product.get('name_th') + option.get('name')}
+                              alt={name + option.get('name')}
                             />
                             <span>
                               {outofdate ? (
@@ -260,13 +246,13 @@ class Cart extends React.Component {
                                       marginRight: 7
                                     }}
                                   >
-                                    {name_th} ({option.get('name')})
+                                    {name} ({option.get('name')})
                                   </span>
                                   <span className="error">หมดเวลา</span>
                                 </Fragment>
                               ) : (
                                 <Link to={`/products/${product.get('id')}`}>
-                                  {name_th} ({option.get('name')})
+                                  {name} ({option.get('name')})
                                 </Link>
                               )}
                             </span>
@@ -279,6 +265,7 @@ class Cart extends React.Component {
                           <td>
                             <div className="quantity-input">
                               <button
+                                className='primary'
                                 name={option.get('id')}
                                 disabled={outofdate}
                                 onClick={this.decreaseQuantity}
@@ -289,6 +276,7 @@ class Cart extends React.Component {
                               <input type="number" disabled value={quantity} />
 
                               <button
+                                className='primary'
                                 name={option.get('id')}
                                 disabled={
                                   quantity === option.get('stock') || outofdate
@@ -306,6 +294,7 @@ class Cart extends React.Component {
 
                           <td>
                             <button
+                              className='error'
                               name={option.get('id')}
                               onClick={this.removeProduct}
                             >
@@ -327,30 +316,30 @@ class Cart extends React.Component {
                 <div className="price">
                   <span>ราคารวมสินค้า</span>
                   <h4>
-                    <PriceConvert price={price_amount} />
+                    <PriceConvert price={price_amt} />
                   </h4>
                 </div>
 
                 <div className="hiw">
                   <span>ค่าบริการหิ้ว</span>
                   <h4>
-                    <PriceConvert price={hiw_amount} />
+                    <PriceConvert price={hiw_amt} />
                   </h4>
                 </div>
 
                 <div className="shipment">
                   <span>ค่าบริการจัดส่ง</span>
                   <h4>
-                    <PriceConvert price={ship_amount} />
+                    <PriceConvert price={ship_amt} />
                   </h4>
                 </div>
 
                 <div className="total">
                   <span>
-                    รวมสินค้าทั้งหมด ({cart.get('total_quantity')} ชิ้น)
+                    รวมสินค้าทั้งหมด ({cart.get('total_qt')} ชิ้น)
                   </span>
                   <h3>
-                    <PriceConvert price={total + hiw_amount + ship_amount} />
+                    <PriceConvert price={total + hiw_amt + ship_amt} />
                   </h3>
                 </div>
               </div>

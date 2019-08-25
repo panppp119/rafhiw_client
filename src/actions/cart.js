@@ -3,20 +3,6 @@ import request from 'utils/request';
 
 import { addFlashMessage } from './ui';
 
-export const updateCartProducts = cartProducts => (dispatch, getState) => {
-  localStorage.setItem(
-    'cartProducts',
-    JSON.stringify({
-      products: cartProducts.products,
-      totalQuantity: cartProducts.totalQuantity
-    })
-  );
-
-  const response = cartProducts;
-
-  dispatch({ type: CONST.UPDATE_CART_PRODUCTS, response });
-};
-
 export const fetchCart = schema => (dispatch, getState) => {
   const type = schema._key;
   const url = `/${type}`;
@@ -37,21 +23,6 @@ export const fetchCart = schema => (dispatch, getState) => {
         response,
         schema
       });
-
-      localStorage.setItem(
-        'cartProducts',
-        JSON.stringify({
-          products: response.body.products,
-          totalQuantity: response.body.total_quantity
-        })
-      );
-
-      dispatch(
-        updateCartProducts({
-          products: response.body.products,
-          totalQuantity: response.body.total_quantity
-        })
-      );
 
       return response;
     })
@@ -129,7 +100,6 @@ export const updateCart = (id, cartProducts, schema) => (
         response,
         schema
       });
-      dispatch(updateCartProducts(cartProducts));
 
       return response;
     })

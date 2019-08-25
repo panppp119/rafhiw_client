@@ -145,7 +145,7 @@ export default ({ childProps }) =>
           component={AsyncStore}
           props={childProps}
         />
-        <Route
+        <PrivateRoute
           path="/cart"
           component={AsyncCart}
           props={childProps}

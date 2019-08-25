@@ -15,15 +15,27 @@ $desktop: 1280px;
       margin-bottom: 16px;
     }
 
-    th {
-      background-color: var(--gray);
-      color: var(--white);
-    }
-
     td {
       p.no-item {
         text-align: center;
         color: var(--gray_light);
+      }
+
+      span {
+        margin-left: 8px;
+      }
+    }
+
+    .quantity-input {
+      button {
+        width: 40px;
+        display: inline-block;
+      }
+
+      input {
+        width: auto;
+        margin: 0 8px;
+        text-align: center;
       }
     }
   }

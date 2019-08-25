@@ -32,10 +32,10 @@ class TopNav extends React.Component {
 
   render () {
     const { location, user } = this.props
-    const { cartProducts } = this.props;
+    const { cart } = this.props;
 
     const roles = user.get('roles') || List()
-    const totalQuantity = cartProducts.get('totalQuantity') || 0;
+    const totalQuantity = cart.get('total_qt') || 0;
 
     return (
       <div id="top-nav">
