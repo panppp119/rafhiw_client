@@ -1,4 +1,5 @@
 import React from 'react'
+import { List } from 'immutable'
 
 import UserLayout from 'components/layouts/UserLayout'
 import { ProductCard } from 'components/cards'
@@ -13,7 +14,9 @@ class SubCategories extends React.Component {
   }
 
   render () {
-    const { products } = this.props
+    const { subCategory } = this.props
+
+    const products = subCategory.get('products') || List()
 
     return (
       <UserLayout>
@@ -25,7 +28,7 @@ class SubCategories extends React.Component {
                   !products.isEmpty() ? products.map((pd, i) => {
                     return (
                       <div className="column" key={i}>
-                        <ProductCard {...pd} />
+                        <ProductCard product={pd} />
                       </div>
                     )
                   }) : <p>ไม่มีสินค้า</p>
@@ -37,7 +40,7 @@ class SubCategories extends React.Component {
                   !products.isEmpty() ? products.map((pd, i) => {
                     return (
                       <div className="column" key={i}>
-                        <ProductCard {...pd} />
+                        <ProductCard product={pd} />
                       </div>
                     )
                   }) : <p>ไม่มีสินค้า</p>
