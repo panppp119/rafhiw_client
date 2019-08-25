@@ -31,7 +31,7 @@ class Cart extends React.Component {
     this.setState({ payment: name });
   };
 
-  removeProduct = (e, { name }) => {
+  removeProduct = (e) => {
     const {
       cart,
       user,
@@ -40,7 +40,7 @@ class Cart extends React.Component {
     } = this.props;
 
     const cartProducts = cart.get('products') || List();
-    const option_id = name;
+    const option_id = e.target.name;
 
     const index = cartProducts
       .toJS()
@@ -67,7 +67,7 @@ class Cart extends React.Component {
     }
   };
 
-  decreaseQuantity = (e, { name }) => {
+  decreaseQuantity = (e) => {
     const {
       cart,
       user,
@@ -76,7 +76,7 @@ class Cart extends React.Component {
     } = this.props;
 
     const cps = cart.get('products') || List();
-    const option_id = name;
+    const option_id = e.target.name;
 
     cps.toJS().forEach((cp, i) => {
       if (cp.option.id === option_id) {
@@ -116,11 +116,11 @@ class Cart extends React.Component {
     });
   };
 
-  increaseQuantity = (e, { name }) => {
+  increaseQuantity = (e) => {
     const { cart, user, updateCart } = this.props;
 
     const cartProducts = cart.get('products') || List();
-    const option_id = name;
+    const option_id = e.target.name;
 
     var pds = [],
       qt = 1;

@@ -2,7 +2,6 @@ $desktop: 1280px;
 
 #product-card {
   width: 100%;
-  padding: 8px;
   text-decoration: none;
 
   &:visited {
@@ -26,6 +25,16 @@ $desktop: 1280px;
   p, h4 {
     text-align: center;
     color: var(--black);
+
+    &.price {
+      margin: 0 !important;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    padding: 8px;
+    display: block;
   }
 
   span {
@@ -34,6 +43,7 @@ $desktop: 1280px;
     &.price {
       color: var(--gray_light);
       text-decoration: overline;
+      margin: 0;
     }
 
     &.discount {
@@ -46,6 +56,6 @@ $desktop: 1280px;
   }
 
   .countdown-timer {
-    margin-top: 8px;
+    margin: 8px 0;
   }
 }

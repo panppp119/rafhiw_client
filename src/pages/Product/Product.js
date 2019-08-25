@@ -169,23 +169,6 @@ class Product extends React.Component {
     const options = (!product.isEmpty() && product.get('options')) || List();
     const attachments = (!product.isEmpty() && product.get('images')) || List();
 
-    // const sections = [
-    //   {
-    //     title: product.getIn(['category', 'name']),
-    //     path: `/c/${product.getIn(['category', 'slug'])}`,
-    //     link: true
-    //   },
-    //   {
-    //     title: product.getIn(['sub_category', 'name']),
-    //     path: `/c/${product.getIn(['category', 'slug'])}/${product.getIn([
-    //       'sub_category',
-    //       'slug'
-    //     ])}`,
-    //     link: true
-    //   },
-    //   { title: product.get('name') }
-    // ];
-
     const images = attachments
       .map(attachment => ({
         original: attachment.get('image'),
@@ -196,7 +179,6 @@ class Product extends React.Component {
     return (
       <UserLayout>
         <div id="product-page">
-          {/* <Breadcrumbs sections={sections} /> */}
           <div className="container">
             <div className="product">
               <div className="column">
@@ -378,7 +360,7 @@ class Product extends React.Component {
                   <button className='primary' onClick={this.addProduct}>
                     เพิ่มไปยังรถเข็น
                   </button>
-                  <button className='primary' onClick={this.addProduct}>
+                  <button name='buy' className='primary' onClick={this.addProduct}>
                     ซื้อสินค้า
                   </button>
                 </div>

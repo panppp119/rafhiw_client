@@ -27,7 +27,8 @@ class ProductCard extends React.Component {
       List();
 
     return (
-      <Link id="product-card" to={`/p/${product.get('id')}`} as='div'>
+      <div id="product-card">
+        <Link to={`/p/${product.get('id')}`}>
         <div className="image"
           style={{
             backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
@@ -58,7 +59,8 @@ class ProductCard extends React.Component {
             )}
           </p>
         </div>
-      </Link>
+        </Link>
+      </div>
     )
   }
 }

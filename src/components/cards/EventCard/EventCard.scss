@@ -24,11 +24,18 @@ $desktop: 1280px;
   }
 
   p, h4 {
-    color: var(--black);
+    color: var(--primary);
     text-align: center;
 
     &.date {
       font-size: var(--font_small);
+      margin-top: 0 !important;
+      color: var(--gray_light) !important;
+    }
+
+    &.location {
+      margin-top: 0 !important;
+      color: var(--black) !important;
     }
   }
 }

@@ -13,6 +13,7 @@ class EventCard extends React.Component {
 
   render () {
     const { event } = this.props
+    const location = event.get('location') || Map()
 
     return (
       <Link id="event-card" to={`/e/${event.get('id')}`} as='div'>
@@ -25,7 +26,7 @@ class EventCard extends React.Component {
 
         <div className="content">
           <h4 className="name">{event.get('name')}</h4>
-          <p>{event.get('location_name')}</p>
+          <p className='location'>{location.get('name')}</p>
           <p className="date">
             <DateConvert date={event.get('start_date')} /> -{' '}
             <DateConvert date={event.get('end_date')} />
