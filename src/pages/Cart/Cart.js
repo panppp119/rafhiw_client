@@ -53,10 +53,8 @@ class Cart extends React.Component {
     }
 
     if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
-      const quantity =
-        cart.get('total_qt') - qt < 0
-          ? 0
-          : cart.get('total_qt') - qt;
+      const totalQt = cart.get('total_qt') || 0
+      const quantity = totalQt - qt < 0 ? 0 : totalQt - qt;
 
       removeProduct(cart.get('id'), { user_id: user.get('id'), cp_id: cpId });
       updateCart(cart.get('id'), {

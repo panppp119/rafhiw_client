@@ -76,40 +76,39 @@ class Product extends React.Component {
       });
     } else {
       console.log(3, cart.toJS())
+      var pds = cart.get('products') || List()
+      var index = pds.findIndex(pd => pd.get('product_option_id') === poId)
 
-      if (products.findIndex(pd => pd.get('product_option_id') === poId) !== -1) {
-        var index = products.findIndex(pd => pd.get('product_option_id') === poId)
-        var productQt = products.getIn([index, 'quantity']) || 0
+      if (index !== -1) {
+        pds.getIn([index, 'quantity'], pdQt => pdQt + quantity)
+        console.log('3-1')
 
-        productQt += quantity
-        console.log('3-1', productQt)
-
-        if (productQt > stock) {
+        if (pds.getIn([index, 'quantity']) > stock) {
           alert('ของในคลังสินค้าไม่เพียงพอ');
           console.log('3-1-1')
         }
         else {
           const name = e.target.name
 
-          console.log('3-1-2', name)
+          console.log('3-1-2')
           updateCart(cart.get('id'), {
-            products: products.size > 0 ? products : [pd],
+            products: pds.size > 0 ? pds : [pd],
             totalQuantity:
               cart.get('totalQuantity') + quantity || quantity,
             user_id: user.get('id')
+          }).then(() => {
+            if (name === 'buy') {
+              this.props.history.push('/cart');
+            }
           });
-
-          if (name === 'buy') {
-            this.props.history.push('/cart');
-          }
         }
       }
       else {
         console.log('3-2')
-        products.push(pd)
+        pds.push(pd)
 
         updateCart(cart.get('id'), {
-          products: products.size > 0 ? products : [pd],
+          products: pds.size > 0 ? pds : [pd],
           totalQuantity:
             cart.get('totalQuantity') + quantity || quantity,
           user_id: user.get('id')
