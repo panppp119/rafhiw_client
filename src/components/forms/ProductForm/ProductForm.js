@@ -150,10 +150,10 @@ class AddProductForm extends React.Component {
     const product = {
       name: this.state.name,
       description: this.state.description,
-      start_date: Moment(this.state.event.start_date).format(
+      start_date: Moment(this.state.start_date).format(
         'YYYY-MM-DD HH:mm:ss'
       ),
-      end_date: Moment(this.state.event.end_date).format('YYYY-MM-DD HH:mm:ss'),
+      end_date: Moment(this.state.end_date).format('YYYY-MM-DD HH:mm:ss'),
       category_id: this.state.category_id,
       sub_category_id: this.state.sub_category_id,
       event_id: this.state.event_id,
@@ -166,7 +166,7 @@ class AddProductForm extends React.Component {
 
       id !== 0 &&
         this.props.createAttachment(id, attachments).then(res => {
-          this.props.history.push('/sell/products');
+          this.props.history.push('/store/products');
         });
     });
   };

@@ -139,7 +139,7 @@ export const signout = () => (dispatch, getState) => {
 
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(localStorage.getItem('auth'));
-  const pathname = getState().getIn(['router', 'location', 'pathname'], '');
+  // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
 
   if (authen && authen.token !== null) {
     dispatch({ type: CONST.CHECK_SESSION, auth: authen });

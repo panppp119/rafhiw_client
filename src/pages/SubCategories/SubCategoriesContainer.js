@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { List, Map } from 'immutable'
+import { Map } from 'immutable'
 
 import { fetchSubCategory } from 'actions/sub_categories';
 import subCategorySchema from 'schemas/sub_category'

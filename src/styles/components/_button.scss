@@ -22,4 +22,10 @@ button {
       background-color: var(--error_dark);
     }
   }
+
+  &.option {
+    background-color: white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
 }

@@ -173,8 +173,8 @@ class Product extends React.Component {
     const { product, events, products } = this.props;
     const { quantity } = this.state;
 
-    const options = !product.isEmpty() && product.get('options') || List();
-    const attachments = !product.isEmpty() && product.get('images') || List();
+    const options = (!product.isEmpty() && product.get('options')) || List();
+    const attachments = (!product.isEmpty() && product.get('images')) || List();
 
     // const sections = [
     //   {
@@ -272,25 +272,27 @@ class Product extends React.Component {
                         <a
                           href={`https://maps.google.com/?q=${product.getIn([
                             'event',
-                            'location_lat'
-                          ])},${product.getIn(['event', 'location_lng'])}`}
+                            'location',
+                            'lat'
+                          ])},${product.getIn(['event', 'location', 'lng'])}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {product.getIn(['event', 'location_name'])}
+                          {product.getIn(['event', 'location', 'name'], '')}
                         </a>
                       </td>
                     </tr>
 
                     <tr>
-                      <td colSpan='2'>
+                      <td colSpan='2' className='option'>
                         {options.map((option, i) => {
                           return (
-                            <button name={option.get('id')} className='primary' key={i}
+                            <button name={option.get('id')}
+                              className={this.state.option === i ? 'primary' : 'option'}
+                              key={i}
                               onClick={(e) =>
                                 this.handleSelectOption(e, i)
                               }
-                              active={this.state.option === i}
                             >
                               {option.get('name')}
                             </button>
@@ -330,30 +332,8 @@ class Product extends React.Component {
                                   />
                                 </span>
                               )}
-
-                              {/* <span>
-                                ค่าหิ้วสินค้า{' '}
-                                <PriceConvert price={option.get('hiw_amt')} />
-                              </span>
-
-                              <span>
-                                ค่าส่งสินค้า{' '}
-                                <PriceConvert price={option.get('ship_amt')} />
-                              </span> */}
                             </td>
                           </tr>
-
-                          {/* <tr>
-                            <td>
-                              <h4>รวมทั้งสิ้น</h4>
-                            </td>
-                            <td>
-                              <span className="bgsale">
-                                <PriceConvert price={option.get('discount_amt') === 0 ? option.get('price_amt') : option.get('discount_amt')} />
-                              </span>
-                              / 1 ชิ้น
-                            </td>
-                          </tr> */}
 
                           <tr>
                             <td>

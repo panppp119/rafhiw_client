@@ -35,6 +35,15 @@ $desktop: 1280px;
       @media screen and (min-width: $desktop) {
         padding-left: 16px;
       }
+
+      .option button {
+        width: auto;
+        margin-right: 8px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
 
     .price {
