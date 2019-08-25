@@ -140,10 +140,9 @@ export const signout = () => (dispatch, getState) => {
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(localStorage.getItem('auth'));
   // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
+  dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
   if (authen && authen.token !== null) {
-    dispatch({ type: CONST.CHECK_SESSION, auth: authen });
-
     authen.provider !== 'email' && auth.onAuthStateChanged(user => {
       if (user !== null) {
         dispatch(fetchUser(userSchema));

@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
@@ -65,6 +65,26 @@ const AsyncCart = Loadable({
 const history = createBrowserHistory();
 const store = configStore(history);
 
+function PrivateRoute ({ component: Component, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        JSON.parse(localStorage.getItem('auth')) !== null ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/sign_in",
+              state: { from: props.location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+
 export default ({ childProps }) =>
   <Provider store={store}>
     <ConnectedRouter history={history}>
@@ -115,12 +135,12 @@ export default ({ childProps }) =>
           component={AsyncProduct}
           props={childProps}
         />
-        <Route
+        <PrivateRoute
           path="/account"
           component={AsyncAccount}
           props={childProps}
         />
-        <Route
+        <PrivateRoute
           path="/store"
           component={AsyncStore}
           props={childProps}
