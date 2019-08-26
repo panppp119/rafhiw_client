@@ -28,4 +28,10 @@ button {
     color: var(--primary);
     border: 1px solid var(--primary);
   }
+
+  &:disabled {
+    background-color: var(--gray_light) !important;
+    color: var(--white) !important;
+    cursor: default;
+  }
 }
