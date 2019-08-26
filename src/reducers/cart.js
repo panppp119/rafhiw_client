@@ -27,9 +27,6 @@ const cartReducer = (
     case CONST.DELETE_CART_SUCCEEDED:
       return state.set('data', fromJS({})).set('loading', false);
 
-    case CONST.UPDATE_CART_PRODUCTS:
-      return state.set('cartProducts', fromJS(response))
-
     case ADD_FLASH_MESSAGE:
       return state.set('loading', false);
 

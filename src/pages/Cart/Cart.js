@@ -64,7 +64,7 @@ class Cart extends React.Component {
     }
   };
 
-  decreaseQuantity = (e) => {
+  decreaseQuantity (option_id) {
     const {
       cart,
       user,
@@ -73,17 +73,22 @@ class Cart extends React.Component {
     } = this.props;
 
     const cps = cart.get('products') || List();
-    const option_id = parseInt(e.target.name);
     const index = cps.findIndex(cp => cp.getIn(['option', 'id']) === option_id)
     const cp = cps.get(index)
     const totalQt = cart.get('total_qt') || 0
     const qt = 1
     var quantity = cp.get('quantity')
-    var pds = []
+    var pd = {}
 
     quantity--
 
-    if (quantity < 0) {
+    pd = {
+      product_id: cp.get('product_id'),
+      product_option_id: option_id,
+      quantity: qt
+    };
+
+    if (quantity <= 0) {
       if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
         removeProduct(cart.get('id'), {
           user_id: user.get('id'),
@@ -93,14 +98,8 @@ class Cart extends React.Component {
       }
     }
     else {
-      pds.push({
-        product_id: cp.get('product_id'),
-        product_option_id: option_id,
-        quantity: 1
-      });
-
       updateCart(cart.get('id'), {
-        products: pds,
+        product: pd,
         cart_qt: totalQt,
         quantity: -qt,
         user_id: user.get('id')
@@ -108,39 +107,39 @@ class Cart extends React.Component {
     }
   };
 
-  increaseQuantity = (e) => {
+  increaseQuantity (option_id) {
     const { cart, user, updateCart } = this.props;
 
     const cps = cart.get('products') || List();
-    const option_id = parseInt(e.target.name);
     const index = cps.findIndex(cp => cp.getIn(['option', 'id']) === option_id)
     const cp = cps.get(index)
     const stock = cp.getIn(['product', 'stock'])
     const totalQt = cp.get('total_qt')
     const qt = 1
     var quantity = cp.get('quantity')
-    var pds = []
+    var pd = {}
 
     quantity++
+
+    pd = {
+      product_id: cp.get('product_id'),
+      product_option_id: option_id,
+      quantity: qt
+    };
 
     if (quantity > stock) {
       quantity = stock
 
       updateCart(cart.get('id'), {
+        product: pd,
         cart_qt: totalQt,
         quantity: qt,
         user_id: user.get('id')
       });
     }
     else {
-      pds.push({
-        product_id: cp.get('product_id'),
-        product_option_id: option_id,
-        quantity: qt
-      });
-
       updateCart(cart.get('id'), {
-        products: pds,
+        product: pd,
         cart_qt: cart.get('total_qt') || 0,
         quantity: qt,
         user_id: user.get('id')
@@ -190,8 +189,6 @@ class Cart extends React.Component {
       <UserLayout>
         <div id="cart-page">
           <div className='container'>
-            {/* <div className="address" /> */}
-
             <div className="cart-products">
               <table>
                 <thead>
@@ -251,7 +248,7 @@ class Cart extends React.Component {
                                   <span className="error">หมดเวลา</span>
                                 </Fragment>
                               ) : (
-                                <Link to={`/products/${product.get('id')}`}>
+                                <Link to={`/p/${product.get('id')}`}>
                                   {name} ({option.get('name')})
                                 </Link>
                               )}
@@ -266,9 +263,8 @@ class Cart extends React.Component {
                             <div className="quantity-input">
                               <button
                                 className='primary'
-                                name={option.get('id')}
                                 disabled={outofdate}
-                                onClick={this.decreaseQuantity}
+                                onClick={() => this.decreaseQuantity(option.get('id'))}
                               >
                                 <FaMinus />
                               </button>
@@ -281,7 +277,7 @@ class Cart extends React.Component {
                                 disabled={
                                   quantity === option.get('stock') || outofdate
                                 }
-                                onClick={this.increaseQuantity}
+                                onClick={() => this.increaseQuantity(option.get('id'))}
                               >
                                 <FaPlus />
                               </button>

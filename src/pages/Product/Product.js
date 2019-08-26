@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import ImageGallery from 'react-image-gallery';
-// import Numeral from 'numeral';
 import { List } from 'immutable';
 import { FaPlus, FaMinus } from 'react-icons/fa'
 
 // import UserMessage from 'components/messages/UserMessage';
-// import Breadcrumbs from 'components/Breadcrumbs';
 import CountdownTimer from 'components/CountdownTimer';
 import PriceConvert from 'components/converts/PriceConvert';
 import EventCard from 'components/cards/EventCard';
@@ -65,9 +63,7 @@ class Product extends React.Component {
 
     if (user.isEmpty()) {
       this.props.history.push('/sign_in')
-      console.log(1)
     } else if (cart.isEmpty()) {
-      console.log(2)
       createCart({
         products: cart.get('products') || [pd],
         user_id: user.get('id')
@@ -86,7 +82,7 @@ class Product extends React.Component {
           const name = e.target.name
 
           updateCart(cart.get('id'), {
-            products: pds.size > 0 ? pds : [pd],
+            product: pd,
             cart_qt: cart.get('total_qt') || 0,
             quantity: quantity || 0,
             user_id: user.get('id')
@@ -98,10 +94,8 @@ class Product extends React.Component {
         }
       }
       else {
-        pds.push(pd)
-
         updateCart(cart.get('id'), {
-          products: pds.size > 0 ? pds : [pd],
+          product: pd,
           cart_qt: cart.get('total_qt') || 0,
           quantity: quantity || 0,
           user_id: user.get('id')
