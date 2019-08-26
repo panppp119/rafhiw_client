@@ -61,6 +61,10 @@ const AsyncCart = Loadable({
   loader: () => import('pages/Cart'),
   loading: ComponentLoading
 });
+const AsyncCheckout = Loadable({
+  loader: () => import('pages/Checkout'),
+  loading: ComponentLoading
+});
 
 const history = createBrowserHistory();
 const store = configStore(history);
@@ -148,6 +152,11 @@ export default ({ childProps }) =>
         <PrivateRoute
           path="/cart"
           component={AsyncCart}
+          props={childProps}
+        />
+        <PrivateRoute
+          path="/checkout"
+          component={AsyncCheckout}
           props={childProps}
         />
 

@@ -150,6 +150,8 @@ class Cart extends React.Component {
   checkout(e, pause, total) {
     e.preventDefault();
 
+    console.log(123)
+
     const cart = this.props.cart.toJS();
 
     const data = {
@@ -158,9 +160,13 @@ class Cart extends React.Component {
       total_amt: parseInt(total)
     };
 
+    console.log(data)
+
     if (pause) {
+      console.log(1)
       alert('ไม่สามารถทำการสั่งซื้อได้เนื่องจากมีบางรายการหมดเวลาแล้ว');
     } else {
+      console.log(2)
       this.setState({ checkout: true });
 
       this.props.createOrder(data).then(() => {
@@ -213,13 +219,15 @@ class Cart extends React.Component {
                           ? option.get('price_amt')
                           : option.get('discount_amt');
                       var sub_total = price * quantity;
+                      var total_hiw = option.get('hiw_amt') * quantity
+                      var total_ship = option.get('ship_amt') * quantity
                       var outofdate = Moment(product.get('end_date')).isBefore(
                         Moment()
                       );
 
                       total += outofdate ? 0 : sub_total;
-                      hiw_amt = outofdate ? 0 : option.get('hiw_amt');
-                      ship_amt = outofdate ? 0 : option.get('ship_amt');
+                      hiw_amt += outofdate ? 0 : total_hiw;
+                      ship_amt += outofdate ? 0 : total_ship;
 
                       price_amt = total;
 
@@ -332,7 +340,7 @@ class Cart extends React.Component {
 
                 <div className="total">
                   <span>
-                    รวมสินค้าทั้งหมด ({cart.get('total_qt')} ชิ้น)
+                    ราคารวมทั้งหมด (สินค้า {cart.get('total_qt')} ชิ้น)
                   </span>
                   <h3>
                     <PriceConvert price={total + hiw_amt + ship_amt} />
@@ -344,7 +352,7 @@ class Cart extends React.Component {
             <div className="payment">
               <button className='primary'
                 disabled={cartProducts.size === 0 || pause}
-                onClick={e => this.checkout(e, pause, total)}
+                onClick={e => this.checkout(e, pause, total + hiw_amt + ship_amt)}
               >
                 สั่งซื้อสินค้า
               </button>
