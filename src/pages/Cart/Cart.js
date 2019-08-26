@@ -46,21 +46,21 @@ class Cart extends React.Component {
 
     var cpId, qt, totalQt = 0;
 
-    if (index >= 0) {
+    cartProducts.map(p => {
+      return totalQt += p.get('quantity')
+    })
+
+    if (index !== -1) {
       cpId = cartProducts.getIn([index, 'id']);
       qt = cartProducts.getIn([index, 'quantity']) || 0;
 
-      cartProducts.map(p => {
-        return totalQt += p.quantity
-      })
-    }
-
-    if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
-      removeProduct(cart.get('id'), {
-        user_id: user.get('id'),
-        cp_id: cpId,
-        cart_qt: totalQt - qt
-      });
+      if (window.confirm('ยืนยันที่จะลบสินค้านี้ใช่หรือไม่?')) {
+        removeProduct(cart.get('id'), {
+          user_id: user.get('id'),
+          cp_id: cpId,
+          cart_qt: totalQt - qt
+        });
+      }
     }
   };
 
@@ -71,8 +71,6 @@ class Cart extends React.Component {
       updateCart,
       removeProduct,
     } = this.props;
-
-    console.log(111)
 
     const cps = cart.get('products') || List();
     const option_id = parseInt(e.target.name);
@@ -104,7 +102,7 @@ class Cart extends React.Component {
       updateCart(cart.get('id'), {
         products: pds,
         cart_qt: totalQt,
-        quantity: -quantity,
+        quantity: -qt,
         user_id: user.get('id')
       });
     }
@@ -112,7 +110,6 @@ class Cart extends React.Component {
 
   increaseQuantity = (e) => {
     const { cart, user, updateCart } = this.props;
-    console.log(222)
 
     const cps = cart.get('products') || List();
     const option_id = parseInt(e.target.name);
@@ -123,6 +120,8 @@ class Cart extends React.Component {
     const qt = 1
     var quantity = cp.get('quantity')
     var pds = []
+
+    quantity++
 
     if (quantity > stock) {
       quantity = stock
