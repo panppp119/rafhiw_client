@@ -16,23 +16,25 @@ class EventCard extends React.Component {
     const location = event.get('location') || Map()
 
     return (
-      <Link id="event-card" to={`/e/${event.get('id')}`} as='div'>
-        <div className="image"
-          style={{
-            backgroundImage: `url(${event.get('image') || `https://rafhiw.com/uploads/default.png`})`
-          }}
-          aria-label={event.get('name')}
-        />
+      <div id="event-card">
+        <Link to={`/e/${event.get('id')}`}>
+          <div className="image"
+            style={{
+              backgroundImage: `url(${event.get('image') || `https://rafhiw.com/uploads/default.png`})`
+            }}
+            aria-label={event.get('name')}
+          />
 
-        <div className="content">
-          <h4 className="name">{event.get('name')}</h4>
-          <p className='location'>{location.get('name')}</p>
-          <p className="date">
-            <DateConvert date={event.get('start_date')} /> -{' '}
-            <DateConvert date={event.get('end_date')} />
-          </p>
-        </div>
-      </Link>
+          <div className="content">
+            <h4 className="name">{event.get('name')}</h4>
+            <p className='location'>{location.get('name')}</p>
+            <p className="date">
+              <DateConvert date={event.get('start_date')} /> -{' '}
+              <DateConvert date={event.get('end_date')} />
+            </p>
+          </div>
+        </Link>
+      </div>
     )
   }
 }

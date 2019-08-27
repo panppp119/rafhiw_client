@@ -185,7 +185,7 @@ class Product extends React.Component {
                 </div>
               </div>
 
-              <div className="column">
+              <div className="column product-detail">
                 <table>
                   <tbody>
                     <tr>

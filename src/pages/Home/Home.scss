@@ -135,6 +135,10 @@ $desktop: 1280px;
   .events, .products {
     width: 100%;
 
+    .column {
+      display: inline-block;
+    }
+
     h3 {
       text-align: left;
       padding: 8px;

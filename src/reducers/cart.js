@@ -4,9 +4,7 @@ import * as CONST from 'constants/cart';
 import { ADD_FLASH_MESSAGE } from 'constants/ui';
 import { SIGN_OUT_SUCCEEDED } from 'constants/auth';
 
-const initialState = fromJS({
-  cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || fromJS({})
-});
+const initialState = fromJS({});
 
 const cartReducer = (
   state = initialState,

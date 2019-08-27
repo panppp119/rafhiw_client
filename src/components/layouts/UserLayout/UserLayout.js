@@ -5,6 +5,7 @@ import Classnames from 'classnames';
 
 import FlashMessage from 'components/FlashMessage';
 import { TopNav, BottomNav } from 'components/navs'
+import ReactGA from 'utils/configGA'
 
 import './UserLayout.scss'
 
@@ -20,7 +21,7 @@ class UserLayout extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0);
 
-    // ReactGA.ga('send', 'pageview', window.location.pathname);
+    ReactGA.ga('send', 'pageview', window.location.pathname);
 
     const hour = Moment().hour();
     const min = Moment().minute();
@@ -31,15 +32,20 @@ class UserLayout extends React.Component {
 
   show = () => this.setState({ show: true });
 
-  confirm = () => {
+  confirm () {
     const hour = Moment().hour();
     const min = Moment().minute();
 
-    this.props.setTheme(
-      hour < 8 || (hour > 18 && min > 30) ? 'theme-dark' : 'theme-orange'
-    );
+    if (window.confirm('ระบบมีการปรับเปลี่ยนโหมดการเแสดงผลให้อัตโนมัติ ต้องการที่จะเปลี่ยนหรือไม่?')) {
+      this.props.setTheme(
+        hour < 8 || (hour > 18 && min > 30) ? 'theme-dark' : 'theme-orange'
+      );
+      localStorage.setItem('changeTheme', true);
+    }
+    else {
+      localStorage.setItem('changeTheme', false);
+    }
 
-    localStorage.setItem('changeTheme', true);
     this.setState({ show: false });
   };
 
@@ -67,6 +73,8 @@ class UserLayout extends React.Component {
 
           {this.props.children}
         </div>
+
+        {this.state.show && this.confirm()}
 
         <div className="mobile">
           <BottomNav />

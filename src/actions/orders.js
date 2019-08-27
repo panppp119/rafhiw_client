@@ -299,12 +299,11 @@ export const updateOrderId = (id, schema) => (dispatch, getState) => {
   dispatch({ type: CONST.UPDATE_ORDER_ID, value: id });
 };
 
-export const createAttachment = (id, attachments, key, schema) => (
+export const createAttachment = (id, attachments, schema) => (
   dispatch,
   getState
 ) => {
-  const type = schema._key;
-  const url = `/${type}/attachments`;
+  const url = `/invoices/attachments`;
 
   dispatch({ type: CREATE_ATTACHMENT, schema });
 

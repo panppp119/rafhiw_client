@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
-import { fetchOrder, cancelOrder, createTransfer } from 'actions/orders';
+import { fetchOrder, cancelOrder, createAttachment } from 'actions/orders';
 import orderSchema from 'schemas/order';
 
 import Checkout from './Checkout';
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   loadOrder: id => fetchOrder(id, orderSchema),
   cancelOrder: id => cancelOrder(id, orderSchema),
-  createTransfer: (id, data, key) => createTransfer(id, data, key, orderSchema)
+  createTransfer: (id, data) => createAttachment(id, data)
 };
 
 export default connect(

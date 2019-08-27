@@ -16,6 +16,7 @@ const rootReducer = history =>
     addresses: require('./addresses').default,
     cards: require('./cards').default,
     cart: require('./cart').default,
+    orders: require('./orders').default,
   });
 
 export default rootReducer;

@@ -15,11 +15,11 @@ $desktop: 1280px;
     background-position: center;
     display: inline-block;
     background-color: var(--gray);
+    vertical-align: middle !important;
   }
 
   .info {
     display: inline-block;
-    vertical-align: top;
     padding-left: 8px;
 
     @media screen and (min-width: $desktop) {

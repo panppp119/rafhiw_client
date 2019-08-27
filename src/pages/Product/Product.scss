@@ -15,9 +15,14 @@ $desktop: 1280px;
     .column {
       width: 100%;
       display: inline-block;
+      vertical-align: top;
 
       @media screen and (min-width: $desktop) {
         width: calc(100% / 2);
+      }
+
+      &.product-detail{
+        vertical-align: top;
       }
     }
 

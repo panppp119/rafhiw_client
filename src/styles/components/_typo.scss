@@ -43,3 +43,90 @@ h4, li, a {
 h5 {
   font-size: var(--small_size);
 }
+
+.age-first {
+  font-size: 16px !important;
+
+  .ui.header {
+    font-size: 20px !important;
+  }
+
+  .other {
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    color: #181818 !important;
+  }
+  .othertoright {
+    font-size: 28px !important;
+    @media screen and (max-width: 767px) {
+      float: right !important;
+    }
+  }
+
+  h4,
+  label,
+  p,
+  th,
+  td,
+  .rating {
+    font-size: 16px !important;
+  }
+}
+
+.age-second {
+  font-size: 24px !important;
+
+  .ui.header {
+    font-size: 26px !important;
+  }
+
+  .other {
+    font-size: 24px !important;
+    font-weight: 300 !important;
+    color: #181818 !important;
+  }
+  .othertoright {
+    font-size: 28px !important;
+    @media screen and (max-width: 767px) {
+      float: right !important;
+    }
+  }
+
+  h4,
+  label,
+  p,
+  th,
+  td,
+  .rating {
+    font-size: 21px !important;
+  }
+}
+
+.age-third {
+  font-size: 34px !important;
+
+  .ui.header {
+    font-size: 36px !important;
+  }
+
+  .other {
+    font-size: 34px !important;
+    font-weight: 300 !important;
+    color: #181818 !important;
+  }
+  .othertoright {
+    font-size: 34px !important;
+    @media screen and (max-width: 767px) {
+      float: right !important;
+    }
+  }
+
+  h4,
+  label,
+  p,
+  th,
+  td,
+  .rating {
+    font-size: 34px !important;
+  }
+}

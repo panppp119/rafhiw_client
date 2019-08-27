@@ -27,10 +27,19 @@ $desktop: 1280px;
       }
     }
 
-    h3, p {
+    p {
       margin-bottom: 16px;
       white-space: pre-wrap;
+
+      &.date {
+        font-size: var(--font_small) !important;
+        color: var(--gray_light) !important;
+      }
     }
+  }
+
+  .event-detail {
+    vertical-align: top;
   }
 
   .products {

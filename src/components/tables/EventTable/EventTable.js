@@ -17,17 +17,8 @@ class EventTable extends React.Component {
     num: 0
   };
 
-  // setActive(i) {
-  //   if (i === this.state.num) {
-  //     this.setState({ num: 0, index: i });
-  //   } else {
-  //     this.setState({ num: i, index: i });
-  //   }
-  // }
-
   render() {
     const { events } = this.props;
-    // const { num, index } = this.state;
 
     return (
       <div className="event-table">

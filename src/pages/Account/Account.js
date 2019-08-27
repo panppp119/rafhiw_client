@@ -5,7 +5,7 @@ import { FaUser, FaWallet, FaStore, FaMapMarkedAlt, FaStar, FaHistory } from 're
 
 import UserLayout from 'components/layouts/UserLayout'
 
-import { Profile, Wallet, Addresses, Seller, History, Reviews } from './routes'
+import { Profile, Wallet, Addresses, Seller, Orders, Reviews } from './routes'
 
 import './Account.scss'
 
@@ -32,7 +32,7 @@ class Account extends React.Component {
                     </li>
                   ) : null
                 }
-                <li><Link to='/account/history'><FaStar /></Link></li>
+                <li><Link to='/account/orders'><FaStar /></Link></li>
                 <li><Link to='/account/reviews'><FaHistory /></Link></li>
               </ul>
             </div>
@@ -48,7 +48,7 @@ class Account extends React.Component {
                     </li>
                   ) : null
                 }
-                <li><Link to='/account/history'>การซื้อของฉัน</Link></li>
+                <li><Link to='/account/orders'>การซื้อของฉัน</Link></li>
                 <li><Link to='/account/reviews'>รีวิว</Link></li>
               </ul>
             </div>
@@ -73,8 +73,8 @@ class Account extends React.Component {
                   render={() => <Seller {...this.props} />}
                 />
                 <Route
-                  path="/account/history"
-                  render={() => <History {...this.props} />}
+                  path="/account/orders"
+                  render={() => <Orders {...this.props} />}
                 />
                 <Route
                   path="/account/reviews"

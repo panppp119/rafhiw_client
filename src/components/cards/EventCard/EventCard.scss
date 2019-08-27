@@ -2,11 +2,15 @@ $desktop: 1280px;
 
 #event-card {
   width: 100%;
-  padding: 8px;
-  text-decoration: none;
 
-  &:visited {
-    color: var(--black);
+  a {
+    padding: 8px;
+    text-decoration: none;
+    display: block;
+
+    &:visited {
+      color: var(--black);
+    }
   }
 
   .image {

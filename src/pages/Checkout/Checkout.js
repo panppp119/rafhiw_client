@@ -28,14 +28,14 @@ class Checkout extends React.Component {
 
   createTransfer = e => {
     e.preventDefault()
-    
+
     const { attachment } = this.state;
 
     if (attachment !== null && attachment.length > 0) {
       this.props
-        .createTransfer(this.props.id, attachment, 'orders')
+        .createTransfer(this.props.id, attachment)
         .then(() => {
-          this.props.history.push('/account/history');
+          this.props.history.push('/account/orders');
         });
     } else {
       alert('ไม่สามารถอัปโหลดได้เนื่องจากยังไม่ได้เลือกหลักฐานการชำระสินค้า');
@@ -68,7 +68,7 @@ class Checkout extends React.Component {
 
     return (
       <UserLayout title="Rafhiw | Cart" main tab>
-        <div className="order-page">
+        <div id="checkout-page">
           <div className='container'>
             <div className="address" />
 
@@ -87,15 +87,15 @@ class Checkout extends React.Component {
                   {!orderList.isEmpty() &&
                     orderList.map((cp, i) => {
                       var product = cp.get('product') || Map();
-                      var name_th = product.get('name_th');
+                      var name = product.get('name');
                       var quantity = cp.get('quantity');
                       var option = cp.get('option') || Map();
-                      var hiw = option.get('hiw_amount') || 0;
-                      var ship = option.get('ship_amount') || 0;
+                      var hiw = option.get('hiw_amt') || 0;
+                      var ship = option.get('ship_amt') || 0;
                       var price =
-                        option.get('discount_amount') === 0
-                          ? option.get('price_amount')
-                          : option.get('discount_amount');
+                        option.get('discount_amt') === 0
+                          ? option.get('price_amt')
+                          : option.get('discount_amt');
                       var sub_total = price * quantity;
 
                       service += hiw + ship;
@@ -104,12 +104,12 @@ class Checkout extends React.Component {
                         <tr key={i}>
                           <td>
                             <Img
-                              src={cp.getIn(['attachments', 0, 'image'])}
-                              alt={product.get('name_th') + option.get('name')}
+                              src={cp.get('image')}
+                              alt={product.get('name') + option.get('name')}
                             />
                             <span>
-                              <Link to={`/products/${product.get('id')}`}>
-                                {name_th} ({option.get('name')})
+                              <Link to={`/p/${product.get('id')}`}>
+                                {name} ({option.get('name')})
                               </Link>
                             </span>
                           </td>
@@ -127,7 +127,7 @@ class Checkout extends React.Component {
                 <div className="price">
                   <span>ราคารวมสินค้า</span>
                   <h4>
-                    <PriceConvert price={order.get('total_amount')} />
+                    <PriceConvert price={order.get('total_amt')} />
                   </h4>
                 </div>
 
@@ -144,24 +144,35 @@ class Checkout extends React.Component {
                     รวมค่าบริการหิ้วและจัดส่ง)
                   </span>
                   <h3>
-                    <PriceConvert price={order.get('total_amount') + service} />
+                    <PriceConvert price={order.get('total_amt') + service} />
                   </h3>
                 </div>
               </div>
             </div>
 
             <div className="payment">
-              <div className="transfer">
-                <h3>ส่งหลักฐานการชำระเงิน</h3>
-                <DropzoneComponent
-                  config={previewConfig}
-                  eventHandlers={eventHandlers}
-                  djsConfig={djsEventConfig}
-                />
+              <h3>ส่งหลักฐานการชำระเงิน</h3>
 
-                <button className='primary' onClick={this.createTransfer}>
-                  ส่ง
-                </button>
+              <div className="column">
+                <div className="bank">
+                  <p>ธนาคารกสิกรไทย</p>
+                  <p>จิรสิน ฤดีเกียรติธำรง</p>
+                  <p>0 442 8111 1</p>
+                </div>
+              </div>
+
+              <div className="column">
+                <div className="transfer">
+                  <DropzoneComponent
+                    config={previewConfig}
+                    eventHandlers={eventHandlers}
+                    djsConfig={djsEventConfig}
+                  />
+
+                  <button className='primary' onClick={this.createTransfer}>
+                    ส่ง
+                  </button>
+                </div>
               </div>
             </div>
           </div>

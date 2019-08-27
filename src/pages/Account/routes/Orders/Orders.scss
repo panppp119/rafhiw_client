@@ -1,0 +1,58 @@
+$desktop: 1280px;
+
+.orders {
+  border: none;
+
+  @media screen and (min-width: $desktop) {
+    border: 1px solid var(--grey);
+  }
+
+  .head {
+    padding: 8px;
+    border-bottom: 2px solid var(--primary);
+    min-height: 50px;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+    }
+
+    p {
+      font-size: var(--font_small);
+      margin-top: 8px;
+    }
+  }
+
+  .body {
+    padding: 0;
+    position: relative;
+
+    .tab-nav {
+      width: 100%;
+
+      li {
+        text-align: center;
+        line-height: 40px;
+
+        a {
+          display: block;
+          text-decoration: none;
+          color: var(--black);
+
+          &:hover {
+            color: var(--primary);
+            text-decoration: underline;
+          }
+        }
+
+        &.active a {
+          text-decoration: underline;
+          color: var(--primary) !important;
+        }
+      }
+    }
+  }
+
+  h3 {
+    margin-top: 0;
+  }
+}

@@ -150,8 +150,6 @@ class Cart extends React.Component {
   checkout(e, pause, total) {
     e.preventDefault();
 
-    console.log(123)
-
     const cart = this.props.cart.toJS();
 
     const data = {
@@ -160,13 +158,9 @@ class Cart extends React.Component {
       total_amt: parseInt(total)
     };
 
-    console.log(data)
-
     if (pause) {
-      console.log(1)
       alert('ไม่สามารถทำการสั่งซื้อได้เนื่องจากมีบางรายการหมดเวลาแล้ว');
     } else {
-      console.log(2)
       this.setState({ checkout: true });
 
       this.props.createOrder(data).then(() => {

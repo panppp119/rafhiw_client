@@ -1,6 +1,6 @@
 $desktop: 1280px;
 
-#cart-page {
+#checkout-page {
   width: 100%;
   padding: 16px 0;
 
@@ -25,22 +25,9 @@ $desktop: 1280px;
         margin-left: 8px;
       }
     }
-
-    .quantity-input {
-      button {
-        width: 40px;
-        display: inline-block;
-      }
-
-      input {
-        width: auto;
-        margin: 0 8px;
-        text-align: center;
-      }
-    }
   }
 
-  .cart-total {
+  .order-total {
     text-align: right;
     padding: 8px;
     margin-bottom: 8px;
@@ -62,6 +49,38 @@ $desktop: 1280px;
 
     h3 {
       color: var(--primary);
+    }
+  }
+
+  .payment {
+    h3 {
+      padding: 0 8px;
+
+      @media screen and (min-width: $desktop) {
+        padding: 0 16px;
+      }
+    }
+
+    .column {
+      width: calc(100% / 2);
+      display: inline-block;
+      vertical-align: top;
+
+      .bank, .transfer {
+        padding: 8px;
+
+        @media screen and (min-width: $desktop) {
+          padding: 16px;
+        }
+      }
+
+      button {
+        margin-top: 8px;
+
+        @media screen and (min-width: $desktop) {
+          margin-top: 16px;
+        }
+      }
     }
   }
 }

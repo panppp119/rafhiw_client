@@ -15,11 +15,16 @@ $desktop: 1280px;
     background-size: cover;
     background-position: center;
     display: inline-block;
+    vertical-align: middle;
   }
 
   .info {
     display: inline-block;
-    vertical-align: top;
     padding-left: 8px;
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
   }
 }

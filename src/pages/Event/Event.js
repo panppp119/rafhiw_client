@@ -3,6 +3,7 @@ import { List } from 'immutable';
 
 import UserLayout from 'components/layouts/UserLayout'
 import ProductCard from 'components/cards/ProductCard';
+import DateConvert from 'components/converts/DateConvert';
 import GMap from 'components/GMap';
 import Img from 'components/Img';
 
@@ -19,12 +20,7 @@ class Event extends React.Component {
     const { event } = this.props;
 
     const products = event.get('products') || List();
-    const size = 8;
-
-    // const sections = [
-    //   { title: 'Events', path: '/events', link: true },
-    //   { title: event.get('name') }
-    // ];
+    const size = 10;
 
     return (
       <UserLayout>
@@ -37,8 +33,12 @@ class Event extends React.Component {
                 </div>
               </div>
 
-              <div className="column">
+              <div className="column event-detail">
                 <h3>{event.get('name')}</h3>
+                <p className="date">
+                  <DateConvert date={event.get('start_date')} /> -{' '}
+                  <DateConvert date={event.get('end_date')} />
+                </p>
                 <p>{event.get('description')}</p>
                 {/* <Button content="อ่านเพิ่มเติม" />{' '} */}
                 {/* <Button content="เพิ่มสินค้าใน Event" /> */}
