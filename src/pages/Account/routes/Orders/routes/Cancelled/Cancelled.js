@@ -10,17 +10,21 @@ class Cancelled extends React.Component {
     !this.props.user.isEmpty() && this.props.loadOrders();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
+      !this.props.user.isEmpty() && this.props.loadOrders();
+    }
+  }
+
   render() {
-    const { user, orders } = this.props;
+    const { orders } = this.props;
 
     const cancel = orders.filter(o => o.get('status') === 'cancelled') || List();
 
     return (
       <div className="tab cancelled">
         <OrderTable
-          orders={orders}
-          cancel={cancel}
-          user={user}
+          orders={cancel}
         />
       </div>
     );

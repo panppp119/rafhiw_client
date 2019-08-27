@@ -1,3 +1,7 @@
 .order-table {
-  overflow-x: hidden;
+  overflow-x: auto;
+
+  td {
+    text-align: center;
+  }
 }

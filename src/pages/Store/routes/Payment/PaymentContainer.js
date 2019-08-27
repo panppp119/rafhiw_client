@@ -1,20 +1,19 @@
 import { connect } from 'react-redux';
-// import { List, Map } from 'immutable';
-//
-// import { fetchSellerOrders } from 'actions/orders';
-// import orderSchema from 'schemas/order';
+import { List, Map } from 'immutable';
+
+import { fetchSellerOrders } from 'actions/orders';
+import orderSchema from 'schemas/order';
 
 import Payment from './Payment';
 
 const mapStateToProps = (state, props) => ({
-  // orders: state.getIn(['orders', 'collection'], List()),
-  // user: state.getIn(['user', 'data'], Map()),
-  // loadingorders: state.getIn(['orders', 'loading'], false),
-  // ...props
+  orders: state.getIn(['orders', 'collection'], List()),
+  user: state.getIn(['user', 'data'], Map()),
+  ...props
 });
 
 const mapDispatchToProps = {
-  // loadOrders: id => fetchSellerOrders(id, orderSchema)
+  loadOrders: id => fetchSellerOrders(id, orderSchema)
 };
 
 export default connect(

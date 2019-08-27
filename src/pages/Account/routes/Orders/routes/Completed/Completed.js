@@ -10,8 +10,14 @@ class Completed extends React.Component {
     !this.props.user.isEmpty() && this.props.loadOrders();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
+      !this.props.user.isEmpty() && this.props.loadOrders();
+    }
+  }
+
   render() {
-    const { user, orders } = this.props;
+    const { orders } = this.props;
 
     const completed = orders.filter(
       o => o.get('status') === 'completed' || o.get('status') === 'pending_review'
@@ -20,9 +26,8 @@ class Completed extends React.Component {
     return (
       <div className="tab completed">
         <OrderTable
-          completed
+          complete
           orders={completed}
-          user={user}
           review={this.props.review}
           loadOrders={this.props.loadOrders}
         />

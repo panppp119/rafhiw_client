@@ -197,7 +197,7 @@ export const createTransfer = (id, body, key, schema) => (
     });
 };
 
-export const cancelOrder = (id, user_id, schema) => (dispatch, getState) => {
+export const cancelOrder = (id, schema) => (dispatch, getState) => {
   const type = schema._key;
   const url = `/${type}/${id}/cancel`;
   const accessToken = getState().getIn(['auth', 'access_token']) || '';
@@ -207,7 +207,6 @@ export const cancelOrder = (id, user_id, schema) => (dispatch, getState) => {
   return request
     .post(url)
     .accessToken(accessToken)
-    .send({ user_id })
     .then(response => {
       dispatch({
         type: CONST.UPDATE_ORDER_SUCCEEDED,
@@ -312,7 +311,7 @@ export const createAttachment = (id, attachments, schema) => (
   attachments.forEach(attachment => {
     req
       .attach('image', attachment.file)
-      .field('invoice_id', id);
+      .field('order_id', id);
   });
 
   return req

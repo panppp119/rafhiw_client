@@ -31,11 +31,6 @@ class StoreOrderTable extends React.Component {
     }
   };
 
-  payment = e => {
-    this.props.updateOrderId(this.props.order.get('id'));
-    this.props.history.push('/checkout');
-  };
-
   acceptProduct(id) {
     if (window.confirm('ยืนยันสินค้า')) {
       this.props.confirm(id).then(() => {
@@ -74,124 +69,77 @@ class StoreOrderTable extends React.Component {
   }
 
   render() {
-    const { products, order, payment, status, track } = this.props;
+    const { orders, shipper, complete } = this.props;
 
     return (
       <div className="store-order-table">
         <table>
           <thead>
             <tr>
+              <th>หมายเลขสั่งซื้อ</th>
               <th>สินค้า</th>
               <th>จำนวน</th>
               <th>ราคารวม</th>
-              {track && <th>หมายเลขติดตามสินค้า</th>}
-              {status && <th>สถานะ/แอคชัน</th>}
+              {shipper && <th>หมายเลขติดตามสินค้า</th>}
+              <th>สถานะ</th>
             </tr>
           </thead>
           <tbody>
-            {!products.isEmpty() &&
-              products.map((product, i) => {
-                const option = product.get('option') || Map();
-                const pd = product.get('product') || Map();
-                const shipment_type = product.get('shipment_type');
-
-                const tag = product.get('status');
-                var label = '';
-                var type = '';
-
-                switch (tag) {
-                  case 2:
-                    label = 'รอตรวจสอบการชำระสินค้า';
-                    break;
-                  case 3:
-                    label = 'รอการจัดส่ง';
-                    break;
-                  case 4:
-                    label = 'รอยืนยันการรับสินค้า';
-                    break;
-                  case 5:
-                    label = 'รอการรีวิว';
-                    break;
-                  case 6:
-                    label = 'คำสั่งซื้อเสร็จสมบูรณ์';
-                    break;
-                  default:
-                    break;
-                }
-
-                switch (shipment_type) {
-                  case 1:
-                    type = 'ไปรษณีย์ไทย';
-                    break;
-                  case 2:
-                    type = 'Kerry';
-                    break;
-                  default:
-                    break;
-                }
+            {
+              orders.map((order, i) => {
+                const products = order.get('products') || List()
 
                 return (
                   <tr key={i}>
+                    <td>{order.get('number')}</td>
                     <td>
-                      <Img
-                        alt={pd.get('name') + option.get('name')}
-                        src={product.get('image')}
-                      />
-                      <div className="info">
-                        <Link to={`/p/${pd.get('id')}`}>
-                          <h4>
-                            {pd.get('name')} ({option.get('name')})
-                          </h4>
-                        </Link>
-                      </div>
+                      <ul>
+                        {
+                          products.map((pd, si) => {
+                            const option = pd.get('option') || Map()
+                            const product = pd.get('product') || Map()
+                            const shipment_type = product.get('shipment_type');
+
+                            const tag = product.get('status');
+                            var label = '';
+                            var type = '';
+
+                            switch (shipment_type) {
+                              case 1:
+                                type = 'ไปรษณีย์ไทย';
+                                break;
+                              case 2:
+                                type = 'Kerry';
+                                break;
+                              default:
+                                break;
+                            }
+
+                            return (
+                              <li key={si}>
+                                <Img
+                                  alt={product.get('name') + option.get('name')}
+                                  src={pd.get('image')}
+                                />
+                                <div className="info">
+                                  <Link to={`/p/${pd.get('id')}`}>
+                                    <h4>{product.get('name')} - {option.get('name')}</h4>
+                                  </Link>
+                                </div>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
                     </td>
-                    <td>{product.get('quantity')}</td>
+                    <td>{order.get('total_qt')}</td>
                     <td><PriceConvert price={order.get('total_amt')} /></td>
-                    {track && <td>{product.get('tracking_id')} - {type}</td>}
-                    {status && (
-                      <td>
-                        {tag === 4 ? (
-                          <button className='primary'
-                            onClick={() =>
-                              this.acceptProduct(product.get('id'))
-                            }
-                          >
-                            ได้รับสินค้าแล้ว
-                          </button>
-                        ) : tag === 5 ? (
-                          <button className='primary'
-                            onClick={() =>
-                              this.showReview(
-                                pd.get('id'),
-                                pd.get('seller_id'),
-                                product.get('id')
-                              )
-                            }
-                          >
-                            รีวิว
-                          </button>
-                        ) : (
-                          <p>{label}</p>
-                        )}
-                      </td>
-                    )}
+                    {shipper && <td>พัสดุ</td>}
+                    <td>{order.get('status')}</td>
                   </tr>
-                );
+                )
               })
             }
-
-            {payment && (
-              <tr>
-                <td colSpan="3">
-                  <button className='primary' onClick={this.payment}>
-                    ชำระสินค้า
-                  </button>
-                  <button className='error' onClick={this.cancel}>
-                    ยกเลิกคำสั่งซื้อ
-                  </button>
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>

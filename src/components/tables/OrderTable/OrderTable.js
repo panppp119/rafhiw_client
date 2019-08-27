@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'immutable';
 
 import Img from 'components/Img';
+import PriceConvert from 'components/converts/PriceConvert'
 
 import './OrderTable.scss';
 
@@ -19,11 +20,19 @@ class OrderTable extends React.Component {
   };
 
   cancel = (e) => {
-    e.preventDefault()
     const id = parseInt(e.target.name)
 
-    this.props.cancelOrder(id)
+    if (window.confirm('ยืนยันที่จะยกเลิกคำสั่งซื้อนี้')) {
+      this.props.cancelOrder(id).then(() => {
+        this.props.loadOrders()
+      })
+    }
   }
+
+  payment = e => {
+    this.props.updateOrderId(e.target.name);
+    this.props.history.push('/checkout');
+  };
 
   render() {
     const { orders, shipper, payment, complete } = this.props
@@ -75,17 +84,41 @@ class OrderTable extends React.Component {
                       </ul>
                     </td>
                     <td>{order.get('total_qt')}</td>
-                    <td>{order.get('total_amt')}</td>
+                    <td><PriceConvert price={order.get('total_amt')} /></td>
                     {shipper && <td>พัสดุ</td>}
                     <td>{order.get('status')}</td>
-                    <td>
-                      <button name={order.get('id')}
-                        className='error'
-                        onClick={this.cancel}
-                      >
-                        ยกเลิก
-                      </button>
-                    </td>
+                    {payment && (
+                      <td>
+                        {
+                          order.get('status') === 'pending_payment' ? (
+                            <Fragment>
+                              <button name={order.get('id')}
+                                className='primary'
+                                onClick={this.payment}
+                              >
+                                ชำระเงิน
+                              </button>
+                              <button name={order.get('id')}
+                                className='error'
+                                onClick={this.cancel}
+                              >
+                                ยกเลิก
+                              </button>
+                            </Fragment>
+                          ) : null
+                        }
+                      </td>
+                    )}
+                    {(shipper || complete) && (
+                      <td>
+                        <button name={order.get('id')}
+                          className='error'
+                          onClick={this.cancel}
+                        >
+                          ยกเลิก
+                        </button>
+                      </td>
+                    )}
                   </tr>
                 )
               })

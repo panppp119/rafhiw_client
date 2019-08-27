@@ -17,12 +17,11 @@ class Shipment extends React.Component {
   }
 
   render() {
-    const { user, orders } = this.props;
+    const { orders } = this.props;
 
     const shipment =
       orders.filter(
         o =>
-          o.get('status') === 'pending_check_payment' ||
           o.get('status') === 'pending_shipping' ||
           o.get('status') === 'pending_receive_goods'
       ) || List();
@@ -32,7 +31,6 @@ class Shipment extends React.Component {
         <OrderTable
           shipper
           orders={shipment}
-          user={user}
           loadOrders={this.props.loadOrders}
         />
       </div>

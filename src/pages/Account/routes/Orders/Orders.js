@@ -50,7 +50,7 @@ class Orders extends React.Component {
 
             <div className="tab-content">
               <Switch>
-                <Route
+                <Route exact
                   path='/account/orders'
                   render={() => <PendingPayment {...this.props} />}
                 />

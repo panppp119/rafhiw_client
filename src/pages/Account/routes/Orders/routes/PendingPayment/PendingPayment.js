@@ -10,8 +10,14 @@ class PendingPayment extends React.Component {
     !this.props.user.isEmpty() && this.props.loadOrders();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
+      !this.props.user.isEmpty() && this.props.loadOrders();
+    }
+  }
+
   render() {
-    const { orders, cancelOrder } = this.props;
+    const { orders, cancelOrder, loadOrders, updateOrderId } = this.props;
 
     const pendingPayment = orders.filter(
       o => o.get('status') === 'pending_payment' || o.get('status') === 'pending_check_payment'
@@ -23,6 +29,9 @@ class PendingPayment extends React.Component {
           payment
           orders={pendingPayment}
           cancelOrder={cancelOrder}
+          loadOrders={loadOrders}
+          updateOrderId={updateOrderId}
+          history={this.props.history}
         />
       </div>
     );

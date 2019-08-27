@@ -82,5 +82,13 @@ $desktop: 1280px;
         }
       }
     }
+
+    .dz-preview.dz-image-preview {
+      background-color: transparent;
+    }
+
+    .dz-progress {
+      display: none;
+    }
   }
 }

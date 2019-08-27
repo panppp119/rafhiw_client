@@ -22,7 +22,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = {
   loadOrders: options => fetchOrders(orderSchema, { query: options }),
-  cancelOrder: (id, user_id) => cancelOrder(id, user_id, orderSchema),
+  cancelOrder: (id) => cancelOrder(id, orderSchema),
   update: (id, body) => updateOrder(id, body, orderSchema),
   updateOrderId: id => updateOrderId(id, orderSchema),
   confirm: id => comfirmProduct(id, orderSchema),

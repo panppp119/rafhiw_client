@@ -26,7 +26,7 @@ class Account extends React.Component {
                 <li><Link to='/account/wallet'><FaWallet /></Link></li>
                 <li><Link to='/account/addresses'><FaMapMarkedAlt /></Link></li>
                 {
-                  roles.filter(role => role === 'seller').size !== 0 ? (
+                  roles.filter(role => role === 'seller').size === 0 ? (
                     <li>
                       <Link to='/account/seller'><FaStore /></Link>
                     </li>
