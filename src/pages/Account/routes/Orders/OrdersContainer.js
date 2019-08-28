@@ -8,9 +8,9 @@ import {
   updateOrderId,
   comfirmProduct
 } from 'actions/orders';
-// import { createReview } from 'actions/reviews';
+import { createReview } from 'actions/reviews';
 import orderSchema from 'schemas/order';
-// import reviewSchema from 'schemas/review';
+import reviewSchema from 'schemas/review';
 
 import Orders from './Orders';
 
@@ -26,7 +26,7 @@ const mapDispatchToProps = {
   update: (id, body) => updateOrder(id, body, orderSchema),
   updateOrderId: id => updateOrderId(id, orderSchema),
   confirm: id => comfirmProduct(id, orderSchema),
-  // review: body => createReview(body, reviewSchema)
+  review: body => createReview(body, reviewSchema)
 };
 
 export default connect(

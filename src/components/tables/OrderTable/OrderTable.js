@@ -4,6 +4,7 @@ import { List } from 'immutable';
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert'
+import ReviewForm from 'components/forms/ReviewForm'
 
 import './OrderTable.scss';
 
@@ -12,7 +13,8 @@ class OrderTable extends React.Component {
     shipper: false,
     payment: false,
     complete: false,
-    cancel: false
+    cancel: false,
+    activeReview: false
   }
 
   handleChange = (e) => {
@@ -35,7 +37,11 @@ class OrderTable extends React.Component {
     this.props.confirm(id)
   }
 
-  payment = e => {
+  review = (e) => {
+    this.setState({ activeReview: true })
+  }
+
+  payment = (e) => {
     this.props.updateOrderId(e.target.name);
     this.props.history.push('/checkout');
   };
