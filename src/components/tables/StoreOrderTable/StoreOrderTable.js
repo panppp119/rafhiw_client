@@ -1,25 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'immutable';
+import { FaCheck, FaEdit } from 'react-icons/fa'
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert';
 
 import './StoreOrderTable.scss';
 
-const initialState = {
-  review: false,
-  product_id: 0,
-  seller_id: 0,
-  order_id: 0
-};
-
 class StoreOrderTable extends React.Component {
   static defaultProps = {
     products: List()
   };
 
-  state = initialState;
+  state = {
+    index: null,
+    tracking_id: '',
+    shipment_type: 0
+  }
 
   cancel = () => {
     if (window.confirm('ยืนยันที่จะยกเลิกคำสั่งซื้อนี้')) {
@@ -51,7 +49,7 @@ class StoreOrderTable extends React.Component {
       })
       .then(() => {
         this.props.loadOrders({ user_id: this.props.user.get('id') });
-        this.setState(initialState);
+        this.setState({ index: null });
       });
   };
 
@@ -64,12 +62,42 @@ class StoreOrderTable extends React.Component {
     });
   }
 
-  handleChange (name, value) {
-    this.setState({ [name]: value });
+  handleChange (name, value, i) {
+    this.setState({ [name]: value, index: i });
+  }
+
+  handleClick(id, key) {
+    const { tracking_id } = this.state;
+
+    this.setState({ index: null });
+
+    if (
+      tracking_id !== null ||
+      tracking_id !== '' ||
+      tracking_id !== undefined
+    ) {
+      this.props
+        .updateTrackingId(id, {
+          tracking_code: tracking_id,
+          shipment_type: this.state.shipment_type
+        })
+        .then(() => {
+          this.props.loadOrders(this.props.user.get('id'));
+          this.setState({ index: null });
+        });
+    }
   }
 
   render() {
     const { orders, shipper, complete } = this.props;
+    const { tracking_id, shipment_type, index } = this.state;
+
+    const shipment_options = [
+      { key: 0, text: 'ไปรษณีย์ไทย', value: 1 },
+      { key: 1, text: 'Kerry', value: 2 }
+    ];
+
+    console.log(index, tracking_id, shipment_type)
 
     return (
       <div className="store-order-table">
@@ -88,6 +116,7 @@ class StoreOrderTable extends React.Component {
             {
               orders.map((order, i) => {
                 const products = order.get('products') || List()
+                const status = order.get('status')
 
                 return (
                   <tr key={i}>
@@ -134,7 +163,53 @@ class StoreOrderTable extends React.Component {
                     </td>
                     <td>{order.get('total_qt')}</td>
                     <td><PriceConvert price={order.get('total_amt')} /></td>
-                    {shipper && <td>พัสดุ</td>}
+                    {shipper && (
+                      <td>
+                        <input type="text"
+                          name="tracking_id"
+                          value={
+                            (this.state.index === i && tracking_id) ||
+                            (order.get('tracking_code') || '')
+                          }
+                          autoComplete="false"
+                          onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
+                          disabled={status !== 'pending_shipping'}
+                        />
+
+                        <select name="shipment_type"
+                          disabled={status !== 'pending_shipping'}
+                          onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
+                          value={
+                            (this.state.index === i && shipment_type) ||
+                            (order.get('shipment_type') || '')
+                          }
+                        >
+                          <option default>บริการขนส่ง</option>
+                          {
+                            shipment_options.map((so, sii) => {
+                              return (
+                                <option value={so.value} key={sii}>{so.text}</option>
+                              )
+                            })
+                          }
+                        </select>
+
+                        {status === 'pending_shipping' && (
+                          <button className='primary'
+                            onClick={() => this.handleClick(order.get('id'), i)}
+                            disabled={
+                              tracking_id === '' ||
+                              tracking_id === null ||
+                              tracking_id === undefined ||
+                              shipment_type === null ||
+                              shipment_type === undefined
+                            }
+                          >
+                            <FaCheck />
+                          </button>
+                        )}
+                      </td>
+                    )}
                     <td>{order.get('status')}</td>
                   </tr>
                 )

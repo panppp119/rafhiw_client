@@ -32,6 +32,7 @@ class Shipment extends React.Component {
           shipper
           orders={shipment}
           loadOrders={this.props.loadOrders}
+          confirm={this.props.confirm}
         />
       </div>
     );

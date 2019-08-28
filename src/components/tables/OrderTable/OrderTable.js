@@ -29,6 +29,12 @@ class OrderTable extends React.Component {
     }
   }
 
+  confirm = (e) => {
+    const id = parseInt(e.target.name)
+
+    this.props.confirm(id)
+  }
+
   payment = e => {
     this.props.updateOrderId(e.target.name);
     this.props.history.push('/checkout');
@@ -85,7 +91,11 @@ class OrderTable extends React.Component {
                     </td>
                     <td>{order.get('total_qt')}</td>
                     <td><PriceConvert price={order.get('total_amt')} /></td>
-                    {shipper && <td>พัสดุ</td>}
+                    {shipper && (
+                      <td>
+                        {order.get('shipment_type') === 1 ? 'ไปรษณีย์ไทย' : 'Kerry'} - {order.get('tracking_code')}
+                      </td>
+                    )}
                     <td>{order.get('status')}</td>
                     {payment && (
                       <td>
@@ -109,13 +119,23 @@ class OrderTable extends React.Component {
                         }
                       </td>
                     )}
-                    {(shipper || complete) && (
+                    {shipper && (
                       <td>
                         <button name={order.get('id')}
-                          className='error'
-                          onClick={this.cancel}
+                          className='primary'
+                          onClick={this.confirm}
                         >
-                          ยกเลิก
+                          ยืนยันรับของ
+                        </button>
+                      </td>
+                    )}
+                    {complete && (
+                      <td>
+                        <button name={order.get('id')}
+                          className='primary'
+                          onClick={this.review}
+                        >
+                          รีวิว
                         </button>
                       </td>
                     )}

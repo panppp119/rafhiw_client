@@ -28,6 +28,7 @@ class Shipping extends React.Component {
     return (
       <div className="shipping">
         <StoreOrderTable
+          shipper
           track
           state
           orders={orderList}
