@@ -21,7 +21,7 @@ class StoreTopNav extends React.Component {
       <div id="store-top-nav">
         <div className="mobile">
           <ul>
-            <li className='search'>ค้นหา</li>
+            <li className='search'></li>
             <li><Link to='/cart'><FaShoppingCart /></Link></li>
             <li><Link to='/messages'><FaCommentDots /></Link></li>
           </ul>
@@ -52,7 +52,7 @@ class StoreTopNav extends React.Component {
           <div className="second">
             <ul className='container'>
               <li className='logo'>
-                <Link to='/'><img src={logo} alt="logot" /></Link>
+                <Link to='/'><img src={logo} alt="logout" /></Link>
               </li>
               <li><h3>ร้านค้า</h3></li>
               <li className='add-product'>

@@ -41,7 +41,7 @@ class TopNav extends React.Component {
       <div id="top-nav">
         <div className="mobile">
           <ul>
-            <li className='search'>ค้นหา</li>
+            <li className='search'></li>
             <li>
               <Link to='/cart'>
                 <FaShoppingCart />
@@ -91,7 +91,7 @@ class TopNav extends React.Component {
               <li className='logo'>
                 <Link to='/'><img src={logo} alt="logot" /></Link>
               </li>
-              <li className='search'>ค้นหา</li>
+              <li className='search'></li>
               <li>
                 <Link to='/cart'>
                   <FaShoppingCart />
