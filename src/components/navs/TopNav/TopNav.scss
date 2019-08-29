@@ -17,6 +17,10 @@ $desktop: 1280px;
         flex-grow: 3;
         text-align: left;
 
+        span {
+          cursor: pointer;
+        }
+
         .size1 {
           font-size: 12px;
           padding: 0 8px;
