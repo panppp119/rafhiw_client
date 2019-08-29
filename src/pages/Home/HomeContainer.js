@@ -4,6 +4,7 @@ import { List } from 'immutable';
 import { fetchCategories } from 'actions/categories';
 import { fetchProducts } from 'actions/products';
 import { fetchEvents } from 'actions/events';
+import { fetchHighlight } from 'actions/info';
 import categorySchema from 'schemas/category';
 import productSchema from 'schemas/product';
 import eventSchema from 'schemas/event';
@@ -17,13 +18,14 @@ const mapStateToProps = state => ({
   loadingEvents: state.getIn(['events', 'loading'], false),
   loadingCategories: state.getIn(['categories', 'loading'], false),
   loadingProducts: state.getIn(['products', 'loading'], false),
-  // user: state.getIn(['user', 'data'], Map())
+  highlight: state.getIn(['info', 'highlight', 'data'], List())
 });
 
 const mapDispatchToProps = {
   loadCategories: () => fetchCategories(categorySchema),
   loadProducts: () => fetchProducts(productSchema),
-  loadEvents: () => fetchEvents(eventSchema)
+  loadEvents: () => fetchEvents(eventSchema),
+  loadHighlight: () => fetchHighlight()
 };
 
 export default connect(

@@ -32,6 +32,34 @@ $desktop: 1280px;
     }
   }
 
+  .recommended-products {
+    .product {
+      padding: 8px;
+
+      a {
+        display: block;
+        text-decoration: none;
+        color: var(--black);
+
+        img {
+          width: 100px;
+          height: 100px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .info {
+          display: inline-block;
+          padding-left: 8px;
+
+          h4 {
+            color: var(--primary);
+          }
+        }
+      }
+    }
+  }
+
   .categories {
     width: 100%;
 

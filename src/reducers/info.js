@@ -14,6 +14,9 @@ export default (
     case CONST.FETCH_DISABILITIES:
       return state.setIn(['disabilities', 'loading'], true);
 
+    case CONST.FETCH_HIGHLIGHT:
+      return state.setIn(['highlight', 'loading'], true);
+
     case CONST.FETCH_ROLES:
       return state.setIn(['roles', 'loading'], true);
 
@@ -22,6 +25,11 @@ export default (
         .setIn(['disabilities', 'data'], fromJS(response.body))
         .setIn(['disabilities', 'loading'], false);
 
+    case CONST.FETCH_HIGHLIGHT_SUCCEEDED:
+      return state
+        .setIn(['highlight', 'data'], fromJS(response.body))
+        .setIn(['highlight', 'loading'], false);
+
     case CONST.FETCH_ROLES_SUCCEEDED:
       return state
         .setIn(['roles', 'data'], fromJS(response.body))
@@ -29,8 +37,10 @@ export default (
 
     case SIGN_OUT_SUCCEEDED:
       return state
+        .setIn(['highlight', 'loading'], false)
         .setIn(['disabilities', 'loading'], false)
         .setIn(['roles', 'loading'], false)
+        .set(['highlight', 'data'], fromJS([]))
         .set(['disabilities', 'data'], fromJS([]))
         .set(['roles', 'data'], fromJS([]))
 

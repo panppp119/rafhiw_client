@@ -177,7 +177,7 @@ class AddProductForm extends React.Component {
 
     var categoryOptions = []
     var sub_categories_options = []
-    var  eventOptions = [];
+    var eventOptions = [];
 
     !events.isEmpty() &&
       events.map(event =>

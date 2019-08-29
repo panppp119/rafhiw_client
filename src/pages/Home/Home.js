@@ -1,8 +1,10 @@
 import React from 'react'
+import ImageGallery from 'react-image-gallery';
 import { List } from 'immutable'
 import { Link } from 'react-router-dom'
 
 import UserLayout from 'components/layouts/UserLayout'
+import PriceConvert from 'components/converts/PriceConvert'
 import { EventCard, ProductCard } from 'components/cards'
 
 import './Home.scss'
@@ -16,6 +18,7 @@ class Home extends React.Component {
     this.props.categories.isEmpty() && this.props.loadCategories()
     this.props.loadProducts()
     this.props.loadEvents()
+    this.props.loadHighlight()
   }
 
   handleChange = (e) => {
@@ -27,7 +30,14 @@ class Home extends React.Component {
   }
 
   render () {
-    const { categories, events, products } = this.props
+    const { categories, events, products, highlight } = this.props
+
+    const images = highlight
+      .map(image => ({
+        original: image.get('image'),
+        thumbnail: image.get('image')
+      }))
+      .toJS();
 
     return (
       <UserLayout>
@@ -69,6 +79,14 @@ class Home extends React.Component {
               </div>
 
               <div className="highlight">
+                <ImageGallery
+                  items={images}
+                  showPlayButton={false}
+                  autoPlay
+                  slideInterval={7000}
+                  showFullscreenButton={false}
+                  showNav={false}
+                />
               </div>
 
               <div className="categories mobile">
@@ -94,6 +112,38 @@ class Home extends React.Component {
 
               <div className="recommended">
                 <h3>สินค้าแนะนำ</h3>
+
+                <div className="recommended-products">
+                  {
+                    products.slice(0, 4).map((product, i) => {
+                      const options = product.get('options') || List()
+
+                      return (
+                        <div className="product" key={i}>
+                          <Link to={`/p/${product.get('id')}`}>
+                            <img src={product.get('image')} alt={product.get('name')}/>
+
+                            <div className="info">
+                              <h4>{product.get('name')}</h4>
+                              <p>
+                                <span
+                                  className="price"
+                                  style={{ textDecoration: 'line-through' }}
+                                >
+                                  <PriceConvert price={options.getIn([0, 'price_amt'])} />
+                                </span>
+
+                                <span className='discount'>
+                                  <PriceConvert price={options.getIn([0, 'discount_amt'])} />
+                                </span>
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
               </div>
             </div>
 
