@@ -30,6 +30,10 @@ class TopNav extends React.Component {
     this.props.signout()
   }
 
+  handleChangeFont(age) {
+    this.props.setFont(age);
+  }
+
   render () {
     const { location, user } = this.props
     const { cart } = this.props;
@@ -57,9 +61,15 @@ class TopNav extends React.Component {
             <ul className='container'>
               <li className='display'>
                 การแสดงผล
-                <span className='size1'><FaFont /></span>
-                <span className='size2'><FaFont /></span>
-                <span className='size3'><FaFont /></span>
+                <span className='size1' onClick={() => this.handleChangeFont(20)}>
+                  <FaFont />
+                </span>
+                <span className='size2' onClick={() => this.handleChangeFont(35)}>
+                  <FaFont />
+                </span>
+                <span className='size3' onClick={() => this.handleChangeFont(45)}>
+                  <FaFont />
+                </span>
               </li>
               <li className='empty' />
               <li className='user'>
