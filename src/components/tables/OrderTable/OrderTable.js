@@ -99,7 +99,12 @@ class OrderTable extends React.Component {
                     <td><PriceConvert price={order.get('total_amt')} /></td>
                     {shipper && (
                       <td>
-                        {order.get('shipment_type') === 1 ? 'ไปรษณีย์ไทย' : 'Kerry'} - {order.get('tracking_code')}
+                        {
+                          order.get('status') === 'pending_receive_goods' &&
+                            order.get('shipment_type') === 1 ?
+                              `ไปรษณีย์ไทย - ${order.get('tracking_code')}` :
+                              `kerry - ${order.get('tracking_code')}`
+                        }
                       </td>
                     )}
                     <td>{order.get('status')}</td>
@@ -130,6 +135,7 @@ class OrderTable extends React.Component {
                         <button name={order.get('id')}
                           className='primary'
                           onClick={this.confirm}
+                          disabled={order.get('status') !== 'pending_receive_goods'}
                         >
                           ยืนยันรับของ
                         </button>
