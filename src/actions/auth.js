@@ -69,7 +69,7 @@ export const signin = data => (dispatch, getState) => {
           provider
         };
 
-        localStorage.setItem('auth', JSON.stringify(authen));
+        sessionStorage.setItem('auth', JSON.stringify(authen));
 
         dispatch({ type: CONST.SIGN_IN_SUCCEEDED, auth: authen });
         dispatch(push('/'));
@@ -105,7 +105,7 @@ export const register = data => (dispatch, getState) => {
         provider
       };
 
-      localStorage.setItem('auth', JSON.stringify(authen));
+      sessionStorage.setItem('auth', JSON.stringify(authen));
 
       dispatch({ type: CONST.SIGN_UP_SUCCEEDED, auth: authen });
       dispatch(push('/'));
@@ -130,7 +130,7 @@ export const signout = () => (dispatch, getState) => {
   }
 
   return request.post('/sign_out').then(response => {
-    localStorage.removeItem('auth');
+    sessionStorage.removeItem('auth');
 
     dispatch({ type: CONST.SIGN_OUT_SUCCEEDED });
     dispatch(push('/'))
@@ -138,7 +138,7 @@ export const signout = () => (dispatch, getState) => {
 };
 
 export const checkSession = () => (dispatch, getState) => {
-  const authen = JSON.parse(localStorage.getItem('auth'));
+  const authen = JSON.parse(sessionStorage.getItem('auth'));
   // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
   dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 

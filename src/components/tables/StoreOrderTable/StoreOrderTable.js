@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { List } from 'immutable';
-import { FaCheck, FaEdit } from 'react-icons/fa'
+import { FaCheck } from 'react-icons/fa'
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert';
@@ -89,7 +89,7 @@ class StoreOrderTable extends React.Component {
   }
 
   render() {
-    const { orders, shipper, complete } = this.props;
+    const { orders, shipper } = this.props;
     const { tracking_id, shipment_type, index } = this.state;
 
     const shipment_options = [
@@ -127,22 +127,6 @@ class StoreOrderTable extends React.Component {
                           products.map((pd, si) => {
                             const option = pd.get('option') || Map()
                             const product = pd.get('product') || Map()
-                            const shipment_type = product.get('shipment_type');
-
-                            const tag = product.get('status');
-                            var label = '';
-                            var type = '';
-
-                            switch (shipment_type) {
-                              case 1:
-                                type = 'ไปรษณีย์ไทย';
-                                break;
-                              case 2:
-                                type = 'Kerry';
-                                break;
-                              default:
-                                break;
-                            }
 
                             return (
                               <li key={si}>

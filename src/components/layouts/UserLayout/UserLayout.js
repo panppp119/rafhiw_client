@@ -27,7 +27,7 @@ class UserLayout extends React.Component {
     const min = Moment().minute();
 
     (hour < 8 || (hour > 18 && min > 30)) &&
-      (localStorage.getItem('changeTheme') === null && this.show());
+      (sessionStorage.getItem('changeTheme') === null && this.show());
   }
 
   show = () => this.setState({ show: true });
@@ -40,10 +40,10 @@ class UserLayout extends React.Component {
       this.props.setTheme(
         hour < 8 || (hour > 18 && min > 30) ? 'theme-dark' : 'theme-orange'
       );
-      localStorage.setItem('changeTheme', true);
+      sessionStorage.setItem('changeTheme', true);
     }
     else {
-      localStorage.setItem('changeTheme', false);
+      sessionStorage.setItem('changeTheme', false);
     }
 
     this.setState({ show: false });

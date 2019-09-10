@@ -77,7 +77,10 @@ class Profile extends React.Component {
         <div className="body">
           <div className="mobile">
             <div className="avatar">
-              <img src={user.get('image')} alt="user-avatar"/>
+              <div className="image"
+                aria-label="user-avatar"
+                style={{ backgrounImage: `url(${user.get('image')})`}}
+              />
 
               <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 

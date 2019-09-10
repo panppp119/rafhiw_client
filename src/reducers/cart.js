@@ -29,7 +29,7 @@ const cartReducer = (
       return state.set('loading', false);
 
     case SIGN_OUT_SUCCEEDED:
-      localStorage.removeItem('cartProducts');
+      sessionStorage.removeItem('cartProducts');
 
       return state.set('data', fromJS({})).set('cartProducts', fromJS({}));
 

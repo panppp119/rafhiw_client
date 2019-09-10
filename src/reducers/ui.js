@@ -1,8 +1,8 @@
 import * as CONST from 'constants/ui';
 import { fromJS } from 'immutable';
 
-const theme = localStorage.getItem('theme');
-const font = localStorage.getItem('font');
+const theme = sessionStorage.getItem('theme');
+const font = sessionStorage.getItem('font');
 
 const initialState = fromJS({
   theme: theme || 'theme-orange',

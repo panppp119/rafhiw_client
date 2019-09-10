@@ -4,7 +4,7 @@ import { List } from 'immutable';
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert'
-import ReviewForm from 'components/forms/ReviewForm'
+// import ReviewForm from 'components/forms/ReviewForm'
 
 import './OrderTable.scss';
 

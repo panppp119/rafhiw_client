@@ -7,7 +7,7 @@ import './StoreTopNav.scss'
 
 class StoreTopNav extends React.Component {
   componentDidMount () {
-    if (this.props.user.isEmpty() || localStorage.getItem('auth') == null) {
+    if (this.props.user.isEmpty() || sessionStorage.getItem('auth') == null) {
       return this.props.checkSession();
     }
   }

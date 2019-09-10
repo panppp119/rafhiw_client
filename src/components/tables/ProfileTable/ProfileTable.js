@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Moment from 'moment';
 import DropzoneComponent from 'react-dropzone-component';
 import { Map } from 'immutable';
@@ -91,8 +91,12 @@ class ProfileTable extends React.Component {
               {
                 this.props.avatar && (
                   <td rowSpan='7' className='avatar'>
-                    <img src={user.get('image')} alt="user-avatar"/>
-                    
+                    {/* <img src={user.get('image')} alt="user-avatar"/> */}
+                    <div className="image"
+                      aria-label="user-avatar"
+                      style={{ backgrounImage: `url(${user.get('image')})`}}
+                    />
+
                     <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>
 
                     <DropzoneComponent
@@ -130,8 +134,14 @@ class ProfileTable extends React.Component {
             <tr>
               <td><h4>วันเกิด</h4></td>
               <td>
-                <DateConvert date={user.get('birthday')} />, (
-                {age.replace(' years', '')})
+                {
+                  user.get('birthday') !== null ? (
+                    <Fragment>
+                      <DateConvert date={user.get('birthday')} />, (
+                      {age.replace(' years', '')})
+                    </Fragment>
+                  ) : <p>-</p>
+                }
               </td>
             </tr>
 
