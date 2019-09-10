@@ -74,7 +74,7 @@ function PrivateRoute ({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props =>
-        JSON.parse(sessionStorage.getItem('auth')) !== null ? (
+        sessionStorage.getItem('auth') !== null ? (
           <Component {...props} />
         ) : (
           <Redirect

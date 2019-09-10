@@ -14,7 +14,9 @@ class SignInForm extends React.Component {
   ggSignIn = e => {
     e.preventDefault();
 
-    this.props.oauth('google');
+    this.props.oauth('google').then((res) => {
+      !res.body.error && this.props.history.push('/')
+    })
   };
 
   emailSignin = e => {
@@ -25,7 +27,9 @@ class SignInForm extends React.Component {
       password: this.state.password
     }
 
-    this.props.signin(user)
+    this.props.signin(user).then((res) => {
+      !res.body.error && this.props.history.push('/')
+    })
   }
 
   render () {

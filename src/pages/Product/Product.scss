@@ -19,6 +19,7 @@ $desktop: 1280px;
 
       @media screen and (min-width: $desktop) {
         width: calc(100% / 2);
+        display: inline-block;
       }
 
       &.product-detail{

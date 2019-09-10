@@ -98,6 +98,8 @@ export const createEvent = (body, schema) => (dispatch, getState) => {
   const event = body;
   const attachment = body.attachment;
 
+  console.log(body)
+
   dispatch({ type: CONST.CREATE_EVENT, schema });
 
   return request

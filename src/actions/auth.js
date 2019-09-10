@@ -37,6 +37,8 @@ export const oauth = provider => (dispatch, getState) => {
       } else {
         dispatch(signin({ email: profile.email, provider }));
       }
+
+      return response
     })
     .catch(() => {
       dispatch(
@@ -81,6 +83,8 @@ export const signin = data => (dispatch, getState) => {
           })
         );
       }
+
+      return response
     })
     .catch(error => {
       dispatch(
@@ -109,6 +113,8 @@ export const register = data => (dispatch, getState) => {
 
       dispatch({ type: CONST.SIGN_UP_SUCCEEDED, auth: authen });
       dispatch(push('/'));
+
+      return response
     })
     .catch(error => {
       dispatch(

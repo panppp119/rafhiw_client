@@ -27,7 +27,9 @@ class TopNav extends React.Component {
   }
 
   signOut = () => {
-    this.props.signout()
+    this.props.signout().then(() => {
+      this.props.history.push('/sign_in')
+    })
   }
 
   handleChangeFont(age) {
