@@ -13,7 +13,7 @@ export const removeFlashMessage = () => (dispatch, getState) => {
 };
 
 export const setTheme = themeColor => dispatch => {
-  sessionStorage.setItem('theme', themeColor);
+  localStorage.setItem('theme', themeColor);
 
   dispatch({
     type: CONST.UPDATE_THEME,
@@ -34,8 +34,11 @@ export const setFontSize = age => dispatch => {
   } else if (age !== 'a few seconds' && parseInt(age) > 40) {
     ageClass = 'age-third';
   }
+  else {
+    ageClass = 'age-first';
+  }
 
-  sessionStorage.setItem('font', ageClass);
+  localStorage.setItem('font', ageClass);
 
   dispatch({ type: CONST.UPDATE_FONT_SIZE, ageClass });
 };

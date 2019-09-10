@@ -3,7 +3,6 @@ import { CREATE_ATTACHMENT, CREATE_ATTACHMENT_SUCCEEDED } from 'constants/attach
 import request from 'utils/request';
 
 import { addFlashMessage } from './ui';
-import { signout } from './auth';
 
 export const fetchUser = schema => (dispatch, getState) => {
   const type = schema._key;
@@ -17,7 +16,12 @@ export const fetchUser = schema => (dispatch, getState) => {
     .accessToken(accessToken)
     .then(response => {
       if (response.body.error && response.body.error === 'Token is not valid or expired.') {
-        dispatch(signout())
+        dispatch(
+          addFlashMessage({
+            type: 'error',
+            text: response.body.error
+          })
+        );
       }
       else {
         dispatch({

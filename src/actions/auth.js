@@ -71,7 +71,7 @@ export const signin = data => (dispatch, getState) => {
           provider
         };
 
-        sessionStorage.setItem('auth', JSON.stringify(authen));
+        localStorage.setItem('auth', JSON.stringify(authen));
 
         dispatch({ type: CONST.SIGN_IN_SUCCEEDED, auth: authen });
         dispatch(push('/'));
@@ -109,7 +109,7 @@ export const register = data => (dispatch, getState) => {
         provider
       };
 
-      sessionStorage.setItem('auth', JSON.stringify(authen));
+      localStorage.setItem('auth', JSON.stringify(authen));
 
       dispatch({ type: CONST.SIGN_UP_SUCCEEDED, auth: authen });
       dispatch(push('/'));
@@ -134,7 +134,7 @@ export const signout = () => (dispatch, getState) => {
   }
 
   return request.post('/sign_out').then(response => {
-    sessionStorage.removeItem('auth');
+    localStorage.removeItem('auth');
 
     dispatch({ type: CONST.SIGN_OUT_SUCCEEDED });
     dispatch(push('/'))
@@ -142,15 +142,23 @@ export const signout = () => (dispatch, getState) => {
 };
 
 export const checkSession = () => (dispatch, getState) => {
-  const authen = JSON.parse(sessionStorage.getItem('auth'));
+  const authen = JSON.parse(localStorage.getItem('auth'));
   dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
   if (authen && authen.token !== null) {
-    authen.provider !== 'email' && auth.onAuthStateChanged(user => {
-      if (user !== null) {
-        dispatch(fetchUser(userSchema));
-      }
-    })
+    if (authen.provider !== 'email') {
+      auth.onAuthStateChanged(user => {
+        if (user !== null) {
+          dispatch(fetchUser(userSchema));
+        }
+        else {
+          dispatch(signout())
+        }
+      })
+    }
+    else {
+      dispatch(fetchUser(userSchema));
+    }
   } else {
     dispatch({ type: CONST.CHECK_SESSION });
   }
