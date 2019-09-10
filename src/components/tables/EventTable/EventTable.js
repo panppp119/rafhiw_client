@@ -21,7 +21,7 @@ class EventTable extends React.Component {
     const { events } = this.props;
 
     return (
-      <div className="event-table">
+      <div className="event-table table-responsive">
         <table>
           <thead>
             <tr>

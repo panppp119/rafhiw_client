@@ -50,7 +50,7 @@ class OrderTable extends React.Component {
     const { orders, shipper, payment, complete } = this.props
 
     return (
-      <div className="order-table">
+      <div className="order-table table-responsive">
         <table>
           <thead>
             <tr>

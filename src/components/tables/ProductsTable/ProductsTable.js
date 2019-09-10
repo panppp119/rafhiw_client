@@ -35,7 +35,7 @@ class ProductsTable extends React.Component {
     const { products, option, action, category } = this.props;
 
     return (
-      <div className="products-table">
+      <div className="products-table table-responsive">
         <table>
           <thead>
             <tr>

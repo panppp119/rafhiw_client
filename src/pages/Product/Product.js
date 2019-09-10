@@ -42,7 +42,7 @@ class Product extends React.Component {
     this.setState({ showChat: bool });
   };
 
-  addProduct = (e) => {
+  addProduct (name) {
     const {
       createCart,
       updateCart,
@@ -79,8 +79,6 @@ class Product extends React.Component {
           alert('ของในคลังสินค้าไม่เพียงพอ');
         }
         else {
-          const name = e.target.name
-
           updateCart(cart.get('id'), {
             product: pd,
             cart_qt: cart.get('total_qt') || 0,
@@ -327,12 +325,16 @@ class Product extends React.Component {
                 </table>
 
                 <div className="actions">
-                  <button className='primary' onClick={this.addProduct}>
-                    เพิ่มไปยังรถเข็น
-                  </button>
-                  <button name='buy' className='primary' onClick={this.addProduct}>
-                    ซื้อสินค้า
-                  </button>
+                  <div className="button-field">
+                    <button className='primary' onClick={() => this.addProduct('add')}>
+                      เพิ่มไปยังรถเข็น
+                    </button>
+                  </div>
+                  <div className="button-field">
+                    <button name='buy' className='primary' onClick={() => this.addProduct('buy')}>
+                      ซื้อสินค้า
+                    </button>
+                  </div>
                 </div>
               </div>
 

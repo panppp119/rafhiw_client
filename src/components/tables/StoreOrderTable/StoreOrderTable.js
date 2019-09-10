@@ -90,17 +90,15 @@ class StoreOrderTable extends React.Component {
 
   render() {
     const { orders, shipper } = this.props;
-    const { tracking_id, shipment_type, index } = this.state;
+    const { tracking_id, shipment_type } = this.state;
 
     const shipment_options = [
       { key: 0, text: 'ไปรษณีย์ไทย', value: 1 },
       { key: 1, text: 'Kerry', value: 2 }
     ];
 
-    console.log(index, tracking_id, shipment_type)
-
     return (
-      <div className="store-order-table">
+      <div className="store-order-table table-responsive">
         <table>
           <thead>
             <tr>

@@ -82,7 +82,7 @@ class ProfileTable extends React.Component {
     };
 
     return (
-      <div className="profile-table">
+      <div className="profile-table table-responsive">
         <table>
           <tbody>
             <tr>
@@ -94,7 +94,7 @@ class ProfileTable extends React.Component {
                     {/* <img src={user.get('image')} alt="user-avatar"/> */}
                     <div className="image"
                       aria-label="user-avatar"
-                      style={{ backgrounImage: `url(${user.get('image')})`}}
+                      style={{ backgroundImage: `url(${user.get('image')})`}}
                     />
 
                     <p>ขนาดไฟล์สูงสุด 1 Mb (JPG, PNG)</p>

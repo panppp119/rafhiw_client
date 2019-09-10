@@ -71,6 +71,7 @@ $desktop: 1280px;
     .column {
       width: calc(100% / 2);
       display: inline-block;
+      vertical-align: top;
 
       @media screen and (min-width: $desktop) {
         width: calc(100% / 5);
@@ -136,7 +137,12 @@ $desktop: 1280px;
 
     button {
       display: inline-block;
-      width: 50%;
+    }
+
+    .button-field {
+      width: 44%;
+      padding: 0 8px;
+      display: inline-block;
     }
   }
 
@@ -150,8 +156,9 @@ $desktop: 1280px;
     }
 
     input {
-      width: auto;
       text-align: center;
+      max-width: 80px;
+      width: auto;
     }
   }
 

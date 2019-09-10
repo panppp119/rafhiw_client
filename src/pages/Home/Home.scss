@@ -41,11 +41,14 @@ $desktop: 1280px;
         text-decoration: none;
         color: var(--black);
 
-        img {
+        .image {
           width: 100px;
           height: 100px;
           display: inline-block;
           vertical-align: middle;
+          background-size: cover;
+          background-position: center;
+          background-color: var(--gray_light);
         }
 
         .info {
@@ -55,6 +58,11 @@ $desktop: 1280px;
           h4 {
             color: var(--primary);
           }
+        }
+
+        .price {
+          color:var(--gray_light);
+          margin-right: 8px;
         }
       }
     }
@@ -166,6 +174,7 @@ $desktop: 1280px;
 
     .column {
       display: inline-block;
+      vertical-align: top;
     }
 
     h3 {

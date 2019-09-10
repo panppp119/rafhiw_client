@@ -121,7 +121,10 @@ class Home extends React.Component {
                       return (
                         <div className="product" key={i}>
                           <Link to={`/p/${product.get('id')}`}>
-                            <img src={product.get('image')} alt={product.get('name')}/>
+                            <div className="image"
+                              aria-label={product.get('name')}
+                              style={{ backgroundImage: `url(${product.get('image')})` }}
+                            />
 
                             <div className="info">
                               <h4>{product.get('name')}</h4>
