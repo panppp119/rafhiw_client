@@ -9,7 +9,7 @@ import './TopNav.scss'
 
 class TopNav extends React.Component {
   componentDidMount () {
-    if (this.props.user.isEmpty() && sessionStorage.getItem('auth') == null) {
+    if (this.props.user.isEmpty() && sessionStorage.getItem('auth') === null) {
       this.props.checkSession();
     }
     else if (this.props.user.isEmpty() && sessionStorage.getItem('auth') !== null) {

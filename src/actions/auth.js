@@ -127,8 +127,6 @@ export const register = data => (dispatch, getState) => {
 };
 
 export const signout = () => (dispatch, getState) => {
-  // const location = getState().getIn(['router', 'location', 'pathname']);
-
   dispatch({ type: CONST.SIGN_OUT });
 
   if (getState().getIn(['auth', 'provider']) === 'google') {
@@ -145,7 +143,6 @@ export const signout = () => (dispatch, getState) => {
 
 export const checkSession = () => (dispatch, getState) => {
   const authen = JSON.parse(sessionStorage.getItem('auth'));
-  // const pathname = getState().getIn(['router', 'location', 'pathname'], '');
   dispatch({ type: CONST.CHECK_SESSION, auth: authen });
 
   if (authen && authen.token !== null) {

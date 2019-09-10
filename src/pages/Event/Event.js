@@ -44,10 +44,10 @@ class Event extends React.Component {
                 {/* <Button content="เพิ่มสินค้าใน Event" /> */}
                 <div className="gg-map">
                   <GMap
-                    location={event.get('location_name')}
+                    location={event.getIn(['location', 'name'])}
                     center={{
-                      lat: parseFloat(event.get('location_lat')),
-                      lng: parseFloat(event.get('location_lng'))
+                      lat: parseFloat(event.getIn(['location', 'lat'])),
+                      lng: parseFloat(event.getIn(['location', 'lng']))
                     }}
                   />
                 </div>
