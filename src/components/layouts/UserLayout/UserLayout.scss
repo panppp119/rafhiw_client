@@ -10,7 +10,12 @@ $desktop: 1280px;
     overflow-y: auto;
 
     @media screen and (min-width: $desktop) {
-      height: calc(100% - 171px);
+      
+      // 3NAV
+      // height: calc(100% - 171px);
+
+      // 2NAV
+      height: calc(100% - 121px); 
     }
   }
 }

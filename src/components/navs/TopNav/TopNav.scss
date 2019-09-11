@@ -8,7 +8,12 @@ $desktop: 1280px;
   }
 
   .first {
-    background-color: var(--primary_dark);
+    // background-color: var(--primary_dark);
+
+    // tab new
+    background-color: var(--primary);
+    background-image: var(--primary_gradient);
+
 
     li {
       line-height: 40px;
@@ -31,7 +36,7 @@ $desktop: 1280px;
           padding: 0 8px;
         }
 
-        .size3 {
+        .size3, .sun, .moon {
           font-size: 16px;
           padding: 0 8px;
         }
@@ -54,17 +59,23 @@ $desktop: 1280px;
         ul {
           position: absolute;
           bottom: -40px;
+          left: -100px;
           height: 100%;
           display: none;
+          border-radius: 5px;
+          -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+          -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+          box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
 
           li {
-            width: 100px;
+            width: 200px;
             line-height: 40px;
             text-align: left;
-            padding: 0 8px;
-            background-color: var(--white);
+            padding: 8px 8px;
+            background-color: white;
             cursor: pointer;
             color: var(--primary);
+            border-bottom: solid 1px var(--primary_soft);
 
             &:hover {
               color: var(--primary_dark);
@@ -82,12 +93,39 @@ $desktop: 1280px;
       }
     }
   }
+  .first-mobile {
+    border-bottom: solid 1px var(--primary_soft);
+  }
+
+  .first-mobile .size1 {
+    font-size: 12px;
+    padding: 0 0px;
+  }
+
+  .first-mobile .size2 {
+    font-size: 14px;
+    padding: 0 0px;
+  }
+
+  .first-mobile .size3, .sun, .moon {
+    font-size: 16px;
+    padding: 0 0px;
+  }
 
   .second {
-    background-color: var(--primary);
+    // background-color: var(--primary);
+    // background-image: var(--primary_gradient);
+
+    // tab new
+    background-color: var(--primary_white);
+    -webkit-box-shadow: 0px 4px 26px -5px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 4px 26px -5px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 26px -5px rgba(0,0,0,0.1);
 
     li {
       line-height: 80px;
+      // tab new
+      color: var(--primary);
 
       &.logo {
         flex-grow: 1;
@@ -128,13 +166,18 @@ $desktop: 1280px;
       text-decoration: none;
 
       @media screen and (min-width: $desktop) {
-        color: var(--white);
+        // color: var(--white);
+        //tab new
+        color: var(--primary_gradient);
+        font-weight: 500;
+
       }
     }
 
     &.active a {
       background-color: white;
       color: var(--primary);
+
     }
   }
 }

@@ -6,7 +6,11 @@ $desktop: 1280px;
   margin: auto;
 
   @media screen and (min-width: $desktop) {
-    box-shadow: 2px 2px 5px var(--primary_light);
+    // box-shadow: 2px 2px 5px var(--primary_light);
+
+    -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
   }
 
   h2 {
