@@ -15,6 +15,7 @@ const rootReducer = history =>
     user: require('./user').default,
     addresses: require('./addresses').default,
     cards: require('./cards').default,
+    bank: require('./bank').default,
     cart: require('./cart').default,
     orders: require('./orders').default,
   });

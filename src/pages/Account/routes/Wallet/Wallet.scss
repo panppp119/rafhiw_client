@@ -31,7 +31,7 @@ $desktop: 1280px;
     }
   }
 
-  .card-card {
+  .card-card, .bank-bank {
     border: 1px solid var(--primary);
     border-radius: 5px;
     padding: 14px;
@@ -53,5 +53,13 @@ $desktop: 1280px;
 
   h3 {
     margin-top: 0;
+  }
+
+  button {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 16px;
+    }
   }
 }

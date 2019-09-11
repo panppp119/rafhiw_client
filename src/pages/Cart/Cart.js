@@ -17,6 +17,7 @@ class Cart extends React.Component {
 
   componentDidMount() {
     this.props.loadCart();
+    this.props.loadAddresses();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,6 +31,10 @@ class Cart extends React.Component {
   handleClickPayment = (e, { name }) => {
     this.setState({ payment: name });
   };
+
+  selectAddress = e => {
+    this.setState({ address_id: parseInt(e.target.value) })
+  }
 
   removeProduct = (e) => {
     const {
@@ -155,23 +160,26 @@ class Cart extends React.Component {
     const data = {
       ...cart,
       user_id: this.props.user.get('id'),
-      total_amt: parseInt(total)
+      total_amt: parseInt(total),
+      address_id: this.state.address_id
     };
 
     if (pause) {
       alert('ไม่สามารถทำการสั่งซื้อได้เนื่องจากมีบางรายการหมดเวลาแล้ว');
-    } else {
+    } else if (this.state.address_id) {
       this.setState({ checkout: true });
 
       this.props.createOrder(data).then(() => {
         this.props.loadCart();
         this.props.history.push('/checkout');
       });
+    } else {
+      alert('กรุณาเลือกที่อยู่ในการจัดส่งสินค้า');
     }
   }
 
   render() {
-    const { cart } = this.props;
+    const { cart, addresses } = this.props;
 
     var total = 0;
     var hiw_amt = 0;
@@ -189,6 +197,25 @@ class Cart extends React.Component {
       <UserLayout>
         <div id="cart-page">
           <div className='container'>
+            <div className="addresses">
+              <h4>เลือกที่อยู่ในการจัดส่ง</h4>
+              {
+                addresses.map((address, i) => {
+                  return (
+                    <p key={i}>
+                      <input type="radio"
+                        name='address_id'
+                        value={address.get('id')}
+                        checked={this.state.address_id === address.get('id')}
+                        onClick={this.selectAddress}
+                      />
+                      {address.get('address')}, {address.get('sub_district')}, {address.get('district')}, {address.get('province')}, {address.get('zip_code')}
+                    </p>
+                  )
+                })
+              }
+            </div>
+            
             <div className="cart-products">
               <table>
                 <thead>

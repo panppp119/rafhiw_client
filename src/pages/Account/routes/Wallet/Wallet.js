@@ -13,7 +13,8 @@ class Wallet extends React.Component {
   };
 
   componentDidMount() {
-    this.props.cards.isEmpty() && this.props.loadCards();
+    this.props.user.isEmpty() && this.props.loadCards();
+    this.props.user.isEmpty() && this.props.loadBank();
   }
 
   handleClick (name) {
@@ -24,20 +25,60 @@ class Wallet extends React.Component {
     this.setState({ [name]: false });
   };
 
-  delete = id => e => {
+  removeCard = id => e => {
     if (window.confirm('ยืนยันที่จะลบบัตรนี้ทิ้ง')) {
       this.props.removeCard(id);
     }
   };
 
+  removeBank = id => e => {
+    if (window.confirm('ยืนยันที่จะลบบัญชีนี้ทิ้ง')) {
+      this.props.removeBank(id);
+    }
+  };
+
   showBankForm() {
+    const { bank } = this.props
+    const bank_name = (!bank.isEmpty() && bank.get('bank_name')) || ''
+    var name = ''
+
+    switch (bank_name) {
+      case 'kbank': name = 'ธนาคารกสิกร'
+        break;
+      case 'scb': name = 'ธนาคารไทยพาณิชย์'
+        break;
+      case 'bkk': name = 'ธนาคารกรุงเทพ'
+        break;
+      case 'ktb': name = 'ธนาคารกรุงไทย'
+        break;
+      case 'tmb': name = 'ธนาคารทหารไทย'
+        break;
+      default:
+        break;
+    }
+
     if (this.state.bank) {
-      return <BankAccountForm />;
+      return <BankAccountForm cancel={this.cancel} {...this.props} />;
     } else {
       return (
-        <button className='primary' onClick={() => this.handleClick('bank')}>
-          เพิ่มบัญชีธนาคาร
-        </button>
+        <Fragment>
+          <div className="bank-bank">
+            <p>{name} - {bank.get('bank_branch')}</p>
+            <p>{bank.get('account_name')}</p>
+            <p>{bank.get('account_no')}</p>
+            <span onClick={this.removeBank(bank.get('id'))}>
+              <FaTrash />
+            </span>
+          </div>
+
+          {
+            bank.isEmpty() && (
+              <button className='primary' onClick={() => this.handleClick('bank')}>
+                เพิ่มบัญชีธนาคาร
+              </button>
+            )
+          }
+        </Fragment>
       );
     }
   }
@@ -61,7 +102,7 @@ class Wallet extends React.Component {
                   <p>
                     {card.get('expired_month')}/{card.get('expired_year')}
                   </p>
-                  <span onClick={this.delete(card.get('id'))}>
+                  <span onClick={this.removeCard(card.get('id'))}>
                     <FaTrash />
                   </span>
                 </div>
@@ -78,9 +119,9 @@ class Wallet extends React.Component {
   }
 
   render() {
-    // const { user } = this.props;
+    const { user } = this.props;
 
-    // const allow = !user.isEmpty() && user.get('roles').includes('seller');
+    const allow = !user.isEmpty() && user.get('roles').includes('seller');
 
     return (
       <div className="wallet">
@@ -91,10 +132,7 @@ class Wallet extends React.Component {
 
         <div className="body">
           {this.showCardForm()}
-
-          {/* {
-            allow && {this.showBankForm()}
-          } */}
+          {allow && this.showBankForm()}
         </div>
       </div>
     );

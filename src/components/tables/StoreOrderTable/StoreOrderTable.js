@@ -129,7 +129,7 @@ class StoreOrderTable extends React.Component {
                           )} />
                       </td>
                       {
-                        shipper && <td>Address</td>
+                        shipper && <td>{order.get('address') || '-'}</td>
                       }
                       {shipper && (
                         <td>
@@ -141,11 +141,11 @@ class StoreOrderTable extends React.Component {
                             }
                             autoComplete="false"
                             onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
-                            // disabled={status !== 'pending_shipping'}
+                            disabled={status !== 'pending_shipping'}
                           />
 
                           <select name="shipment_type"
-                            // disabled={status !== 'pending_shipping'}
+                            disabled={status !== 'pending_shipping'}
                             onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
                             value={
                               (this.state.index === i && shipment_type) ||
@@ -165,13 +165,13 @@ class StoreOrderTable extends React.Component {
                           {(status === 'pending_shipping' || status === 'pending_receive_goods') && (
                             <button className='primary'
                               onClick={() => this.handleClick(order.get('id'), option.get('id'), i)}
-                              // disabled={
-                              //   tracking_code === '' ||
-                              //   tracking_code === null ||
-                              //   tracking_code === undefined ||
-                              //   shipment_type === null ||
-                              //   shipment_type === undefined
-                              // }
+                              disabled={
+                                tracking_code === '' ||
+                                tracking_code === null ||
+                                tracking_code === undefined ||
+                                shipment_type === null ||
+                                shipment_type === undefined
+                              }
                             >
                               <FaCheck />
                             </button>

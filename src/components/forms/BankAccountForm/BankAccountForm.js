@@ -3,14 +3,31 @@ import React from 'react';
 import './BankAccountForm.scss';
 
 class BankAccountForm extends React.Component {
-  handleChange = (e, { name, value }) => {
-    this.setState({ [name]: value });
+  state = {
+    bank_branch: '',
+    bank_name: '',
+    account_name: '',
+    account_no: ''
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSend = e => {
     e.preventDefault();
 
+    const data = {
+      bank_name: this.state.bank_name || '',
+      bank_branch: this.state.bank_branch || '',
+      account_name: this.state.account_name || '',
+      account_no: this.state.account_no || '',
+      user_id: this.props.user.get('id')
+    }
 
+    this.props.addBank(data).then(() => {
+      this.props.loadBank()
+    })
   };
 
   render() {
@@ -24,28 +41,31 @@ class BankAccountForm extends React.Component {
 
     return (
       <form className="bank-account-form">
-        <div className="form-field">
-          <label>สาขา</label>
-          <select name="bank"
-            onChange={this.handleChange}
-          >
-            <option default>เลือกธนาคาร</option>
-            {
-              banks.map((bank, i) => {
-                return <option key={i} value={bank.value}>{bank.content}</option>
-              })
-            }
-          </select>
-        </div>
+        <div className="form-group">
+          <div className="form-field">
+            <label>ธนาคาร</label>
+            <select name="bank_name"
+              value={this.state.bank_name}
+              onChange={this.handleChange}
+            >
+              <option default>เลือกธนาคาร</option>
+              {
+                banks.map((bank, i) => {
+                  return <option key={i} value={bank.value}>{bank.content}</option>
+                })
+              }
+            </select>
+          </div>
 
-        <div className="form-field">
-          <label>สาขา</label>
-          <input type="text"
-            name="bank_branch"
-            value={this.state.bank_branch || ''}
-            autoComplete="off"
-            onChange={this.handleChange}
-          />
+          <div className="form-field">
+            <label>สาขา</label>
+            <input type="text"
+              name="bank_branch"
+              value={this.state.bank_branch || ''}
+              autoComplete="off"
+              onChange={this.handleChange}
+            />
+          </div>
         </div>
 
         <div className="form-field">
@@ -61,8 +81,8 @@ class BankAccountForm extends React.Component {
         <div className="form-field">
           <label>หมายเลขบัญชี</label>
           <input type="text"
-            name="account_number"
-            value={this.state.account_number || ''}
+            name="account_no"
+            value={this.state.account_no || ''}
             autoComplete="off"
             onChange={this.handleChange}
           />
@@ -72,7 +92,7 @@ class BankAccountForm extends React.Component {
           <button type="submit" className='primary' onClick={this.handleSend}>
             ยืนยัน
           </button>
-          <button className="cancel" onClick={() => this.props.cancel('bank')}>
+          <button className="error" onClick={() => this.props.cancel('bank')}>
             ยกเลิก
           </button>
         </div>

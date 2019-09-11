@@ -64,4 +64,29 @@ $desktop: 1280px;
       color: var(--primary);
     }
   }
+
+  .addresses {
+    padding: 8px;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    h4 {
+      margin-bottom: 8px;
+
+      @media screen and (min-width: $desktop) {
+        margin-bottom: 16px;
+      }
+    }
+
+    input[type=radio] {
+      width: auto;
+      margin-right: 8px;
+    }
+  }
 }
