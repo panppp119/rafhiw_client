@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaPlus } from 'react-icons/fa'
+import { List } from 'immutable'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaArchive, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
 
 class StoreTopNav extends React.Component {
+
+  state = {
+    nightmode: this.props.themeColor === 'theme-dark'
+  }
+
   componentDidMount () {
     if (this.props.user.isEmpty()) {
       return this.props.checkSession();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      (prevProps.user.isEmpty() && prevProps.user !== this.props.user) ||
+      prevProps.user !== this.props.user
+    ) {
+      this.props.loadCart();
     }
   }
 
@@ -18,7 +33,28 @@ class StoreTopNav extends React.Component {
     })
   }
 
+  handleChangeFont(age) {
+    this.props.setFont(age);
+  }
+
+  changeMode = e => {
+    this.setState({ nightmode: !this.state.nightmode })
+
+    if (!this.state.nightmode) {
+      this.props.setTheme('theme-dark')
+    }
+    else {
+      this.props.setTheme('theme-orange')
+    }
+  }
+
   render () {
+
+    const {  user } = this.props
+    const roles = user.get('roles') || List()
+
+
+
     return (
       <div id="store-top-nav">
         <div className="mobile">
@@ -33,19 +69,52 @@ class StoreTopNav extends React.Component {
           <div className="first">
             <ul className='container'>
               <li className='display'>
-                การแสดงผล
-                <span className='size1'><FaFont /></span>
-                <span className='size2'><FaFont /></span>
-                <span className='size3'><FaFont /></span>
+                {/* การแสดงผล */}
+                <span className='size1' onClick={() => this.handleChangeFont(20)}>
+                  <FaFont />
+                </span>
+                <span className='size2' onClick={() => this.handleChangeFont(35)}>
+                  <FaFont />
+                </span>
+                <span className='size3' onClick={() => this.handleChangeFont(45)}>
+                  <FaFont />
+                </span>
+                {
+                  this.state.nightmode ? (
+                    <span>
+                      <FaMoon className='moon'
+                        onClick={this.changeMode}
+                      />
+                    </span>
+                  ) : (
+                    <span>
+                      <FaSun className='sun'
+                        onClick={this.changeMode}
+                      />
+                    </span>
+                  )
+                }
               </li>
               <li className='empty' />
               <li className='user'>
-                <FaUser />
-                <ul>
-                  <li><Link to='/account'>บัญชีของฉัน</Link></li>
-                  <li><Link to='/store'>ร้านค้า</Link></li>
-                  <li onClick={this.signOut}>ออกจากระบบ</li>
-                </ul>
+                {
+                  user.isEmpty() ? (
+                    <Link to='/sign_in'><FaSignInAlt /></Link>
+                  ) : (
+                    <Fragment>
+                      <FaUser />
+                      <ul>
+                        <li><Link to='/account'><FaAddressCard /> บัญชีของฉัน</Link></li>
+                        {
+                          roles.filter(role => role === 'seller').size !== 0 ? (
+                            <li><Link to='/store'><FaArchive /> ร้านค้า</Link></li>
+                          ) : null
+                        }
+                        <li onClick={this.signOut}><Link to='/'><FaSignOutAlt /> ออกจากระบบ</Link></li>
+                      </ul>
+                    </Fragment>
+                  )
+                }
               </li>
               <li><FaBell /></li>
             </ul>
@@ -54,7 +123,15 @@ class StoreTopNav extends React.Component {
           <div className="second">
             <ul className='container'>
               <li className='logo'>
-                <Link to='/'><img src={logo} alt="logout" /></Link>
+                {/* {
+                this.state.nightmode ? (
+                      <Link to='/'><img src={logo} alt="logo" /></Link>
+                  ) : (
+                      <Link to='/'><img src={logo_pimary} alt="logo" /></Link>
+                  )
+
+                } */}
+                <Link to='/'><img src={logo} alt="logo" /></Link>
               </li>
               <li><h3>ร้านค้า</h3></li>
               <li className='add-product'>

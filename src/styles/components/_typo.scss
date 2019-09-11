@@ -100,7 +100,7 @@ h5 {
   a,
   .rating {
     font-size: 21px !important;
-    line-height: 25px !important;
+    // line-height: 25px !important;
   }
 }
 
@@ -131,6 +131,22 @@ h5 {
   a,
   .rating {
     font-size: 34px !important;
-    line-height: 38px !important;
+    // line-height: 38px !important;
+  }
+}
+
+.theme-dark {
+  background-color: darken(#555, 15%);
+
+  h1, h2, h3, h4, h5, p, a {
+    color: var(--secondary) !important;
+  }
+
+  a, li {
+    background-color: var(--black) !important;
+
+    &.active {
+      background-color: darken(#555, 15%) !important;
+    }
   }
 }
