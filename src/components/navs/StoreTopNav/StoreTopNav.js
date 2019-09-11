@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react'
-import ClassNames from 'classnames'
 import { Link, withRouter } from 'react-router-dom'
 import { List } from 'immutable'
 import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaArchive, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
-import logo_pimary from './logo_pimary.png'
 import './StoreTopNav.scss'
 
 class StoreTopNav extends React.Component {
@@ -56,7 +54,7 @@ class StoreTopNav extends React.Component {
     const roles = user.get('roles') || List()
 
 
-    
+
     return (
       <div id="store-top-nav">
         <div className="mobile">
@@ -84,7 +82,7 @@ class StoreTopNav extends React.Component {
                 {
                   this.state.nightmode ? (
                     <span>
-                      <FaMoon className='moon' 
+                      <FaMoon className='moon'
                         onClick={this.changeMode}
                       />
                     </span>
@@ -131,7 +129,7 @@ class StoreTopNav extends React.Component {
                   ) : (
                       <Link to='/'><img src={logo_pimary} alt="logo" /></Link>
                   )
-                  
+
                 } */}
                 <Link to='/'><img src={logo} alt="logo" /></Link>
               </li>
