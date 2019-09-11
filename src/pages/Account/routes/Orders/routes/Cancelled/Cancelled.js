@@ -24,6 +24,7 @@ class Cancelled extends React.Component {
     return (
       <div className="tab cancelled">
         <OrderTable
+          cancel
           orders={cancel}
         />
       </div>

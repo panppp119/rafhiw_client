@@ -311,7 +311,7 @@ export const createAttachment = (id, attachments, schema) => (
   attachments.forEach(attachment => {
     req
       .attach('image', attachment.file)
-      .field('order_id', id);
+      .field('order_id', id)
   });
 
   return req

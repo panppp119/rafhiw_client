@@ -1,8 +1,26 @@
+$desktop: 1280px;
+
 .review-form {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  .stars {
+    margin-bottom: 8px;
+    color: var(--gray_light);
+    font-size: 2em;
+    text-align: center;
+
+    .active {
+      color: var(--warning);
+    }
+
+    svg:hover {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    margin-top: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-top: 16px;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from 'immutable';
 
-import OrderTable from 'components/tables/OrderTable';
+import OrderTable from 'components/tables/OrderTable'
 
 import './Completed.scss';
 

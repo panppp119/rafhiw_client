@@ -1,0 +1,23 @@
+$desktop: 1280px;
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  .frame {
+    width: 300px;
+    padding: 8px;
+    background-color: var(--white);
+    margin: auto;
+    margin-top: 15%;
+
+    @media screen and (min-width: $desktop) {
+      padding: 16px;
+    }
+  }
+}
