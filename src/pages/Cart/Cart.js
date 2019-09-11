@@ -233,7 +233,7 @@ class Cart extends React.Component {
                         >
                           <td>
                             <img
-                              src={cp.getIn(['attachments', 0, 'image'])}
+                              src={cp.get('image')}
                               alt={name + option.get('name')}
                             />
                             <span>

@@ -42,7 +42,7 @@ class AddProductForm extends React.Component {
     var name = e.target.name
 
     options[key][name] = value;
-    this.setState({ options });
+    this.setState({ value });
   }
 
 
@@ -389,9 +389,10 @@ class AddProductForm extends React.Component {
                       <label htmlFor="">จำนวน</label>
                       <input type="number"
                         name="stock"
-                        value={option.stock || 0}
+                        value={option.stock || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
+                        maxLength={5}
                       />
                     </div>
 
@@ -402,6 +403,7 @@ class AddProductForm extends React.Component {
                         value={option.price_amt || ''}
                         autoComplete="off"
                         onChange={(e) => this.handleChangeOption(e, i)}
+                        maxLength={7}
                       />
                     </div>
 

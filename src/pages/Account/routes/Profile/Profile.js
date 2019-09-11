@@ -74,7 +74,11 @@ class Profile extends React.Component {
         {
           this.state.edit && (
             <Modal close={this.close}>
-              <ProfileForm user={user}/>
+              <ProfileForm
+                user={user}
+                close={this.close}
+                updateUser={this.props.updateUser}
+              />
             </Modal>
           )
         }

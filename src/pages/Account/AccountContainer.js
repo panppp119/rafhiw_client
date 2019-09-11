@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
 
 import { fetchDisabilities } from 'actions/info'
-import { fetchUser, createAttachment } from 'actions/user'
+import { fetchUser, createAttachment, updateUser } from 'actions/user'
 import userSchema from 'schemas/user'
 import Account from './Account';
 
@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   loadDisabilities: () => fetchDisabilities(),
   loadUser: () => fetchUser(userSchema),
+  updateUser: (data) => updateUser(data, userSchema),
   upload: (id, data, type) =>
     createAttachment(id, data, userSchema, type)
 };

@@ -14,24 +14,29 @@ class ProfileForm extends React.Component {
   };
 
   onSubmit = e => {
-    // const { user } = this.props;
-    //
-    // const data = {
-    //   first_name: this.state.first_name || user.get('first_name'),
-    //   last_name: this.state.last_name || user.get('last_name'),
-    //   email: this.state.email || user.get('email'),
-    //   phone_number: this.state.phone_number || user.get('phone_number'),
-    //   birthday: this.state.birthday || user.get('birthday'),
-    //   disability_id: this.state.disability_id,
-    //   gender: this.state.gender || user.get('gender')
-    // };
-    //
-    // this.props.updateUser(data).then(() => {
-    //   this.props.closeModal();
-    // });
+    e.preventDefault()
+
+    const { user } = this.props;
+
+    const data = {
+      first_name: this.state.first_name || user.get('first_name'),
+      last_name: this.state.last_name || user.get('last_name'),
+      email: this.state.email || user.get('email'),
+      phone_number: this.state.phone_number || user.get('phone_number'),
+      birthday: this.state.birthday || user.get('birthday'),
+      disability_id: parseInt(this.state.disability_id) || user.get('disability_id'),
+      gender: parseInt(this.state.gender) || user.get('gender')
+    };
+
+    this.props.updateUser(data).then(() => {
+      this.props.close()
+    });
   };
 
-  handleChange = (e, { name, value }) => {
+  handleChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
     this.setState({ [name]: value });
   };
 
@@ -84,6 +89,7 @@ class ProfileForm extends React.Component {
               value={this.state.phone_number || ''}
               autoComplete="off"
               onChange={this.handleChange}
+              maxLength={10}
             />
           </div>
 
@@ -124,7 +130,7 @@ class ProfileForm extends React.Component {
             </select>
           </div>
 
-          <button className='primary'>
+          <button className='primary' onClick={this.onSubmit}>
             อัพเดต
           </button>
         </form>
