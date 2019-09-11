@@ -12,7 +12,7 @@ class Modal extends React.Component {
     return (
       <div className="modal" onClick={this.handleClick}>
         <div className="frame" onClick={(e) => e.stopPropagation()}>
-          <FaTimes onClick={this.handleClick} />
+          <FaTimes className='exit' onClick={this.handleClick} />
           {this.props.children}
         </div>
       </div>

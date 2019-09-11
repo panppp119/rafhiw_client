@@ -49,6 +49,10 @@ class OrderTable extends React.Component {
     })
   }
 
+  close = e => {
+    this.setState({ activeReview: false })
+  }
+
   payment = (e) => {
     this.props.updateOrderId(e.target.name);
     this.props.history.push('/checkout');
@@ -61,7 +65,7 @@ class OrderTable extends React.Component {
       <div className="order-table table-responsive">
         {
           this.state.activeReview && (
-            <Modal>
+            <Modal close={this.close}>
               <ReviewForm
                 order_id={this.state.order_id}
                 seller_id={this.state.seller_id}
