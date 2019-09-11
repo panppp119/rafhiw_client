@@ -15,9 +15,22 @@ $desktop: 1280px;
     background-color: var(--white);
     margin: auto;
     margin-top: 15%;
+    position: relative;
 
     @media screen and (min-width: $desktop) {
       padding: 16px;
+    }
+
+    svg {
+      position: absolute;
+      padding: 8px;
+      top: -20px;
+      right: -20px;
+      color: var(--error);
+      font-size: 2em;
+      background-color: white;
+      border-radius: 50%;
+      cursor: pointer;
     }
   }
 }

@@ -2,8 +2,9 @@ import React from 'react';
 import DropzoneComponent from 'react-dropzone-component';
 import { FaEdit } from 'react-icons/fa'
 
-// import ProfileForm from 'components/forms/ProfileForm';
+import ProfileForm from 'components/forms/ProfileForm';
 import ProfileTable from 'components/tables/ProfileTable';
+import Modal from 'components/Modal'
 
 import './Profile.scss';
 
@@ -21,6 +22,10 @@ class Profile extends React.Component {
 
   edit = e => {
     this.setState({ edit: true })
+  }
+
+  close = e => {
+    this.setState({ edit: false })
   }
 
   upload = e => {
@@ -44,7 +49,6 @@ class Profile extends React.Component {
 
   render() {
     const { user } = this.props;
-    // const { user, disabilities, upload, loadUser } = this.props;
 
     var previewConfig = {
       iconFiletypes: ['.jpg', '.png'],
@@ -67,6 +71,14 @@ class Profile extends React.Component {
 
     return (
       <div className="profile">
+        {
+          this.state.edit && (
+            <Modal close={this.close}>
+              <ProfileForm user={user}/>
+            </Modal>
+          )
+        }
+
         <div className="head">
           <h3 className="ui header">ข้อมูลของฉัน</h3>
           <p>จัดการข้อมูลส่วนตัวคุณเพื่อความปลอดภัยของบัญชีผู้ใช้นี้</p>

@@ -1,4 +1,20 @@
 .profile-form {
+  max-height: 350px;
+  overflow-y: auto;
+
+  form {
+    padding: 0;
+
+    input {
+      margin: 0;
+    }
+
+    select {
+      width: 100%;
+      height: 40px;
+    }
+  }
+
   .field {
     width: 100%;
   }
