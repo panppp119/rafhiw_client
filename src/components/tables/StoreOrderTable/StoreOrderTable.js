@@ -15,7 +15,7 @@ class StoreOrderTable extends React.Component {
 
   state = {
     index: null,
-    tracking_id: '',
+    tracking_code: '',
     shipment_type: 0
   }
 
@@ -23,19 +23,20 @@ class StoreOrderTable extends React.Component {
     this.setState({ [name]: value, index: i });
   }
 
-  handleClick (id, key) {
-    const { tracking_id, shipment_type } = this.state;
+  handleClick (id, option_id, key) {
+    const { tracking_code, shipment_type } = this.state;
 
     this.setState({ index: null });
 
     if (
-      (tracking_id !== null ||
-      tracking_id !== '') &&
+      (tracking_code !== null ||
+      tracking_code !== '') &&
       shipment_type !== 0
     ) {
       this.props
         .updateTrackingId(id, {
-          tracking_code: tracking_id,
+          product_option_id: option_id,
+          tracking_code: tracking_code,
           shipment_type: this.state.shipment_type
         })
         .then(() => {
@@ -47,7 +48,7 @@ class StoreOrderTable extends React.Component {
 
   render() {
     const { orders, shipper } = this.props;
-    const { tracking_id, shipment_type } = this.state;
+    const { tracking_code, shipment_type } = this.state;
 
     const shipment_options = [
       { key: 0, text: 'ไปรษณีย์ไทย', value: 1 },
@@ -71,11 +72,11 @@ class StoreOrderTable extends React.Component {
             {
               orders.map((order, i) => {
                 const products = order.get('products') || List()
-                const status = order.get('status')
 
                 return products.map((pd, si) => {
                   const option = pd.get('option') || Map()
                   const product = pd.get('product') || Map()
+                  const status = pd.get('status')
 
                   var tag = ''
 
@@ -133,22 +134,22 @@ class StoreOrderTable extends React.Component {
                       {shipper && (
                         <td>
                           <input type="text"
-                            name="tracking_id"
+                            name="tracking_code"
                             value={
-                              (this.state.index === i && tracking_id) ||
-                              (order.get('tracking_code') || '')
+                              (this.state.index === i && tracking_code) ||
+                              (pd.get('tracking_code') || '')
                             }
                             autoComplete="false"
                             onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
-                            disabled={status !== 'pending_shipping'}
+                            // disabled={status !== 'pending_shipping'}
                           />
 
                           <select name="shipment_type"
-                            disabled={status !== 'pending_shipping'}
+                            // disabled={status !== 'pending_shipping'}
                             onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
                             value={
                               (this.state.index === i && shipment_type) ||
-                              (order.get('shipment_type') || '')
+                              (pd.get('shipment_type') || '')
                             }
                           >
                             <option default>บริการขนส่ง</option>
@@ -161,16 +162,16 @@ class StoreOrderTable extends React.Component {
                             }
                           </select>
 
-                          {status === 'pending_shipping' && (
+                          {(status === 'pending_shipping' || status === 'pending_receive_goods') && (
                             <button className='primary'
-                              onClick={() => this.handleClick(order.get('id'), i)}
-                              disabled={
-                                tracking_id === '' ||
-                                tracking_id === null ||
-                                tracking_id === undefined ||
-                                shipment_type === null ||
-                                shipment_type === undefined
-                              }
+                              onClick={() => this.handleClick(order.get('id'), option.get('id'), i)}
+                              // disabled={
+                              //   tracking_code === '' ||
+                              //   tracking_code === null ||
+                              //   tracking_code === undefined ||
+                              //   shipment_type === null ||
+                              //   shipment_type === undefined
+                              // }
                             >
                               <FaCheck />
                             </button>

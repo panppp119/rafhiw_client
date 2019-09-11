@@ -19,9 +19,13 @@ class Completed extends React.Component {
   render() {
     const { orders } = this.props;
 
-    const completed = orders.filter(
-      o => o.get('status') === 'completed' || o.get('status') === 'pending_review'
-    ) || List();
+    var completed =
+      orders.filter(
+        o => o.get('products').find(p =>
+          p.get('status') === 'completed' ||
+          p.get('status') === 'pending_review'
+        )
+      ) || List();
 
     return (
       <div className="tab completed">
@@ -30,6 +34,7 @@ class Completed extends React.Component {
           orders={completed}
           review={this.props.review}
           loadOrders={this.props.loadOrders}
+          user={this.props.user}
         />
       </div>
     );

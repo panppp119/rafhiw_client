@@ -21,9 +21,10 @@ class Shipment extends React.Component {
 
     const shipment =
       orders.filter(
-        o =>
-          o.get('status') === 'pending_shipping' ||
-          o.get('status') === 'pending_receive_goods'
+        o => o.get('products').find(p =>
+          p.get('status') === 'pending_shipping' ||
+          p.get('status') === 'pending_receive_goods'
+        )
       ) || List();
 
     return (

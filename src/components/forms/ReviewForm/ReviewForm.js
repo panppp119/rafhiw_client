@@ -9,16 +9,22 @@ class ReviewForm extends React.Component {
     rating: 0
   }
 
-  submitReview (rate) {
+  submitReview = e => {
+    e.preventDefault()
+
     const data = {
       seller_id: this.props.seller_id,
       rating: this.state.rating,
       user_id: this.props.user.get('id'),
       order_id: this.props.order_id,
+      product_option_id: this.props.product_id,
       comment: this.state.comment
     }
 
-    this.props.createReview(data)
+    this.props.review(data).then(() => {
+      this.props.close()
+      this.props.loadOrders()
+    })
   }
 
   selectStar (rate)  {
@@ -57,7 +63,7 @@ class ReviewForm extends React.Component {
             <textarea name="comment" placeholder="รีวิว..." onChange={this.comment}></textarea>
           </div>
 
-          <button className="primary">
+          <button className="primary" onClick={this.submitReview}>
             รีวิว
           </button>
         </div>

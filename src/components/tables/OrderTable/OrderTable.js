@@ -35,17 +35,16 @@ class OrderTable extends React.Component {
     }
   }
 
-  confirm = (e) => {
-    const id = parseInt(e.target.name)
-
+  confirm (id) {
     this.props.confirm(id)
   }
 
-  review (order_id, seller_id) {
+  review (order_id, seller_id, product_id) {
     this.setState({
       activeReview: true,
       order_id,
-      seller_id
+      seller_id,
+      product_id
     })
   }
 
@@ -69,7 +68,11 @@ class OrderTable extends React.Component {
               <ReviewForm
                 order_id={this.state.order_id}
                 seller_id={this.state.seller_id}
+                product_id={this.state.product_id}
                 user={this.props.user}
+                review={this.props.review}
+                close={this.close}
+                loadOrders={this.props.loadOrders}
               />
             </Modal>
           )
@@ -92,17 +95,17 @@ class OrderTable extends React.Component {
               orders.map((order, i) => {
                 const products = order.get('products') || List()
                 const status = order.get('status')
-                var tag = ''
+                var tag1 = ''
 
                 switch (status) {
                   case 'pending_payment':
-                    tag = "รอการชำระเงิน"
+                    tag1 = "รอการชำระเงิน"
                     break;
                   case 'pending_check_payment':
-                    tag = "รอตรวจสอบการชำระเงิน"
+                    tag1 = "รอตรวจสอบการชำระเงิน"
                     break;
                   case 'cancelled':
-                    tag = "ยกเลิก"
+                    tag1 = "ยกเลิก"
                     break;
                   default:
                     break;
@@ -138,7 +141,7 @@ class OrderTable extends React.Component {
                       </td>
                       <td>{order.get('total_qt')}</td>
                       <td><PriceConvert price={order.get('total_amt')} /></td>
-                      <td>{tag}</td>
+                      <td>{tag1}</td>
                       {payment && (
                         <td>
                           {
@@ -169,19 +172,20 @@ class OrderTable extends React.Component {
                     const option = pd.get('option') || Map()
                     const product = pd.get('product') || Map()
                     const state = pd.get('status')
+                    var tag2 = ''
 
                     switch (state) {
                       case 'pending_shipping':
-                        tag = "รอการจัดส่ง"
+                        tag2 = "รอการจัดส่ง"
                         break;
                       case 'pending_receive_goods':
-                        tag = "รอยืนยันการรับของ"
+                        tag2 = "รอยืนยันการรับของ"
                         break;
                       case 'pending_review':
-                        tag = "รอการรีวิว"
+                        tag2 = "รอการรีวิว"
                         break;
                       case 'completed':
-                        tag = "เสร็จสิ้น"
+                        tag2 = "เสร็จสิ้น"
                         break;
                       default:
                         break;
@@ -215,29 +219,37 @@ class OrderTable extends React.Component {
                             }
                           </td>
                         )}
-                        <td>{tag}</td>
+                        <td>{tag2}</td>
                         {shipper && (
                           <td>
-                            <button name={pd.get('id')}
-                              className='primary'
-                              onClick={this.confirm}
-                              disabled={order.get('status') !== 'pending_receive_goods'}
-                            >
-                              ยืนยันรับของ
-                            </button>
+                            {
+                              state === 'pending_receive_goods' && (
+                                <button name={pd.get('id')}
+                                  className='primary'
+                                  onClick={() => this.confirm(pd.get('id'))}
+                                >
+                                  ยืนยันรับของ
+                                </button>
+                              )
+                            }
                           </td>
                         )}
                         {complete && (
                           <td>
-                            <button name={pd.get('id')}
-                              className='primary'
-                              onClick={() => this.review(
-                                pd.get('id'),
-                                pd.get('seller_id')
-                              )}
-                            >
-                              รีวิว
-                            </button>
+                            {
+                              state !== 'completed' && (
+                                <button name={pd.get('id')}
+                                  className='primary'
+                                  onClick={() => this.review(
+                                    order.get('id'),
+                                    pd.getIn(['product', 'seller_id']),
+                                    pd.getIn(['option', 'id'])
+                                  )}
+                                >
+                                  รีวิว
+                                </button>
+                              )
+                            }
                           </td>
                         )}
                       </tr>
