@@ -337,7 +337,8 @@ class AddProductForm extends React.Component {
         <div className="add-option"
           style={{ display: this.state.addEvent && 'none' }}
         >
-          <button onClick={this.addEvent}>
+          <button className='primary'
+          onClick={this.addEvent}>
             เพิ่มงานลดราคา
           </button>
         </div>
@@ -444,7 +445,8 @@ class AddProductForm extends React.Component {
         </div>
 
         <div className="add-option">
-          <button onClick={this.addOption}>
+          <button className='primary'
+          onClick={this.addOption}>
             เพิ่มตัวเลือก
           </button>
         </div>

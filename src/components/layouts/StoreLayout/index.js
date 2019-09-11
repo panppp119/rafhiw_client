@@ -1,3 +1,3 @@
-import StoreLayout from './StoreLayout'
+import StoreLayoutContainer from './StoreLayoutContainer'
 
-export default StoreLayout
+export default StoreLayoutContainer

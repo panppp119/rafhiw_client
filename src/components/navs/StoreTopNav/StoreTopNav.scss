@@ -8,7 +8,11 @@ $desktop: 1280px;
   }
 
   .first {
+    // background-color: var(--primary_dark);
+
+    // tab new
     background-color: var(--primary_dark);
+
 
     li {
       line-height: 40px;
@@ -27,7 +31,7 @@ $desktop: 1280px;
           padding: 0 8px;
         }
 
-        .size3 {
+        .size3, .sun, .moon {
           font-size: 16px;
           padding: 0 8px;
         }
@@ -50,18 +54,24 @@ $desktop: 1280px;
         ul {
           position: absolute;
           bottom: -40px;
+          left: -100px;
           height: 100%;
           display: none;
-          z-index: 1;
+          border-radius: 5px;
+          -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+          -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+          box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
 
           li {
-            width: 100px;
+            width: 200px;
             line-height: 40px;
             text-align: left;
-            padding: 0 8px;
-            background-color: var(--white);
+            padding: 8px 8px;
+            background-color: white;
             cursor: pointer;
             color: var(--primary);
+            border-bottom: solid 1px var(--primary_soft);
+
 
             &:hover {
               color: var(--primary_dark);
@@ -80,8 +90,24 @@ $desktop: 1280px;
     }
   }
 
+  .first-mobile .size1 {
+    font-size: 12px;
+    padding: 0 0px;
+  }
+
+  .first-mobile .size2 {
+    font-size: 14px;
+    padding: 0 0px;
+  }
+
+  .first-mobile .size3, .sun, .moon {
+    font-size: 16px;
+    padding: 0 0px;
+  }
+
   .second {
     background-color: var(--primary);
+    background-image: var(--primary_gradient);
 
     li {
       line-height: 80px;

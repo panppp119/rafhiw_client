@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
   themeColor: state.getIn(['ui', 'theme'], 'theme-orange'),
   fontSize: state.getIn(['ui', 'font'], 'age-first'),
   flash_message: state.getIn(['ui', 'flash_message'], Map()),
-  // user: state.getIn(['user', 'data'], Map())
+  user: state.getIn(['user', 'data'], Map())
 });
 
 const mapDispatchToProps = {

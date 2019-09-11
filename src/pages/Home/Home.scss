@@ -74,7 +74,10 @@ $desktop: 1280px;
     @media screen and (min-width: $desktop) {
       width: 25%;
       display: inline-block !important;
-      box-shadow: 2px 2px 5px var(--primary_light);
+      // box-shadow: 2px 2px 5px var(--primary_light);
+      -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
 
       &.mobile {
         display: none !important;
@@ -88,7 +91,7 @@ $desktop: 1280px;
         line-height: 24px;
         padding: 8px;
         position: relative;
-        border-bottom: 1px solid var(--primary);
+        border-bottom: 1px solid var(--primary_soft);
         background-color: white;
 
         @media screen and (min-width: $desktop) {
@@ -101,7 +104,10 @@ $desktop: 1280px;
               top: 0;
               right: -251px;
               min-width: 250px;
-              box-shadow: 2px 2px 5px var(--primary_light);
+              // box-shadow: 2px 2px 5px var(--primary_light);
+              -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+              -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+              box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
               z-index: 1;
             }
           }
@@ -165,7 +171,11 @@ $desktop: 1280px;
       width: 25%;
       display: inline-block;
       vertical-align: top;
-      box-shadow: 2px 2px 5px var(--primary_light);
+      // box-shadow: 2px 2px 5px var(--primary_light);
+
+      -webkit-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+      -moz-box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
+      box-shadow: 0px 0px 14px -4px rgba(0,0,0,0.2);
     }
   }
 
@@ -212,4 +222,23 @@ $desktop: 1280px;
       width: calc(100% / 5);
     }
   }
+}
+
+.theme-dark #home-page h3 {
+  background-color: var(--black);
+}
+
+
+// Image Gallery
+.image-gallery-fullscreen-button::before, .image-gallery-left-nav::before, .image-gallery-play-button::before, .image-gallery-right-nav::before {
+  text-shadow: none;
+}
+.image-gallery-bullets .image-gallery-bullet {
+    width: 1em;
+    height: 1em;
+}
+.image-gallery-bullets .image-gallery-bullet.active {
+  width: 1em;
+  height: 1em;
+  background: #fff;
 }

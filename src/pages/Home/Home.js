@@ -86,6 +86,8 @@ class Home extends React.Component {
                   slideInterval={7000}
                   showFullscreenButton={false}
                   showNav={false}
+                  showThumbnails={false}
+                  showBullets={true}
                 />
               </div>
 

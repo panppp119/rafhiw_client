@@ -2,12 +2,17 @@ import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
 import { List } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaArchive, FaAddressCard, FaSignOutAlt } from 'react-icons/fa'
 
 import logo from './logo.png'
+import logo_pimary from './logo_pimary.png'
 import './TopNav.scss'
 
 class TopNav extends React.Component {
+  state = {
+    nightmode: this.props.themeColor === 'theme-dark'
+  }
+
   componentDidMount () {
     if (this.props.user.isEmpty()) {
       this.props.checkSession();
@@ -33,6 +38,17 @@ class TopNav extends React.Component {
     this.props.setFont(age);
   }
 
+  changeMode = e => {
+    this.setState({ nightmode: !this.state.nightmode })
+
+    if (!this.state.nightmode) {
+      this.props.setTheme('theme-dark')
+    }
+    else {
+      this.props.setTheme('theme-orange')
+    }
+  }
+
   render () {
     const { location, user } = this.props
     const { cart } = this.props;
@@ -42,24 +58,80 @@ class TopNav extends React.Component {
 
     return (
       <div id="top-nav">
-        <div className="mobile">
-          <ul>
-            <li className='search'></li>
-            <li>
-              <Link to='/cart'>
-                <FaShoppingCart />
-                {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
-              </Link>
-            </li>
-            <li><Link to='/messages'><FaCommentDots /></Link></li>
-          </ul>
+        <div className="first-mobile">
+          <div className="mobile">
+            
+            <ul>
+              {/* <li className='search'></li> */}
+
+
+              <li className='display'>
+                {/* การแสดงผล */}
+                  <Link to='/'>
+                  <span className='size1' onClick={() => this.handleChangeFont(20)}>
+                    <FaFont />
+                  </span>
+                  </Link>
+                </li>
+                <li className='display'>
+                  <Link to='/'>
+                  <span className='size2' onClick={() => this.handleChangeFont(35)}>
+                    <FaFont />
+                  </span>
+                  </Link>
+                </li>
+                <li className='display'>
+                  <Link to='/'>
+                  <span className='size3' onClick={() => this.handleChangeFont(45)}>
+                    <FaFont />
+                  </span>
+                  </Link>
+                </li>
+                {
+                  this.state.nightmode ? (
+                    <li className='display'>
+                      <Link to='/'>
+                      <span>
+                        <FaMoon className='moon' 
+                          onClick={this.changeMode}
+                        />
+                      </span>
+                      </Link>
+                    </li>
+                  ) : (
+                    <li className='display'>
+                      <Link to='/'>
+                      <span>
+                        <FaSun className='sun'
+                          onClick={this.changeMode}
+                        />
+                      </span>
+                      </Link>
+                    </li>
+                  )
+                }
+              
+              <li className='empty' />
+              <li className='empty' />
+              <li className='empty' />
+              <li className='empty' />
+
+              <li>
+                <Link to='/cart'>
+                  <FaShoppingCart />
+                  {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
+                </Link>
+              </li>
+              <li><Link to='/messages'><FaCommentDots /></Link></li>
+            </ul>
+          </div>
         </div>
 
         <div className="desktop">
           <div className="first">
             <ul className='container'>
               <li className='display'>
-                การแสดงผล
+                {/* การแสดงผล */}
                 <span className='size1' onClick={() => this.handleChangeFont(20)}>
                   <FaFont />
                 </span>
@@ -69,6 +141,21 @@ class TopNav extends React.Component {
                 <span className='size3' onClick={() => this.handleChangeFont(45)}>
                   <FaFont />
                 </span>
+                {
+                  this.state.nightmode ? (
+                    <span>
+                      <FaMoon className='moon' 
+                        onClick={this.changeMode}
+                      />
+                    </span>
+                  ) : (
+                    <span>
+                      <FaSun className='sun'
+                        onClick={this.changeMode}
+                      />
+                    </span>
+                  )
+                }
               </li>
               <li className='empty' />
               <li className='user'>
@@ -79,13 +166,13 @@ class TopNav extends React.Component {
                     <Fragment>
                       <FaUser />
                       <ul>
-                        <li><Link to='/account'>บัญชีของฉัน</Link></li>
+                        <li><Link to='/account'><FaAddressCard /> บัญชีของฉัน</Link></li>
                         {
                           roles.filter(role => role === 'seller').size !== 0 ? (
-                            <li><Link to='/store'>ร้านค้า</Link></li>
+                            <li><Link to='/store'><FaArchive /> ร้านค้า</Link></li>
                           ) : null
                         }
-                        <li onClick={this.signOut}>ออกจากระบบ</li>
+                        <li onClick={this.signOut}><Link to='/'><FaSignOutAlt /> ออกจากระบบ</Link></li>
                       </ul>
                     </Fragment>
                   )
@@ -97,20 +184,35 @@ class TopNav extends React.Component {
 
           <div className="second">
             <ul className='container'>
-              <li className='logo'>
-                <Link to='/'><img src={logo} alt="logot" /></Link>
+            <li className='logo'>
+              {
+              this.state.nightmode ? (
+                    <Link to='/'><img src={logo} alt="logo" /></Link>
+                ) : (
+                    <Link to='/'><img src={logo_pimary} alt="logo" /></Link>
+                )
+                
+              }
               </li>
               <li className='search'></li>
+              
+              <li className={ClassNames({ active: location.pathname === '/products'})}>
+                <Link to='/products'>สินค้า</Link>
+              </li>
+              <li className={ClassNames({ active: location.pathname === '/events'})}>
+                <Link to='/events'>งานลดราคา</Link>
+              </li>
+
               <li>
                 <Link to='/cart'>
-                  <FaShoppingCart />
+                  <FaShoppingCart /> &nbsp;
                   {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
                 </Link>
               </li>
             </ul>
           </div>
 
-          <div className="third">
+          {/* <div className="third">
             <ul className='container'>
               <li className={ClassNames({ active: location.pathname === '/'})}>
                 <Link to='/'>หน้าหลัก</Link>
@@ -122,7 +224,7 @@ class TopNav extends React.Component {
                 <Link to='/events'>งานลดราคา</Link>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     )

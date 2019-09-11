@@ -12,7 +12,7 @@ export const removeFlashMessage = () => (dispatch, getState) => {
   dispatch({ type: CONST.REMOVE_FLASH_MESSAGE });
 };
 
-export const setTheme = themeColor => dispatch => {
+export const setTheme = themeColor => dispatch => {  
   localStorage.setItem('theme', themeColor);
 
   dispatch({
