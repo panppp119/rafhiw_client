@@ -17,7 +17,7 @@ class ReviewForm extends React.Component {
       rating: this.state.rating,
       user_id: this.props.user.get('id'),
       order_id: this.props.order_id,
-      product_option_id: this.props.product_id,
+      product_option_id: this.props.product_option_id,
       comment: this.state.comment
     }
 

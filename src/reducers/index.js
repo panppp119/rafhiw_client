@@ -18,6 +18,7 @@ const rootReducer = history =>
     bank: require('./bank').default,
     cart: require('./cart').default,
     orders: require('./orders').default,
+    reviews: require('./reviews').default,
   });
 
 export default rootReducer;

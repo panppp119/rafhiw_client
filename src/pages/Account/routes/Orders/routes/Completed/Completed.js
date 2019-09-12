@@ -21,10 +21,8 @@ class Completed extends React.Component {
 
     var completed =
       orders.filter(
-        o => o.get('products').find(p =>
-          p.get('status') === 'completed' ||
-          p.get('status') === 'pending_review'
-        )
+        o => o.get('status') === 'completed' ||
+        o.get('status') === 'pending_review'
       ) || List();
 
     return (

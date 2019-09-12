@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import { FaCheck } from 'react-icons/fa'
 
 import Img from 'components/Img';
@@ -70,118 +70,116 @@ class StoreOrderTable extends React.Component {
           </thead>
           <tbody>
             {
-              orders.map((order, i) => {
-                const products = order.get('products') || List()
+              orders.map((item, i) => {
+                const product = item.get('product') || Map()
+                const option = item.get('product_option') || Map()
+                const order = item.get('order') || Map()
+                const status = item.get('status')
+                const discount = option.get('discount_amt') || 0
+                var price = discount !== 0 ? discount : option.get('price_amt')
 
-                return products.map((pd, si) => {
-                  const option = pd.get('option') || Map()
-                  const product = pd.get('product') || Map()
-                  const status = pd.get('status')
+                price += option.get('hiw_amt') + option.get('ship_amt')
 
-                  var tag = ''
+                var tag = ''
 
-                  switch (status) {
-                    case 'pending_payment':
-                      tag = "รอการชำระเงิน"
-                      break;
-                    case 'pending_check_payment':
-                      tag = "รอตรวจสอบการชำระเงิน"
-                      break;
-                    case 'pending_shipping':
-                      tag = "รอการจัดส่ง"
-                      break;
-                    case 'pending_receive_goods':
-                      tag = "รอยืนยันการรับของ"
-                      break;
-                    case 'pending_review':
-                      tag = "รอการรีวิว"
-                      break;
-                    case 'completed':
-                      tag = "เสร็จสิ้น"
-                      break;
-                    case 'cancelled':
-                      tag = "ยกเลิก"
-                      break;
-                    default:
-                      break;
-                  }
+                switch (status) {
+                  case 'pending_payment':
+                    tag = "รอการชำระเงิน"
+                    break;
+                  case 'pending_check_payment':
+                    tag = "รอตรวจสอบการชำระเงิน"
+                    break;
+                  case 'pending_shipping':
+                    tag = "รอการจัดส่ง"
+                    break;
+                  case 'pending_receive_goods':
+                    tag = "รอยืนยันการรับของ"
+                    break;
+                  case 'pending_review':
+                    tag = "รอการรีวิว"
+                    break;
+                  case 'completed':
+                    tag = "เสร็จสิ้น"
+                    break;
+                  case 'cancelled':
+                    tag = "ยกเลิก"
+                    break;
+                  default:
+                    break;
+                }
 
-                  return (
-                    <tr key={si}>
-                      <td>
-                        <Img
-                          alt={product.get('name') + option.get('name')}
-                          src={pd.get('image')}
-                        />
-                        <div className="info">
-                          <Link to={`/p/${pd.get('id')}`}>
-                            <h4>{product.get('name')} - {option.get('name')}</h4>
-                          </Link>
-                        </div>
-                      </td>
-                      <td>{order.get('total_qt')}</td>
-                      <td>
-                        <PriceConvert
-                          price={pd.get('quantity') * (
-                            option.get('discount_amt') !== 0 ?
-                              option.get('discount_amt') :
-                              option.get('price_amt')
-                          )} />
-                      </td>
-                      {
-                        shipper && <td>{order.get('address') || '-'}</td>
-                      }
-                      {shipper && (
-                        <td>
-                          <input type="text"
-                            name="tracking_code"
-                            value={
-                              (this.state.index === i && tracking_code) ||
-                              (pd.get('tracking_code') || '')
-                            }
-                            autoComplete="false"
-                            onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
-                            disabled={status !== 'pending_shipping'}
-                          />
+                return (
+                  <tr key={i}>
+                    <td>
+                      <Img
+                        alt={product.get('name') + option.get('name')}
+                        src={product.get('image')}
+                      />
+                      <div className="info">
+                        <Link to={`/p/${product.get('id')}`}>
+                          <h4>{product.get('name')} - {option.get('name')}</h4>
+                        </Link>
+                      </div>
+                    </td>
+                    <td>{item.get('quantity')}</td>
+                    <td>
+                      <PriceConvert price={item.get('quantity') * price} />
+                    </td>
+                    {
+                      shipper && (
+                        <Fragment>
+                          <td>{order.get('address')}</td>
+                          <td>
+                            <input type="text"
+                              name="tracking_code"
+                              value={
+                                (this.state.index === i && tracking_code) ||
+                                (item.get('tracking_code') || '')
+                              }
+                              autoComplete="false"
+                              onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
+                              disabled={status !== 'pending_shipping'}
+                            />
 
-                          <select name="shipment_type"
-                            disabled={status !== 'pending_shipping'}
-                            onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
-                            value={
-                              (this.state.index === i && shipment_type) ||
-                              (pd.get('shipment_type') || '')
-                            }
-                          >
-                            <option default>บริการขนส่ง</option>
-                            {
-                              shipment_options.map((so, sii) => {
-                                return (
-                                  <option value={so.value} key={sii}>{so.text}</option>
-                                )
-                              })
-                            }
-                          </select>
-
-                          {(status === 'pending_shipping' || status === 'pending_receive_goods') && (
-                            <button className='primary'
-                              onClick={() => this.handleClick(order.get('id'), option.get('id'), i)}
-                              disabled={
-                                tracking_code === '' ||
-                                tracking_code === null ||
-                                tracking_code === undefined ||
-                                shipment_type === null ||
-                                shipment_type === undefined
+                            <select name="shipment_type"
+                              disabled={status !== 'pending_shipping'}
+                              onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
+                              value={
+                                (this.state.index === i && shipment_type) ||
+                                (item.get('shipment_type') || '')
                               }
                             >
-                              <FaCheck />
-                            </button>
-                          )}
-                        </td>
-                      )}
-                      <td>{tag}</td>
-                    </tr>
-                  )
-                })
+                              <option default>บริการขนส่ง</option>
+                              {
+                                shipment_options.map((so, sii) => {
+                                  return (
+                                    <option value={so.value} key={sii}>{so.text}</option>
+                                  )
+                                })
+                              }
+                            </select>
+
+                            {(status === 'pending_shipping' || status === 'pending_receive_goods') && (
+                              <button className='primary'
+                                onClick={() => this.handleClick(order.get('id'), option.get('id'), i)}
+                                disabled={
+                                  tracking_code === '' ||
+                                  tracking_code === null ||
+                                  tracking_code === undefined ||
+                                  shipment_type === null ||
+                                  shipment_type === undefined
+                                }
+                              >
+                                <FaCheck />
+                              </button>
+                            )}
+                          </td>
+                        </Fragment>
+                      )
+                    }
+                    <td>{tag}</td>
+                  </tr>
+                )
               })
             }
           </tbody>

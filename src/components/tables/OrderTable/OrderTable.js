@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { List } from 'immutable';
+import { fromJS, Map } from 'immutable';
+import GroupBy from 'lodash.groupby'
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert'
@@ -35,17 +36,19 @@ class OrderTable extends React.Component {
     }
   }
 
-  confirm (id) {
+  confirm = (id) => e => {
     this.props.confirm(id)
   }
 
-  review (order_id, seller_id, product_id) {
+  review (order_id, seller_id, product_option_id) {
     this.setState({
       activeReview: true,
       order_id,
       seller_id,
-      product_id
+      product_option_id
     })
+
+    console.log(order_id, seller_id, product_option_id);
   }
 
   close = e => {
@@ -60,6 +63,9 @@ class OrderTable extends React.Component {
   render() {
     const { orders, shipper, payment, complete, cancel } = this.props
 
+    const group = GroupBy(orders.toJS(), 'order_id')
+    const groupOrderId = fromJS(Object.values(group))
+
     return (
       <div className="order-table table-responsive">
         {
@@ -68,7 +74,7 @@ class OrderTable extends React.Component {
               <ReviewForm
                 order_id={this.state.order_id}
                 seller_id={this.state.seller_id}
-                product_id={this.state.product_id}
+                product_option_id={this.state.product_option_id}
                 user={this.props.user}
                 review={this.props.review}
                 close={this.close}
@@ -83,7 +89,6 @@ class OrderTable extends React.Component {
             <tr>
               <th>หมายเลขสั่งซื้อ</th>
               <th>สินค้า</th>
-              <th>จำนวน</th>
               {(payment || cancel) && <th>ราคารวม</th>}
               {shipper && <th>หมายเลขติดตามพัสดุ</th>}
               <th>สถานะ</th>
@@ -92,12 +97,11 @@ class OrderTable extends React.Component {
           </thead>
           <tbody>
             {
-              orders.map((order, i) => {
-                const products = order.get('products') || List()
-                const status = order.get('status')
+              (payment || cancel) &&  groupOrderId.map((group, i) => {
+                const order = group.getIn([0, 'order']) || Map()
                 var tag1 = ''
 
-                switch (status) {
+                switch (order.get('status')) {
                   case 'pending_payment':
                     tag1 = "รอการชำระเงิน"
                     break;
@@ -111,151 +115,147 @@ class OrderTable extends React.Component {
                     break;
                 }
 
-                if (status === 'pending_payment' || status === 'pending_check_payment' || status === 'cancelled') {
-                  return (
-                    <tr key={i}>
-                      <td>{order.get('number')}</td>
+                return (
+                  <tr key={i}>
+                    <td>{order.get('number')}</td>
+                    <td>
+                      <ul>
+                        {
+                          group.map((item, si) => {
+                            const option = item.get('product_option') || Map()
+                            const product = item.get('product') || Map()
+
+                            return (
+                              <li key={si}>
+                                <Img
+                                  alt={product.get('name') + option.get('name')}
+                                  src={product.get('image')}
+                                />
+                                <div className="info">
+                                  <Link to={`/p/${product.get('id')}`}>
+                                    <h4>{product.get('name')} - {option.get('name')} (x{item.get('quantity')})</h4>
+                                  </Link>
+                                </div>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                    </td>
+                    <td><PriceConvert price={order.get('total_amt')} /></td>
+                    <td>{tag1}</td>
+                    {payment && (
                       <td>
-                        <ul>
-                          {
-                            products.map((pd, si) => {
-                              const option = pd.get('option') || Map()
-                              const product = pd.get('product') || Map()
-
-                              return (
-                                <li key={si}>
-                                  <Img
-                                    alt={product.get('name') + option.get('name')}
-                                    src={pd.get('image')}
-                                  />
-                                  <div className="info">
-                                    <Link to={`/p/${pd.get('id')}`}>
-                                      <h4>{product.get('name')} - {option.get('name')}</h4>
-                                    </Link>
-                                  </div>
-                                </li>
-                              )
-                            })
-                          }
-                        </ul>
+                        {
+                          order.get('status') === 'pending_payment' && (
+                            <Fragment>
+                              <button name={order.get('id')}
+                                className='primary'
+                                onClick={this.payment}
+                                style={{ marginBottom: 8 }}
+                              >
+                                ชำระเงิน
+                              </button>
+                              <button name={order.get('id')}
+                                className='error'
+                                onClick={this.cancel}
+                              >
+                                ยกเลิก
+                              </button>
+                            </Fragment>
+                          )
+                        }
                       </td>
-                      <td>{order.get('total_qt')}</td>
-                      <td><PriceConvert price={order.get('total_amt')} /></td>
-                      <td>{tag1}</td>
-                      {payment && (
+                    )}
+                  </tr>
+                )
+              })
+            }
+            {
+              (shipper || complete) && orders.map((item, i) => {
+                const order = item.get('order') || Map()
+                const option = item.get('product_option') || Map()
+                const product = item.get('product') || Map()
+                var tag2 = ''
+
+                switch (item.get('status')) {
+                  case 'pending_shipping':
+                    tag2 = "รอการจัดส่ง"
+                    break;
+                  case 'pending_receive_goods':
+                    tag2 = "รอยืนยันการรับของ"
+                    break;
+                  case 'pending_review':
+                    tag2 = "รอการรีวิว"
+                    break;
+                  case 'completed':
+                    tag2 = "เสร็จสิ้น"
+                    break;
+                  default:
+                    break;
+                }
+
+                return (
+                  <tr key={i}>
+                    <td>{order.get('number')}</td>
+                    <td>
+                      <Img
+                        alt={product.get('name') + option.get('name')}
+                        src={product.get('image')}
+                      />
+                      <div className="info">
+                        <Link to={`/p/${product.get('id')}`}>
+                          <h4>{product.get('name')} - {option.get('name')} (x{item.get('quantity')})</h4>
+                        </Link>
+                      </div>
+                    </td>
+                    {shipper && (
+                      <td>
+                        {
+                          item.get('status') === 'pending_receive_goods' ? (
+                            item.get('shipment_type') === 1 ?
+                              `ไปรษณีย์ไทย - ${item.get('tracking_code')}` :
+                              `kerry - ${item.get('tracking_code')}`
+                          ) : (
+                            <p>-</p>
+                          )
+                        }
+                      </td>
+                    )}
+                    <td>{tag2}</td>
+                    {
+                      shipper && (
                         <td>
                           {
-                            order.get('status') === 'pending_payment' ? (
-                              <Fragment>
-                                <button name={order.get('id')}
-                                  className='primary'
-                                  onClick={this.payment}
-                                >
-                                  ชำระเงิน
-                                </button>
-                                <button name={order.get('id')}
-                                  className='error'
-                                  onClick={this.cancel}
-                                >
-                                  ยกเลิก
-                                </button>
-                              </Fragment>
-                            ) : null
+                            item.get('status') === 'pending_receive_goods' && (
+                              <button className='primary' onClick={this.confirm(item.get('id'))}>
+                                ยืนยันได้รับสินค้า
+                              </button>
+                            )
                           }
                         </td>
-                      )}
-                    </tr>
-                  )
-                }
-                else {
-                  return products.map((pd, si) => {
-                    const option = pd.get('option') || Map()
-                    const product = pd.get('product') || Map()
-                    const state = pd.get('status')
-                    var tag2 = ''
-
-                    switch (state) {
-                      case 'pending_shipping':
-                        tag2 = "รอการจัดส่ง"
-                        break;
-                      case 'pending_receive_goods':
-                        tag2 = "รอยืนยันการรับของ"
-                        break;
-                      case 'pending_review':
-                        tag2 = "รอการรีวิว"
-                        break;
-                      case 'completed':
-                        tag2 = "เสร็จสิ้น"
-                        break;
-                      default:
-                        break;
+                      )
                     }
-
-                    return (
-                      <tr key={si}>
-                        <td>{order.get('number')}</td>
-                        <td>
-                          <Img
-                            alt={product.get('name') + option.get('name')}
-                            src={pd.get('image')}
-                          />
-                          <div className="info">
-                            <Link to={`/p/${pd.get('id')}`}>
-                              <h4>{product.get('name')} - {option.get('name')}</h4>
-                            </Link>
-                          </div>
-                        </td>
-                        <td>{pd.get('quantity')}</td>
-                        {shipper && (
-                          <td>
-                            {
-                              pd.get('status') === 'pending_receive_goods' ? (
-                                pd.get('shipment_type') === 1 ?
-                                  `ไปรษณีย์ไทย - ${pd.get('tracking_code')}` :
-                                  `kerry - ${pd.get('tracking_code')}`
-                              ) : (
-                                <p>-</p>
-                              )
-                            }
-                          </td>
-                        )}
-                        <td>{tag2}</td>
-                        {shipper && (
-                          <td>
-                            {
-                              state === 'pending_receive_goods' && (
-                                <button name={pd.get('id')}
-                                  className='primary'
-                                  onClick={() => this.confirm(pd.get('id'))}
-                                >
-                                  ยืนยันรับของ
-                                </button>
-                              )
-                            }
-                          </td>
-                        )}
-                        {complete && (
-                          <td>
-                            {
-                              state !== 'completed' && (
-                                <button name={pd.get('id')}
-                                  className='primary'
-                                  onClick={() => this.review(
-                                    order.get('id'),
-                                    pd.getIn(['product', 'seller_id']),
-                                    pd.getIn(['option', 'id'])
-                                  )}
-                                >
-                                  รีวิว
-                                </button>
-                              )
-                            }
-                          </td>
-                        )}
-                      </tr>
-                    )
-                  })
-                }
+                    {complete && (
+                      <td>
+                        {
+                          item.get('status') !== 'completed' && (
+                            <button
+                              className='primary'
+                              onClick={() => this.review(
+                                order.get('id'),
+                                product.get('seller_id'),
+                                option.get('id')
+                              )}
+                            >
+                              รีวิว
+                            </button>
+                          )
+                        }
+                      </td>
+                    )}
+                  </tr>
+                )
               })
             }
           </tbody>

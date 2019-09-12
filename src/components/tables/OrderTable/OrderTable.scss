@@ -1,6 +1,11 @@
 .order-table {
   td {
     text-align: center;
+
+    ul {
+      display: block;
+      text-align: left;
+    }
   }
 
   a {

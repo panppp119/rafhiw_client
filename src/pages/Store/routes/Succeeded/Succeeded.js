@@ -20,10 +20,8 @@ class Succeeded extends React.Component {
     const { orders } = this.props;
 
     const orderList = orders.filter(
-      order => order.get('products').find(pd =>
-        pd.get('status') === 'pending_review' ||
-        pd.get('status') === 'completed'
-      )
+      order => order.get('status') === 'pending_review' ||
+      order.get('status') === 'completed'
     );
 
     return (
