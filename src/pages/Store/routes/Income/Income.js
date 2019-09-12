@@ -8,12 +8,12 @@ import './Income.scss';
 class Income extends React.Component {
   componentDidMount() {
     !this.props.user.isEmpty() &&
-      this.props.loadOrders();
+      this.props.loadOrders(this.props.user.get('id'));
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-      this.props.loadOrders();
+      this.props.loadOrders(this.props.user.get('id'));
     }
   }
 
@@ -30,16 +30,23 @@ class Income extends React.Component {
 
     var total = 0;
 
-    orderList.map(order => {
-      return (total += order.get('total_amount'));
+    ors_paid.map(order => {
+      const option = order.get('product_option') || Map()
+      const price = option.get('discount_amt') !== 0 ?
+        option.get('discount_amt') :
+        option.get('price_amt')
+
+      total += order.get('quantity') * (
+        price + option.get('hiw_amt') + option.get('ship_amt')
+      )
     });
 
 
     return (
       <div className="income">
         <div className="total-income">
-          <h1>รายรับทั้งหมด</h1>
-          <h1><PriceConvert price={total} /></h1>
+          <h2>รายรับทั้งหมด</h2>
+          <h1 className='overall'><PriceConvert price={total} /></h1>
         </div>
 
         <div className="income-list">

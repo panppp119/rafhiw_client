@@ -22,9 +22,8 @@ class IncomeTable extends React.Component {
           <thead>
             <tr>
               <th>สินค้า</th>
-              <th>จำนวน</th>
               <th>ราคา</th>
-              <th>หลักฐาน</th>
+              <th>สถานะ</th>
             </tr>
           </thead>
 
@@ -32,40 +31,35 @@ class IncomeTable extends React.Component {
             {!orderList.isEmpty() ? (
               orderList.map((order, i) => {
                 const product = order.get('product') || Map();
-                const option = order.get('option') || Map();
+                const option = order.get('product_option') || Map();
+                const discount = option.get('discount_amt') || 0
+                var price = discount !== 0 ? discount : option.get('price_amt')
+                var totalPrice = price + option.get('hiw_amt') + option.get('ship_amt')
 
                 return (
                   <tr key={i}>
                     <td>
                       <Img
-                        alt={product.get('name_th') + option.get('name')}
-                        src={order.getIn(['attachments', 0, 'image'])}
+                        alt={product.get('name') + option.get('name')}
+                        src={product.get('image')}
                       />
                       <div className="info">
                         <Link to={`/products/${product.get('id')}`}>
                           <h4>
-                            {product.get('name_th')} ({option.get('name')})
+                            {product.get('name')} ({option.get('name')})
                           </h4>
                         </Link>
                       </div>
                     </td>
 
-                    <td>{order.get('quantity')}}</td>
-                    <td><PriceConvert price={order.get('total_amount')} /></td>
-                    <td>
-                      {receipt && (
-                        <Img
-                          src={order.get('center')}
-                          alt="หลักฐานการชำระสินค้า"
-                        />
-                      )}
-                    </td>
+                    <td><PriceConvert price={order.get('quantity') * totalPrice} /></td>
+                    <td>{order.get('paid') ? 'ทำรายการเรียบร้อย': 'รอทำรายการ'}</td>
                   </tr>
                 );
               })
             ) : (
               <tr>
-                <td>ยังไม่มีรายการ</td>
+                <td colSpan={4} style={{ textAlign: 'center' }}>ยังไม่มีรายการ</td>
               </tr>
             )}
           </tbody>

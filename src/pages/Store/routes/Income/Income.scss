@@ -1,7 +1,22 @@
+$desktop: 1280px;
+
 .income {
   padding: 21px 0;
 
   .total-income {
     text-align: center;
+
+    .overall {
+      color: var(--primary);
+      margin-top: 8px;
+    }
+  }
+
+  .wait {
+    margin-bottom: 8px;
+
+    @media screen and (min-width: $desktop) {
+      margin-bottom: 16px;
+    }
   }
 }

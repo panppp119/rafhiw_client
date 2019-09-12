@@ -13,7 +13,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = {
-  loadOrders: () => fetchSellerOrders(orderSchema)
+  loadOrders: id => fetchSellerOrders(id, orderSchema)
 };
 
 export default connect(
