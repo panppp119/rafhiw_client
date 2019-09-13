@@ -34,7 +34,15 @@ class ProfileTable extends React.Component {
   }
 
   addFile(file) {
-    this.setState({ attachment: [{ file }] });
+    const type = file.type
+
+    if (type.includes('png') || type.includes('jpeg')) {
+      this.setState({ attachment: [{ file }] });
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   render() {
@@ -147,7 +155,7 @@ class ProfileTable extends React.Component {
 
             <tr>
               <td><h4>ข้อบกพร่อง</h4></td>
-              <td>{disability.get('name_th') || ''}</td>
+              <td>{disability.get('name') || '-'}</td>
             </tr>
           </tbody>
         </table>

@@ -8,6 +8,8 @@ import EventForm from 'components/forms/EventForm'
 
 import './ProductForm.scss';
 
+var myDropzone;
+
 class AddProductForm extends React.Component {
   state = {
     long_time: 0,
@@ -70,17 +72,33 @@ class AddProductForm extends React.Component {
   };
 
   addFile(file) {
-    let a = this.state.attachments || [];
+    const type = file.type
 
-    a.push({ file });
+    if (type.includes('png') || type.includes('jpeg')) {
+      let a = this.state.attachments || [];
 
-    this.setState({ attachments: a });
+      a.push({ file });
+
+      this.setState({ attachments: a });
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   addEventFile = (file) => {
-    this.setState(prevState => ({
-      event: { ...prevState.event, file }
-    }));
+    const type = file.type
+
+    if (type.includes('png') || type.includes('jpeg')) {
+      this.setState(prevState => ({
+        event: { ...prevState.event, file }
+      }));
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   addEvent = e => {
@@ -216,6 +234,7 @@ class AddProductForm extends React.Component {
     };
 
     var eventHandlers = {
+      init: dropzone => (myDropzone = dropzone),
       addedfile: file => this.addFile(file),
       removedfile: file => this.removeFile(file, 'product')
     };

@@ -21,7 +21,7 @@ class Income extends React.Component {
     const { orders } = this.props;
 
     const orderList = orders.filter(order =>
-      order.get('status') === 'review' ||
+      order.get('status') === 'pending_review' ||
       order.get('status') === 'completed'
     );
 
@@ -36,7 +36,7 @@ class Income extends React.Component {
         option.get('discount_amt') :
         option.get('price_amt')
 
-      total += order.get('quantity') * (
+      return total += order.get('quantity') * (
         price + option.get('hiw_amt') + option.get('ship_amt')
       )
     });

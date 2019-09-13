@@ -5,6 +5,8 @@ import './SellerForm.scss';
 import 'react-dropzone-component/styles/filepicker.css';
 import 'dropzone/dist/min/dropzone.min.css';
 
+var myDropzone;
+
 class SellerForm extends React.Component {
   state = {
     sameAddress: false
@@ -60,7 +62,15 @@ class SellerForm extends React.Component {
   }
 
   addFile(file) {
-    this.setState({ attachment: file });
+    const type = file.type
+
+    if (type.includes('png') || type.includes('jpeg')) {
+      this.setState({ attachment: file });
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   render() {
@@ -85,6 +95,7 @@ class SellerForm extends React.Component {
     };
 
     var eventHandlers = {
+      init: dropzone => (myDropzone = dropzone),
       addedfile: file => this.addFile(file),
       removedfile: file => this.removeFile(file)
     };
@@ -177,7 +188,6 @@ class SellerForm extends React.Component {
         <button
           onClick={this.sendRequest}
           className='primary'
-          // loading={this.props.loading || this.props.loadingAttachment}
         >
           ยืนยัน
         </button>

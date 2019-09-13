@@ -62,14 +62,18 @@ class Wallet extends React.Component {
     } else {
       return (
         <Fragment>
-          <div className="bank-bank">
-            <p>{name} - {bank.get('bank_branch')}</p>
-            <p>{bank.get('account_name')}</p>
-            <p>{bank.get('account_no')}</p>
-            <span onClick={this.removeBank(bank.get('id'))}>
-              <FaTrash />
-            </span>
-          </div>
+          {
+            !bank.isEmpty() && (
+              <div className="bank-bank">
+                <p>{name} - {bank.get('bank_branch')}</p>
+                <p>{bank.get('account_name')}</p>
+                <p>{bank.get('account_no')}</p>
+                <span onClick={this.removeBank(bank.get('id'))}>
+                  <FaTrash />
+                </span>
+              </div>
+            )
+          }
 
           {
             bank.isEmpty() && (

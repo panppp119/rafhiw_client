@@ -173,20 +173,6 @@ class Product extends React.Component {
                       {product.getIn(['owner', 'first_name'])}{' '}
                       {product.getIn(['owner', 'last_name'])}
                     </h4>
-
-                    {/* <Rating
-                      icon="star"
-                      disabled
-                      rating={Numeral(product.getIn(['owner', 'rating'])).format(
-                        '0,0'
-                      )}
-                      maxRating={5}
-                    /> */}
-
-                    {/* <Button
-                      content="แชท"
-                      onClick={() => this.handleClickChat(true)}
-                    /> */}
                   </div>
                 </div>
               </div>

@@ -9,6 +9,8 @@ import Img from 'components/Img';
 
 import './Checkout.scss';
 
+var myDropzone;
+
 class Checkout extends React.Component {
   state = {
     attachment: null
@@ -23,7 +25,15 @@ class Checkout extends React.Component {
   }
 
   addFile(file) {
-    this.setState({ attachment: [{ file }] });
+    const type = file.type
+
+    if (type.includes('png') || type.includes('jpeg')) {
+      this.setState({ attachment: [{ file }] });
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   createTransfer = e => {
@@ -62,6 +72,7 @@ class Checkout extends React.Component {
     };
 
     var eventHandlers = {
+      init: dropzone => (myDropzone = dropzone),
       addedfile: file => this.addFile(file),
       removedfile: file => this.removeFile(file)
     };

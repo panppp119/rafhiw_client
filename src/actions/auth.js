@@ -73,8 +73,8 @@ export const signin = data => (dispatch, getState) => {
         localStorage.setItem('auth', JSON.stringify(authen));
 
         dispatch({ type: CONST.SIGN_IN_SUCCEEDED, auth: authen });
-        dispatch(push('/'));
         dispatch(fetchUser(userSchema))
+        dispatch(push('/'));
         dispatch(
           addFlashMessage({
             type: 'success',
@@ -109,9 +109,8 @@ export const register = data => (dispatch, getState) => {
       localStorage.setItem('auth', JSON.stringify(authen));
 
       dispatch({ type: CONST.SIGN_UP_SUCCEEDED, auth: authen });
+      dispatch(fetchUser(userSchema))
       dispatch(push('/'));
-
-      return response
     })
     .catch(error => {
       dispatch(

@@ -30,6 +30,7 @@ class Profile extends React.Component {
 
   upload = e => {
     e.preventDefault()
+
     const { user } = this.props
     var attachment = { file: this.state.attachment };
 
@@ -40,7 +41,15 @@ class Profile extends React.Component {
   }
 
   addFile(file) {
-    this.setState({ attachment: file });
+    const type = file.type
+
+    if (type.includes('png') || type.includes('jpeg')) {
+      this.setState({ attachment: file });
+    }
+    else {
+      alert('ไม่สามารถอัปโหลดได้')
+      myDropzone.removeAllFiles();
+    }
   }
 
   removeFile() {
@@ -78,6 +87,7 @@ class Profile extends React.Component {
                 user={user}
                 close={this.close}
                 updateUser={this.props.updateUser}
+                disabilities={this.props.disabilities}
               />
             </Modal>
           )

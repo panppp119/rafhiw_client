@@ -14,7 +14,7 @@ class IncomeTable extends React.Component {
   state = initialState;
 
   render() {
-    const { orderList, receipt } = this.props;
+    const { orderList } = this.props;
 
     return (
       <div className="income-table table-responsive">

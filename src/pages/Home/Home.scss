@@ -30,6 +30,24 @@ $desktop: 1280px;
       vertical-align: top;
       padding: 0 16px;
     }
+
+    .image-gallery-image {
+      text-align: center;
+      max-height: 300px;
+
+      img {
+        max-height: 300px;
+        width: auto;
+      }
+
+      @media screen and (min-width: $desktop) {
+        max-height: 560px;
+
+        img {
+          max-height: 560px;
+        }
+      }
+    }
   }
 
   .recommended-products {

@@ -44,11 +44,14 @@ class RegisterForm extends React.Component {
       last_name,
       agree,
       birthday,
-      disability_id
+      disability_id,
+      provider: 'email'
     };
 
     if (password === confirm_password && password !== '') {
-      this.props.register(data);
+      this.props.register(data).then(() => {
+        this.props.history.push('/')
+      });
     }
     else {
       this.props.addFlashMessage({

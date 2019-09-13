@@ -8,9 +8,7 @@ class CardForm extends React.Component {
     card_number: '',
     expired_month: '',
     expired_year: '',
-    cvv: '',
-    // bill_address: '',
-    // zip_code: ''
+    cvv: ''
   }
 
   handleChange = e => {

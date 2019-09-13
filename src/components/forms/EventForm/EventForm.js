@@ -6,6 +6,8 @@ import GMap from 'components/GMap';
 
 import './EventForm.scss';
 
+var myDropzone;
+
 class EventForm extends React.Component {
   render() {
     const { events } = this.props;
@@ -33,6 +35,7 @@ class EventForm extends React.Component {
     };
 
     var eventHandlers = {
+      init: dropzone => (myDropzone = dropzone),
       addedfile: file => this.props.addEventFile(file),
       removedfile: file => this.props.removeFile(file, 'event')
     };

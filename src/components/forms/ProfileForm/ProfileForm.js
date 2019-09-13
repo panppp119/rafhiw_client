@@ -41,14 +41,6 @@ class ProfileForm extends React.Component {
   };
 
   render() {
-    // const disabilityOptions = disabilities
-    //   .map(d => ({
-    //     text: d.get('name_th'),
-    //     value: d.get('id')
-    //   }))
-    //   .toJS();
-    //
-
     return (
       <div className="profile-form">
         <form>
@@ -110,6 +102,11 @@ class ProfileForm extends React.Component {
               onChange={this.handleChange}
             >
               <option default>เลือกความพิเศษทางร่างกาย</option>
+              {
+                this.props.disabilities.map((item, i) => {
+                  return <option value={item.get('id')} key={i}>{item.get('name')}</option>
+                })
+              }
               <option value={1}>ปกติ</option>
               <option value={2}>ร่างกาย</option>
               <option value={3}>หูหนวก</option>

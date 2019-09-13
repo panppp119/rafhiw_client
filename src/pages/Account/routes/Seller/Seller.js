@@ -35,7 +35,7 @@ class Seller extends React.Component {
               {...this.props}
             />
           ) : (
-            <p>รอการยืนยัน</p>
+            <p>ส่งคำขอเป็นผู้ขายเรียบร้อย</p>
           )}
         </div>
       </div>
