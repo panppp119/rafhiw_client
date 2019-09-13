@@ -28,9 +28,7 @@ class StoreTopNav extends React.Component {
   }
 
   signOut = () => {
-    this.props.signout().then(() => {
-      this.props.history.push('/sign_in')
-    })
+    this.props.signout()
   }
 
   handleChangeFont(age) {

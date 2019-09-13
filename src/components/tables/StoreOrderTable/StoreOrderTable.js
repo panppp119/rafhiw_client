@@ -128,7 +128,10 @@ class StoreOrderTable extends React.Component {
                     {
                       shipper && (
                         <Fragment>
-                          <td>{order.get('address')}</td>
+                          <td>
+                            <h4>{order.get('name')}</h4>
+                            <p>{order.get('address')}</p>
+                          </td>
                           <td>
                             <input type="text"
                               name="tracking_code"

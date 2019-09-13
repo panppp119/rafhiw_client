@@ -156,12 +156,14 @@ class Cart extends React.Component {
     e.preventDefault();
 
     const cart = this.props.cart.toJS();
+    const address = this.props.addresses.find(ad => ad.get('id') === this.state.address_id) || Map()
+    const long_address = `${address.get('address')}, ${address.get('sub_district')}, ${address.get('district')}, ${address.get('province')}, ${address.get('zip_code')}`
 
     const data = {
       ...cart,
       user_id: this.props.user.get('id'),
       total_amt: parseInt(total),
-      address_id: this.state.address_id
+      address: long_address
     };
 
     if (pause) {
@@ -200,7 +202,7 @@ class Cart extends React.Component {
             <div className="addresses">
               <h4>เลือกที่อยู่ในการจัดส่ง</h4>
               {
-                addresses.map((address, i) => {
+                !addresses.isEmpty() ? addresses.map((address, i) => {
                   return (
                     <p key={i}>
                       <input type="radio"
@@ -212,10 +214,14 @@ class Cart extends React.Component {
                       {address.get('address')}, {address.get('sub_district')}, {address.get('district')}, {address.get('province')}, {address.get('zip_code')}
                     </p>
                   )
-                })
+                }) : (
+                  <button className='primary' onClick={() => this.props.history.push('/account/addresses')}>
+                    เพิ่มที่อยู่
+                  </button>
+                )
               }
             </div>
-            
+
             <div className="cart-products">
               <table>
                 <thead>

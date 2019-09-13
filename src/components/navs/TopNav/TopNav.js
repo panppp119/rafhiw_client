@@ -29,9 +29,7 @@ class TopNav extends React.Component {
   }
 
   signOut = () => {
-    this.props.signout().then(() => {
-      this.props.history.push('/sign_in')
-    })
+    this.props.signout()
   }
 
   handleChangeFont(age) {
@@ -60,7 +58,7 @@ class TopNav extends React.Component {
       <div id="top-nav">
         <div className="first-mobile">
           <div className="mobile">
-            
+
             <ul>
               {/* <li className='search'></li> */}
 
@@ -92,7 +90,7 @@ class TopNav extends React.Component {
                     <li className='display'>
                       <Link to='/'>
                       <span>
-                        <FaMoon className='moon' 
+                        <FaMoon className='moon'
                           onClick={this.changeMode}
                         />
                       </span>
@@ -110,7 +108,7 @@ class TopNav extends React.Component {
                     </li>
                   )
                 }
-              
+
               <li className='empty' />
               <li className='empty' />
               <li className='empty' />
@@ -144,7 +142,7 @@ class TopNav extends React.Component {
                 {
                   this.state.nightmode ? (
                     <span>
-                      <FaMoon className='moon' 
+                      <FaMoon className='moon'
                         onClick={this.changeMode}
                       />
                     </span>
@@ -191,11 +189,11 @@ class TopNav extends React.Component {
                 ) : (
                     <Link to='/'><img src={logo_pimary} alt="logo" /></Link>
                 )
-                
+
               }
               </li>
               <li className='search'></li>
-              
+
               <li className={ClassNames({ active: location.pathname === '/products'})}>
                 <Link to='/products'>สินค้า</Link>
               </li>

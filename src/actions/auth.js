@@ -127,6 +127,7 @@ export const signout = () => (dispatch, getState) => {
 
   if (getState().getIn(['auth', 'provider']) === 'google') {
     auth.signOut();
+    dispatch(push('/'))
   }
 
   return request.post('/sign_out').then(response => {

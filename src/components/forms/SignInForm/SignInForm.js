@@ -25,9 +25,7 @@ class SignInForm extends React.Component {
       password: this.state.password
     }
 
-    this.props.signin(user).then(() => {
-      this.props.history.push('/')
-    })
+    this.props.signin(user)
   }
 
   render () {

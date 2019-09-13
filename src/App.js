@@ -91,8 +91,8 @@ function PrivateRoute ({ component: Component, ...rest }) {
 
 export default ({ childProps }) =>
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <HashRouter>
+    <HashRouter>
+      <ConnectedRouter history={history}>
         <Switch>
           <Route
             path="/"
@@ -164,7 +164,7 @@ export default ({ childProps }) =>
           {/* Finally, catch all unmatched routes */}
           <Route component={AsyncNotFound} />
         </Switch>
-      </HashRouter>
-    </ConnectedRouter>
+      </ConnectedRouter>
+    </HashRouter>
   </Provider>
 ;
