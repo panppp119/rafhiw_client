@@ -143,6 +143,44 @@ $desktop: 1280px;
 
       &.search {
         flex-grow: 16;
+        padding: 0 16px;
+        position: relative;
+
+        svg {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          right: 16px;
+          margin: auto;
+          padding: 16px;
+          color: var(--gray_light);
+        }
+
+        .search-data {
+          position: absolute;
+          z-index: 1;
+          background: white;
+          left: 0;
+          right: 0;
+          text-align: left;
+          padding: 0 16px;
+
+          p {
+            line-height: 40px;
+            color: var(--gray);
+            text-transform: none;
+            padding-left: 16px;
+
+            &:hover {
+              color: var(--primary);
+            }
+          }
+
+          h4 {
+            color: var(--gray);
+            line-height: 40px;
+          }
+        }
       }
     }
   }

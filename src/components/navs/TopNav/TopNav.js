@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
-import { List } from 'immutable'
+import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaArchive, FaAddressCard, FaSignOutAlt } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots,
+  FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon,
+  FaArchive, FaAddressCard, FaSignOutAlt, FaSearch
+} from 'react-icons/fa'
+import { DebounceInput } from 'react-debounce-input'
 
 import logo from './logo.png'
 import logo_pimary from './logo_pimary.png'
@@ -10,7 +14,8 @@ import './TopNav.scss'
 
 class TopNav extends React.Component {
   state = {
-    nightmode: this.props.themeColor === 'theme-dark'
+    nightmode: this.props.themeColor === 'theme-dark',
+    search: ''
   }
 
   componentDidMount () {
@@ -47,9 +52,16 @@ class TopNav extends React.Component {
     }
   }
 
+  handleSearchChange = e => {
+    const text = e.target.value
+
+    this.setState({ search: text })
+    this.props.search({ search: text })
+  }
+
   render () {
     const { location, user } = this.props
-    const { cart } = this.props;
+    const { cart, searchData } = this.props;
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
@@ -61,7 +73,6 @@ class TopNav extends React.Component {
 
             <ul>
               {/* <li className='search'></li> */}
-
 
               <li className='display'>
                 {/* การแสดงผล */}
@@ -192,7 +203,56 @@ class TopNav extends React.Component {
 
               }
               </li>
-              <li className='search'></li>
+              <li className='search'>
+                <DebounceInput
+                  debounceTimeout={500}
+                  onChange={this.handleSearchChange}
+                />
+                <FaSearch />
+
+                {
+                  !searchData.isEmpty() && (
+                    <div className="search-data">
+                      <div className="products">
+                        <h4>สินค้า</h4>
+                        {
+                          !searchData.filter(data => data.get('type') === 'product').isEmpty() ? (
+                            searchData.filter(data => data.get('type') === 'product')
+                            .map((data, i) => {
+                              return (
+                                <Link className="product-data" to={`/p/${data.get('id')}`} key={i}>
+                                  <p>{data.get('name')}</p>
+                                </Link>
+                              )
+                            })
+                          ) : (
+                            <p>ไม่เจอสินค้า</p>
+                          )
+                        }
+                      </div>
+                      <div className="sellers">
+                        <h4>ผู้ขาย</h4>
+                        {
+                          !searchData.filter(data => data.get('type') === 'seller').isEmpty() ? (
+                            searchData.filter(data => data.get('type') === 'seller')
+                            .map((data, i) => {
+                              const owner = data.get('owner') || Map()
+
+                              return (
+                                <div className="seller-data" key={i}>
+                                  <p>{owner.get('first_name')} {owner.get('last_name')}</p>
+                                </div>
+                              )
+                            })
+                          ) : (
+                            <p>ไม่เจอผู้ขาย</p>
+                          )
+                        }
+                      </div>
+                    </div>
+                  )
+                }
+              </li>
 
               <li className={ClassNames({ active: location.pathname === '/products'})}>
                 <Link to='/products'>สินค้า</Link>

@@ -5,9 +5,10 @@ import { setTheme, setFontSize } from 'actions/ui';
 import { signout, checkSession } from 'actions/auth';
 import { fetchCart } from 'actions/cart';
 import { fetchUser } from 'actions/user'
-// import { fetchNotifications } from 'actions/utilities';
+import { fetchSearch } from 'actions/search';
 import cartSchema from 'schemas/cart';
 import userSchema from 'schemas/user';
+import searchSchema from 'schemas/search';
 
 import TopNav from './TopNav';
 
@@ -18,6 +19,7 @@ const mapStateToProps = state => ({
   notifications: state.getIn(['utilities', 'notifications'], List()),
   loadingUser: state.getIn(['user', 'loading'], false),
   cart: state.getIn(['cart', 'data'], Map()),
+  searchData: state.getIn(['search', 'collection'], List()),
 });
 
 const mapDispatchToProps = {
@@ -25,9 +27,9 @@ const mapDispatchToProps = {
   setFont: age => setFontSize(age),
   loadCart: () => fetchCart(cartSchema),
   loadUser: () => fetchUser(userSchema),
-  // loadNotifications: () => fetchNotifications(),
   signout: () => signout(),
-  checkSession: () => checkSession()
+  checkSession: () => checkSession(),
+  search: (data) => fetchSearch(data, searchSchema)
 };
 
 export default connect(

@@ -110,7 +110,7 @@ export const register = data => (dispatch, getState) => {
       localStorage.setItem('auth', JSON.stringify(authen));
 
       dispatch({ type: CONST.SIGN_UP_SUCCEEDED, auth: authen });
-      dispatch(fetchUser(userSchema))
+      // dispatch(fetchUser(userSchema))
       dispatch(push('/'));
     })
     .catch(error => {
