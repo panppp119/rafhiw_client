@@ -38,13 +38,8 @@ export const oauth = provider => (dispatch, getState) => {
         dispatch(signin({ email: profile.email, provider }));
       }
     })
-    .catch(() => {
-      dispatch(
-        addFlashMessage({
-          type: 'error',
-          text: 'มีบางอย่างผิดพลาด กรุณาลองใหม่อีกครั้ง'
-        })
-      );
+    .catch(error => {
+      console.warn(error);
     });
 };
 

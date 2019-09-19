@@ -49,6 +49,10 @@ $desktop: 1280px;
           &:last-child {
             text-align: center;
             color: var(--primary);
+
+            @media screen and (min-width: $desktop) {
+              text-align: left;
+            }
           }
         }
       }

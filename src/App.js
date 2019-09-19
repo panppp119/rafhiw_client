@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
@@ -91,80 +91,78 @@ function PrivateRoute ({ component: Component, ...rest }) {
 
 export default ({ childProps }) =>
   <Provider store={store}>
-    <HashRouter>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <Route
-            path="/"
-            exact
-            component={AsyncHome}
-            props={childProps}
-          />
-          <Route
-            path="/sign_in"
-            component={AsyncSignIn}
-            props={childProps}
-          />
-          <Route
-            path="/register"
-            component={AsyncRegister}
-            props={childProps}
-          />
-          <Route
-            path="/events"
-            component={AsyncEvents}
-            props={childProps}
-          />
-          <Route
-            path="/e/:id"
-            component={AsyncEvent}
-            props={childProps}
-          />
-          <Route
-            path='/c/:slug'
-            component={AsyncCategories}
-            props={childProps}
-          />
-          <Route
-            path="/sc/:slug"
-            component={AsyncSubCategories}
-            props={childProps}
-          />
-          <Route
-            path="/products"
-            component={AsyncProducts}
-            props={childProps}
-          />
-          <Route
-            path="/p/:id"
-            component={AsyncProduct}
-            props={childProps}
-          />
-          <PrivateRoute
-            path="/account"
-            component={AsyncAccount}
-            props={childProps}
-          />
-          <PrivateRoute
-            path="/store"
-            component={AsyncStore}
-            props={childProps}
-          />
-          <PrivateRoute
-            path="/cart"
-            component={AsyncCart}
-            props={childProps}
-          />
-          <PrivateRoute
-            path="/checkout"
-            component={AsyncCheckout}
-            props={childProps}
-          />
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route
+          path="/"
+          exact
+          component={AsyncHome}
+          props={childProps}
+        />
+        <Route
+          path="/sign_in"
+          component={AsyncSignIn}
+          props={childProps}
+        />
+        <Route
+          path="/register"
+          component={AsyncRegister}
+          props={childProps}
+        />
+        <Route
+          path="/events"
+          component={AsyncEvents}
+          props={childProps}
+        />
+        <Route
+          path="/e/:id"
+          component={AsyncEvent}
+          props={childProps}
+        />
+        <Route
+          path='/c/:slug'
+          component={AsyncCategories}
+          props={childProps}
+        />
+        <Route
+          path="/sc/:slug"
+          component={AsyncSubCategories}
+          props={childProps}
+        />
+        <Route
+          path="/products"
+          component={AsyncProducts}
+          props={childProps}
+        />
+        <Route
+          path="/p/:id"
+          component={AsyncProduct}
+          props={childProps}
+        />
+        <PrivateRoute
+          path="/account"
+          component={AsyncAccount}
+          props={childProps}
+        />
+        <PrivateRoute
+          path="/store"
+          component={AsyncStore}
+          props={childProps}
+        />
+        <PrivateRoute
+          path="/cart"
+          component={AsyncCart}
+          props={childProps}
+        />
+        <PrivateRoute
+          path="/checkout"
+          component={AsyncCheckout}
+          props={childProps}
+        />
 
-          {/* Finally, catch all unmatched routes */}
-          <Route component={AsyncNotFound} />
-        </Switch>
-      </ConnectedRouter>
-    </HashRouter>
+        {/* Finally, catch all unmatched routes */}
+        <Route component={AsyncNotFound} />
+      </Switch>
+    </ConnectedRouter>
   </Provider>
 ;
