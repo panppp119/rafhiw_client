@@ -15,7 +15,7 @@ import './TopNav.scss'
 class TopNav extends React.Component {
   state = {
     nightmode: this.props.themeColor === 'theme-dark',
-    search: ''
+    search: false
   }
 
   componentDidMount () {
@@ -57,17 +57,80 @@ class TopNav extends React.Component {
   handleSearchChange = e => {
     const text = e.target.value
 
-    this.setState({ search: text })
     this.props.search({ search: text })
+
+    if (text === '') {
+      setTimeout(() => this.setState({ search: false }), 2000)
+    }
   }
 
   reset = () => {
     this.props.resetSearch()
+    this.setState({ search: false })
+  }
+
+  showSearch = () => {
+    this.setState({ search: !this.state.search })
+
+    if (this.state.search) {
+      this.props.resetSearch()
+    }
+  }
+
+  searchContent () {
+    const { searchData } = this.props
+
+    return (
+      !searchData.isEmpty() && (
+        <div className="search-data">
+          <div className="products">
+            <h4>สินค้า</h4>
+            {
+              !searchData.filter(data => data.get('type') === 'product').isEmpty() ? (
+                searchData.filter(data => data.get('type') === 'product')
+                .map((data, i) => {
+                  return (
+                    <Link className="product-data"
+                      to={`/p/${data.get('id')}`}
+                      key={i}
+                      onClick={this.reset}
+                    >
+                      <p>{data.get('name')}</p>
+                    </Link>
+                  )
+                })
+              ) : (
+                <p>ไม่เจอสินค้า</p>
+              )
+            }
+          </div>
+          <div className="sellers">
+            <h4>ผู้ขาย</h4>
+            {
+              !searchData.filter(data => data.get('type') === 'seller').isEmpty() ? (
+                searchData.filter(data => data.get('type') === 'seller')
+                .map((data, i) => {
+                  const owner = data.get('owner') || Map()
+
+                  return (
+                    <div className="seller-data" key={i}>
+                      <p>{owner.get('first_name')} {owner.get('last_name')}</p>
+                    </div>
+                  )
+                })
+              ) : (
+                <p>ไม่เจอผู้ขาย</p>
+              )
+            }
+          </div>
+        </div>
+      )
+    )
   }
 
   render () {
     const { location, user } = this.props
-    const { cart, searchData } = this.props;
+    const { cart } = this.props;
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
@@ -78,8 +141,6 @@ class TopNav extends React.Component {
           <div className="mobile">
 
             <ul>
-              {/* <li className='search'></li> */}
-
               <li className='display'>
                 {/* การแสดงผล */}
                   <Link to='/'>
@@ -129,7 +190,9 @@ class TopNav extends React.Component {
               <li className='empty' />
               <li className='empty' />
               <li className='empty' />
-              <li className='empty' />
+              <li className='search'>
+                <FaSearch onClick={this.showSearch} />
+              </li>
 
               <li>
                 <Link to='/cart'>
@@ -141,6 +204,16 @@ class TopNav extends React.Component {
             </ul>
           </div>
         </div>
+
+        { this.state.search && (
+          <div className="mobile-search">
+            <DebounceInput
+              debounceTimeout={500}
+              onChange={this.handleSearchChange}
+            />
+            {this.searchContent()}
+          </div>
+        )}
 
         <div className="desktop">
           <div className="first">
@@ -216,52 +289,7 @@ class TopNav extends React.Component {
                 />
                 <FaSearch />
 
-                {
-                  !searchData.isEmpty() && (
-                    <div className="search-data">
-                      <div className="products">
-                        <h4>สินค้า</h4>
-                        {
-                          !searchData.filter(data => data.get('type') === 'product').isEmpty() ? (
-                            searchData.filter(data => data.get('type') === 'product')
-                            .map((data, i) => {
-                              return (
-                                <Link className="product-data"
-                                  to={`/p/${data.get('id')}`}
-                                  key={i}
-                                  onClick={this.reset}
-                                >
-                                  <p>{data.get('name')}</p>
-                                </Link>
-                              )
-                            })
-                          ) : (
-                            <p>ไม่เจอสินค้า</p>
-                          )
-                        }
-                      </div>
-                      <div className="sellers">
-                        <h4>ผู้ขาย</h4>
-                        {
-                          !searchData.filter(data => data.get('type') === 'seller').isEmpty() ? (
-                            searchData.filter(data => data.get('type') === 'seller')
-                            .map((data, i) => {
-                              const owner = data.get('owner') || Map()
-
-                              return (
-                                <div className="seller-data" key={i}>
-                                  <p>{owner.get('first_name')} {owner.get('last_name')}</p>
-                                </div>
-                              )
-                            })
-                          ) : (
-                            <p>ไม่เจอผู้ขาย</p>
-                          )
-                        }
-                      </div>
-                    </div>
-                  )
-                }
+                {this.searchContent()}
               </li>
 
               <li className={ClassNames({ active: location.pathname === '/products'})}>

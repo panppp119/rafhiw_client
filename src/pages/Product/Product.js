@@ -41,6 +41,9 @@ class Product extends React.Component {
     if (this.props.product.get(['options', 0, 'stock']) === 0) {
       this.setState({ stock: 0 })
     }
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.props.loadProduct(this.props.match.params.id);
+    }
   }
 
   handleClickChat = bool => {

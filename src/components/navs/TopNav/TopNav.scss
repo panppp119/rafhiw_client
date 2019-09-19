@@ -155,34 +155,6 @@ $desktop: 1280px;
           padding: 16px;
           color: var(--gray_light);
         }
-
-        .search-data {
-          position: absolute;
-          z-index: 10;
-          background: var(--white);
-          left: 0;
-          right: 0;
-          text-align: left;
-          padding: 0 16px;
-          max-height: 250px;
-          overflow: auto;
-
-          p {
-            line-height: 40px;
-            color: var(--gray);
-            text-transform: none;
-            padding-left: 16px;
-
-            &:hover {
-              color: var(--primary);
-            }
-          }
-
-          h4 {
-            color: var(--gray);
-            line-height: 40px;
-          }
-        }
       }
     }
   }
@@ -197,7 +169,7 @@ $desktop: 1280px;
     text-transform: uppercase;
 
     &.search {
-      flex-grow: 4;
+      flex-grow: 1;
     }
 
     a {
@@ -218,6 +190,47 @@ $desktop: 1280px;
       background-color: white;
       color: var(--primary);
 
+    }
+  }
+
+  .mobile-search {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+
+    input {
+      margin-bottom: 0;
+      border-bottom-width: 1px;
+      padding: 0 8px;
+      background-color: var(--white);
+    }
+  }
+
+  .search-data {
+    position: absolute;
+    z-index: 10;
+    background: var(--white);
+    left: 0;
+    right: 0;
+    text-align: left;
+    padding: 0 16px;
+    max-height: 250px;
+    overflow: auto;
+
+    p {
+      line-height: 40px;
+      color: var(--gray);
+      text-transform: none;
+      padding-left: 16px;
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+
+    h4 {
+      color: var(--gray);
+      line-height: 40px;
     }
   }
 }
