@@ -19,7 +19,8 @@ class Product extends React.Component {
     option: 0,
     products: [],
     totalQuantity: 0,
-    showChat: false
+    showChat: false,
+    out: false
   };
 
   componentDidMount() {
@@ -45,7 +46,7 @@ class Product extends React.Component {
     this.setState({ showChat: bool });
   };
 
-  addProduct (name) {
+  addProduct (name, stock) {
     const {
       createCart,
       updateCart,
@@ -56,7 +57,6 @@ class Product extends React.Component {
     const { quantity, product_option_id } = this.state;
 
     var poId = product_option_id || product.getIn(['options', 0, 'id']);
-    var stock = product.getIn(['options', 0, 'stock']);
 
     const pd = {
       quantity: quantity,
@@ -78,7 +78,7 @@ class Product extends React.Component {
       if (index !== -1) {
         var qt = pds.getIn([index, 'quantity'], pdQt => pdQt + quantity)
 
-        if (qt === stock) {
+        if (qt > stock) {
           alert('ของในคลังสินค้าไม่เพียงพอ');
         }
         else {
@@ -227,6 +227,7 @@ class Product extends React.Component {
                           return (
                             <button name={option.get('id')}
                               className={this.state.option === i ? 'primary' : 'option'}
+                              disabled={option.get('stock') <= 0}
                               key={i}
                               onClick={(e) =>
                                 this.handleSelectOption(e, i)
@@ -281,7 +282,7 @@ class Product extends React.Component {
                             </td>
                             <td>
                               <div className="quantity-input">
-                                <button disabled={quantity === 1 || stock === 0}
+                                <button disabled={quantity === 1 || stock <= 0}
                                   className='primary'
                                   onClick={(e) =>
                                     this.decreaseQuantity(
@@ -294,9 +295,9 @@ class Product extends React.Component {
                                   <FaMinus />
                                 </button>
 
-                                <input type="number" disabled value={stock !== 0 ? quantity : 0} />
+                                <input type="number" disabled value={stock > 0 ? quantity : 0} />
 
-                                <button disabled={quantity === stock || stock === 0}
+                                <button disabled={quantity === stock || stock <= 0}
                                   className='primary'
                                   onClick={(e) =>
                                     this.increaseQuantity(
@@ -309,9 +310,37 @@ class Product extends React.Component {
                                   <FaPlus />
                                 </button>
 
-                                <span>
-                                  มีสินค้าทั้งหมด {option.get('stock') || 0} ชิ้น
-                                </span>
+                                {
+                                  stock > 0 ? (
+                                    <span>
+                                      มีสินค้าทั้งหมด {option.get('stock') || 0} ชิ้น
+                                    </span>
+                                  ) : (
+                                    <span>สินค้าหมด</span>
+                                  )
+                                }
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2}>
+                              <div className="actions">
+                                <div className="button-field">
+                                  <button className='primary'
+                                    onClick={() => this.addProduct('add')}
+                                    disabled={stock <= 0}
+                                  >
+                                    เพิ่มไปยังรถเข็น
+                                  </button>
+                                </div>
+                                <div className="button-field">
+                                  <button name='buy' className='primary'
+                                    onClick={() => this.addProduct('buy')}
+                                    disabled={stock <= 0}
+                                  >
+                                    ซื้อสินค้า
+                                  </button>
+                                </div>
                               </div>
                             </td>
                           </tr>
@@ -320,27 +349,7 @@ class Product extends React.Component {
                     })}
                   </tbody>
                 </table>
-
-                <div className="actions">
-                  <div className="button-field">
-                    <button className='primary'
-                      onClick={() => this.addProduct('add')}
-                      disabled={this.state.stock === 0}
-                    >
-                      เพิ่มไปยังรถเข็น
-                    </button>
-                  </div>
-                  <div className="button-field">
-                    <button name='buy' className='primary'
-                      onClick={() => this.addProduct('buy')}
-                      disabled={this.state.stock === 0}
-                    >
-                      ซื้อสินค้า
-                    </button>
-                  </div>
-                </div>
               </div>
-
             </div>
 
             <div className="product-reviews">

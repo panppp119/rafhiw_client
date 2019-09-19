@@ -168,22 +168,21 @@ $desktop: 1280px;
   }
 
   .actions {
-    padding: 0 8px;
-    margin-top: 8px;
-
-    @media screen and (min-width: $desktop) {
-      padding: 0 16px;
-      margin-top: 16px;
-    }
-
     button {
       display: inline-block;
     }
 
-    .button-field {
+    .button-field{
       width: 44%;
-      padding: 0 8px;
       display: inline-block;
+
+      &:first-child  {
+        margin-right: 8px;
+
+        @media screen and (min-width: $desktop) {
+          margin-right: 16px;
+        }
+      }
     }
   }
 
