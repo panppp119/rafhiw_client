@@ -1,7 +1,7 @@
 import React from 'react'
 import { List } from 'immutable'
 import { Route, Switch, Link } from 'react-router-dom';
-import { FaUser, FaWallet, FaStore, FaMapMarkedAlt, FaStar, FaHistory } from 'react-icons/fa'
+import { FaUser, FaWallet, FaStore, FaMapMarkedAlt, FaStar, FaHistory, FaSignOutAlt } from 'react-icons/fa'
 
 import UserLayout from 'components/layouts/UserLayout'
 
@@ -34,8 +34,10 @@ class Account extends React.Component {
                 }
                 <li><Link to='/account/orders'><FaStar /></Link></li>
                 <li><Link to='/account/reviews'><FaHistory /></Link></li>
+                <li><FaSignOutAlt onClick={() => this.props.signout()} /></li>
               </ul>
             </div>
+
             <div className="menu desktop">
               <ul>
                 <li><Link to='/account'>บัญชีของฉัน</Link></li>

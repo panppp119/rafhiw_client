@@ -45,6 +45,11 @@ $desktop: 1280px;
               color: var(--white);
             }
           }
+
+          &:last-child {
+            text-align: center;
+            color: var(--primary);
+          }
         }
       }
     }

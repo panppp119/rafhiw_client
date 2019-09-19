@@ -36,7 +36,6 @@ export const oauth = provider => (dispatch, getState) => {
         dispatch(register(user));
       } else {
         dispatch(signin({ email: profile.email, provider }));
-        dispatch(push('/'))
       }
     })
     .catch(() => {
@@ -84,13 +83,14 @@ export const signin = data => (dispatch, getState) => {
       }
     })
     .catch(error => {
+      console.warn(error)
+
       dispatch(
         addFlashMessage({
           type: 'error',
           text: error.message
         })
       );
-      console.warn(error)
     });
 };
 
@@ -114,6 +114,7 @@ export const register = data => (dispatch, getState) => {
       dispatch(push('/'));
     })
     .catch(error => {
+      console.warn(error);
       dispatch(
         addFlashMessage({
           type: 'error',
