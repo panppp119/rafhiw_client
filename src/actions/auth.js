@@ -84,12 +84,12 @@ export const signin = data => (dispatch, getState) => {
       }
     })
     .catch(error => {
-      // dispatch(
-      //   addFlashMessage({
-      //     type: 'error',
-      //     text: error.message
-      //   })
-      // );
+      dispatch(
+        addFlashMessage({
+          type: 'error',
+          text: error.message
+        })
+      );
       console.warn(error)
     });
 };
@@ -131,12 +131,15 @@ export const signout = () => (dispatch, getState) => {
     dispatch(push('/'))
   }
 
-  return request.post('/sign_out').then(response => {
+  request.post('/sign_out').then(response => {
     localStorage.removeItem('auth');
+    localStorage.clear()
 
     dispatch({ type: CONST.SIGN_OUT_SUCCEEDED });
     dispatch(push('/'))
-  });
+  }).catch(() => {
+    localStorage.clear()
+  })
 };
 
 export const checkSession = () => (dispatch, getState) => {
