@@ -67,6 +67,20 @@ $desktop: 1280px;
           background-size: cover;
           background-position: center;
           background-color: var(--gray_light);
+          position: relative;
+
+          .no-item {
+            position: absolute;
+            z-index: 1;
+            width: 30px;
+            top: 0;
+            right: 0;
+            padding: 8px;
+            text-align: center;
+            background-color: var(--gray);
+            color: var(--white);
+            font-size: var(--font_small);
+          }
         }
 
         .info {

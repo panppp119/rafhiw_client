@@ -119,6 +119,7 @@ class Home extends React.Component {
                   {
                     products.slice(0, 4).map((product, i) => {
                       const options = product.get('options') || List()
+                      var noItem = options.filter(opt => opt.get('stock') <= 0).size > 0
 
                       return (
                         <div className="product" key={i}>
@@ -126,7 +127,15 @@ class Home extends React.Component {
                             <div className="image"
                               aria-label={product.get('name')}
                               style={{ backgroundImage: `url(${product.get('image')})` }}
-                            />
+                            >
+                              {
+                                noItem && (
+                                  <div className="no-item">
+                                    สินค้าหมด
+                                  </div>
+                                )
+                              }
+                            </div>
 
                             <div className="info">
                               <h4>{product.get('name')}</h4>

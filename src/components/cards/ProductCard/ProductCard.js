@@ -25,40 +25,49 @@ class ProductCard extends React.Component {
           }
         })) ||
       List();
+    var noItem = options.filter(opt => opt.get('stock') <= 0).size > 0
 
     return (
       <div id="product-card">
         <Link to={`/p/${product.get('id')}`}>
-        <div className="image"
-          style={{
-            backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
-          }}
-          aria-label={product.get('name')}
-        />
+          <div className="image"
+            style={{
+              backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+            }}
+            aria-label={product.get('name')}
+          >
+            {
+              noItem && (
+                <div className="no-item">
+                  สินค้าหมด
+                </div>
+              )
+            }
+          </div>
 
-        <div className="content">
-          <CountdownTimer item={product} />
+          <div className="content">
+            <CountdownTimer item={product} />
 
-          <h4 className="name">{product.get('name')}</h4>
-          <p className="price">
-            {!options.isEmpty() && options.getIn([0, 'discount_amt']) !== 0 ? (
-              <Fragment>
-                <span
-                  className="price"
-                  style={{ textDecoration: 'line-through' }}
-                >
-                  <PriceConvert price={options.getIn([0, 'price_amt'])} />
-                </span>
+            <h4 className="name">{product.get('name')}</h4>
+            <p className="price">
+              {!options.isEmpty() && options.getIn([0, 'discount_amt']) !== 0 ? (
+                <Fragment>
+                  <span
+                    className="price"
+                    style={{ textDecoration: 'line-through' }}
+                  >
+                    <PriceConvert price={options.getIn([0, 'price_amt'])} />
+                  </span>
 
-                <span className='discount'>
-                  <PriceConvert price={options.getIn([0, 'discount_amt'])} />
-                </span>
-              </Fragment>
-            ) : (
-              <PriceConvert price={options.getIn([0, 'price_amt'])} />
-            )}
-          </p>
-        </div>
+                  <span className='discount'>
+                    <PriceConvert price={options.getIn([0, 'discount_amt'])} />
+                  </span>
+                </Fragment>
+              ) : (
+                <PriceConvert price={options.getIn([0, 'price_amt'])} />
+              )}
+            </p>
+          </div>
         </Link>
       </div>
     )

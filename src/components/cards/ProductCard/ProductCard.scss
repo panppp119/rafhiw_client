@@ -16,9 +16,22 @@ $desktop: 1280px;
     height: 150px;
     margin-bottom: 8px;
     margin: auto;
+    position: relative;
 
     @media screen and (min-width: $desktop) {
       height: 200px;
+    }
+
+    .no-item {
+      position: absolute;
+      z-index: 1;
+      width: 50px;
+      top: 0;
+      right: 0;
+      padding: 8px;
+      text-align: center;
+      background-color: var(--gray);
+      color: var(--white);
     }
   }
 
