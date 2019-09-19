@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ProductsTable from 'components/tables/ProductsTable';
+import Loader from 'components/Loader'
 
 import './OutOfStock.scss';
 
@@ -24,14 +25,16 @@ class OutOfStock extends React.Component {
 
     return (
       <div className="out-of-stock">
-        <ProductsTable
-          option
-          action
-          category
-          products={pds}
-          loadProducts={loadProducts}
-          deleteProduct={deleteProduct}
-        />
+        <Loader loading={this.props.loadingProducts}>
+          <ProductsTable
+            option
+            action
+            category
+            products={pds}
+            loadProducts={loadProducts}
+            deleteProduct={deleteProduct}
+          />
+        </Loader>
       </div>
     );
   }

@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   cartProducts: state.getIn(['cart', 'cartProducts'], List()),
   cart: state.getIn(['cart', 'data'], Map()),
   user: state.getIn(['user', 'data'], Map()),
-  loadingProduct: state.getIn(['products', 'loading'], false)
+  loadingProduct: state.getIn(['products', 'loading'], false),
+  loadingEvents: state.getIn(['events', 'loading'], false)
 });
 
 const mapDispatchToProps = {

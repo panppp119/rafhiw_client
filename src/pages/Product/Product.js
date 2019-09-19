@@ -10,6 +10,7 @@ import EventCard from 'components/cards/EventCard';
 import ProductCard from 'components/cards/ProductCard';
 import Img from 'components/Img';
 import UserLayout from 'components/layouts/UserLayout'
+import Loader from 'components/Loader'
 
 import './Product.scss';
 
@@ -139,12 +140,13 @@ class Product extends React.Component {
   }
 
   render() {
-    const { product, events, products } = this.props;
+    const { product, events, products, loadingProduct, loadingEvents } = this.props;
     const { quantity } = this.state;
 
     const options = (!product.isEmpty() && product.get('options')) || List();
     const attachments = (!product.isEmpty() && product.get('images')) || List();
     const reviews = (!product.isEmpty() && product.get('reviews')) || List();
+    const loaderSize = 25;
 
     const images = attachments
       .map(attachment => ({
@@ -157,283 +159,291 @@ class Product extends React.Component {
       <UserLayout>
         <div id="product-page">
           <div className="container">
-            <div className="product">
-              <div className="column">
-                <ImageGallery items={images} showPlayButton={false} autoPlay />
+            <div className="product" style={{ paddingTop: loadingProduct ? '15%' : 0 }}>
+              <Loader loading={loadingProduct}>
+                <div className="column">
+                  <ImageGallery items={images} showPlayButton={false} autoPlay />
 
-                <div className="owner">
-                  <div className="avatar">
-                    <Img
-                      src={product.getIn(['owner', 'image'])}
-                      alt={product.getIn(['owner', 'first_name'])}
-                    />
-                  </div>
+                  <div className="owner">
+                    <div className="avatar">
+                      <Img
+                        src={product.getIn(['owner', 'image'])}
+                        alt={product.getIn(['owner', 'first_name'])}
+                      />
+                    </div>
 
-                  <div className="info">
-                    <h4>
-                      {product.getIn(['owner', 'first_name'])}{' '}
-                      {product.getIn(['owner', 'last_name'])}
-                    </h4>
+                    <div className="info">
+                      <h4>
+                        {product.getIn(['owner', 'first_name'])}{' '}
+                        {product.getIn(['owner', 'last_name'])}
+                      </h4>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="column product-detail">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td><h3>{product.get('name')}</h3></td>
-                      <td><CountdownTimer item={product} /></td>
-                    </tr>
+                <div className="column product-detail">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td><h3>{product.get('name')}</h3></td>
+                        <td><CountdownTimer item={product} /></td>
+                      </tr>
 
-                    <tr>
-                      <td><h4>หมวดหมู่สินค้า</h4></td>
-                      <td>
-                        {product.getIn(['category', 'name'])} /{' '}
-                        {product.getIn(['sub_category', 'name'])}
-                      </td>
-                    </tr>
+                      <tr>
+                        <td><h4>หมวดหมู่สินค้า</h4></td>
+                        <td>
+                          {product.getIn(['category', 'name'])} /{' '}
+                          {product.getIn(['sub_category', 'name'])}
+                        </td>
+                      </tr>
 
-                    <tr>
-                      <td><h4>ชื่องาน</h4></td>
-                      <td>{product.getIn(['event', 'name'])}</td>
-                    </tr>
+                      <tr>
+                        <td><h4>ชื่องาน</h4></td>
+                        <td>{product.getIn(['event', 'name'])}</td>
+                      </tr>
 
-                    <tr>
-                      <td><h4>รายละเอียด</h4></td>
-                      <td>{product.get('description')}</td>
-                    </tr>
+                      <tr>
+                        <td><h4>รายละเอียด</h4></td>
+                        <td>{product.get('description')}</td>
+                      </tr>
 
-                    <tr>
-                      <td><h4>ที่ตั้ง</h4></td>
-                      <td>
-                        <a
-                          href={`https://maps.google.com/?q=${product.getIn([
-                            'event',
-                            'location',
-                            'lat'
-                          ])},${product.getIn(['event', 'location', 'lng'])}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {product.getIn(['event', 'location', 'name'], '')}
-                        </a>
-                      </td>
-                    </tr>
+                      <tr>
+                        <td><h4>ที่ตั้ง</h4></td>
+                        <td>
+                          <a
+                            href={`https://maps.google.com/?q=${product.getIn([
+                              'event',
+                              'location',
+                              'lat'
+                            ])},${product.getIn(['event', 'location', 'lng'])}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {product.getIn(['event', 'location', 'name'], '')}
+                          </a>
+                        </td>
+                      </tr>
 
-                    <tr>
-                      <td colSpan='2' className='option'>
-                        {options.map((option, i) => {
-                          return (
-                            <button name={option.get('id')}
-                              className={this.state.option === i ? 'primary' : 'option'}
-                              disabled={option.get('stock') <= 0}
-                              key={i}
-                              onClick={(e) =>
-                                this.handleSelectOption(e, i)
-                              }
-                            >
-                              {option.get('name')}
-                            </button>
-                          );
-                        })}
-                      </td>
-                    </tr>
+                      <tr>
+                        <td colSpan='2' className='option'>
+                          {options.map((option, i) => {
+                            return (
+                              <button name={option.get('id')}
+                                className={this.state.option === i ? 'primary' : 'option'}
+                                disabled={option.get('stock') <= 0}
+                                key={i}
+                                onClick={(e) =>
+                                  this.handleSelectOption(e, i)
+                                }
+                              >
+                                {option.get('name')}
+                              </button>
+                            );
+                          })}
+                        </td>
+                      </tr>
 
-                    {options.map((option, i) => {
-                      const stock = option.get('stock') || 0
+                      {options.map((option, i) => {
+                        const stock = option.get('stock') || 0
 
-                      return this.state.option === i ? (
-                        <Fragment key={i}>
-                          <tr>
-                            <td>
-                              <h4>ราคาสินค้า</h4>
-                            </td>
-                            <td>
-                              {option.get('discount_amt') !== 0 ? (
-                                <Fragment>
-                                  <span
-                                    className="price"
-                                    style={{ textDecoration: 'line-through' }}
-                                  >
+                        return this.state.option === i ? (
+                          <Fragment key={i}>
+                            <tr>
+                              <td>
+                                <h4>ราคาสินค้า</h4>
+                              </td>
+                              <td>
+                                {option.get('discount_amt') !== 0 ? (
+                                  <Fragment>
+                                    <span
+                                      className="price"
+                                      style={{ textDecoration: 'line-through' }}
+                                    >
+                                      <PriceConvert
+                                        price={option.get('price_amt')}
+                                      />
+                                    </span>
+                                    <span className="discount">
+                                      <PriceConvert
+                                        price={option.get('discount_amt')}
+                                      />
+                                    </span>
+                                  </Fragment>
+                                ) : (
+                                  <span>
                                     <PriceConvert
                                       price={option.get('price_amt')}
                                     />
                                   </span>
-                                  <span className="discount">
-                                    <PriceConvert
-                                      price={option.get('discount_amt')}
-                                    />
-                                  </span>
-                                </Fragment>
-                              ) : (
-                                <span>
-                                  <PriceConvert
-                                    price={option.get('price_amt')}
-                                  />
-                                </span>
-                              )}
-                            </td>
-                          </tr>
+                                )}
+                              </td>
+                            </tr>
 
-                          <tr>
-                            <td>
-                              <h4>จำนวน</h4>
-                            </td>
-                            <td>
-                              <div className="quantity-input">
-                                <button disabled={quantity === 1 || stock <= 0}
-                                  className='primary'
-                                  onClick={(e) =>
-                                    this.decreaseQuantity(
-                                      e,
-                                      stock,
-                                      option.get('id')
+                            <tr>
+                              <td>
+                                <h4>จำนวน</h4>
+                              </td>
+                              <td>
+                                <div className="quantity-input">
+                                  <button disabled={quantity === 1 || stock <= 0}
+                                    className='primary'
+                                    onClick={(e) =>
+                                      this.decreaseQuantity(
+                                        e,
+                                        stock,
+                                        option.get('id')
+                                      )
+                                    }
+                                  >
+                                    <FaMinus />
+                                  </button>
+
+                                  <input type="number" disabled value={stock > 0 ? quantity : 0} />
+
+                                  <button disabled={quantity === stock || stock <= 0}
+                                    className='primary'
+                                    onClick={(e) =>
+                                      this.increaseQuantity(
+                                        e,
+                                        stock,
+                                        option.get('id')
+                                      )
+                                    }
+                                  >
+                                    <FaPlus />
+                                  </button>
+
+                                  {
+                                    stock > 0 ? (
+                                      <span>
+                                        มีสินค้าทั้งหมด {option.get('stock') || 0} ชิ้น
+                                      </span>
+                                    ) : (
+                                      <span>สินค้าหมด</span>
                                     )
                                   }
-                                >
-                                  <FaMinus />
-                                </button>
-
-                                <input type="number" disabled value={stock > 0 ? quantity : 0} />
-
-                                <button disabled={quantity === stock || stock <= 0}
-                                  className='primary'
-                                  onClick={(e) =>
-                                    this.increaseQuantity(
-                                      e,
-                                      stock,
-                                      option.get('id')
-                                    )
-                                  }
-                                >
-                                  <FaPlus />
-                                </button>
-
-                                {
-                                  stock > 0 ? (
-                                    <span>
-                                      มีสินค้าทั้งหมด {option.get('stock') || 0} ชิ้น
-                                    </span>
-                                  ) : (
-                                    <span>สินค้าหมด</span>
-                                  )
-                                }
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td colSpan={2}>
-                              <div className="actions">
-                                <div className="button-field">
-                                  <button className='primary'
-                                    onClick={() => this.addProduct('add')}
-                                    disabled={stock <= 0}
-                                  >
-                                    เพิ่มไปยังรถเข็น
-                                  </button>
                                 </div>
-                                <div className="button-field">
-                                  <button name='buy' className='primary'
-                                    onClick={() => this.addProduct('buy')}
-                                    disabled={stock <= 0}
-                                  >
-                                    ซื้อสินค้า
-                                  </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colSpan={2}>
+                                <div className="actions">
+                                  <div className="button-field">
+                                    <button className='primary'
+                                      onClick={() => this.addProduct('add')}
+                                      disabled={stock <= 0}
+                                    >
+                                      เพิ่มไปยังรถเข็น
+                                    </button>
+                                  </div>
+                                  <div className="button-field">
+                                    <button name='buy' className='primary'
+                                      onClick={() => this.addProduct('buy')}
+                                      disabled={stock <= 0}
+                                    >
+                                      ซื้อสินค้า
+                                    </button>
+                                  </div>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </Fragment>
-                      ) : null;
-                    })}
-                  </tbody>
-                </table>
-              </div>
+                              </td>
+                            </tr>
+                          </Fragment>
+                        ) : null;
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </Loader>
             </div>
 
             <div className="product-reviews">
               <h3>รีวิว</h3>
 
               <div className='reviews'>
-                {
-                  reviews.map((review, i) => {
-                    return (
-                      <div className='review' key={i}>
-                        <img src={review.get('image')} alt={`${review.get('first_name')}-img`}/>
-                        <div className="info">
-                          <h4>{review.get('first_nam')} {review.get('last_name')}</h4>
-                          <p className='small'>- {review.get('product_option_name')} ({review.get('rating')}/5)</p>
-                          <p>{review.get('comment')}</p>
+                <Loader loading={loadingProduct} size={loaderSize}>
+                  {
+                    reviews.map((review, i) => {
+                      return (
+                        <div className='review' key={i}>
+                          <img src={review.get('image')} alt={`${review.get('first_name')}-img`}/>
+                          <div className="info">
+                            <h4>{review.get('first_nam')} {review.get('last_name')}</h4>
+                            <p className='small'>- {review.get('product_option_name')} ({review.get('rating')}/5)</p>
+                            <p>{review.get('comment')}</p>
+                          </div>
                         </div>
-                      </div>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
+                </Loader>
               </div>
             </div>
 
             <div className="products">
               <h3>สินค้าใกล้เคียง</h3>
 
-              <div className="mobile">
-                {!products.isEmpty() && products.length > 1 ? (
-                  products
-                    .filter(
-                      p =>
-                        p.get('id' !== product.get('id')) &&
-                        p.get('category_id') === product.get('category_id')
-                    )
-                    .slice(0, 2)
-                    .map((product, i) => {
-                      return (
-                        <div className="column" key={i}>
-                          <ProductCard product={product} user={this.props.user} />
-                        </div>
-                      );
-                    })
-                ) : (
-                  <p>ไม่มีสินค้าใกล้เคียง</p>
-                )}
-              </div>
+              <Loader loading={loadingProduct} size={loaderSize}>
+                <div className="mobile">
+                  {!products.isEmpty() && products.length > 1 ? (
+                    products
+                      .filter(
+                        p =>
+                          p.get('id' !== product.get('id')) &&
+                          p.get('category_id') === product.get('category_id')
+                      )
+                      .slice(0, 2)
+                      .map((product, i) => {
+                        return (
+                          <div className="column" key={i}>
+                            <ProductCard product={product} user={this.props.user} />
+                          </div>
+                        );
+                      })
+                  ) : (
+                    <p>ไม่มีสินค้าใกล้เคียง</p>
+                  )}
+                </div>
 
-              <div className="desktop">
-                {!products.isEmpty() && products.length > 1 ? (
-                  products
-                    .filter(
-                      p =>
-                        p.get('id' !== product.get('id')) &&
-                        p.get('category_id') === product.get('category_id')
-                    )
-                    .slice(0, 5)
-                    .map((product, i) => {
-                      return (
-                        <div className="column" key={i}>
-                          <ProductCard product={product} user={this.props.user} />
-                        </div>
-                      );
-                    })
-                ) : (
-                  <p>ไม่มีสินค้าใกล้เคียง</p>
-                )}
-              </div>
+                <div className="desktop">
+                  {!products.isEmpty() && products.length > 1 ? (
+                    products
+                      .filter(
+                        p =>
+                          p.get('id' !== product.get('id')) &&
+                          p.get('category_id') === product.get('category_id')
+                      )
+                      .slice(0, 5)
+                      .map((product, i) => {
+                        return (
+                          <div className="column" key={i}>
+                            <ProductCard product={product} user={this.props.user} />
+                          </div>
+                        );
+                      })
+                  ) : (
+                    <p>ไม่มีสินค้าใกล้เคียง</p>
+                  )}
+                </div>
+              </Loader>
             </div>
 
             <div className="events">
               <h3>งานลดราคา</h3>
 
               <div className="mobile">
-                {!events.isEmpty() ? (
-                  events.slice(0, 2).map((event, i) => {
-                    return (
-                      <div className='column' computer={4} mobile={8} key={i}>
-                        <EventCard event={event} />
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p>ไม่มีงานลดราคา</p>
-                )}
+                <Loader loading={loadingEvents} loaderSize>
+                  {!events.isEmpty() ? (
+                    events.slice(0, 2).map((event, i) => {
+                      return (
+                        <div className='column' computer={4} mobile={8} key={i}>
+                          <EventCard event={event} />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <p>ไม่มีงานลดราคา</p>
+                  )}
+                </Loader>
               </div>
 
               <div className="desktop">

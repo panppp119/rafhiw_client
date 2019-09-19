@@ -2,6 +2,7 @@ import React from 'react';
 import { Map } from 'immutable';
 
 import ProductsTable from 'components/tables/ProductsTable';
+import Loader from 'components/Loader'
 
 import './Products.scss';
 
@@ -23,8 +24,9 @@ class Products extends React.Component {
   render() {
     return (
       <div className="products">
-        {/* <ProductsTable {...this.props} option action category /> */}
-        <ProductsTable {...this.props} option action category />
+        <Loader loading={this.props.loadingProducts}>
+          <ProductsTable {...this.props} option action category />
+        </Loader>
       </div>
     );
   }

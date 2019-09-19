@@ -2,6 +2,7 @@ import React from 'react';
 import { List } from 'immutable'
 
 import ProductsTable from 'components/tables/ProductsTable';
+import Loader from 'components/Loader'
 
 import './Active.scss';
 
@@ -23,15 +24,17 @@ class Active extends React.Component {
 
     return (
       <div className="active">
-        <ProductsTable
-          option
-          action
-          category
-          products={pds}
-          user={user}
-          loadProducts={loadProducts}
-          deleteProduct={deleteProduct}
-        />
+        <Loader loading={this.props.loadingProducts}>
+          <ProductsTable
+            option
+            action
+            category
+            products={pds}
+            user={user}
+            loadProducts={loadProducts}
+            deleteProduct={deleteProduct}
+          />
+        </Loader>
       </div>
     );
   }

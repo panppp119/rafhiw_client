@@ -2,6 +2,7 @@ import React from 'react';
 import { Map } from 'immutable';
 
 import EventTable from 'components/tables/EventTable';
+import Loader from 'components/Loader'
 
 import './Events.scss';
 
@@ -23,7 +24,9 @@ class Events extends React.Component {
   render() {
     return (
       <div className="events">
-        <EventTable {...this.props} />
+        <Loader loading={this.props.loadingEvents}>
+          <EventTable {...this.props} />
+        </Loader>
       </div>
     );
   }

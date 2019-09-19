@@ -6,21 +6,28 @@ class Loader extends React.Component {
   static defaultProps = {
     size: 30
   }
-  
+
   render () {
     const { loading, size } = this.props
 
-    if (loading) {
-      return (
-        <div className="loader" style={{
-          width: size,
-          height: size
-        }} />
-      )
-    }
-    else {
-      return null
-    }
+    return (
+      <div className='loader'>
+        {
+          loading && (
+            <div className="load" style={{
+              width: size,
+              height: size
+            }} />
+          )
+        }
+
+        {
+          !loading && (
+            this.props.children
+          )
+        }
+      </div>
+    )
   }
 }
 
