@@ -208,7 +208,7 @@ class Cart extends React.Component {
                       <input type="radio"
                         name='address_id'
                         value={address.get('id')}
-                        checked={this.state.address_id === address.get('id')}
+                        checked={this.state.address_id === address.get('id') || i === 0}
                         onClick={this.selectAddress}
                       />
                       {address.get('address')}, {address.get('sub_district')}, {address.get('district')}, {address.get('province')}, {address.get('zip_code')}

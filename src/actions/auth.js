@@ -84,12 +84,13 @@ export const signin = data => (dispatch, getState) => {
       }
     })
     .catch(error => {
-      dispatch(
-        addFlashMessage({
-          type: 'error',
-          text: error.message
-        })
-      );
+      // dispatch(
+      //   addFlashMessage({
+      //     type: 'error',
+      //     text: error.message
+      //   })
+      // );
+      console.warn(error)
     });
 };
 

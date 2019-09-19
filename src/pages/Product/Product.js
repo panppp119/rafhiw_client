@@ -144,6 +144,7 @@ class Product extends React.Component {
 
     const options = (!product.isEmpty() && product.get('options')) || List();
     const attachments = (!product.isEmpty() && product.get('images')) || List();
+    const reviews = (!product.isEmpty() && product.get('reviews')) || List();
 
     const images = attachments
       .map(attachment => ({
@@ -340,6 +341,27 @@ class Product extends React.Component {
                 </div>
               </div>
 
+            </div>
+
+            <div className="product-reviews">
+              <h3>รีวิว</h3>
+
+              <div className='reviews'>
+                {
+                  reviews.map((review, i) => {
+                    return (
+                      <div className='review' key={i}>
+                        <img src={review.get('image')} alt={`${review.get('first_name')}-img`}/>
+                        <div className="info">
+                          <h4>{review.get('first_nam')} {review.get('last_name')}</h4>
+                          <p className='small'>- {review.get('product_option_name')} ({review.get('rating')}/5)</p>
+                          <p>{review.get('comment')}</p>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
             </div>
 
             <div className="products">
