@@ -156,7 +156,7 @@ class Cart extends React.Component {
     e.preventDefault();
 
     const cart = this.props.cart.toJS();
-    const address = this.props.addresses.find(ad => ad.get('id') === this.state.address_id) || Map()
+    const address = this.props.addresses.find(ad => ad.get('id') === this.state.address_id) || this.props.addresses.get(0)
     const long_address = `${address.get('address')}, ${address.get('sub_district')}, ${address.get('district')}, ${address.get('province')}, ${address.get('zip_code')}`
 
     const data = {
@@ -168,15 +168,13 @@ class Cart extends React.Component {
 
     if (pause) {
       alert('ไม่สามารถทำการสั่งซื้อได้เนื่องจากมีบางรายการหมดเวลาแล้ว');
-    } else if (this.state.address_id) {
+    } else {
       this.setState({ checkout: true });
 
       this.props.createOrder(data).then(() => {
         this.props.loadCart();
         this.props.history.push('/checkout');
       });
-    } else {
-      alert('กรุณาเลือกที่อยู่ในการจัดส่งสินค้า');
     }
   }
 
