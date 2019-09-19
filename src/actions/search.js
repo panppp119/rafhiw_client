@@ -29,6 +29,8 @@ export const fetchSearch = (body, schema) => (dispatch, getState) => {
       body: []
     }
 
+    console.log(key)
+
     dispatch({
       type: CONST.FETCH_SEARCH_SUCCEEDED,
       response,

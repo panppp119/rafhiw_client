@@ -59,6 +59,10 @@ class TopNav extends React.Component {
     this.props.search({ search: text })
   }
 
+  reset = () => {
+    this.props.search({ search: '' })
+  }
+
   render () {
     const { location, user } = this.props
     const { cart, searchData } = this.props;
@@ -220,7 +224,11 @@ class TopNav extends React.Component {
                             searchData.filter(data => data.get('type') === 'product')
                             .map((data, i) => {
                               return (
-                                <Link className="product-data" to={`/p/${data.get('id')}`} key={i}>
+                                <Link className="product-data"
+                                  to={`/p/${data.get('id')}`}
+                                  key={i}
+                                  onClick={this.reset}
+                                >
                                   <p>{data.get('name')}</p>
                                 </Link>
                               )
