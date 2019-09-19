@@ -16,6 +16,9 @@ const searchReducer = (
     case CONST.FETCH_SEARCH_SUCCEEDED:
       return state.set('collection', fromJS(response.body)).set('loading', false);
 
+    case CONST.RESET_SEARCH:
+      return state.set('collection', fromJS([]))
+
     case SIGN_OUT_SUCCEEDED:
       localStorage.removeItem('cartProducts');
 

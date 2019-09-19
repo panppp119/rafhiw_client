@@ -38,3 +38,7 @@ export const fetchSearch = (body, schema) => (dispatch, getState) => {
     });
   }
 };
+
+export const resetSearch = (schema) => (dispatch, getState) => {
+  dispatch({ type: CONST.RESET_SEARCH, schema });
+};

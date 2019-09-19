@@ -5,7 +5,7 @@ import { setTheme, setFontSize } from 'actions/ui';
 import { signout, checkSession } from 'actions/auth';
 import { fetchCart } from 'actions/cart';
 import { fetchUser } from 'actions/user'
-import { fetchSearch } from 'actions/search';
+import { fetchSearch, resetSearch } from 'actions/search';
 import cartSchema from 'schemas/cart';
 import userSchema from 'schemas/user';
 import searchSchema from 'schemas/search';
@@ -29,7 +29,8 @@ const mapDispatchToProps = {
   loadUser: () => fetchUser(userSchema),
   signout: () => signout(),
   checkSession: () => checkSession(),
-  search: (data) => fetchSearch(data, searchSchema)
+  search: (data) => fetchSearch(data, searchSchema),
+  resetSearch: () => resetSearch(searchSchema)
 };
 
 export default connect(

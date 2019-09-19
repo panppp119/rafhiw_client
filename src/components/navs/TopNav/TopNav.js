@@ -22,6 +22,8 @@ class TopNav extends React.Component {
     if (this.props.user.isEmpty()) {
       this.props.checkSession();
     }
+
+    this.props.resetSearch()
   }
 
   componentDidUpdate(prevProps) {
@@ -60,7 +62,7 @@ class TopNav extends React.Component {
   }
 
   reset = () => {
-    this.props.search({ search: '' })
+    this.props.resetSearch()
   }
 
   render () {
