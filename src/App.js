@@ -67,7 +67,7 @@ const AsyncCheckout = Loadable({
 });
 
 // const history = createBrowserHistory();
-const store = configStore(history);
+const store = configStore();
 
 function PrivateRoute ({ component: Component, ...rest }) {
   return (
