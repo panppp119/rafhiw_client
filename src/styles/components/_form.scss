@@ -48,9 +48,13 @@ input {
   }
 
   &[type=number]::-webkit-inner-spin-button,
-  &[type=number]::-webkit-outer-spin-button { 
+  &[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+
+  &.error {
+    border-bottom-color: var(--error);
   }
 }
 
@@ -62,6 +66,10 @@ textarea {
   border: 1px solid var(--gray_light);
   min-height: 100px;
   outline: none;
+
+  &.error {
+    border-color: var(--error);
+  }
 }
 
 select {

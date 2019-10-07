@@ -156,9 +156,25 @@ class AddProductForm extends React.Component {
       attachment: { file: event.file }
     };
 
-    this.props.createEvent(ev).then(() => {
-      this.setState({ addEvent: false });
-    });
+    var c1, c2, c3, c4, c5, c6, c7, c8
+
+    c1 = event !== {} && event.name
+    c2 = event !== {} && event.description
+    c3 = event !== {} && event.location_name
+    c4 = event !== {} && event.location_lat
+    c5 = event !== {} && event.location_lng
+    c6 = event !== {} && event.start_date
+    c7 = event !== {} && event.end_date
+    c8 = event !== {} && event.file
+
+    if (c1 && c2 && c3 && c4 &&c5 && c6 && c7 && c8) {
+      this.props.createEvent(ev).then(() => {
+        this.setState({ addEvent: false });
+      });
+    }
+    else {
+      alert('ใส่ข้อมูลงานลดราคาไม่ครบ กรุณาตรวจสอบแล้วลองใหม่อีกครั้ง')
+    }
   };
 
   handleSubmit = e => {
@@ -179,14 +195,30 @@ class AddProductForm extends React.Component {
       owner_id: this.props.user.get('id')
     };
 
-    this.props.createProduct(product).then(res => {
-      var id = (res && res.body) || 0;
+    var c1, c2, c3, c4, c5, c6, c7, c8
 
-      id !== 0 &&
-        this.props.createAttachment(id, attachments).then(res => {
-          this.props.history.push('/store/products');
-        });
-    });
+    c1 = this.state.name && this.state.name !== ''
+    c2 = this.state.description && this.state.description !== ''
+    c3 = this.state.start_date
+    c4 = this.state.end_date
+    c5 = this.state.category_id
+    c6 = this.state.sub_category_id
+    c7 = this.state.event_id
+    c8 = this.state.options.length > 0
+
+    if (c1 && c2 &&c3 && c4 && c5 && c6 && c7 && c8) {
+      this.props.createProduct(product).then(res => {
+        var id = (res && res.body) || 0;
+
+        id !== 0 &&
+          this.props.createAttachment(id, attachments).then(res => {
+            this.props.history.push('/store/products');
+          });
+      });
+    }
+    else {
+      alert('ใส่ข้อมูลสินค้าไม่ครบ กรุณาตรวจสอบแล้วลองใหม่อีกครั้ง')
+    }
   };
 
   render() {
