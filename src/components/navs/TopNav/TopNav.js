@@ -7,6 +7,7 @@ import { FaShoppingCart, FaCommentDots,
   FaArchive, FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
 import { DebounceInput } from 'react-debounce-input'
+import GroupBy from 'lodash.groupby'
 
 import logo from './logo.png'
 import logo_pimary from './logo_pimary.png'
@@ -79,6 +80,10 @@ class TopNav extends React.Component {
 
   searchContent () {
     const { searchData } = this.props
+    // const groupEvent = GroupBy(
+    //   searchData.map(data => data.get('event'))
+    //   , 'order_id'
+    // )
 
     return (
       !searchData.isEmpty() && (
@@ -101,6 +106,29 @@ class TopNav extends React.Component {
                 })
               ) : (
                 <p>ไม่เจอสินค้า</p>
+              )
+            }
+          </div>
+          <div className="events">
+            <h4>งานลดราคา</h4>
+            {
+              !searchData.filter(data => data.get('type') === 'event').isEmpty() ? (
+                searchData.filter(data => data.get('type') === 'event')
+                .map((data, i) => {
+                  const event = data.get('event') || Map()
+
+                  return (
+                    <Link className="event-data"
+                      to={`/e/${event.get('id')}`}
+                      key={i}
+                      onClick={this.reset}
+                    >
+                      <p>{event.get('name')}</p>
+                    </Link>
+                  )
+                })
+              ) : (
+                <p>ไม่เจองานลดราคา</p>
               )
             }
           </div>
@@ -249,7 +277,7 @@ class TopNav extends React.Component {
               <li className='user'>
                 {
                   user.isEmpty() ? (
-                    <Link to='/sign_in'><FaSignInAlt /></Link>
+                    <Link to='/sign_in'>เข้าสู่ระบบ</Link>
                   ) : (
                     <Fragment>
                       <FaUser />

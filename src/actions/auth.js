@@ -146,7 +146,7 @@ export const checkSession = () => (dispatch, getState) => {
     if (authen.provider !== 'email') {
       auth.onAuthStateChanged(user => {
         if (user !== null) {
-          dispatch(fetchUser(userSchema));
+          // dispatch(fetchUser(userSchema));
         }
         else {
           dispatch(signout())
