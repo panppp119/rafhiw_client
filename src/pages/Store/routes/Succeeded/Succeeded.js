@@ -26,7 +26,7 @@ class Succeeded extends React.Component {
 
     return (
       <div className="succeeded">
-        <StoreOrderTable state orders={orderList} />
+        <StoreOrderTable succeeded orders={orderList} />
       </div>
     );
   }

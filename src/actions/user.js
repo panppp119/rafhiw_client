@@ -34,12 +34,12 @@ export const fetchUser = schema => (dispatch, getState) => {
     .catch(error => {
       console.warn(error.message);
 
-      dispatch(
-        addFlashMessage({
-          type: 'error',
-          text: error.message
-        })
-      );
+      // dispatch(
+      //   addFlashMessage({
+      //     type: 'error',
+      //     text: error.message
+      //   })
+      // );
     });
 };
 

@@ -13,22 +13,26 @@ class ProductsTable extends React.Component {
     show: false
   };
 
-  show = () => this.setState({ show: true });
+  // show = () => this.setState({ show: true });
 
-  confirm = () => {
-    this.setState({ show: false });
-    this.props.deleteProduct(this.state.product_id).then(res => {
-      this.props.loadProducts();
-    });
-  };
+  // confirm = () => {
+  //   this.setState({ show: false });
+  //   this.props.deleteProduct(this.state.product_id).then(res => {
+  //     this.props.loadProducts();
+  //   });
+  // };
 
   cancel = () => {
     this.setState({ show: false });
   };
 
   removeProduct(id) {
-    this.show();
-    this.setState({ product_id: id });
+    // this.show();
+    // this.setState({ product_id: id });
+
+    if (window.confirm('ยืนยันที่จะลบสินค้านี้?')) {
+      this.props.deleteProduct(id)
+    }
   }
 
   render() {
@@ -73,7 +77,7 @@ class ProductsTable extends React.Component {
                         <ul>
                           {
                             options.map((opt, si) => {
-                              return <li key={i}>{opt.get('name')}</li>
+                              return <li key={si}>{opt.get('name')}</li>
                             })
                           }
                         </ul>

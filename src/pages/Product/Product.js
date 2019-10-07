@@ -50,7 +50,7 @@ class Product extends React.Component {
     this.setState({ showChat: bool });
   };
 
-  addProduct (name, stock) {
+  addProduct (stock) {
     const {
       createCart,
       updateCart,
@@ -91,11 +91,7 @@ class Product extends React.Component {
             cart_qt: cart.get('total_qt') || 0,
             quantity: quantity || 0,
             user_id: user.get('id')
-          }).then(() => {
-            if (name === 'buy') {
-              this.props.history.push('/cart');
-            }
-          });
+          })
         }
       }
       else {
@@ -104,11 +100,7 @@ class Product extends React.Component {
           cart_qt: cart.get('total_qt') || 0,
           quantity: quantity || 0,
           user_id: user.get('id')
-        }).then(() => {
-          if (name === 'buy') {
-            this.props.history.push('/cart');
-          }
-        });
+        })
       }
     }
   };
@@ -140,6 +132,11 @@ class Product extends React.Component {
       product_option_id: e.target.name,
       stock
     });
+  }
+
+  gotoCart (stock) {
+    this.addProduct(stock)
+    this.props.history.push('/cart')
   }
 
   render() {
@@ -333,7 +330,7 @@ class Product extends React.Component {
                                 <div className="actions">
                                   <div className="button-field">
                                     <button className='primary'
-                                      onClick={() => this.addProduct('add')}
+                                      onClick={() => this.addProduct(stock)}
                                       disabled={stock <= 0}
                                     >
                                       เพิ่มไปยังรถเข็น
@@ -341,7 +338,7 @@ class Product extends React.Component {
                                   </div>
                                   <div className="button-field">
                                     <button name='buy' className='primary'
-                                      onClick={() => this.addProduct('buy')}
+                                      onClick={() => this.gotoCart(stock)}
                                       disabled={stock <= 0}
                                     >
                                       ซื้อสินค้า

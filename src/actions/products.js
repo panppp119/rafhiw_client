@@ -170,11 +170,13 @@ export const updateProduct = (id, body, schema) => (dispatch, getState) => {
 export const deleteProduct = (id, schema) => (dispatch, getState) => {
   const type = schema._key;
   const url = `/${type}/${id}`;
+  const accessToken = getState().getIn(['auth', 'access_token']) || '';
 
   dispatch({ type: CONST.DELETE_PRODUCT, schema });
 
   return request
     .del(url)
+    .accessToken(accessToken)
     .then(response => {
       dispatch({
         type: CONST.DELETE_PRODUCT_SUCCEEDED,
@@ -187,6 +189,7 @@ export const deleteProduct = (id, schema) => (dispatch, getState) => {
           text: 'ลบสินค้าสำเร็จ'
         })
       );
+      dispatch(fetchMyProducts(schema))
 
       return response
     })

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { List, Map } from 'immutable';
-import { FaCheck } from 'react-icons/fa'
+import { FaCheck, FaEdit } from 'react-icons/fa'
 
 import Img from 'components/Img';
 import PriceConvert from 'components/converts/PriceConvert';
@@ -15,6 +15,7 @@ class StoreOrderTable extends React.Component {
 
   state = {
     index: null,
+    edit: false,
     tracking_code: '',
     shipment_type: 0
   }
@@ -26,7 +27,7 @@ class StoreOrderTable extends React.Component {
   handleClick (id, option_id, key) {
     const { tracking_code, shipment_type } = this.state;
 
-    this.setState({ index: null });
+    this.setState({ index: null, edit: false });
 
     if (
       (tracking_code !== null ||
@@ -46,8 +47,15 @@ class StoreOrderTable extends React.Component {
     }
   }
 
+  edit (i) {
+    this.setState({
+      index: i,
+      edit: true
+    })
+  }
+
   render() {
-    const { orders, shipper } = this.props;
+    const { orders, shipper, succeeded } = this.props;
     const { tracking_code, shipment_type } = this.state;
 
     const shipment_options = [
@@ -60,10 +68,11 @@ class StoreOrderTable extends React.Component {
         <table>
           <thead>
             <tr>
+              {succeeded && <th>รหัสการสั่งซื้อ</th>}
               <th>สินค้า</th>
               <th>จำนวน</th>
               <th>ราคารวม</th>
-              {shipper && <th>ที่อยู่</th>}
+              {(shipper || succeeded) && <th>ที่อยู่</th>}
               {shipper && <th>หมายเลขติดตามสินค้า</th>}
               <th>สถานะ</th>
             </tr>
@@ -110,6 +119,11 @@ class StoreOrderTable extends React.Component {
 
                 return (
                   <tr key={i}>
+                    {
+                      succeeded && (
+                        <td>{order.get('number')}</td>
+                      )
+                    }
                     <td>
                       <Img
                         alt={product.get('name') + option.get('name')}
@@ -141,11 +155,11 @@ class StoreOrderTable extends React.Component {
                               }
                               autoComplete="false"
                               onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
-                              disabled={status !== 'pending_shipping'}
+                              disabled={!this.state.edit && status !== 'pending_shipping'}
                             />
 
                             <select name="shipment_type"
-                              disabled={status !== 'pending_shipping'}
+                              disabled={!this.state.edit && status !== 'pending_shipping'}
                               onChange={(e) => this.handleChange(e.target.name, e.target.value, i)}
                               value={
                                 (this.state.index === i && shipment_type) ||
@@ -162,7 +176,7 @@ class StoreOrderTable extends React.Component {
                               }
                             </select>
 
-                            {(status === 'pending_shipping' || status === 'pending_receive_goods') && (
+                            {(status === 'pending_shipping' || this.state.edit) && (
                               <button className='primary'
                                 onClick={() => this.handleClick(order.get('id'), option.get('id'), i)}
                                 disabled={
@@ -170,14 +184,31 @@ class StoreOrderTable extends React.Component {
                                   tracking_code === null ||
                                   tracking_code === undefined ||
                                   shipment_type === null ||
-                                  shipment_type === undefined
+                                  shipment_type === undefined ||
+                                  this.state.index !== i
                                 }
                               >
                                 <FaCheck />
                               </button>
                             )}
+                            {status === 'pending_receive_goods' && !this.state.edit && (
+                              <button className='primary'
+                                onClick={() => this.edit(i)}
+                                // disabled={this.state.index !== i}
+                              >
+                                <FaEdit />
+                              </button>
+                            )}
                           </td>
                         </Fragment>
+                      )
+                    }
+                    {
+                      succeeded && (
+                        <td>
+                          <h4>{order.get('name')}</h4>
+                          <p>{order.get('address')}</p>
+                        </td>
                       )
                     }
                     <td>{tag}</td>
