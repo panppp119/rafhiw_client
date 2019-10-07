@@ -104,6 +104,10 @@ $desktop: 1280px;
     @media screen and (min-width: $desktop) {
       padding: 0 16px;
     }
+
+    &.error {
+      border-color: var(--error);
+    }
   }
 
   textarea {

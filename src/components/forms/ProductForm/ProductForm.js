@@ -2,6 +2,7 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import DropzoneComponent from 'react-dropzone-component';
 import Moment from 'moment';
+import Classnames from 'classnames'
 import { FaTrash } from 'react-icons/fa'
 
 import EventForm from 'components/forms/EventForm'
@@ -30,12 +31,22 @@ class AddProductForm extends React.Component {
 
     this.setState({ [name]: value });
 
-    name === 'category_id' &&
-      this.props.loadSubCategories({ category_id: value });
+    name === 'name' && this.setState({ p1: false })
+    name === 'description' && this.setState({ p2: false })
+    name === 'sub_category_id' && this.setState({ p6: false })
+    name === 'event_id' && this.setState({ p7: false })
+
+    if (name === 'category_id') {
+      this.props.loadSubCategories({ category_id: value })
+      this.setState({ p5: false })
+    }
   };
 
   handleChangeDate(date, name) {
     this.setState({ [name]: date });
+
+    name === 'start_date' && this.setState({ p3: false })
+    name === 'end_date' && this.setState({ p4: false })
   }
 
   handleChangeOption(e, key) {
@@ -55,12 +66,18 @@ class AddProductForm extends React.Component {
     this.setState(prevState => ({
       event: { ...prevState.event, [name]: value }
     }));
+
+    name === 'name' && this.setState({ e1: false })
+    name === 'description' && this.setState({ e2: false })
   };
 
   handleChangeEventDate = (date, name) => {
     this.setState(prevState => ({
       event: { ...prevState.event, [name]: date }
     }));
+
+    name === 'start_date' && this.setState({ e6: false })
+    name === 'end_date' && this.setState({ e7: false })
   }
 
   addOption = e => {
@@ -171,9 +188,29 @@ class AddProductForm extends React.Component {
       this.props.createEvent(ev).then(() => {
         this.setState({ addEvent: false });
       });
+
+      this.setState({
+        e1: false,
+        e2: false,
+        e3: false,
+        e4: false,
+        e5: false,
+        e6: false,
+        e7: false
+      })
     }
     else {
       alert('ใส่ข้อมูลงานลดราคาไม่ครบ กรุณาตรวจสอบแล้วลองใหม่อีกครั้ง')
+
+      this.setState({
+        e1: !c1,
+        e2: !c2,
+        e3: !c3,
+        e4: !c4,
+        e5: !c5,
+        e6: !c6,
+        e7: !c7
+      })
     }
   };
 
@@ -215,14 +252,34 @@ class AddProductForm extends React.Component {
             this.props.history.push('/store/products');
           });
       });
+
+      this.setState({
+        p1: false,
+        p2: false,
+        p3: false,
+        p4: false,
+        p5: false,
+        p6: false,
+        p7: false
+      })
     }
     else {
       alert('ใส่ข้อมูลสินค้าไม่ครบ กรุณาตรวจสอบแล้วลองใหม่อีกครั้ง')
+
+      this.setState({
+        p1: !c1,
+        p2: !c2,
+        p3: !c3,
+        p4: !c4,
+        p5: !c5,
+        p6: !c6,
+        p7: !c7
+      })
     }
   };
 
   render() {
-    const { long_time, options } = this.state;
+    const { long_time, options, p1, p2, p3, p4, p5, p6, p7 } = this.state;
     const { categories, sub_categories, events } = this.props;
 
     var categoryOptions = []
@@ -285,6 +342,7 @@ class AddProductForm extends React.Component {
               showTimeSelect
               dropdownMode="select"
               dateFormat="dd/MM/yy HH:mm"
+              className={Classnames({ error: p3 })}
             />
           </div>
 
@@ -297,6 +355,7 @@ class AddProductForm extends React.Component {
               showTimeSelect
               dropdownMode="select"
               dateFormat="dd/MM/yy HH:mm"
+              className={Classnames({ error: p4 })}
             />
           </div>
         </div>
@@ -318,6 +377,7 @@ class AddProductForm extends React.Component {
             value={this.state.name || ''}
             autoComplete="off"
             onChange={this.handleChange}
+            className={Classnames({ error: p1 })}
           />
         </div>
 
@@ -326,6 +386,7 @@ class AddProductForm extends React.Component {
           <textarea name="description"
             value={this.state.description}
             onChange={this.handleChange}
+            className={Classnames({ error: p2 })}
            />
         </div>
 
@@ -334,6 +395,7 @@ class AddProductForm extends React.Component {
             <label>หมวดหมู่</label>
             <select name="category_id"
               onChange={this.handleChange}
+              className={Classnames({ error: p5 })}
             >
               <option default>หมวดหมู่</option>
               {
@@ -352,6 +414,7 @@ class AddProductForm extends React.Component {
             <label>หมวดหมู่ย่อย</label>
             <select name="sub_category_id"
               onChange={this.handleChange}
+              className={Classnames({ error: p6 })}
             >
               <option default>หมวดหมู่ย่อย</option>
               {
@@ -371,6 +434,7 @@ class AddProductForm extends React.Component {
         <div className="form-field">
           <select name="event_id"
             onChange={this.handleChange}
+            className={Classnames({ error: p7 })}
           >
             <option default>งานลดราคา</option>
             {
@@ -407,6 +471,10 @@ class AddProductForm extends React.Component {
             addEvent={this.addEvent}
             addEventFile={this.addEventFile}
             removeFile={this.removeFile}
+            e1={this.state.e1}
+            e2={this.state.e2}
+            e6={this.state.e6}
+            e7={this.state.e7}
             {...this.props}
           />
         )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import DropzoneComponent from 'react-dropzone-component';
+import Classnames from 'classnames'
 
 import GMap from 'components/GMap';
 
@@ -10,7 +11,7 @@ var myDropzone;
 
 class EventForm extends React.Component {
   render() {
-    const { events } = this.props;
+    const { events, e1, e2, e6, e7 } = this.props;
 
     var eventOptions = []
 
@@ -48,12 +49,16 @@ class EventForm extends React.Component {
             name="name"
             onChange={this.props.handleChangeEvent}
             autoComplete="off"
+            className={Classnames({ error: e1 })}
           />
         </div>
 
         <div className="form-field">
           <label>รายละเอียดงาน</label>
-          <textarea name="description" onChange={this.props.handleChangeEvent} />
+          <textarea name="description"
+            onChange={this.props.handleChangeEvent}
+            className={Classnames({ error: e2 })}
+          />
         </div>
 
         <div className="form-group">
@@ -68,6 +73,7 @@ class EventForm extends React.Component {
               showTimeSelect
               dropdownMode="select"
               dateFormat="dd/MM/yy HH:mm"
+              className={Classnames({ error: e6 })}
             />
           </div>
 
@@ -84,6 +90,7 @@ class EventForm extends React.Component {
               showTimeSelect
               dropdownMode="select"
               dateFormat="dd/MM/yy HH:mm"
+              className={Classnames({ error: e7 })}
             />
           </div>
         </div>
