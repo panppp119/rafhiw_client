@@ -1,8 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
-// import { createBrowserHistory } from 'history';
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
 import configStore, { history } from 'utils/configStore';
@@ -92,7 +92,7 @@ function PrivateRoute ({ component: Component, ...rest }) {
 export default ({ childProps }) =>
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <HashRouter>
+      <div>
         <Switch>
           <Route
             path="/"
@@ -164,7 +164,7 @@ export default ({ childProps }) =>
           {/* Finally, catch all unmatched routes */}
           <Route component={AsyncNotFound} />
         </Switch>
-      </HashRouter>
+      </div>
     </ConnectedRouter>
   </Provider>
 ;
