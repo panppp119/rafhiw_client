@@ -3,11 +3,11 @@ import ClassNames from 'classnames'
 import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots,
-  FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon,
+  FaBell, FaUser, FaFont, FaSun, FaMoon,
   FaArchive, FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
 import { DebounceInput } from 'react-debounce-input'
-import GroupBy from 'lodash.groupby'
+// import GroupBy from 'lodash.groupby'
 
 import logo from './logo.png'
 import logo_pimary from './logo_pimary.png'
