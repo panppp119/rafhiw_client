@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 // import { createBrowserHistory } from 'history';
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
@@ -67,7 +67,7 @@ const AsyncCheckout = Loadable({
 });
 
 // const history = createBrowserHistory();
-const store = configStore();
+const store = configStore(history);
 
 function PrivateRoute ({ component: Component, ...rest }) {
   return (
@@ -92,7 +92,7 @@ function PrivateRoute ({ component: Component, ...rest }) {
 export default ({ childProps }) =>
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <>
+      <BrowserRouter>
         <Switch>
           <Route
             path="/"
@@ -164,7 +164,7 @@ export default ({ childProps }) =>
           {/* Finally, catch all unmatched routes */}
           <Route component={AsyncNotFound} />
         </Switch>
-      </>
+      </BrowserRouter>
     </ConnectedRouter>
   </Provider>
 ;
