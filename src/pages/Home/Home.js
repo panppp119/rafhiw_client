@@ -2,6 +2,7 @@ import React from 'react'
 import ImageGallery from 'react-image-gallery';
 import { List } from 'immutable'
 import { Link } from 'react-router-dom'
+import { FaArchive } from 'react-icons/fa'
 
 import UserLayout from 'components/layouts/UserLayout'
 import PriceConvert from 'components/converts/PriceConvert'
@@ -94,7 +95,22 @@ class Home extends React.Component {
               <div className="categories mobile">
                 <h3>หมวดหมู่</h3>
 
-                <div className="select-category">
+                <div className='scroll-responsive'>
+                  <div className="categories-menu">
+                    {
+                      categories.map((category, i) => {
+                        return (
+                          <Link to={`/c/${category.get('slug')}`}>
+                            <FaArchive /><br />
+                            {category.get('name')}
+                          </Link>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+
+                {/* <div className="select-category">
                   <select name="category" onChange={this.handleChange}>
                     <option default>เลือกหมวดหมู่</option>
                     {
@@ -109,7 +125,7 @@ class Home extends React.Component {
                   </select>
 
                   <button className='primary' onClick={this.onPushCategory}>ไป</button>
-                </div>
+                </div> */}
               </div>
 
               <div className="recommended">

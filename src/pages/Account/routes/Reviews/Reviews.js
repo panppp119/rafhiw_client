@@ -1,6 +1,7 @@
 import React from 'react';
 import Numeral from 'numeral';
 import ClassNames from 'classnames'
+import { Map } from 'immutable'
 import { FaStar } from 'react-icons/fa'
 
 import './Reviews.scss';

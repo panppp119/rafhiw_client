@@ -1,3 +1,5 @@
+$desktop: 1280px;
+
 body,
 p,
 h1,
@@ -74,64 +76,88 @@ h5 {
 }
 
 .age-second {
-  font-size: 24px !important;
-
-  .ui.header {
-    font-size: 26px !important;
-  }
-
-  .other {
-    font-size: 24px !important;
-    font-weight: 300 !important;
-    color: #181818 !important;
-  }
-  .othertoright {
-    font-size: 28px !important;
-    @media screen and (max-width: 767px) {
-      float: right !important;
-    }
-  }
+  font-size: 20px !important;
 
   h4,
   label,
   p,
   th,
   td,
-  a,
   .rating {
-    font-size: 21px !important;
-    // line-height: 25px !important;
+    font-size: 20px !important;
+  }
+
+  // .ui.header {
+  //   font-size: 26px !important;
+  // }
+  //
+  // .other {
+  //   font-size: 24px !important;
+  //   font-weight: 300 !important;
+  //   color: #181818 !important;
+  // }
+  //
+  // .othertoright {
+  //   font-size: 28px !important;
+  // }
+
+  @media screen and (min-width: $desktop) {
+    font-size: 24px !important;
+
+    h4,
+    label,
+    p,
+    th,
+    td,
+    a,
+    .rating {
+      font-size: 21px !important;
+      // line-height: 25px !important;
+    }
   }
 }
 
 .age-third {
-  font-size: 34px !important;
-
-  .ui.header {
-    font-size: 36px !important;
-  }
-
-  .other {
-    font-size: 34px !important;
-    font-weight: 300 !important;
-    color: #181818 !important;
-  }
-  .othertoright {
-    font-size: 34px !important;
-    @media screen and (max-width: 767px) {
-      float: right !important;
-    }
-  }
+  font-size: 28px !important;
 
   h4,
   label,
   p,
   th,
   td,
-  a,
   .rating {
+    font-size: 28px !important;
+  }
+
+  // .ui.header {
+  //   font-size: 36px !important;
+  // }
+  //
+  // .other {
+  //   font-size: 34px !important;
+  //   font-weight: 300 !important;
+  //   color: #181818 !important;
+  // }
+  // .othertoright {
+  //   font-size: 34px !important;
+  //   @media screen and (max-width: 767px) {
+  //     float: right !important;
+  //   }
+  // }
+
+  @media screen and (min-width: $desktop) {
     font-size: 34px !important;
-    // line-height: 38px !important;
+
+    h4,
+    label,
+    p,
+    th,
+    td,
+    a,
+    .rating {
+      font-size: 34px !important;
+      // line-height: 38px !important;
+    }
   }
 }
 

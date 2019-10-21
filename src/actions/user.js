@@ -16,12 +16,8 @@ export const fetchUser = schema => (dispatch, getState) => {
     .accessToken(accessToken)
     .then(response => {
       if (response.body.error && response.body.error === 'Token is not valid or expired.') {
-        dispatch(
-          addFlashMessage({
-            type: 'error',
-            text: response.body.error
-          })
-        );
+        console.warn(response.body.error);
+        localStorage.removeItem('auth')
       }
       else {
         dispatch({
@@ -33,13 +29,7 @@ export const fetchUser = schema => (dispatch, getState) => {
     })
     .catch(error => {
       console.warn(error.message);
-
-      // dispatch(
-      //   addFlashMessage({
-      //     type: 'error',
-      //     text: error.message
-      //   })
-      // );
+      localStorage.removeItem('auth')
     });
 };
 

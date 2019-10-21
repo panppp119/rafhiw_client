@@ -194,6 +194,32 @@ $desktop: 1280px;
         }
       }
     }
+
+    .scroll-responsive {
+      overflow: auto;
+
+      .categories-menu {
+        display: flex;
+        align-items: flex-end;
+        min-height: 130px;
+        padding: 8px 0;
+
+        a {
+          min-width: 130px;
+          max-width: 130px;
+          text-align: center;
+          color: var(--black);
+          text-decoration: none;
+          font-size: 0.8em;
+          align-self: baseline;
+        }
+
+        svg {
+          font-size: 93px;
+          color: var(--gray_light);
+        }
+      }
+    }
   }
 
   .recommended {

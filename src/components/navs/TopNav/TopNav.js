@@ -2,12 +2,11 @@ import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
 import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots,
+import { FaShoppingCart, FaCommentDots, FaChevronLeft,
   FaBell, FaUser, FaFont, FaSun, FaMoon,
   FaArchive, FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
 import { DebounceInput } from 'react-debounce-input'
-// import GroupBy from 'lodash.groupby'
 
 import logo from './logo.png'
 import logo_pimary from './logo_pimary.png'
@@ -80,10 +79,6 @@ class TopNav extends React.Component {
 
   searchContent () {
     const { searchData } = this.props
-    // const groupEvent = GroupBy(
-    //   searchData.map(data => data.get('event'))
-    //   , 'order_id'
-    // )
 
     return (
       !searchData.isEmpty() && (
@@ -109,6 +104,7 @@ class TopNav extends React.Component {
               )
             }
           </div>
+
           <div className="events">
             <h4>งานลดราคา</h4>
             {
@@ -132,6 +128,7 @@ class TopNav extends React.Component {
               )
             }
           </div>
+
           <div className="sellers">
             <h4>ผู้ขาย</h4>
             {
@@ -162,59 +159,74 @@ class TopNav extends React.Component {
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
+    const isHome = location.pathname === '/'
+
+    console.log(isHome)
 
     return (
       <div id="top-nav">
         <div className="first-mobile">
           <div className="mobile">
-
             <ul>
-              <li className='display'>
-                {/* การแสดงผล */}
-                  <Link to='/'>
-                  <span className='size1' onClick={() => this.handleChangeFont(20)}>
-                    <FaFont />
-                  </span>
-                  </Link>
-                </li>
-                <li className='display'>
-                  <Link to='/'>
-                  <span className='size2' onClick={() => this.handleChangeFont(35)}>
-                    <FaFont />
-                  </span>
-                  </Link>
-                </li>
-                <li className='display'>
-                  <Link to='/'>
-                  <span className='size3' onClick={() => this.handleChangeFont(45)}>
-                    <FaFont />
-                  </span>
-                  </Link>
-                </li>
-                {
-                  this.state.nightmode ? (
+              {
+                isHome ? (
+                  <Fragment>
                     <li className='display'>
                       <Link to='/'>
-                      <span>
-                        <FaMoon className='moon'
-                          onClick={this.changeMode}
-                        />
+                      <span className='size1' onClick={() => this.handleChangeFont(20)}>
+                        <FaFont />
                       </span>
                       </Link>
                     </li>
-                  ) : (
                     <li className='display'>
                       <Link to='/'>
-                      <span>
-                        <FaSun className='sun'
-                          onClick={this.changeMode}
-                        />
+                      <span className='size2' onClick={() => this.handleChangeFont(35)}>
+                        <FaFont />
                       </span>
                       </Link>
                     </li>
-                  )
-                }
+                    <li className='display'>
+                      <Link to='/'>
+                      <span className='size3' onClick={() => this.handleChangeFont(45)}>
+                        <FaFont />
+                      </span>
+                      </Link>
+                    </li>
+                    {
+                      this.state.nightmode ? (
+                        <li className='display'>
+                          <Link to='/'>
+                          <span>
+                            <FaMoon className='moon'
+                              onClick={this.changeMode}
+                            />
+                          </span>
+                          </Link>
+                        </li>
+                      ) : (
+                        <li className='display'>
+                          <Link to='/'>
+                          <span>
+                            <FaSun className='sun'
+                              onClick={this.changeMode}
+                            />
+                          </span>
+                          </Link>
+                        </li>
+                      )
+                    }
+                  </Fragment>
+                ) : (
+                  <li>
+                    <FaChevronLeft onClick={() => this.props.history.push('/')}/>
+                  </li>
+                )
+              }
 
+              <li className='empty' />
+              <li className='empty' />
+              <li className='empty' />
+              <li className='empty' />
               <li className='empty' />
               <li className='empty' />
               <li className='empty' />

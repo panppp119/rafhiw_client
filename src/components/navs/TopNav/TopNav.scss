@@ -2,9 +2,15 @@ $desktop: 1280px;
 
 #top-nav {
   color: var(--primary);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 999;
 
   @media screen and (min-width: $desktop) {
     color: var(--white);
+    position: block;
   }
 
   .first {
@@ -196,7 +202,7 @@ $desktop: 1280px;
 
   .mobile-search {
     position: absolute;
-    z-index: 10;
+    z-index: 999;
     width: 100%;
 
     input {
