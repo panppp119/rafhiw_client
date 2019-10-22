@@ -54,19 +54,21 @@ class TopNav extends React.Component {
     }
   }
 
-  handleSearchChange = e => {
-    var text = e.target.value
+  handleSearchChange (value) {
+    this.props.search({ search: value })
+    this.setState({ searchInput: value })
 
-    this.props.search({ search: text })
-
-    if (text === '') {
+    if (value === '') {
       setTimeout(() => this.setState({ search: false }), 2000)
     }
   }
 
   reset = () => {
+    this.setState({
+      search: false,
+      searchInput: ''
+    })
     this.props.resetSearch()
-    this.setState({ search: false })
   }
 
   showSearch = () => {
@@ -75,14 +77,23 @@ class TopNav extends React.Component {
     if (this.state.search) {
       this.props.resetSearch()
     }
+    else {
+      this.setState({ searchInput: '' })
+    }
   }
 
   searchContent () {
     const { searchData } = this.props
 
     return (
-      !searchData.isEmpty() ? (
+      (!searchData.isEmpty() || this.state.searchInput !== '') && (
         <div className="search-data">
+          <div className="tags">
+            <span value='รองเท้า' onClick={() => this.handleSearchChange('รองเท้า')}>รองเท้า</span>
+            <span onClick={() => this.handleSearchChange('นาฬิกา')}>นาฬิกา</span>
+            <span onClick={() => this.handleSearchChange('กระเป๋า')}>กระเป๋า</span>
+          </div>
+
           <div className="products">
             <h4>สินค้า</h4>
             {
@@ -147,14 +158,6 @@ class TopNav extends React.Component {
                 <p>ไม่เจอผู้ขาย</p>
               )
             }
-          </div>
-        </div>
-      ) : (
-        <div className="search-data">
-          <div className="tags">
-            <span onClick={() => this.setState({ search: 'รองเท้า'})}>รองเท้า</span>
-            <span onClick={() => this.setState({ search: 'นาฬิกา'})}>นาฬิกา</span>
-            <span onClick={() => this.setState({ search: 'กระเป๋า'})}>กระเป๋า</span>
           </div>
         </div>
       )
@@ -262,10 +265,20 @@ class TopNav extends React.Component {
         { this.state.search && (
           <div className="mobile-search">
             <DebounceInput
+              value={this.state.searchInput}
               debounceTimeout={500}
-              onChange={this.handleSearchChange}
+              onChange={(e) => this.handleSearchChange(e.target.value)}
             />
+
             {this.searchContent()}
+
+            <div className="search-data">
+              <div className="tags">
+                <span onClick={() => this.handleSearchChange('รองเท้า')}>รองเท้า</span>
+                <span onClick={() => this.handleSearchChange('นาฬิกา')}>นาฬิกา</span>
+                <span onClick={() => this.handleSearchChange('กระเป๋า')}>กระเป๋า</span>
+              </div>
+            </div>
           </div>
         )}
 

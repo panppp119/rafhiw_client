@@ -247,9 +247,16 @@ $desktop: 1280px;
       background-color: var(--white);
       font-size: 0.8em;
       margin-right: 8px;
+      cursor: pointer;
+      color: var(--black);
+      outline: none;
 
       &:last-child {
         margin-right: 0;
+      }
+
+      &:hover {
+        color: var(--primary);
       }
     }
   }
