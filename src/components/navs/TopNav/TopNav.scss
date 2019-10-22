@@ -211,6 +211,10 @@ $desktop: 1280px;
       padding: 0 8px;
       background-color: var(--white);
     }
+
+    @media screen and (min-width: $desktop) {
+      display: none;
+    }
   }
 
   .search-data {
@@ -221,7 +225,7 @@ $desktop: 1280px;
     right: 0;
     text-align: left;
     padding: 8px 16px;
-    max-height: 250px;
+    max-height: 300px;
     overflow: auto;
 
     p {

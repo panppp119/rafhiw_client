@@ -86,10 +86,10 @@ class TopNav extends React.Component {
     const { searchData } = this.props
 
     return (
-      (!searchData.isEmpty() || this.state.searchInput !== '') && (
+      (!searchData.isEmpty() || (this.state.searchInput && this.state.searchInput !== '')) && (
         <div className="search-data">
           <div className="tags">
-            <span value='รองเท้า' onClick={() => this.handleSearchChange('รองเท้า')}>รองเท้า</span>
+            <span onClick={() => this.handleSearchChange('รองเท้า')}>รองเท้า</span>
             <span onClick={() => this.handleSearchChange('นาฬิกา')}>นาฬิกา</span>
             <span onClick={() => this.handleSearchChange('กระเป๋า')}>กระเป๋า</span>
           </div>
@@ -165,8 +165,8 @@ class TopNav extends React.Component {
   }
 
   render () {
-    const { location, user } = this.props
-    const { cart } = this.props;
+    const { location, user, cart } = this.props
+    console.log(this.state.search)
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
@@ -271,14 +271,6 @@ class TopNav extends React.Component {
             />
 
             {this.searchContent()}
-
-            <div className="search-data">
-              <div className="tags">
-                <span onClick={() => this.handleSearchChange('รองเท้า')}>รองเท้า</span>
-                <span onClick={() => this.handleSearchChange('นาฬิกา')}>นาฬิกา</span>
-                <span onClick={() => this.handleSearchChange('กระเป๋า')}>กระเป๋า</span>
-              </div>
-            </div>
           </div>
         )}
 
@@ -351,8 +343,9 @@ class TopNav extends React.Component {
               </li>
               <li className='search'>
                 <DebounceInput
+                  value={this.state.searchInput}
                   debounceTimeout={500}
-                  onChange={this.handleSearchChange}
+                  onChange={(e) => this.handleSearchChange(e.target.value)}
                 />
                 <FaSearch />
 
