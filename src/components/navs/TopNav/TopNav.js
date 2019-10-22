@@ -55,7 +55,7 @@ class TopNav extends React.Component {
   }
 
   handleSearchChange = e => {
-    const text = e.target.value
+    var text = e.target.value
 
     this.props.search({ search: text })
 
@@ -81,7 +81,7 @@ class TopNav extends React.Component {
     const { searchData } = this.props
 
     return (
-      !searchData.isEmpty() && (
+      !searchData.isEmpty() ? (
         <div className="search-data">
           <div className="products">
             <h4>สินค้า</h4>
@@ -147,6 +147,14 @@ class TopNav extends React.Component {
                 <p>ไม่เจอผู้ขาย</p>
               )
             }
+          </div>
+        </div>
+      ) : (
+        <div className="search-data">
+          <div className="tags">
+            <span onClick={() => this.setState({ search: 'รองเท้า'})}>รองเท้า</span>
+            <span onClick={() => this.setState({ search: 'นาฬิกา'})}>นาฬิกา</span>
+            <span onClick={() => this.setState({ search: 'กระเป๋า'})}>กระเป๋า</span>
           </div>
         </div>
       )
@@ -353,20 +361,6 @@ class TopNav extends React.Component {
               </li>
             </ul>
           </div>
-
-          {/* <div className="third">
-            <ul className='container'>
-              <li className={ClassNames({ active: location.pathname === '/'})}>
-                <Link to='/'>หน้าหลัก</Link>
-              </li>
-              <li className={ClassNames({ active: location.pathname === '/products'})}>
-                <Link to='/products'>สินค้า</Link>
-              </li>
-              <li className={ClassNames({ active: location.pathname === '/events'})}>
-                <Link to='/events'>งานลดราคา</Link>
-              </li>
-            </ul>
-          </div> */}
         </div>
       </div>
     )
