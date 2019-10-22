@@ -100,7 +100,7 @@ class Home extends React.Component {
                     {
                       categories.map((category, i) => {
                         return (
-                          <Link to={`/c/${category.get('slug')}`}>
+                          <Link to={`/c/${category.get('slug')}`} key={i}>
                             <FaArchive /><br />
                             {category.get('name')}
                           </Link>
@@ -109,23 +109,6 @@ class Home extends React.Component {
                     }
                   </div>
                 </div>
-
-                {/* <div className="select-category">
-                  <select name="category" onChange={this.handleChange}>
-                    <option default>เลือกหมวดหมู่</option>
-                    {
-                      categories.map((category, i) => {
-                        return (
-                          <option key={i} value={category.get('slug')}>
-                            {category.get('name')}
-                          </option>
-                        )
-                      })
-                    }
-                  </select>
-
-                  <button className='primary' onClick={this.onPushCategory}>ไป</button>
-                </div> */}
               </div>
 
               <div className="recommended">

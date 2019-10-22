@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  loadCategory: (slug) => fetchCategory(slug, categorySchema)
+  loadCategory: (slug) => fetchCategory(slug, categorySchema),
 };
 
 export default connect(

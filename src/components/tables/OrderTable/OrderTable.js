@@ -47,8 +47,6 @@ class OrderTable extends React.Component {
       seller_id,
       product_option_id
     })
-
-    console.log(order_id, seller_id, product_option_id);
   }
 
   close = e => {

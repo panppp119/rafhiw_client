@@ -50,9 +50,7 @@ class StoreLayout extends React.Component {
   };
 
   render () {
-    const { flash_message } = this.props
-    console.log(this.props.themeColor);
-    
+    const { flash_message } = this.props    
 
     return (
       <div id="store-layout"

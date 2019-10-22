@@ -64,6 +64,18 @@ const AsyncCheckout = Loadable({
   loader: () => import('pages/Checkout'),
   loading: ComponentLoading
 });
+const AsyncTermsOfService = Loadable({
+  loader: () => import('pages/TermsOfService'),
+  loading: ComponentLoading
+});
+const AsyncPrivacyPolicy = Loadable({
+  loader: () => import('pages/PrivacyPolicy'),
+  loading: ComponentLoading
+});
+const AsyncProhibited = Loadable({
+  loader: () => import('pages/Prohibited'),
+  loading: ComponentLoading
+});
 
 // const history = createBrowserHistory();
 const store = configStore(history);
@@ -139,6 +151,23 @@ export default ({ childProps }) =>
             component={AsyncProduct}
             props={childProps}
           />
+
+          <Route
+            path="/terms_of_service"
+            component={AsyncTermsOfService}
+            props={childProps}
+          />
+          <Route
+            path="/privacy_policy"
+            component={AsyncPrivacyPolicy}
+            props={childProps}
+          />
+          <Route
+            path="/prohibited_goods_policy"
+            component={AsyncProhibited}
+            props={childProps}
+          />
+
           <PrivateRoute
             path="/account"
             component={AsyncAccount}

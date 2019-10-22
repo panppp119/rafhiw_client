@@ -159,9 +159,9 @@ class TopNav extends React.Component {
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
-    const isHome = location.pathname === '/'
-
-    console.log(isHome)
+    const pathname = location.pathname
+    const isHome = pathname === '/'
+    const isStore = pathname.includes('store')
 
     return (
       <div id="top-nav">
@@ -217,9 +217,15 @@ class TopNav extends React.Component {
                     }
                   </Fragment>
                 ) : (
-                  <li>
-                    <FaChevronLeft onClick={() => this.props.history.push('/')}/>
-                  </li>
+                  (isStore) ? (
+                    <li>
+                      <FaChevronLeft onClick={() => this.props.history.goBack()}/>
+                    </li>
+                  ) : (
+                    <li>
+                      <FaChevronLeft onClick={() => this.props.history.push('/')}/>
+                    </li>
+                  )
                 )
               }
 

@@ -4,8 +4,9 @@ import Moment from 'moment';
 import Classnames from 'classnames';
 
 import FlashMessage from 'components/FlashMessage';
-import { TopNav, BottomNav } from 'components/navs'
+import Footer from 'components/Footer'
 import ReactGA from 'utils/configGA'
+import { TopNav, BottomNav } from 'components/navs'
 
 import './UserLayout.scss'
 
@@ -78,6 +79,10 @@ class UserLayout extends React.Component {
 
         <div className="mobile">
           <BottomNav />
+        </div>
+
+        <div className="desktop">
+          <Footer />
         </div>
       </div>
     )
