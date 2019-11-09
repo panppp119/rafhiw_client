@@ -257,6 +257,7 @@ $desktop: 1280px;
       a {
         position: absolute;
         right: 0;
+        bottom: 0;
         font-size: 16px;
         text-decoration: none;
         color: var(--primary);
@@ -283,14 +284,14 @@ $desktop: 1280px;
 }
 
 .theme-dark {
- #home-page {
-   background-color: var(--black);
-
-   h3 {
+  #home-page {
     background-color: var(--black);
-    border-bottom-color: var(--secondary);
+
+    h3 {
+      background-color: var(--black);
+      border-bottom-color: var(--secondary);
+    }
   }
- }
 
   .categories .cats {
     li, a {
