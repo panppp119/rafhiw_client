@@ -282,8 +282,22 @@ $desktop: 1280px;
   }
 }
 
-.theme-dark #home-page h3 {
-  background-color: var(--black);
+.theme-dark {
+
+  #home-page h3 {
+   background-color: var(--black);
+   border-bottom-color: var(--secondary);
+ }
+
+  .categories .cats {
+    li, a {
+      background-color: var(--black) !important;
+    }
+  }
+
+  .highlight .image-gallery-image {
+    background-color: var(--primary_light);
+  }
 }
 
 

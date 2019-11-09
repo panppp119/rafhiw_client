@@ -35,3 +35,11 @@ button {
     cursor: default;
   }
 }
+
+.theme-dark {
+  button {
+    &.primary {
+      background-color: var(--black) !important;
+    }
+  }
+}

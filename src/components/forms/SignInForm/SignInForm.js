@@ -47,7 +47,7 @@ class SignInForm extends React.Component {
             onChange={(e) => this.handleChange(e, 'password')}
           />
 
-          <button onClick={this.emailSignin}>เข้าสู่ระบบ</button>
+          <button className="primary" onClick={this.emailSignin}>เข้าสู่ระบบ</button>
         </form>
 
         <div className="register">

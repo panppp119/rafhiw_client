@@ -63,3 +63,22 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark {
+  a {
+    background-color: var(--black);
+    color: var(--secondary);
+  }
+
+  div.filepicker {
+    background-color: var(--primary_light);
+  }
+
+  svg {
+    color: var(--secondary);
+  }
+
+  .head {
+    border-bottom-color: var(--secondary);
+  }
+}

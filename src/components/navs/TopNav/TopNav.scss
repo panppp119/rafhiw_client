@@ -265,3 +265,17 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark {
+  .first {
+    li, a {
+      background-color: var(--black) !important;
+    }
+  }
+
+  .second {
+    li.active a {
+      background-color: var(--primary_light) !important;
+    }
+  }
+}

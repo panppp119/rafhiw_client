@@ -46,7 +46,7 @@ $desktop: 1280px;
 
         &.active a {
           text-decoration: underline;
-          color: var(--primary) !important;
+          color: var(--primary);
         }
       }
     }
@@ -54,5 +54,15 @@ $desktop: 1280px;
 
   h3 {
     margin-top: 0;
+  }
+}
+
+.theme-dark {
+  th {
+    background-color: var(--black);
+  }
+
+  .tab-nav li.active a {
+    color: var(--secondary);
   }
 }

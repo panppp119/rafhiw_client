@@ -163,13 +163,15 @@ h5 {
 
 .theme-dark {
   background-color: darken(#555, 15%);
+  height: 100%;
 
   h1, h2, h3, h4, h5, p, a {
     color: var(--secondary) !important;
   }
 
   a, li {
-    background-color: var(--black) !important;
+    // background-color: var(--black) !important;
+    color: #F7CA18;
 
     &.active {
       background-color: darken(#555, 15%) !important;

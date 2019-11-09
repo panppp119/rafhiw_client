@@ -18,12 +18,18 @@ $desktop: 1280px;
       margin-top: 16px;
     }
   }
-  
+
   .dropzone .dz-preview.dz-image-preview {
     background: none;
   }
 
   .dz-progress {
     display: none;
+  }
+}
+
+.theme-dark {
+  td, th {
+    color: var(--secondary);
   }
 }
