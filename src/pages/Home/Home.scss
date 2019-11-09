@@ -283,10 +283,13 @@ $desktop: 1280px;
 }
 
 .theme-dark {
-
-  #home-page h3 {
+ #home-page {
    background-color: var(--black);
-   border-bottom-color: var(--secondary);
+
+   h3 {
+    background-color: var(--black);
+    border-bottom-color: var(--secondary);
+  }
  }
 
   .categories .cats {
