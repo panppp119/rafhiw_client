@@ -1,4 +1,3 @@
-
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'

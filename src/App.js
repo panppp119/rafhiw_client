@@ -1,7 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
 import configStore, { history } from 'utils/configStore';
@@ -103,94 +103,80 @@ function PrivateRoute ({ component: Component, ...rest }) {
 export default ({ childProps }) =>
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      {/* <Switch> */}
-        <Route
-          path="/"
-          exact
-          component={AsyncHome}
-          props={childProps}
-        />
-        <Route
-          path="/sign_in"
-          component={AsyncSignIn}
-          props={childProps}
-        />
-        <Route
-          path="/register"
-          component={AsyncRegister}
-          props={childProps}
-        />
-        <Route
-          path="/events"
-          component={AsyncEvents}
-          props={childProps}
-        />
-        <Route
-          path="/e/:id"
-          component={AsyncEvent}
-          props={childProps}
-        />
-        <Route
-          path='/c/:slug'
-          component={AsyncCategories}
-          props={childProps}
-        />
-        <Route
-          path="/sc/:slug"
-          component={AsyncSubCategories}
-          props={childProps}
-        />
-        <Route
-          path="/products"
-          component={AsyncProducts}
-          props={childProps}
-        />
-        <Route
-          path="/p/:id"
-          component={AsyncProduct}
-          props={childProps}
-        />
+      <div>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={AsyncHome}
+          />
+          <Route
+            path="/sign_in"
+            component={AsyncSignIn}
+          />
+          <Route
+            path="/register"
+            component={AsyncRegister}
+          />
+          <Route
+            path="/events"
+            component={AsyncEvents}
+          />
+          <Route
+            path="/e/:id"
+            component={AsyncEvent}
+          />
+          <Route
+            path='/c/:slug'
+            component={AsyncCategories}
+          />
+          <Route
+            path="/sc/:slug"
+            component={AsyncSubCategories}
+          />
+          <Route
+            path="/products"
+            component={AsyncProducts}
+          />
+          <Route
+            path="/p/:id"
+            component={AsyncProduct}
+          />
 
-        <Route
-          path="/terms_of_service"
-          component={AsyncTermsOfService}
-          props={childProps}
-        />
-        <Route
-          path="/privacy_policy"
-          component={AsyncPrivacyPolicy}
-          props={childProps}
-        />
-        <Route
-          path="/prohibited_goods_policy"
-          component={AsyncProhibited}
-          props={childProps}
-        />
+          <Route
+            path="/terms_of_service"
+            component={AsyncTermsOfService}
+          />
+          <Route
+            path="/privacy_policy"
+            component={AsyncPrivacyPolicy}
+          />
+          <Route
+            path="/prohibited_goods_policy"
+            component={AsyncProhibited}
+          />
 
-        <PrivateRoute
-          path="/account"
-          component={AsyncAccount}
-          props={childProps}
-        />
-        <PrivateRoute
-          path="/store"
-          component={AsyncStore}
-          props={childProps}
-        />
-        <PrivateRoute
-          path="/cart"
-          component={AsyncCart}
-          props={childProps}
-        />
-        <PrivateRoute
-          path="/checkout"
-          component={AsyncCheckout}
-          props={childProps}
-        />
+          <PrivateRoute
+            path="/account"
+            component={AsyncAccount}
+          />
+          <PrivateRoute
+            path="/store"
+            component={AsyncStore}
+          />
+          <PrivateRoute
+            path="/cart"
+            component={AsyncCart}
+          />
+          <PrivateRoute
+            path="/checkout"
+            component={AsyncCheckout}
+          />
 
-        {/* Finally, catch all unmatched routes */}
-        <Route component={AsyncNotFound} />
-      {/* </Switch> */}
+          {/* Finally, catch all unmatched routes */}
+          <Route component={AsyncNotFound} />
+        </Switch>
+      </div>
     </ConnectedRouter>
   </Provider>
 ;
