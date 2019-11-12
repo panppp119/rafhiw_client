@@ -245,6 +245,15 @@ class Product extends React.Component {
 
                       {options.map((option, i) => {
                         const stock = option.get('stock') || 0
+                        const discount = option.get('discount_amt') !== 0 ?
+                          option.get('discount_amt')
+                          : option.get('price_amt')
+                        const original = option.get('price_amt')
+
+                        const totalAmount = discount + option.get('hiw_amt') + option.get('ship_amt')
+                        const originalTotalAmount = original + option.get('hiw_amt') + option.get('ship_amt')
+                        const includeVat = totalAmount + (totalAmount * (15 / 100))
+                        const origitalIncludeVat = originalTotalAmount + (originalTotalAmount * (15 / 100))
 
                         return this.state.option === i ? (
                           <Fragment key={i}>
@@ -260,19 +269,19 @@ class Product extends React.Component {
                                       style={{ textDecoration: 'line-through' }}
                                     >
                                       <PriceConvert
-                                        price={option.get('price_amt')}
+                                        price={origitalIncludeVat}
                                       />
                                     </span>
                                     <span className="discount">
                                       <PriceConvert
-                                        price={option.get('discount_amt')}
+                                        price={includeVat}
                                       />
                                     </span>
                                   </Fragment>
                                 ) : (
                                   <span>
                                     <PriceConvert
-                                      price={option.get('price_amt')}
+                                      price={origitalIncludeVat}
                                     />
                                   </span>
                                 )}

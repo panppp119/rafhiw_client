@@ -143,11 +143,27 @@ class Home extends React.Component {
                                   className="price"
                                   style={{ textDecoration: 'line-through' }}
                                 >
-                                  <PriceConvert price={options.getIn([0, 'price_amt'])} />
+                                  <PriceConvert price={
+                                    (options.getIn([0, 'price_amt']) +
+                                    options.getIn([0, 'hiw_amt']) +
+                                    options.getIn([0, 'ship_amt'])) + (
+                                      (options.getIn([0, 'price_amt']) +
+                                      options.getIn([0, 'hiw_amt']) +
+                                      options.getIn([0, 'ship_amt'])) * (15 / 100)
+                                    )
+                                  } />
                                 </span>
 
                                 <span className='discount'>
-                                  <PriceConvert price={options.getIn([0, 'discount_amt'])} />
+                                  <PriceConvert price={
+                                    (options.getIn([0, 'discount_amt']) +
+                                    options.getIn([0, 'hiw_amt']) +
+                                    options.getIn([0, 'ship_amt'])) + (
+                                      (options.getIn([0, 'discount_amt']) +
+                                      options.getIn([0, 'hiw_amt']) +
+                                      options.getIn([0, 'ship_amt'])) * (15 / 100)
+                                    )
+                                  } />
                                 </span>
                               </p>
                             </div>
