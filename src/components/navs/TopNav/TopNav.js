@@ -4,7 +4,7 @@ import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots, FaChevronLeft,
   FaBell, FaUser, FaFont, FaSun, FaMoon,
-  FaArchive, FaAddressCard, FaSignOutAlt, FaSearch
+  FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
 import { DebounceInput } from 'react-debounce-input'
 
@@ -166,7 +166,6 @@ class TopNav extends React.Component {
 
   render () {
     const { location, user, cart } = this.props
-    console.log(this.state.search)
 
     const roles = user.get('roles') || List()
     const totalQuantity = cart.get('total_qt') || 0;
@@ -305,6 +304,17 @@ class TopNav extends React.Component {
                 }
               </li>
               <li className='empty' />
+              {
+                user.isEmpty() ? (
+                  <li><Link to='/account/seller'>ลงขายสินค้า</Link></li>
+                ) : (
+                  roles.filter(role => role === 'seller').size !== 0 ? (
+                    <li><Link to='/store'>ร้านค้า</Link></li>
+                  ) : (
+                    <li><Link to='/account/seller'>ลงขายสินค้า</Link></li>
+                  )
+                )
+              }
               <li className='user'>
                 {
                   user.isEmpty() ? (
@@ -314,18 +324,13 @@ class TopNav extends React.Component {
                       <FaUser />
                       <ul>
                         <li><Link to='/account'><FaAddressCard /> บัญชีของฉัน</Link></li>
-                        {
-                          roles.filter(role => role === 'seller').size !== 0 ? (
-                            <li><Link to='/store'><FaArchive /> ร้านค้า</Link></li>
-                          ) : null
-                        }
                         <li onClick={this.signOut}><Link to='/'><FaSignOutAlt /> ออกจากระบบ</Link></li>
                       </ul>
                     </Fragment>
                   )
                 }
               </li>
-              <li><FaBell /></li>
+              {/* <li><FaBell /></li> */}
             </ul>
           </div>
 

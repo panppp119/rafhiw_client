@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { List } from 'immutable'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaArchive, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
@@ -94,6 +94,11 @@ class StoreTopNav extends React.Component {
                 }
               </li>
               <li className='empty' />
+              {
+                roles.filter(role => role === 'seller').size !== 0 ? (
+                  <li><Link to='/store'>ร้านค้า</Link></li>
+                ) : <li className='empty' />
+              }
               <li className='user'>
                 {
                   user.isEmpty() ? (
@@ -103,18 +108,13 @@ class StoreTopNav extends React.Component {
                       <FaUser />
                       <ul>
                         <li><Link to='/account'><FaAddressCard /> บัญชีของฉัน</Link></li>
-                        {
-                          roles.filter(role => role === 'seller').size !== 0 ? (
-                            <li><Link to='/store'><FaArchive /> ร้านค้า</Link></li>
-                          ) : null
-                        }
                         <li onClick={this.signOut}><Link to='/'><FaSignOutAlt /> ออกจากระบบ</Link></li>
                       </ul>
                     </Fragment>
                   )
                 }
               </li>
-              <li><FaBell /></li>
+              {/* <li><FaBell /></li> */}
             </ul>
           </div>
 

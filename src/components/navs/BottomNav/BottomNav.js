@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaHome, FaFlag, FaList, FaBell, FaUser } from 'react-icons/fa'
+import { FaHome, FaFlag, FaList, FaStore, FaUser } from 'react-icons/fa'
 
 import './BottomNav.scss'
 
@@ -13,7 +13,7 @@ class BottomNav extends React.Component {
             <li><Link to='/'><FaHome /></Link></li>
             <li><Link to='/events'><FaFlag /></Link></li>
             <li><Link to='/products'><FaList /></Link></li>
-            <li><Link to='#'><FaBell /></Link></li>
+            <li><Link to='/store'><FaStore /></Link></li>
             <li><Link to='/account'><FaUser /></Link></li>
           </ul>
         </div>
