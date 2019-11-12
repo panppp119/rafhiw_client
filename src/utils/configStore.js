@@ -6,11 +6,9 @@ import { routerMiddleware } from 'connected-react-router/immutable'
 
 import rootReducer from 'reducers';
 
-export const history = createBrowserHistory({
-  basename: '/'
-})
+export const history = createBrowserHistory()
 
-export default function configureStore(history) {
+export default function configureStore(preloadState) {
   const enhancers = [];
   const middleware = [thunk, routerMiddleware(history)];
 
@@ -27,7 +25,11 @@ export default function configureStore(history) {
     ...enhancers
   );
 
-  const store = createStore(rootReducer(history), composedEnhancers);
+  const store = createStore(
+    rootReducer(history),
+    preloadState,
+    composedEnhancers
+  );
 
   if (module.hot) {
     module.hot.accept('reducers', () => {

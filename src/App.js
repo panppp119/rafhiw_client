@@ -1,6 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
+import { Map } from 'immutable'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
@@ -78,7 +79,8 @@ const AsyncProhibited = Loadable({
 });
 
 // const history = createBrowserHistory();
-const store = configStore(history);
+const initialState = Map()
+const store = configStore(initialState);
 
 function PrivateRoute ({ component: Component, ...rest }) {
   return (
