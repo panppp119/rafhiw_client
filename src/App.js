@@ -109,68 +109,84 @@ export default ({ childProps }) =>
             path="/"
             exact
             component={AsyncHome}
+            props={childProps}
           />
           <Route
             path="/sign_in"
             component={AsyncSignIn}
+            props={childProps}
           />
           <Route
             path="/register"
             component={AsyncRegister}
+            props={childProps}
           />
           <Route
             path="/events"
             component={AsyncEvents}
+            props={childProps}
           />
           <Route
             path="/e/:id"
             component={AsyncEvent}
+            props={childProps}
           />
           <Route
             path='/c/:slug'
             component={AsyncCategories}
+            props={childProps}
           />
           <Route
             path="/sc/:slug"
             component={AsyncSubCategories}
+            props={childProps}
           />
           <Route
             path="/products"
             component={AsyncProducts}
+            props={childProps}
           />
           <Route
             path="/p/:id"
             component={AsyncProduct}
+            props={childProps}
           />
 
           <Route
             path="/terms_of_service"
             component={AsyncTermsOfService}
+            props={childProps}
           />
           <Route
             path="/privacy_policy"
             component={AsyncPrivacyPolicy}
+            props={childProps}
           />
           <Route
             path="/prohibited_goods_policy"
             component={AsyncProhibited}
+            props={childProps}
           />
 
           <PrivateRoute
             path="/account"
             component={AsyncAccount}
+            props={childProps}
           />
           <PrivateRoute
             path="/store"
             component={AsyncStore}
+            props={childProps}
           />
           <PrivateRoute
             path="/cart"
             component={AsyncCart}
+            props={childProps}
           />
           <PrivateRoute
             path="/checkout"
             component={AsyncCheckout}
+            props={childProps}
           />
 
           {/* Finally, catch all unmatched routes */}

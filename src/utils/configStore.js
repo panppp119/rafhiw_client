@@ -1,3 +1,4 @@
+
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore } from 'redux'
@@ -5,7 +6,9 @@ import { routerMiddleware } from 'connected-react-router/immutable'
 
 import rootReducer from 'reducers';
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory({
+  basename: '/'
+})
 
 export default function configureStore(history) {
   const enhancers = [];
