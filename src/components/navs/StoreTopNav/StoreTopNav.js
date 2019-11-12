@@ -94,11 +94,7 @@ class StoreTopNav extends React.Component {
                 }
               </li>
               <li className='empty' />
-              {
-                roles.filter(role => role === 'seller').size !== 0 ? (
-                  <li><Link to='/store'>ร้านค้า</Link></li>
-                ) : <li className='empty' />
-              }
+              <li className='empty' />
               <li className='user'>
                 {
                   user.isEmpty() ? (
