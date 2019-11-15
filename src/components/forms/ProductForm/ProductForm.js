@@ -232,7 +232,7 @@ class AddProductForm extends React.Component {
       owner_id: this.props.user.get('id')
     };
 
-    var c1, c2, c3, c4, c5, c6, c7, c8
+    var c1, c2, c3, c4, c5, c6, c7, c8, c9
 
     c1 = this.state.name && this.state.name !== ''
     c2 = this.state.description && this.state.description !== ''
@@ -242,8 +242,9 @@ class AddProductForm extends React.Component {
     c6 = this.state.sub_category_id
     c7 = this.state.event_id
     c8 = this.state.options.length > 0
+    c9 = attachments.length > 0
 
-    if (c1 && c2 &&c3 && c4 && c5 && c6 && c7 && c8) {
+    if (c1 && c2 &&c3 && c4 && c5 && c6 && c7 && c8 && c9) {
       this.props.createProduct(product).then(res => {
         var id = (res && res.body) || 0;
 
@@ -260,7 +261,8 @@ class AddProductForm extends React.Component {
         p4: false,
         p5: false,
         p6: false,
-        p7: false
+        p7: false,
+        p9: false
       })
     }
     else {
@@ -273,13 +275,14 @@ class AddProductForm extends React.Component {
         p4: !c4,
         p5: !c5,
         p6: !c6,
-        p7: !c7
+        p7: !c7,
+        p9: !c9
       })
     }
   };
 
   render() {
-    const { long_time, options, p1, p2, p3, p4, p5, p6, p7 } = this.state;
+    const { long_time, options, p1, p2, p3, p4, p5, p6, p7, p9 } = this.state;
     const { categories, sub_categories, events } = this.props;
 
     var categoryOptions = []
@@ -362,6 +365,7 @@ class AddProductForm extends React.Component {
 
         <div className="form-field">
           <label>ภาพสินค้า</label>
+          {p9 && <span style={{ color: 'red', marginLeft: 10 }}>กรุณาเพิ่มรูปภาพ</span>}
           <DropzoneComponent
             config={previewConfig}
             eventHandlers={eventHandlers}
