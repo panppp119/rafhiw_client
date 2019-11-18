@@ -5,6 +5,10 @@ $desktop: 1280px;
 #product-page {
   padding: 20px 0;
 
+  .container {
+    position: relative;
+  }
+
   .product {
     margin-bottom: 8px;
     min-height: 500px;

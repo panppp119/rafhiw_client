@@ -50,7 +50,7 @@ class StoreLayout extends React.Component {
   };
 
   render () {
-    const { flash_message } = this.props    
+    const { flash_message } = this.props
 
     return (
       <div id="store-layout"

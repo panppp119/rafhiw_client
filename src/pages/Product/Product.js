@@ -187,7 +187,12 @@ class Product extends React.Component {
                       </h4>
                     </div>
 
-                    <button className='primary' style={{ maxWidth: 200 }}>แชทกับผู้ขาย</button>
+                    <button className='primary'
+                      style={{ maxWidth: 200 }}
+                      onClick={() => this.handleClickChat()}
+                    >
+                      แชทกับผู้ขาย
+                    </button>
                   </div>
                 </div>
 

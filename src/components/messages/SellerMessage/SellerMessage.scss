@@ -1,8 +1,8 @@
-.chat {
+.chat.seller {
   position: fixed;
   bottom: 14px;
   right: 14px;
-  background-color: var(--primary-light);
+  background-color: var(--primary_light);
   padding: 0 7px 7px;
   border-radius: 10px;
   z-index: 88;
@@ -27,37 +27,31 @@
 
   .messages {
     width: 400px;
+    display: flex;
 
-    .ui.grid {
-      margin: 0;
+    .customers {
+      width: 100px;
+    }
 
-      .column {
-        padding: 7px;
+    li {
+      padding: 5px;
+      word-wrap: break-word;
+
+      &.active {
+        background-color: var(--white)
       }
     }
 
-    .ui.list {
-      .item {
+    .lists {
+      height: 300px;
+      width: 100%;
+      background-color: var(--white);
+      overflow: hidden auto;
+      margin-bottom: 7px;
+
+      .message {
         padding: 7px;
-        color: var(--primary-dark);
-        cursor: pointer;
-
-        &.active {
-          color: var(--white);
-        }
       }
-    }
-  }
-
-  .lists {
-    height: 300px;
-    width: 100%;
-    background-color: var(--white);
-    overflow: hidden auto;
-    margin-bottom: 7px;
-
-    .message {
-      padding: 7px;
     }
   }
 
@@ -65,21 +59,26 @@
     border-radius: 5px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    width: 100%;
+    width: 386px;
     padding: 7px;
     border: none;
     outline: none;
+    min-height: auto;
   }
 }
 
 .message-icon {
-  i.inverted.bordered.icon,
-  i.inverted.circular.icon {
-    background-color: var(--primary-light) !important;
-    cursor: pointer;
+  position: fixed;
+  bottom: 14px;
+  right: 14px;
+  background-color: var(--primary_light);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  cursor: pointer;
 
-    &:hover {
-      background-color: var(--primary) !important;
-    }
+  svg {
+    padding: 10px;
+    font-size: 30px;
+    color: var(--white);
   }
 }

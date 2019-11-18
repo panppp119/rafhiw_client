@@ -1,8 +1,11 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import { Link, Switch, Route } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { List, Map } from 'immutable';
 
 import StoreLayout from 'components/layouts/StoreLayout'
+import SellerMessage from 'components/messages/SellerMessage'
 import {
   Active,
   Events,
@@ -18,9 +21,17 @@ import {
 import './Store.scss'
 
 class Store extends React.Component {
+  state = {
+    showChat: false
+  }
+
   handleChange = e => {
     this.props.history.push(`/store/${e.target.value}`)
   }
+
+  handleClickChat = bool => {
+    this.setState({ showChat: bool });
+  };
 
   render () {
     const { location, match } = this.props;
@@ -121,6 +132,12 @@ class Store extends React.Component {
                 />
               </Switch>
             </div>
+
+            <SellerMessage
+              handleClickChat={this.handleClickChat}
+              showChat={this.state.showChat}
+              seller={this.props.user}
+            />
           </div>
         </div>
       </StoreLayout>
@@ -128,4 +145,11 @@ class Store extends React.Component {
   }
 }
 
-export default Store
+const mapStateToProps = (state, props) => ({
+  user: state.getIn(['user', 'data'], Map()),
+  ...props
+});
+
+export default connect(
+  mapStateToProps
+)(Store);

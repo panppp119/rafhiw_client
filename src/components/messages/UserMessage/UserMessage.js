@@ -122,7 +122,7 @@ class UserMessage extends React.Component {
 
               return messages.map((msg, si) => {
                 return (
-                  <div
+                  <div key={i}
                     className="message"
                     style={{
                       textAlign:

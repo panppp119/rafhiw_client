@@ -1,8 +1,9 @@
 .chat {
   position: fixed;
-  bottom: 14px;
-  right: 14px;
-  background-color: var(--primary-light);
+  bottom: 0;
+  right: 0;
+  background-color: var(--primary_light);
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
   padding: 0 7px 7px;
   border-radius: 10px;
   z-index: 88;
@@ -17,7 +18,7 @@
       text-align: center;
       position: relative;
 
-      i {
+      svg {
         position: absolute;
         right: 7px;
         cursor: pointer;
@@ -31,7 +32,7 @@
 
   .lists {
     height: 300px;
-    width: 400px;
+    width: 100%;
     background-color: var(--white);
     overflow: hidden auto;
     margin-bottom: 7px;
@@ -41,14 +42,19 @@
     }
   }
 
-  textarea {
-    border-radius: 5px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    width: 400px;
-    padding: 7px;
-    border: none;
-    outline: none;
+  form {
+    padding: 0;
+
+    textarea {
+      border-radius: 5px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      width: 386px;
+      padding: 7px;
+      border: none;
+      outline: none;
+      min-height: auto;
+    }
   }
 }
 

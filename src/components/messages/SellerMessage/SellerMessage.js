@@ -1,7 +1,8 @@
 import React from 'react';
 import trim from 'trim';
 import _ from 'lodash';
-import { Icon, Grid, List } from 'semantic-ui-react';
+import { Map } from 'immutable'
+import { FaMinus, FaCommentDots } from 'react-icons/fa'
 
 import firebase from 'components/Firebase';
 
@@ -10,6 +11,10 @@ import './SellerMessage.scss';
 const db = firebase.database();
 
 class SellerMessage extends React.Component {
+  static defaultProps = {
+    seller: Map()
+  }
+
   state = {
     messages: [],
     msg: '',
@@ -17,7 +22,7 @@ class SellerMessage extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.seller.isEmpty()) {
+    if (this.props.seller && !this.props.seller.isEmpty()) {
       let app = db.ref(`/chats/seller_${this.props.seller.get('id')}`);
 
       app.on('value', snapshot => {
@@ -67,7 +72,7 @@ class SellerMessage extends React.Component {
 
     this.setState({
       messages: new_messages,
-      user: new_messages[0] ? new_messages[0].key : ''
+      user: new_messages[0] ? new_messages[0].key : '',
     });
   }
 
@@ -116,79 +121,70 @@ class SellerMessage extends React.Component {
     const { showChat, seller } = this.props;
 
     return showChat ? (
-      <div className="chat">
+      <div className="chat seller">
         <div className="chat-name">
           <h4>
             Chat
-            <Icon name="minus" onClick={this.handleClick} />
+            <FaMinus onClick={this.handleClick} />
           </h4>
         </div>
 
         <div className="messages">
-          <Grid>
-            <Grid.Column width={3}>
-              <List>
-                {messages.map((message, i) => {
+          <div className="customers">
+            <ul>
+              {messages.map((message, i) => {
+                return (
+                  <li
+                    key={i}
+                    className={this.state.index === i && 'active'}
+                    onClick={() => this.setIndex(i, message.key)}
+                  >
+                    {message.key}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="lists">
+            {messages.map((message, i) => {
+              const messages = message.messages;
+
+              return messages.map((msg, si) => {
+                if (this.state.index === i) {
                   return (
-                    <List.Item
-                      key={i}
-                      className={this.state.index === i && 'active'}
-                      onClick={() => this.setIndex(i, message.key)}
+                    <div
+                      key={si}
+                      className="message"
+                      style={{
+                        textAlign:
+                          msg.sender === `seller_${seller.get('id')}` &&
+                          'right'
+                      }}
                     >
-                      {message.key}
-                    </List.Item>
+                      {msg.message}
+                    </div>
                   );
-                })}
-              </List>
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <List className="lists">
-                {messages.map((message, i) => {
-                  const messages = message.messages;
-
-                  return messages.map((msg, si) => {
-                    if (this.state.index === i) {
-                      return (
-                        <div
-                          key={si}
-                          className="message"
-                          style={{
-                            textAlign:
-                              msg.sender === `seller_${seller.get('id')}` &&
-                              'right'
-                          }}
-                        >
-                          {msg.message}
-                        </div>
-                      );
-                    } else {
-                      return null;
-                    }
-                  });
-                })}
-              </List>
-
-              <form>
-                <textarea
-                  placeholder="Type a message"
-                  value={this.state.msg}
-                  onChange={this.onChange}
-                  onKeyUp={this.onKeyup}
-                />
-              </form>
-            </Grid.Column>
-          </Grid>
+                } else {
+                  return null;
+                }
+              });
+            })}
+          </div>
         </div>
+
+        <form>
+          <textarea
+            placeholder="Type a message"
+            value={this.state.msg}
+            onChange={this.onChange}
+            onKeyUp={this.onKeyup}
+          />
+        </form>
       </div>
     ) : (
       <div className="message-icon">
-        <Icon
-          circular
-          inverted
-          name="chat"
-          size="big"
-          onClick={this.handleClick}
-        />
+        <FaCommentDots onClick={this.handleClick} />
       </div>
     );
   }
