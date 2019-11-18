@@ -1,7 +1,7 @@
 import React from 'react';
 import trim from 'trim';
 import _ from 'lodash';
-import { Icon } from 'semantic-ui-react';
+import { FaMinus, FaCommentDots } from 'react-icons/fa'
 
 import firebase from 'components/Firebase';
 
@@ -111,7 +111,7 @@ class UserMessage extends React.Component {
         <div className="chat-name">
           <h4>
             {seller.get('first_name')}{' '}
-            <Icon name="minus" onClick={this.handleClick} />
+            <FaMinus onClick={this.handleClick} />
           </h4>
         </div>
 
@@ -148,11 +148,7 @@ class UserMessage extends React.Component {
       </div>
     ) : (
       <div className="message-icon">
-        <Icon
-          circular
-          inverted
-          name="chat"
-          size="big"
+        <FaCommentDots
           onClick={this.handleClick}
         />
       </div>

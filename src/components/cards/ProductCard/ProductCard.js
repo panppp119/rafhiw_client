@@ -56,15 +56,7 @@ class ProductCard extends React.Component {
                     className="price"
                     style={{ textDecoration: 'line-through' }}
                   >
-                    <PriceConvert price={
-                      (options.getIn([0, 'price_amt']) +
-                      options.getIn([0, 'hiw_amt']) +
-                      options.getIn([0, 'ship_amt'])) + (
-                        (options.getIn([0, 'price_amt']) +
-                        options.getIn([0, 'hiw_amt']) +
-                        options.getIn([0, 'ship_amt'])) * (15 / 100)
-                      )
-                    } />
+                    <PriceConvert price={options.getIn([0, 'price_amt']) + options.getIn([0, 'ship_amt'])} />
                   </span>
 
                   <span className='discount'>

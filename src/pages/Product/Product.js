@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import { List } from 'immutable';
 import { FaPlus, FaMinus } from 'react-icons/fa'
 
-// import UserMessage from 'components/messages/UserMessage';
+import UserMessage from 'components/messages/UserMessage';
 import CountdownTimer from 'components/CountdownTimer';
 import PriceConvert from 'components/converts/PriceConvert';
 import EventCard from 'components/cards/EventCard';
@@ -21,7 +21,8 @@ class Product extends React.Component {
     products: [],
     totalQuantity: 0,
     showChat: false,
-    out: false
+    out: false,
+    showChat: false
   };
 
   componentDidMount() {
@@ -49,6 +50,10 @@ class Product extends React.Component {
   handleClickChat = bool => {
     this.setState({ showChat: bool });
   };
+
+  handleClickChat = () => {
+    this.setState({ showChat: !this.state.showChat })
+  }
 
   addProduct (stock) {
     const {
@@ -164,20 +169,26 @@ class Product extends React.Component {
                 <div className="column">
                   <ImageGallery items={images} showPlayButton={false} autoPlay />
 
-                  <div className="owner">
-                    <div className="avatar">
+                  <div className="owner" style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                    <div className="avatar" style={{ marginRight: 10 }}>
                       <Img
                         src={product.getIn(['owner', 'image'])}
                         alt={product.getIn(['owner', 'first_name'])}
                       />
                     </div>
 
-                    <div className="info">
+                    <div className="info" style={{ marginRight: 10 }}>
                       <h4>
                         {product.getIn(['owner', 'first_name'])}{' '}
                         {product.getIn(['owner', 'last_name'])}
                       </h4>
                     </div>
+
+                    <button className='primary' style={{ maxWidth: 200 }}>แชทกับผู้ขาย</button>
                   </div>
                 </div>
 
@@ -254,6 +265,7 @@ class Product extends React.Component {
                         const originalTotalAmount = original + option.get('hiw_amt') + option.get('ship_amt')
                         const includeVat = totalAmount + (totalAmount * (15 / 100))
                         const origitalIncludeVat = originalTotalAmount + (originalTotalAmount * (15 / 100))
+                        const originalPrice = original + option.get('ship_amt')
 
                         return this.state.option === i ? (
                           <Fragment key={i}>
@@ -269,7 +281,7 @@ class Product extends React.Component {
                                       style={{ textDecoration: 'line-through' }}
                                     >
                                       <PriceConvert
-                                        price={origitalIncludeVat}
+                                        price={originalPrice}
                                       />
                                     </span>
                                     <span className="discount">
@@ -471,12 +483,12 @@ class Product extends React.Component {
             </div>
 
 
-            {/* <UserMessage
+            <UserMessage
               handleClickChat={this.handleClickChat}
               showChat={this.state.showChat}
               seller={product.get('owner')}
               user={this.props.user}
-            /> */}
+            />
           </div>
         </div>
       </UserLayout>

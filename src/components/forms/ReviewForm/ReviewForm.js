@@ -32,7 +32,8 @@ class ReviewForm extends React.Component {
   }
 
   comment = e => {
-    this.setState({ [e.target.name]: e.target.value })
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
+    this.setState({ [e.target.name]: value })
   }
 
   render () {

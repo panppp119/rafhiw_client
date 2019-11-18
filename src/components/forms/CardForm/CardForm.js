@@ -13,7 +13,7 @@ class CardForm extends React.Component {
 
   handleChange = e => {
     const name = e.target.name
-    const value = e.target.value
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
 
     if (name === 'card_number' || name === 'expired_month' || name === 'expired_year') {
       var number = value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')

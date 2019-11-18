@@ -8,7 +8,8 @@ class AddressForm extends React.Component {
   };
 
   handleChange = (e, name) => {
-    this.setState({ [e.target.name]: e.target.value });
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
+    this.setState({ [e.target.name]: value });
   };
 
   handleSend = e => {

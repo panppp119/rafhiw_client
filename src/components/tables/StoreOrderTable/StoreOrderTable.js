@@ -149,6 +149,7 @@ class StoreOrderTable extends React.Component {
                           <td>
                             <input type="text"
                               name="tracking_code"
+                              placeholder="เลขพัสดุ"
                               value={
                                 (this.state.index === i && tracking_code) ||
                                 (item.get('tracking_code') || '')

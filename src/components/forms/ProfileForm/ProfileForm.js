@@ -35,7 +35,7 @@ class ProfileForm extends React.Component {
 
   handleChange = (e) => {
     const name = e.target.name
-    const value = e.target.value
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
 
     this.setState({ [name]: value });
   };

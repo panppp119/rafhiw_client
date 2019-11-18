@@ -60,10 +60,12 @@ class RegisterForm extends React.Component {
   };
 
   onChange = (e, name) => {
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
+
     if (name === 'agree') {
       this.setState({ [name]: !this.state.agree });
     } else {
-      this.setState({ [name]: e.target.value });
+      this.setState({ [name]: name === 'password' || name === 'confirm_password' ? e.target.value : value });
     }
   };
 

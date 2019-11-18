@@ -6,6 +6,7 @@ import Classnames from 'classnames'
 import { FaTrash } from 'react-icons/fa'
 
 import EventForm from 'components/forms/EventForm'
+import UserMessage from 'components/messages/UserMessage'
 
 import './ProductForm.scss';
 
@@ -26,7 +27,7 @@ class AddProductForm extends React.Component {
   }
 
   handleChange = (e) => {
-    const value = e.target.value
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
     const name = e.target.name
 
     this.setState({ [name]: value });
@@ -61,7 +62,7 @@ class AddProductForm extends React.Component {
 
   handleChangeEvent = (e) => {
     const name = e.target.name
-    const value = e.target.value
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
 
     this.setState(prevState => ({
       event: { ...prevState.event, [name]: value }

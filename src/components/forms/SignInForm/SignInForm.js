@@ -8,7 +8,8 @@ class SignInForm extends React.Component {
   state = { ggError: null };
 
   handleChange (e, name) {
-    this.setState({ [name]: e.target.value })
+    const value = e.target.value.replace('<', '').replace('>', '').replace('{', '').replace('}', '').replace('[', '').replace(']', '')
+    this.setState({ [name]: name === 'password' ? e.target.value : value })
   }
 
   ggSignIn = e => {

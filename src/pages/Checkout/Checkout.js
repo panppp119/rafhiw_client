@@ -68,7 +68,10 @@ class Checkout extends React.Component {
       autoProcessQueue: false,
       addRemoveLinks: true,
       maxFilesize: 1,
-      maxFiles: 1
+      maxFiles: 1,
+      params: {
+        myParameter: "อัพโหลดภาพหลักฐานการโอนครับ"
+      }
     };
 
     var eventHandlers = {
