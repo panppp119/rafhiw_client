@@ -23,7 +23,8 @@ class SignInForm extends React.Component {
 
     const user = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      provider: 'email'
     }
 
     this.props.signin(user)

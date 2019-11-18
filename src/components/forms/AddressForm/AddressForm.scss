@@ -16,4 +16,8 @@ $desktop: 1280px;
       margin-bottom: 0;
     }
   }
+
+  input.error {
+    border-bottom-color: var(--error);
+  }
 }
