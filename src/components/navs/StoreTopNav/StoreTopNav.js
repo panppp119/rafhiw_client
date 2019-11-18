@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { List } from 'immutable'
-import { FaShoppingCart, FaCommentDots, FaBell, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
+import { FaShoppingCart, FaCommentDots, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
@@ -47,11 +46,7 @@ class StoreTopNav extends React.Component {
   }
 
   render () {
-
     const {  user } = this.props
-    const roles = user.get('roles') || List()
-
-
 
     return (
       <div id="store-top-nav">

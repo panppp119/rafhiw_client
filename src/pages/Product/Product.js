@@ -22,7 +22,6 @@ class Product extends React.Component {
     totalQuantity: 0,
     showChat: false,
     out: false,
-    showChat: false
   };
 
   componentDidMount() {

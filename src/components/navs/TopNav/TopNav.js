@@ -304,6 +304,13 @@ class TopNav extends React.Component {
                 }
               </li>
               <li className='empty' />
+              {/* {
+                roles.filter(role => role === 'seller') ? (
+                  <li><FaBell /></li>
+                ) : (
+                  <li className='empty' />
+                )
+              } */}
               {
                 user.isEmpty() ? (
                   <li><Link to='/account/seller'>ลงขายสินค้า</Link></li>
