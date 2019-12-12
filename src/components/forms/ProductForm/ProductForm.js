@@ -6,7 +6,7 @@ import Classnames from 'classnames'
 import { FaTrash } from 'react-icons/fa'
 
 import EventForm from 'components/forms/EventForm'
-import UserMessage from 'components/messages/UserMessage'
+// import UserMessage from 'components/messages/UserMessage'
 
 import './ProductForm.scss';
 

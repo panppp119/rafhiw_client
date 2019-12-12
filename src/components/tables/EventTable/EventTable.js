@@ -38,7 +38,7 @@ class EventTable extends React.Component {
                       <div
                         className="image"
                         style={{
-                          backgroundImage: `url(${event.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+                          backgroundImage: `url(${event.get('image') || process.env.REACT_APP_DEFAULT_IMAGE})`
                         }}
                         aria-label={event.get('name')}
                       />

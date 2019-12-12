@@ -2,13 +2,14 @@ import React from 'react';
 import Loadable from 'react-loadable'
 import { Provider } from 'react-redux';
 import { Map } from 'immutable'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router/immutable';
 
 import configStore, { history } from 'utils/configStore';
 import asyncComponent from 'components/AsyncComponent';
 import ComponentLoading from 'components/loading/ComponentLoading'
 import StoreLoading from 'components/loading/StoreLoading'
+import { userIsAuthenticated, userIsNotAuthenticated } from './auth'
 
 import './styles/main.scss'
 
@@ -82,26 +83,6 @@ const AsyncProhibited = Loadable({
 const initialState = Map()
 const store = configStore(initialState);
 
-function PrivateRoute ({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        JSON.parse(localStorage.getItem('auth')) !== null ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/sign_in",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
 export default ({ childProps }) =>
   <Provider store={store}>
     <ConnectedRouter history={history}>
@@ -115,12 +96,12 @@ export default ({ childProps }) =>
           />
           <Route
             path="/sign_in"
-            component={AsyncSignIn}
+            component={userIsNotAuthenticated(AsyncSignIn)}
             props={childProps}
           />
           <Route
             path="/register"
-            component={AsyncRegister}
+            component={userIsNotAuthenticated(AsyncRegister)}
             props={childProps}
           />
           <Route
@@ -170,24 +151,24 @@ export default ({ childProps }) =>
             props={childProps}
           />
 
-          <PrivateRoute
+          <Route
             path="/account"
-            component={AsyncAccount}
+            component={userIsAuthenticated(AsyncAccount)}
             props={childProps}
           />
-          <PrivateRoute
+          <Route
             path="/store"
-            component={AsyncStore}
+            component={userIsAuthenticated(AsyncStore)}
             props={childProps}
           />
-          <PrivateRoute
+          <Route
             path="/cart"
-            component={AsyncCart}
+            component={userIsAuthenticated(AsyncCart)}
             props={childProps}
           />
-          <PrivateRoute
+          <Route
             path="/checkout"
-            component={AsyncCheckout}
+            component={userIsAuthenticated(AsyncCheckout)}
             props={childProps}
           />
 

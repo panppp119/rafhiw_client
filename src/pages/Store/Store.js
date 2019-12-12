@@ -2,7 +2,7 @@ import React from 'react'
 import ClassNames from 'classnames'
 import { Link, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 
 import StoreLayout from 'components/layouts/StoreLayout'
 import SellerMessage from 'components/messages/SellerMessage'

@@ -3,7 +3,7 @@ import ClassNames from 'classnames'
 import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
 import { FaShoppingCart, FaCommentDots, FaChevronLeft,
-  FaBell, FaUser, FaFont, FaSun, FaMoon,
+  FaUser, FaFont, FaSun, FaMoon,
   FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
 import { DebounceInput } from 'react-debounce-input'

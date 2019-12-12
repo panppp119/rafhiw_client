@@ -32,7 +32,7 @@ class ProductCard extends React.Component {
         <Link to={`/p/${product.get('id')}`}>
           <div className="image"
             style={{
-              backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+              backgroundImage: `url(${product.get('image') || process.env.REACT_APP_DEFAULT_IMAGE})`
             }}
             aria-label={product.get('name')}
           >

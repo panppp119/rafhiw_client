@@ -62,7 +62,7 @@ class ProductsTable extends React.Component {
                       <div
                         className="image"
                         style={{
-                          backgroundImage: `url(${product.get('image') || 'https://rafhiw.com/uploads/default.png'})`
+                          backgroundImage: `url(${product.get('image') || process.env.REACT_APP_DEFAULT_IMAGE})`
                         }}
                         aria-label={product.get('name')}
                       />
