@@ -7,6 +7,11 @@
   border-radius: 10px;
   z-index: 88;
 
+  svg {
+    position: absolute;
+    right: 0;
+  }
+
   .chat-name {
     width: 100%;
     color: var(--white);
