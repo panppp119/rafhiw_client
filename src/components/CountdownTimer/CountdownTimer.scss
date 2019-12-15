@@ -20,6 +20,7 @@ $desktop: 1280px;
       padding: 0 !important;
       text-align: center !important;
       margin-bottom: 0 !important;
+      color: var(--white) !important;
 
       @media screen and (min-width: $desktop) {
         font-size: 30px;

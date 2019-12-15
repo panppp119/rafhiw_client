@@ -36,6 +36,17 @@ $desktop: 1280px;
       min-height: 200px;
     }
 
+    .image-gallery-right-nav:before {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    .image-gallery-left-nav:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
     .countdown-timer {
       text-align: right;
     }

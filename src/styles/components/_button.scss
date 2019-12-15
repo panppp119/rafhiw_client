@@ -9,6 +9,7 @@ button {
 
   &.primary {
     background-color: var(--primary_light);
+    color: var(--white);
 
     &:hover {
       background-color: var(--primary);
@@ -17,6 +18,7 @@ button {
 
   &.error {
     background-color: var(--error);
+    color: var(--white);
 
     &:hover {
       background-color: var(--error_dark);

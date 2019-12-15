@@ -177,6 +177,7 @@ class Checkout extends React.Component {
 
               <div className="column">
                 <div className="transfer">
+                  <label>อัพโหลดหลักฐานการชำระเงิน</label>
                   <DropzoneComponent
                     config={previewConfig}
                     eventHandlers={eventHandlers}
