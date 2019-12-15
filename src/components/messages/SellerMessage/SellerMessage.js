@@ -23,57 +23,48 @@ class SellerMessage extends React.Component {
 
   componentDidMount() {
     if (this.props.seller && !this.props.seller.isEmpty()) {
-      let app = db.ref(`/chats/seller_${this.props.seller.get('id')}`);
+      let app = db.ref(`seller/${this.props.seller.get('id')}`);
 
       app.on('value', snapshot => {
-        this.getData(snapshot.val());
+        this.getData(snapshot);
       });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.seller.isEmpty() && prevProps.seller !== this.props.seller) {
-      let app = db.ref(`/chats/seller_${this.props.seller.get('id')}`);
+    if (prevProps.seller !== this.props.seller) {
+      let app = db.ref(`seller/${this.props.seller.get('id')}`);
 
       app.on('value', snapshot => {
-        this.getData(snapshot.val());
+        this.getData(snapshot);
       });
     }
   }
 
-  getData(values) {
-    let messagesVal = values;
-    let messages = _(messagesVal)
-      .keys()
-      .map(msgKey => {
-        let cloned = _.clone(messagesVal[msgKey]);
-        cloned.key = msgKey;
-        return cloned;
-      })
-      .value();
+  getData(snapshot) {
+    let messages = this.state.messages || []
 
-    let new_messages = messages.map(msg => {
-      const key = msg.key;
-      delete msg.key;
+    snapshot.forEach(function(childSnapshot) {
+      var childKey = childSnapshot.key;
+      var childData = childSnapshot.val();
 
-      const ms = msg;
-      const messages = _(ms)
+      let msg = _(childData)
         .keys()
         .map(msgKey => {
-          let cloned = _.clone(ms[msgKey]);
+          let cloned = _.clone(childData[msgKey]);
           cloned.key = msgKey;
-
           return cloned;
         })
         .value();
 
-      return { key, messages };
-    });
-
-    this.setState({
-      messages: new_messages,
-      user: new_messages[0] ? new_messages[0].key : '',
-    });
+      if (messages.findIndex(message => message.key === childKey) !== -1) {
+        const index = messages.findIndex(message => message.key === childKey)
+        messages[index] = { key: childKey, data: msg, name: msg[0].sender.name}
+      }
+      else {
+        messages.push({ key: childKey, data: msg, name: msg[0].sender.name })
+      }
+    })
   }
 
   handleClick = e => {
@@ -87,32 +78,41 @@ class SellerMessage extends React.Component {
   onKeyup = e => {
     e.preventDefault();
 
-    const { user } = this.state;
+    const { key } = this.state;
 
     if (e.keyCode === 13 && trim(this.state.msg) !== '') {
+      var user_id = key;
       var seller_id = this.props.seller.get('id');
 
-      let dbUser = db.ref(`/chats/${user}/seller_${seller_id}`);
-      let dbSeller = db.ref(`/chats/seller_${seller_id}/${user}`);
+      let userRefs = db.ref(`users/${user_id}`);
+      let sellerRefs = db.ref(`seller/${seller_id}`);
 
-      dbUser.push({
+      userRefs.child(seller_id).push({
+        sender: {
+          id: seller_id,
+          name: this.props.seller.get('first_name')
+        },
+        created: new Date(),
         message: trim(this.state.msg),
-        sender: 'seller_' + this.props.seller.get('id')
       });
 
-      dbSeller.push({
+      sellerRefs.child(user_id).push({
+        sender: {
+          id: seller_id,
+          name: this.props.seller.get('first_name')
+        },
+        created: new Date(),
         message: trim(this.state.msg),
-        sender: 'seller_' + this.props.seller.get('id')
       });
 
       this.setState({ msg: '' });
     }
   };
 
-  setIndex(key, name) {
+  setIndex(index, key) {
     this.setState({
-      index: key,
-      user: name
+      index: index,
+      key: key
     });
   }
 
@@ -139,7 +139,7 @@ class SellerMessage extends React.Component {
                     className={this.state.index === i && 'active'}
                     onClick={() => this.setIndex(i, message.key)}
                   >
-                    {message.key}
+                    [{message.key}]{message.name}
                   </li>
                 );
               })}
@@ -148,9 +148,9 @@ class SellerMessage extends React.Component {
 
           <div className="lists">
             {messages.map((message, i) => {
-              const messages = message.messages;
+              const data = message.data || [];
 
-              return messages.map((msg, si) => {
+              return data.map((msg, si) => {
                 if (this.state.index === i) {
                   return (
                     <div
@@ -158,8 +158,7 @@ class SellerMessage extends React.Component {
                       className="message"
                       style={{
                         textAlign:
-                          msg.sender === `seller_${seller.get('id')}` &&
-                          'right'
+                          parseInt(msg.sender.id) === seller.get('id') && 'right'
                       }}
                     >
                       {msg.message}

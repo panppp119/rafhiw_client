@@ -18,7 +18,9 @@ class UserMessage extends React.Component {
 
   componentDidMount() {
     if (!this.props.user.isEmpty()) {
-      let app = db.ref(`/chats/user_${this.props.user.get('id')}`);
+      const user_id = this.props.user.get('id')
+      const seller_id = this.props.seller && this.props.seller.get('id')
+      const app = db.ref(`users/${user_id}/${seller_id}`);
 
       app.on('value', snapshot => {
         this.getData(snapshot.val());
@@ -27,8 +29,10 @@ class UserMessage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-      let app = db.ref(`/chats/user_${this.props.user.get('id')}`);
+    if (prevProps.seller !== this.props.seller) {
+      const user_id = this.props.user.get('id')
+      const seller_id = this.props.seller.get('id')
+      const app = db.ref(`users/${user_id}/${seller_id}`);
 
       app.on('value', snapshot => {
         this.getData(snapshot.val());
@@ -47,31 +51,13 @@ class UserMessage extends React.Component {
       })
       .value();
 
-    let new_messages = messages.map(msg => {
-      const key = msg.key;
-      delete msg.key;
-
-      const ms = msg;
-      const messages = _(ms)
-        .keys()
-        .map(msgKey => {
-          let cloned = _.clone(ms[msgKey]);
-          cloned.key = msgKey;
-
-          return cloned;
-        })
-        .value();
-
-      return { key, messages };
-    });
-
     this.setState({
-      messages: new_messages
+      messages: messages
     });
   }
 
   handleClick = e => {
-    this.props.handleClickChat(!this.props.showChat);
+    this.props.handleClickChat(!this.props.showChat)
   };
 
   onChange = e => {
@@ -85,17 +71,25 @@ class UserMessage extends React.Component {
       var user_id = this.props.user.get('id');
       var seller_id = this.props.seller.get('id');
 
-      let dbUser = db.ref(`/chats/user_${user_id}/seller_${seller_id}`);
-      let dbSeller = db.ref(`/chats/seller_${seller_id}/user_${user_id}`);
+      let userRefs = db.ref(`users/${user_id}`);
+      let sellerRefs = db.ref(`seller/${seller_id}`);
 
-      dbUser.push({
+      userRefs.child(seller_id).push({
+        sender: {
+          id: user_id,
+          name: this.props.user.get('first_name')
+        },
+        created: new Date(),
         message: trim(this.state.msg),
-        sender: 'user_' + this.props.user.get('id')
       });
 
-      dbSeller.push({
+      sellerRefs.child(user_id).push({
+        sender: {
+          id: user_id,
+          name: this.props.user.get('first_name')
+        },
+        created: new Date(),
         message: trim(this.state.msg),
-        sender: 'user_' + this.props.user.get('id')
       });
 
       this.setState({ msg: '' });
@@ -117,22 +111,18 @@ class UserMessage extends React.Component {
 
         <div className="messages">
           <div className="lists">
-            {messages.map((message, i) => {
-              const messages = message.messages;
-
-              return messages.map((msg, si) => {
-                return (
-                  <div key={i}
-                    className="message"
-                    style={{
-                      textAlign:
-                        msg.sender === `user_${user.get('id')}` && 'right'
-                    }}
-                  >
-                    {msg.message}
-                  </div>
-                );
-              });
+            {messages.sort((a, b) => b.date - a.date).map((message, i) => {
+              return (
+                <div key={i}
+                  className="message"
+                  style={{
+                    textAlign:
+                      message.sender.id === user.get('id') && 'right'
+                  }}
+                >
+                  {message.message}
+                </div>
+              );
             })}
           </div>
 

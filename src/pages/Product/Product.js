@@ -46,12 +46,13 @@ class Product extends React.Component {
     }
   }
 
-  handleClickChat = bool => {
-    this.setState({ showChat: bool });
-  };
-
-  handleClickChat = () => {
-    this.setState({ showChat: !this.state.showChat })
+  handleClickChat = (bool) => {
+    if (this.props.user.isEmpty()) {
+      this.props.history.push('/sign_in')
+    }
+    else {
+      this.setState({ showChat: bool ? bool : !this.state.showChat })
+    }
   }
 
   addProduct (stock) {
@@ -158,6 +159,8 @@ class Product extends React.Component {
         thumbnail: attachment.get('image')
       }))
       .toJS();
+
+    console.log(product.toJS())
 
     return (
       <UserLayout>
@@ -486,11 +489,10 @@ class Product extends React.Component {
               </div>
             </div>
 
-
             <UserMessage
               handleClickChat={this.handleClickChat}
               showChat={this.state.showChat}
-              seller={product.get('owner')}
+              seller={product && product.get('owner')}
               user={this.props.user}
             />
           </div>

@@ -33,9 +33,14 @@
       width: 100px;
     }
 
+    ul {
+      display: block;
+    }
+
     li {
       padding: 5px;
       word-wrap: break-word;
+      cursor: default;
 
       &.active {
         background-color: var(--white)
