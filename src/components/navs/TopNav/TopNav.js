@@ -6,7 +6,6 @@ import { FaShoppingCart, FaCommentDots, FaChevronLeft,
   FaUser, FaFont, FaSun, FaMoon,
   FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
-import { Layout } from 'antd'
 import { DebounceInput } from 'react-debounce-input'
 
 import logo from './logo.png'
