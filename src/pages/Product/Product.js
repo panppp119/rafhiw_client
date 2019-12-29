@@ -149,7 +149,7 @@ class Product extends React.Component {
     const { quantity } = this.state;
 
     const options = (product && (!product.isEmpty() && product.get('options'))) || List();
-    const attachments = (!product && product.get('images')) || List();
+    const attachments = (!product.isEmpty() && product.get('images')) || List();
     const reviews = (!product.isEmpty() && product.get('reviews')) || List();
     const loaderSize = 25;
 
