@@ -87,20 +87,6 @@ h5 {
     font-size: 20px !important;
   }
 
-  // .ui.header {
-  //   font-size: 26px !important;
-  // }
-  //
-  // .other {
-  //   font-size: 24px !important;
-  //   font-weight: 300 !important;
-  //   color: #181818 !important;
-  // }
-  //
-  // .othertoright {
-  //   font-size: 28px !important;
-  // }
-
   @media screen and (min-width: $desktop) {
     font-size: 24px !important;
 
@@ -129,22 +115,6 @@ h5 {
     font-size: 28px !important;
   }
 
-  // .ui.header {
-  //   font-size: 36px !important;
-  // }
-  //
-  // .other {
-  //   font-size: 34px !important;
-  //   font-weight: 300 !important;
-  //   color: #181818 !important;
-  // }
-  // .othertoright {
-  //   font-size: 34px !important;
-  //   @media screen and (max-width: 767px) {
-  //     float: right !important;
-  //   }
-  // }
-
   @media screen and (min-width: $desktop) {
     font-size: 34px !important;
 
@@ -170,7 +140,6 @@ h5 {
   }
 
   a, li {
-    // background-color: var(--black) !important;
     color: #F7CA18;
 
     &.active {

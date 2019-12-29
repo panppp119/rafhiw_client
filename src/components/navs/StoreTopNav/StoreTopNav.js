@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaUser, FaFont, FaSignInAlt, FaSun, FaMoon, FaAddressCard, FaSignOutAlt, FaPlus } from 'react-icons/fa'
+import { FaUser, FaFont,
+  FaSignInAlt, FaSun, FaMoon, FaAddressCard, FaSignOutAlt,
+  FaPlus, FaPlusCircle, FaChevronLeft
+} from 'react-icons/fa'
 
 import logo from './logo.png'
 import './StoreTopNav.scss'
@@ -52,9 +55,19 @@ class StoreTopNav extends React.Component {
       <div id="store-top-nav">
         <div className="mobile">
           <ul>
-            <li className='search'></li>
-            <li><Link to='/cart'><FaShoppingCart /></Link></li>
-            <li><Link to='/messages'><FaCommentDots /></Link></li>
+            <li>
+              <FaChevronLeft onClick={() => this.props.history.goBack()}/>
+            </li>
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li className='empty' />
+            <li><Link to='/store/add_product'><FaPlusCircle /></Link></li>
           </ul>
         </div>
 

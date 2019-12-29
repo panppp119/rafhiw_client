@@ -9,16 +9,13 @@ $desktop: 1280px;
     padding-top: 58px;
     padding-bottom: 58px;
     overflow-y: auto;
+    min-height: auto;
+    height: 100%;
 
     @media screen and (min-width: $desktop) {
-
-      // 3NAV
-      // height: calc(100% - 171px);
-
-      // 2NAV
-      // height: calc(100% - 121px);
       padding-bottom: 0;
       padding-top: 121px;
+      min-height: calc(100vh - 121px);
     }
   }
 }

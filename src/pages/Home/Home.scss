@@ -201,7 +201,7 @@ $desktop: 1280px;
       .categories-menu {
         display: flex;
         align-items: flex-end;
-        min-height: 130px;
+        min-height: 110px;
         padding: 8px 0;
 
         a {
@@ -215,8 +215,8 @@ $desktop: 1280px;
         }
 
         svg {
-          font-size: 93px;
-          color: var(--gray_light);
+          font-size: 60px;
+          color: var(--primary);
         }
       }
     }

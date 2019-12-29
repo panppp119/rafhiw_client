@@ -2,7 +2,7 @@ import React from 'react'
 import ImageGallery from 'react-image-gallery';
 import { List } from 'immutable'
 import { Link } from 'react-router-dom'
-import { FaArchive } from 'react-icons/fa'
+import { FaShoppingBasket } from 'react-icons/fa'
 
 import UserLayout from 'components/layouts/UserLayout'
 import PriceConvert from 'components/converts/PriceConvert'
@@ -101,7 +101,7 @@ class Home extends React.Component {
                       categories.map((category, i) => {
                         return (
                           <Link to={`/c/${category.get('slug')}`} key={i}>
-                            <FaArchive /><br />
+                            <FaShoppingBasket /><br />
                             {category.get('name')}
                           </Link>
                         )

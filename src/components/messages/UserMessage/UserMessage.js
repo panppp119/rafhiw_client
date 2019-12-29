@@ -100,6 +100,8 @@ class UserMessage extends React.Component {
     const { messages } = this.state;
     const { showChat, seller, user } = this.props;
 
+    console.log(showChat)
+
     return showChat ? (
       <div className="chat">
         <div className="chat-name">
