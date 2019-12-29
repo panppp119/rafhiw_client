@@ -221,125 +221,127 @@ class Cart extends React.Component {
             </div>
 
             <div className="cart-products">
-              <table>
-                <thead>
-                  <tr>
-                    <th>สินค้า (ตัวเลือก)</th>
-                    <th>ราคาต่อชิ้น</th>
-                    <th>จำนวน</th>
-                    <th>ราคารวม</th>
-                    <th>แอคชัน</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {!cartProducts.isEmpty() ? (
-                    cartProducts.map((cp, i) => {
-                      var product = cp.get('product') || Map();
-                      var name = product.get('name');
-                      var quantity = cp.get('quantity');
-                      var option = cp.get('option') || Map();
-                      var price =
-                        option.get('discount_amt') === 0
-                          ? option.get('price_amt')
-                          : option.get('discount_amt');
-                      var sub_total = price * quantity;
-                      var total_hiw = option.get('hiw_amt') * quantity
-                      var total_ship = option.get('ship_amt') * quantity
-                      var outofdate = Moment(product.get('end_date')).isBefore(
-                        Moment()
-                      );
-
-                      total += outofdate ? 0 : sub_total;
-                      hiw_amt += outofdate ? 0 : total_hiw;
-                      ship_amt += outofdate ? 0 : total_ship;
-
-                      price_amt = total;
-
-                      return (
-                        <tr key={i}
-                          style={{
-                            backgroundColor: outofdate && 'floralwhite'
-                          }}
-                        >
-                          <td>
-                            <img
-                              src={cp.get('image')}
-                              alt={name + option.get('name')}
-                            />
-                            <span>
-                              {outofdate ? (
-                                <Fragment>
-                                  <span
-                                    style={{
-                                      textDecoration: 'line-through',
-                                      marginRight: 7
-                                    }}
-                                  >
-                                    {name} ({option.get('name')})
-                                  </span>
-                                  <span className="error">หมดเวลา</span>
-                                </Fragment>
-                              ) : (
-                                <Link to={`/p/${product.get('id')}`}>
-                                  {name} ({option.get('name')})
-                                </Link>
-                              )}
-                            </span>
-                          </td>
-
-                          <td>
-                            <p><PriceConvert price={price} /></p>
-                          </td>
-
-                          <td>
-                            <div className="quantity-input">
-                              <button
-                                className='primary'
-                                disabled={outofdate}
-                                onClick={() => this.decreaseQuantity(option.get('id'))}
-                              >
-                                <FaMinus />
-                              </button>
-
-                              <input type="number" disabled value={quantity} />
-
-                              <button
-                                className='primary'
-                                name={option.get('id')}
-                                disabled={
-                                  quantity === option.get('stock') || outofdate
-                                }
-                                onClick={() => this.increaseQuantity(option.get('id'))}
-                              >
-                                <FaPlus />
-                              </button>
-                            </div>
-                          </td>
-
-                          <td>
-                            <p><PriceConvert price={sub_total} /></p>
-                          </td>
-
-                          <td>
-                            <button
-                              className='error'
-                              name={option.get('id')}
-                              onClick={this.removeProduct}
-                            >
-                              <FaTrash />
-                            </button>
-                          </td>
-                        </tr>
-                      )
-                    })
-                  ) : (
+              <div className="table-responsive">
+                <table>
+                  <thead>
                     <tr>
-                      <td colSpan='5'><p className='no-item'>ไม่มีสินค้าในตะกร้า</p></td>
+                      <th>สินค้า (ตัวเลือก)</th>
+                      <th>ราคาต่อชิ้น</th>
+                      <th>จำนวน</th>
+                      <th>ราคารวม</th>
+                      <th>แอคชัน</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {!cartProducts.isEmpty() ? (
+                      cartProducts.map((cp, i) => {
+                        var product = cp.get('product') || Map();
+                        var name = product.get('name');
+                        var quantity = cp.get('quantity');
+                        var option = cp.get('option') || Map();
+                        var price =
+                          option.get('discount_amt') === 0
+                            ? option.get('price_amt')
+                            : option.get('discount_amt');
+                        var sub_total = price * quantity;
+                        var total_hiw = option.get('hiw_amt') * quantity
+                        var total_ship = option.get('ship_amt') * quantity
+                        var outofdate = Moment(product.get('end_date')).isBefore(
+                          Moment()
+                        );
+
+                        total += outofdate ? 0 : sub_total;
+                        hiw_amt += outofdate ? 0 : total_hiw;
+                        ship_amt += outofdate ? 0 : total_ship;
+
+                        price_amt = total;
+
+                        return (
+                          <tr key={i}
+                            style={{
+                              backgroundColor: outofdate && 'floralwhite'
+                            }}
+                          >
+                            <td>
+                              <img
+                                src={cp.get('image')}
+                                alt={name + option.get('name')}
+                              />
+                              <span>
+                                {outofdate ? (
+                                  <Fragment>
+                                    <span
+                                      style={{
+                                        textDecoration: 'line-through',
+                                        marginRight: 7
+                                      }}
+                                    >
+                                      {name} ({option.get('name')})
+                                    </span>
+                                    <span className="error">หมดเวลา</span>
+                                  </Fragment>
+                                ) : (
+                                  <Link to={`/p/${product.get('id')}`}>
+                                    {name} ({option.get('name')})
+                                  </Link>
+                                )}
+                              </span>
+                            </td>
+
+                            <td>
+                              <p><PriceConvert price={price} /></p>
+                            </td>
+
+                            <td>
+                              <div className="quantity-input">
+                                <button
+                                  className='primary'
+                                  disabled={outofdate}
+                                  onClick={() => this.decreaseQuantity(option.get('id'))}
+                                >
+                                  <FaMinus />
+                                </button>
+
+                                <input type="number" disabled value={quantity} />
+
+                                <button
+                                  className='primary'
+                                  name={option.get('id')}
+                                  disabled={
+                                    quantity === option.get('stock') || outofdate
+                                  }
+                                  onClick={() => this.increaseQuantity(option.get('id'))}
+                                >
+                                  <FaPlus />
+                                </button>
+                              </div>
+                            </td>
+
+                            <td>
+                              <p><PriceConvert price={sub_total} /></p>
+                            </td>
+
+                            <td>
+                              <button
+                                className='error'
+                                name={option.get('id')}
+                                onClick={this.removeProduct}
+                              >
+                                <FaTrash />
+                              </button>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan='5'><p className='no-item'>ไม่มีสินค้าในตะกร้า</p></td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
 
               <div className="cart-total">
                 <div className="price">

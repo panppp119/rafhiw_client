@@ -1,5 +1,9 @@
 $desktop: 1280px;
 
+.theme-dark #top-nav {
+  background-color: var(--black);
+}
+
 #top-nav {
   color: var(--primary);
   position: fixed;

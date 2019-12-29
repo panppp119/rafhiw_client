@@ -8,6 +8,10 @@ $desktop: 1280px;
     padding: 24px 0;
   }
 
+  .table-responsive {
+    overflow-y: scroll;
+  }
+
   table {
     margin-bottom: 8px;
 
@@ -27,13 +31,16 @@ $desktop: 1280px;
     }
 
     .quantity-input {
+      display: flex;
+      align-items: center;
+
       button {
         width: 40px;
         display: inline-block;
       }
 
       input {
-        width: auto;
+        width: 60px;
         margin: 0 8px;
         text-align: center;
       }

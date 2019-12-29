@@ -1,12 +1,20 @@
+$desktop: 1280px;
+
 .chat {
   position: fixed;
-  bottom: 0;
+  bottom: 50px;
   right: 0;
   background-color: var(--primary_light);
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
   padding: 0 7px 7px;
   border-radius: 10px;
   z-index: 88;
+  width: 100%;
+
+  @media screen and (min-width: $desktop) {
+    bottom: 0;
+    width: 399px;
+  }
 
   .chat-name {
     width: 100%;
@@ -59,6 +67,23 @@
 }
 
 .message-icon {
+  position: fixed;
+  right: 20px;
+  bottom: 60px;
+  background: var(--primary);
+  padding: 10px 12px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+
+  @media screen and (min-width: $desktop) {
+    bottom: 20px;
+  }
+
+  svg {
+    font-size: 25px;
+  }
+
   i.inverted.bordered.icon,
   i.inverted.circular.icon {
     background-color: var(--primary-light) !important;

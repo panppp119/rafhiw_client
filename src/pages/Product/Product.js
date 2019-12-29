@@ -160,8 +160,6 @@ class Product extends React.Component {
       }))
       .toJS();
 
-    console.log(product.toJS())
-
     return (
       <UserLayout>
         <div id="product-page">

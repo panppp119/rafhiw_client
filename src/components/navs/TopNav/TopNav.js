@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import ClassNames from 'classnames'
 import { List, Map } from 'immutable'
 import { Link, withRouter } from 'react-router-dom'
-import { FaShoppingCart, FaCommentDots, FaChevronLeft,
+import { FaShoppingCart, FaChevronLeft,
   FaUser, FaFont, FaSun, FaMoon,
   FaAddressCard, FaSignOutAlt, FaSearch
 } from 'react-icons/fa'
@@ -246,6 +246,7 @@ class TopNav extends React.Component {
               <li className='empty' />
               <li className='empty' />
               <li className='empty' />
+              <li className='empty' />
               <li className='search'>
                 <FaSearch onClick={this.showSearch} />
               </li>
@@ -256,7 +257,6 @@ class TopNav extends React.Component {
                   {totalQuantity !== 0 && <span className='total-qt'>{totalQuantity}</span>}
                 </Link>
               </li>
-              <li><Link to='/messages'><FaCommentDots /></Link></li>
             </ul>
           </div>
         </div>
