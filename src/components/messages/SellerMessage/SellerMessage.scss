@@ -1,11 +1,18 @@
+$desktop: 1280px;
+
 .chat.seller {
   position: fixed;
-  bottom: 14px;
+  bottom: 50px;
   right: 14px;
   background-color: var(--primary_light);
   padding: 0 7px 7px;
   border-radius: 10px;
   z-index: 88;
+
+  @media screen and (min-width: $desktop) {
+    bottom: 0;
+    width: 399px;
+  }
 
   svg {
     position: absolute;
