@@ -1,6 +1,7 @@
 import React from 'react'
 
 import UserLayout from 'components/layouts/UserLayout'
+import Pagination from 'components/Pagination'
 import { ProductCard } from 'components/cards'
 
 import './Products.scss'
@@ -12,6 +13,11 @@ class Products extends React.Component {
 
   render () {
     const { products } = this.props
+
+    const pagination = [
+      { link: '/', name: 'หน้าแรก' },
+      { link: '/events', name: 'งานลดราคา' },
+    ]
 
     return (
       <UserLayout>
@@ -31,6 +37,8 @@ class Products extends React.Component {
               </div>
 
               <div className="desktop">
+                <Pagination pagination={pagination} />
+
                 {
                   !products.isEmpty() ? products.map((product, i) => {
                     return (

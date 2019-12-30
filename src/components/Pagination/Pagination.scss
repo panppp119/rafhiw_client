@@ -1,0 +1,14 @@
+.pagination {
+  margin-bottom: 16px;
+  
+  a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+}
+
+.theme-dark .pagination {
+  span {
+    color: var(--white);
+  }
+}

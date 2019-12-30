@@ -4,6 +4,7 @@ import { List } from 'immutable';
 import UserLayout from 'components/layouts/UserLayout'
 import ProductCard from 'components/cards/ProductCard';
 import DateConvert from 'components/converts/DateConvert';
+import Pagination from 'components/Pagination'
 import GMap from 'components/GMap';
 import Img from 'components/Img';
 
@@ -22,10 +23,20 @@ class Event extends React.Component {
     const products = event.get('products') || List();
     const size = 10;
 
+    const pagination = [
+      { link: '/', name: 'หน้าแรก' },
+      { link: '/events', name: 'งานลดราคา' },
+      { link: `/e/${event.get('id')}`, name: event.get('name') },
+    ]
+
     return (
       <UserLayout>
         <div id="event-page">
           <div className="container">
+            <div className="desktop">
+              <Pagination pagination={pagination} />
+            </div>
+
             <div className="overview">
               <div className="column">
                 <div className="image">

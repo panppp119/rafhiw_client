@@ -1,6 +1,7 @@
 import React from 'react'
 
 import UserLayout from 'components/layouts/UserLayout'
+import Pagination from 'components/Pagination'
 import { EventCard } from 'components/cards'
 
 import './Events.scss'
@@ -12,6 +13,11 @@ class Events extends React.Component {
 
   render () {
     const { events } = this.props
+
+    const pagination = [
+      { link: '/', name: 'หน้าแรก' },
+      { link: '/events', name: 'งานลดราคา' },
+    ]
 
     return (
       <UserLayout>
@@ -31,6 +37,8 @@ class Events extends React.Component {
               </div>
 
               <div className="desktop">
+                <Pagination pagination={pagination} />
+
                 {
                   !events.isEmpty() ? events.map((event, i) => {
                     return (

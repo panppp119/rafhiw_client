@@ -11,6 +11,7 @@ import ProductCard from 'components/cards/ProductCard';
 import Img from 'components/Img';
 import UserLayout from 'components/layouts/UserLayout'
 import Loader from 'components/Loader'
+import Pagination from 'components/Pagination'
 
 import './Product.scss';
 
@@ -160,10 +161,21 @@ class Product extends React.Component {
       }))
       .toJS();
 
+    const pagination = [
+      { link: '/', name: 'หน้าแรก' },
+      { link: `/c/${product.getIn(['category', 'slug'], '')}`, name: product.getIn(['category', 'name'], '') },
+      { link: `/sc/${product.getIn(['sub_category', 'slug'], '')}`, name: product.getIn(['sub_category', 'name'], '') },
+      { link: `/p/${product.get('id')}`, name: product.get('name') },
+    ]
+
     return (
       <UserLayout>
         <div id="product-page">
           <div className="container">
+            <div className="desktop">
+              <Pagination pagination={pagination} />
+            </div>
+
             <div className="product" style={{ paddingTop: loadingProduct ? '15%' : 0 }}>
               <Loader loading={loadingProduct}>
                 <div className="column">

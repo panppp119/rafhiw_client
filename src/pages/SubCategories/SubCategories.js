@@ -2,6 +2,7 @@ import React from 'react'
 import { List } from 'immutable'
 
 import UserLayout from 'components/layouts/UserLayout'
+import Pagination from 'components/Pagination'
 import { ProductCard } from 'components/cards'
 
 import './SubCategories.scss'
@@ -14,9 +15,17 @@ class SubCategories extends React.Component {
   }
 
   render () {
-    const { subCategory } = this.props
+    const { subCategory, location } = this.props
 
     const products = subCategory.get('products') || List()
+    const splitLocation = location.pathname.split('/')
+    const length = splitLocation.length
+
+    const pagination = [
+      { link: '/', name: 'หน้าแรก' },
+      { link: `/c/${subCategory.getIn(['category', 'slug'], '')}`, name: subCategory.getIn(['category', 'name'], '') },
+      { link: `/sc/${splitLocation[length - 1]}`, name: subCategory.get('name') }
+    ]
 
     return (
       <UserLayout>
@@ -36,6 +45,8 @@ class SubCategories extends React.Component {
               </div>
 
               <div className="desktop">
+                <Pagination pagination={pagination} />
+
                 {
                   !products.isEmpty() ? products.map((pd, i) => {
                     return (
