@@ -1,6 +1,7 @@
 import React from 'react';
 import ClassNames from 'classnames'
 import { Switch, Route, Link } from 'react-router-dom'
+import { List } from 'immutable'
 
 import { PendingPayment, Shipment, Completed, Cancelled } from './routes'
 
@@ -18,9 +19,19 @@ class Orders extends React.Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, orders } = this.props;
 
     const pathname = location.pathname
+
+    const pendingPayment = orders.filter(
+      o => o.get('status') === 'pending_payment' || o.get('status') === 'pending_check_payment'
+    ) || List();
+
+    const shipment =
+      orders.filter(
+        o => o.get('status') === 'pending_shipping' ||
+        o.get('status') === 'pending_receive_goods'
+      ) || List();
 
     return (
       <div className="orders">
@@ -34,10 +45,10 @@ class Orders extends React.Component {
             <div className="tab-nav">
               <ul>
                 <li className={ClassNames({ active: pathname === '/account/orders' })}>
-                  <Link to='/account/orders'>รอการชำระ</Link>
+                  <Link to='/account/orders'>รอการชำระ ({pendingPayment.size})</Link>
                 </li>
                 <li className={ClassNames({ active: pathname === '/account/orders/shipment' })}>
-                  <Link to='/account/orders/shipment'>การจัดส่ง</Link>
+                  <Link to='/account/orders/shipment'>การจัดส่ง ({shipment.size})</Link>
                 </li>
                 <li className={ClassNames({ active: pathname === '/account/orders/completed' })}>
                   <Link to='/account/orders/completed'>สำเร็จ</Link>
