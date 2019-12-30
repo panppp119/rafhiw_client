@@ -92,3 +92,32 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark #checkout-page {
+  p {
+    color: var(--white) !important;
+  }
+
+  th {
+    background-color: var(--black);
+    color: var(--secondary);
+  }
+
+  .order-total {
+    background-color: var(--black);
+    color: var(--white);
+  }
+
+  .transfer {
+    label {
+      color: var(--white);
+    }
+
+    .filePicker {
+      background-color: var(--black) !important;
+      > span {
+        color: var(--secondary) !important;
+      }
+    }
+  }
+}

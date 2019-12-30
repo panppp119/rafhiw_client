@@ -97,3 +97,19 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark #cart-page {
+  p {
+    color: var(--white) !important;
+  }
+
+  th {
+    background-color: var(--black);
+    color: var(--secondary);
+  }
+
+  .cart-total {
+    background-color: var(--black);
+    color: var(--white);
+  }
+}

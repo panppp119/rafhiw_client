@@ -70,3 +70,7 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark #event-page p {
+  color: var(--white) !important;
+}

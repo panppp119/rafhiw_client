@@ -43,3 +43,11 @@ $desktop: 1280px;
     }
   }
 }
+
+.theme-dark #event-card {
+  p, h4 {
+    &.location {
+      color: var(--white) !important;
+    }
+  }
+}
