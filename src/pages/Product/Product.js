@@ -424,42 +424,46 @@ class Product extends React.Component {
 
               <Loader loading={loadingProduct} size={loaderSize}>
                 <div className="mobile">
-                  {!products.isEmpty() && products.length > 0 ? (
-                    products
-                      .filter(
-                        p =>
-                          p.get('id' !== product.get('id')) &&
-                          p.get('category_id') === product.get('category_id')
-                      )
-                      .slice(0, 2)
-                      .map((product, i) => {
+                  {products.size > 0 ? (
+                    products.map((pd, i) => {
+                      let num = 0
+
+                      if (pd.get('id') !== product.get('id') && pd.get('category_id') === product.get('category_id') && num < 2) {
+                        num++
+
                         return (
                           <div className="column" key={i}>
-                            <ProductCard product={product} user={this.props.user} />
+                            <ProductCard product={pd} user={this.props.user} />
                           </div>
                         );
-                      })
+                      }
+                      else {
+                        return null
+                      }
+                    })
                   ) : (
                     <p>ไม่มีสินค้าใกล้เคียง</p>
                   )}
                 </div>
 
                 <div className="desktop">
-                  {!products.isEmpty() && products.length > 1 ? (
-                    products
-                      .filter(
-                        p =>
-                          p.get('id' !== product.get('id')) &&
-                          p.get('category_id') === product.get('category_id')
-                      )
-                      .slice(0, 5)
-                      .map((product, i) => {
+                  {products.size > 0 ? (
+                    products.map((pd, i) => {
+                      let num = 0
+
+                      if (pd.get('id') !== product.get('id') && pd.get('category_id') === product.get('category_id') && num < 5) {
+                        num++
+
                         return (
                           <div className="column" key={i}>
-                            <ProductCard product={product} user={this.props.user} />
+                            <ProductCard product={pd} user={this.props.user} />
                           </div>
                         );
-                      })
+                      }
+                      else {
+                        return null
+                      }
+                    })
                   ) : (
                     <p>ไม่มีสินค้าใกล้เคียง</p>
                   )}
