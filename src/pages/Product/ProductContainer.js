@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { Map, List } from 'immutable';
 
-import { fetchProduct, fetchProducts } from 'actions/products';
+import { fetchProduct } from 'actions/products';
+import { fetchCategory } from 'actions/categories';
 import { fetchEvents } from 'actions/events';
 import {
   fetchCart,
@@ -11,12 +12,13 @@ import {
 import productSchema from 'schemas/product';
 import eventSchema from 'schemas/event';
 import cartSchema from 'schemas/cart';
+import categorySchema from 'schemas/category';
 
 import Product from './Product';
 
 const mapStateToProps = state => ({
   product: state.getIn(['products', 'data'], Map()),
-  products: state.getIn(['products', 'collection'], List()),
+  products: state.getIn(['categories', 'data', 'products'], List()),
   events: state.getIn(['events', 'collection'], List()),
   cartProducts: state.getIn(['cart', 'cartProducts'], List()),
   cart: state.getIn(['cart', 'data'], Map()),
@@ -27,7 +29,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   loadProduct: id => fetchProduct(id, productSchema),
-  loadProducts: () => fetchProducts(productSchema),
+  loadProducts: id => fetchCategory(id, categorySchema),
   loadEvents: () => fetchEvents(eventSchema),
   loadCart: () => fetchCart(cartSchema),
   createCart: (body, cartProducts) => createCart(body, cartSchema),

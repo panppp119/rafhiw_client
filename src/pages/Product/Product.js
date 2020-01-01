@@ -45,6 +45,8 @@ class Product extends React.Component {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.loadProduct(this.props.match.params.id);
     }
+
+    this.props.products.isEmpty() && !this.props.product.isEmpty() && this.props.loadProducts(this.props.product.getIn(['category', 'slug'], ''));
   }
 
   handleClickChat = (bool) => {
@@ -422,7 +424,7 @@ class Product extends React.Component {
 
               <Loader loading={loadingProduct} size={loaderSize}>
                 <div className="mobile">
-                  {!products.isEmpty() && products.length > 1 ? (
+                  {!products.isEmpty() && products.length > 0 ? (
                     products
                       .filter(
                         p =>
