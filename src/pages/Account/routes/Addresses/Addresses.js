@@ -2,6 +2,7 @@ import React from 'react';
 import { FaTrash } from 'react-icons/fa'
 
 import AddressForm from 'components/forms/AddressForm';
+import Loader from 'components/Loader'
 
 import './Addresses.scss';
 
@@ -38,7 +39,7 @@ class Addresses extends React.Component {
   }
 
   render() {
-    const { addresses } = this.props
+    const { addresses, loadingAddresses } = this.props
     const { showAddressForm } = this.state;
 
     return (
@@ -61,7 +62,7 @@ class Addresses extends React.Component {
           }
 
           {
-            showAddressForm ? (
+            loadingAddresses ? <Loader loading={loadingAddresses} /> : showAddressForm ? (
               <AddressForm cancel={this.cancel} {...this.props} />
             ) : (
               <button className='primary' onClick={this.handleClick}>

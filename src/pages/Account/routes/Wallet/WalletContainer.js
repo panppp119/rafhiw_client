@@ -12,7 +12,7 @@ const mapStateToProps = (state, props) => ({
   user: state.getIn(['user', 'data'], Map()),
   cards: state.getIn(['cards', 'collection'], List()),
   bank: state.getIn(['bank', 'data'], Map()),
-  loadingCards: state.getIn(['cards', 'loading'], true),
+  loadingCards: state.getIn(['cards', 'loading'], false),
   ...props
 });
 

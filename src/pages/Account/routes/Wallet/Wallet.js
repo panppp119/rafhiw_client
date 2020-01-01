@@ -3,6 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 
 import BankAccountForm from 'components/forms/BankAccountForm';
 import CardForm from 'components/forms/CardForm';
+import Loader from 'components/Loader'
 
 import './Wallet.scss';
 
@@ -123,7 +124,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, loadingCards } = this.props;
 
     const allow = !user.isEmpty() && user.get('roles').includes('seller');
 
@@ -135,7 +136,7 @@ class Wallet extends React.Component {
         </div>
 
         <div className="body">
-          {this.showCardForm()}
+          {loadingCards ? <Loader loading={loadingCards}/> : this.showCardForm()}
           {allow && this.showBankForm()}
         </div>
       </div>
