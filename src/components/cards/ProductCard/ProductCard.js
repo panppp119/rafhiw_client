@@ -27,6 +27,21 @@ class ProductCard extends React.Component {
       List();
     var noItem = options.filter(opt => opt.get('stock') <= 0).size > 0
 
+    options.map(option => {
+      const discount = option.get('discount_amt') !== 0 ?
+        option.get('discount_amt') + option.get('ship_amt') + option.get('hiw_amt')
+        : option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+      const original = option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+      const originalIncludeVat = original + (original * (15 / 100)) || 0
+      const discountIncludeVat = discount + (discount * (15 / 100)) || 0
+      
+      return {
+        ...option,
+        originalIncludeVat,
+        discountIncludeVat
+      }
+    })
+
     return (
       <div id="product-card">
         <Link to={`/p/${product.get('id')}`}>
@@ -56,31 +71,15 @@ class ProductCard extends React.Component {
                     className="price"
                     style={{ textDecoration: 'line-through' }}
                   >
-                    <PriceConvert price={options.getIn([0, 'price_amt']) + options.getIn([0, 'ship_amt'])} />
+                    <PriceConvert price={options.getIn([0, 'originalIncludeVat'])} />
                   </span>
 
                   <span className='discount'>
-                    <PriceConvert price={
-                      (options.getIn([0, 'discount_amt']) +
-                      options.getIn([0, 'hiw_amt']) +
-                      options.getIn([0, 'ship_amt'])) + (
-                        (options.getIn([0, 'discount_amt']) +
-                        options.getIn([0, 'hiw_amt']) +
-                        options.getIn([0, 'ship_amt'])) * (15 / 100)
-                      )
-                    } />
+                    <PriceConvert price={options.getIn([0, 'discountIncludeVat'])} />
                   </span>
                 </Fragment>
               ) : (
-                <PriceConvert price={
-                  (options.getIn([0, 'price_amt']) +
-                  options.getIn([0, 'hiw_amt']) +
-                  options.getIn([0, 'ship_amt'])) + (
-                    (options.getIn([0, 'price_amt']) +
-                    options.getIn([0, 'hiw_amt']) +
-                    options.getIn([0, 'ship_amt'])) * (15 / 100)
-                  )
-                } />
+                <PriceConvert price={options.getIn([0, 'originalIncludeVat'])} />
               )}
             </p>
           </div>

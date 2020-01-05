@@ -56,7 +56,7 @@ class Checkout extends React.Component {
     const { order } = this.props;
 
     const orderList = order.get('products') || List();
-    var service = 0;
+    let total = 0
 
     var previewConfig = {
       iconFiletypes: ['.jpg', '.png'],
@@ -104,15 +104,12 @@ class Checkout extends React.Component {
                       var name = product.get('name');
                       var quantity = cp.get('quantity');
                       var option = cp.get('option') || Map();
-                      var hiw = option.get('hiw_amt') || 0;
-                      var ship = option.get('ship_amt') || 0;
-                      var price =
-                        option.get('discount_amt') === 0
-                          ? option.get('price_amt')
-                          : option.get('discount_amt');
-                      var sub_total = price * quantity;
+                      var price = option.get('discount_amt') !== 0 ?
+                          option.get('discount_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                          : option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                      var priceIncludeVat = price + (price * (15 / 100))
 
-                      service += hiw + ship;
+                      total += priceIncludeVat * quantity
 
                       return (
                         <tr key={i}>
@@ -127,9 +124,9 @@ class Checkout extends React.Component {
                               </Link>
                             </span>
                           </td>
-                          <td><PriceConvert price={price} /></td>
+                          <td><PriceConvert price={priceIncludeVat} /></td>
                           <td><p>{quantity}</p></td>
-                          <td><PriceConvert price={sub_total} /></td>
+                          <td><PriceConvert price={priceIncludeVat * quantity} /></td>
                         </tr>
                       );
                     })}
@@ -138,27 +135,12 @@ class Checkout extends React.Component {
               </table>
 
               <div className="order-total">
-                <div className="price">
-                  <span>ราคารวมสินค้า</span>
-                  <h4>
-                    <PriceConvert price={order.get('total_amt')} />
-                  </h4>
-                </div>
-
-                <div className="service">
-                  <span>ค่าบริการ</span>
-                  <h4>
-                    <PriceConvert price={service} />
-                  </h4>
-                </div>
-
                 <div className="total">
                   <span>
-                    รวมสินค้าทั้งหมด ({order.get('total_quantity')} ชิ้น
-                    รวมค่าบริการหิ้วและจัดส่ง)
+                    ราคารวมทั้งหมด
                   </span>
                   <h3>
-                    <PriceConvert price={order.get('total_amt') + service} />
+                    <PriceConvert price={total} />
                   </h3>
                 </div>
               </div>

@@ -276,15 +276,11 @@ class Product extends React.Component {
                       {options.map((option, i) => {
                         const stock = option.get('stock') || 0
                         const discount = option.get('discount_amt') !== 0 ?
-                          option.get('discount_amt')
-                          : option.get('price_amt')
-                        const original = option.get('price_amt')
-
-                        const totalAmount = discount + option.get('hiw_amt') + option.get('ship_amt')
-                        const originalTotalAmount = original + option.get('hiw_amt') + option.get('ship_amt')
-                        const includeVat = totalAmount + (totalAmount * (15 / 100))
-                        const origitalIncludeVat = originalTotalAmount + (originalTotalAmount * (15 / 100))
-                        const originalPrice = original + option.get('ship_amt')
+                          option.get('discount_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                          : option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                        const original = option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                        const originalIncludeVat = original + (original * (15 / 100)) || 0
+                        const discountIncludeVat = discount + (discount * (15 / 100)) || 0
 
                         return this.state.option === i ? (
                           <Fragment key={i}>
@@ -300,19 +296,19 @@ class Product extends React.Component {
                                       style={{ textDecoration: 'line-through' }}
                                     >
                                       <PriceConvert
-                                        price={originalPrice}
+                                        price={originalIncludeVat}
                                       />
                                     </span>
                                     <span className="discount">
                                       <PriceConvert
-                                        price={includeVat}
+                                        price={discountIncludeVat}
                                       />
                                     </span>
                                   </Fragment>
                                 ) : (
                                   <span>
                                     <PriceConvert
-                                      price={origitalIncludeVat}
+                                      price={originalIncludeVat}
                                     />
                                   </span>
                                 )}

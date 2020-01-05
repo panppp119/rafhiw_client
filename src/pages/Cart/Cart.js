@@ -181,12 +181,8 @@ class Cart extends React.Component {
   render() {
     const { cart, addresses } = this.props;
 
-    var total = 0;
-    var hiw_amt = 0;
-    var ship_amt = 0;
-    var price_amt = 0;
-
     const cartProducts = cart.get('products') || List();
+    var total = 0
 
     var pause =
       cartProducts.filter(cp =>
@@ -240,22 +236,16 @@ class Cart extends React.Component {
                         var name = product.get('name');
                         var quantity = cp.get('quantity');
                         var option = cp.get('option') || Map();
-                        var price =
-                          option.get('discount_amt') === 0
-                            ? option.get('price_amt')
-                            : option.get('discount_amt');
-                        var sub_total = price * quantity;
-                        var total_hiw = option.get('hiw_amt') * quantity
-                        var total_ship = option.get('ship_amt') * quantity
+
+                        var price = option.get('discount_amt') !== 0 ?
+                          option.get('discount_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                          : option.get('price_amt') + option.get('ship_amt') + option.get('hiw_amt')
+                        var priceIncludeVat = price + (price * (15 / 100))
                         var outofdate = Moment(product.get('end_date')).isBefore(
                           Moment()
                         );
 
-                        total += outofdate ? 0 : sub_total;
-                        hiw_amt += outofdate ? 0 : total_hiw;
-                        ship_amt += outofdate ? 0 : total_ship;
-
-                        price_amt = total;
+                        total += outofdate ? 0 : priceIncludeVat * quantity;
 
                         return (
                           <tr key={i}
@@ -290,7 +280,7 @@ class Cart extends React.Component {
                             </td>
 
                             <td>
-                              <p><PriceConvert price={price} /></p>
+                              <p><PriceConvert price={priceIncludeVat} /></p>
                             </td>
 
                             <td>
@@ -319,7 +309,7 @@ class Cart extends React.Component {
                             </td>
 
                             <td>
-                              <p><PriceConvert price={sub_total} /></p>
+                              <p><PriceConvert price={priceIncludeVat * quantity} /></p>
                             </td>
 
                             <td>
@@ -344,33 +334,12 @@ class Cart extends React.Component {
               </div>
 
               <div className="cart-total">
-                <div className="price">
-                  <span>ราคารวมสินค้า</span>
-                  <h4>
-                    <PriceConvert price={price_amt} />
-                  </h4>
-                </div>
-
-                <div className="hiw">
-                  <span>ค่าบริการหิ้ว</span>
-                  <h4>
-                    <PriceConvert price={hiw_amt} />
-                  </h4>
-                </div>
-
-                <div className="shipment">
-                  <span>ค่าบริการจัดส่ง</span>
-                  <h4>
-                    <PriceConvert price={ship_amt} />
-                  </h4>
-                </div>
-
                 <div className="total">
                   <span>
                     ราคารวมทั้งหมด (สินค้า {cart.get('total_qt')} ชิ้น)
                   </span>
                   <h3>
-                    <PriceConvert price={total + hiw_amt + ship_amt} />
+                    <PriceConvert price={total} />
                   </h3>
                 </div>
               </div>
@@ -379,7 +348,7 @@ class Cart extends React.Component {
             <div className="payment">
               <button className='primary'
                 disabled={cartProducts.size === 0 || pause}
-                onClick={e => this.checkout(e, pause, total + hiw_amt + ship_amt)}
+                onClick={e => this.checkout(e, pause, total)}
               >
                 สั่งซื้อสินค้า
               </button>
