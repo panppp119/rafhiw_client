@@ -86,12 +86,16 @@ $desktop: 1280px;
 
 .message-icon {
   position: fixed;
-  bottom: 14px;
+  bottom: 60px;
   right: 14px;
   background-color: var(--primary_light);
   box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   cursor: pointer;
+
+  @media screen and (min-width: $desktop) {
+    bottom: 14px;
+  }
 
   svg {
     padding: 10px;

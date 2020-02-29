@@ -153,7 +153,7 @@ class Checkout extends React.Component {
                 <div className="bank">
                   <p>ธนาคารกสิกรไทย</p>
                   <p>จิรสิน ฤดีเกียรติธำรง</p>
-                  <p>0 442 8111 1</p>
+                  <p>0 442 88111 1</p>
                 </div>
               </div>
 
