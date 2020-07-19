@@ -1,31 +1,32 @@
-import React from 'react';
+import React from 'react'
 
-import StoreOrderTable from 'components/tables/StoreOrderTable';
+import StoreOrderTable from 'components/tables/StoreOrderTable'
 
-import './Shipping.scss';
+import './Shipping.scss'
 
 class Shipping extends React.Component {
   componentDidMount() {
     !this.props.user.isEmpty() &&
-      this.props.loadOrders(this.props.user.get('id'));
+      this.props.loadOrders(this.props.user.get('id'))
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.user.isEmpty() && prevProps.user !== this.props.user) {
-      this.props.loadOrders(this.props.user.get('id'));
+      this.props.loadOrders(this.props.user.get('id'))
     }
   }
 
   render() {
-    const { orders, user } = this.props;
+    const { orders, user } = this.props
 
     const orderList = orders.filter(
-      order => order.get('status') === 'pending_shipping' ||
-      order.get('status') === 'pending_receive_goods'
-    );
+      (order) =>
+        order.get('status') === 'pending_shipping' ||
+        order.get('status') === 'pending_receive_goods',
+    )
 
     return (
-      <div className="shipping">
+      <div className='shipping'>
         <StoreOrderTable
           shipper
           track
@@ -36,8 +37,8 @@ class Shipping extends React.Component {
           loadOrders={this.props.loadOrders}
         />
       </div>
-    );
+    )
   }
 }
 
-export default Shipping;
+export default Shipping
