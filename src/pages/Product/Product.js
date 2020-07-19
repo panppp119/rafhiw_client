@@ -12,7 +12,6 @@ import Img from 'components/Img'
 import UserLayout from 'components/layouts/UserLayout'
 import Loader from 'components/Loader'
 import Pagination from 'components/Pagination'
-
 import defaultImg from 'components/Img/default.png'
 
 import './Product.scss'
@@ -204,7 +203,6 @@ class Product extends React.Component {
                     className='owner'
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
                       alignItems: 'center',
                     }}
                   >
@@ -222,13 +220,13 @@ class Product extends React.Component {
                       </h4>
                     </div>
 
-                    <button
+                    {/* <button
                       className='primary'
                       style={{ maxWidth: 200 }}
                       onClick={() => this.handleClickChat()}
                     >
                       แชทกับผู้ขาย
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
@@ -563,12 +561,12 @@ class Product extends React.Component {
               </div>
             </div>
 
-            <UserMessage
+            {/* <UserMessage
               handleClickChat={this.handleClickChat}
               showChat={this.state.showChat}
               seller={product && product.get('owner')}
               user={this.props.user}
-            />
+            /> */}
           </div>
         </div>
       </UserLayout>
