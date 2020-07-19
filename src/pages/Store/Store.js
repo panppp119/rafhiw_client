@@ -1,11 +1,11 @@
 import React from 'react'
 import ClassNames from 'classnames'
 import { Link, Switch, Route } from 'react-router-dom'
-import { connect } from 'react-redux';
-import { Map } from 'immutable';
+import { connect } from 'react-redux'
+import { Map } from 'immutable'
 
 import StoreLayout from 'components/layouts/StoreLayout'
-import SellerMessage from 'components/messages/SellerMessage'
+// import SellerMessage from 'components/messages/SellerMessage'
 import {
   Active,
   Events,
@@ -15,75 +15,103 @@ import {
   Shipping,
   Succeeded,
   Payment,
-  AddProduct
-} from './routes';
+  AddProduct,
+} from './routes'
 
 import './Store.scss'
 
 class Store extends React.Component {
   state = {
-    showChat: false
+    showChat: false,
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.props.history.push(`/store/${e.target.value}`)
   }
 
-  handleClickChat = bool => {
-    this.setState({ showChat: bool });
-  };
+  handleClickChat = (bool) => {
+    this.setState({ showChat: bool })
+  }
 
-  render () {
-    const { location, match } = this.props;
+  render() {
+    const { location, match } = this.props
 
     const pathname = location.pathname
 
     return (
       <StoreLayout>
-        <div id="store-page">
-          <div className="container">
-            <div className="tab mobile">
+        <div id='store-page'>
+          <div className='container'>
+            <div className='tab mobile'>
               <select onChange={this.handleChange}>
-                <option value="">งานของฉัน</option>
-                <option value="products">สินค้าทั้งหมด</option>
-                <option value="active">ขายอยู่</option>
-                <option value="out_of_stock">สินค้าหมด</option>
-                <option value="pending_payment">ค้างชำระ</option>
-                <option value="shipping">ที่ต้องจัดส่ง</option>
-                <option value="succeeded">สำเร็จแล้ว</option>
+                <option value=''>งานของฉัน</option>
+                <option value='products'>สินค้าทั้งหมด</option>
+                <option value='active'>ขายอยู่</option>
+                <option value='out_of_stock'>สินค้าหมด</option>
+                <option value='pending_payment'>ค้างชำระ</option>
+                <option value='shipping'>ที่ต้องจัดส่ง</option>
+                <option value='succeeded'>สำเร็จแล้ว</option>
               </select>
             </div>
 
-            <div className="tab desktop">
+            <div className='tab desktop'>
               <ul>
                 <li className={ClassNames({ active: pathname === '/store' })}>
                   <Link to='/store'>งานของฉัน</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/products' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/products',
+                  })}
+                >
                   <Link to='/store/products'>สินค้าทั้งหมด</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/active' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/active',
+                  })}
+                >
                   <Link to='/store/active'>ขายอยู่</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/out_of_stock' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/out_of_stock',
+                  })}
+                >
                   <Link to='/store/out_of_stock'>สินค้าหมด</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/pending_payment' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/pending_payment',
+                  })}
+                >
                   <Link to='/store/pending_payment'>ค้างชำระ</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/shipping' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/shipping',
+                  })}
+                >
                   <Link to='/store/shipping'>ที่ต้องจัดส่ง</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/succeeded' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/succeeded',
+                  })}
+                >
                   <Link to='/store/succeeded'>สำเร็จแล้ว</Link>
                 </li>
-                <li className={ClassNames({ active: pathname === '/store/income' })}>
+                <li
+                  className={ClassNames({
+                    active: pathname === '/store/income',
+                  })}
+                >
                   <Link to='/store/income'>รายรับของฉัน</Link>
                 </li>
               </ul>
             </div>
 
-            <div className="content">
+            <div className='content'>
               <Switch>
                 <Route
                   exact
@@ -133,11 +161,11 @@ class Store extends React.Component {
               </Switch>
             </div>
 
-            <SellerMessage
+            {/* <SellerMessage
               handleClickChat={this.handleClickChat}
               showChat={this.state.showChat}
               seller={this.props.user}
-            />
+            /> */}
           </div>
         </div>
       </StoreLayout>
@@ -147,9 +175,7 @@ class Store extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   user: state.getIn(['user', 'data'], Map()),
-  ...props
-});
+  ...props,
+})
 
-export default connect(
-  mapStateToProps
-)(Store);
+export default connect(mapStateToProps)(Store)

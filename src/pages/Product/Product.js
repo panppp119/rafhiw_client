@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery'
 import { List } from 'immutable'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 
-import UserMessage from 'components/messages/UserMessage'
+// import UserMessage from 'components/messages/UserMessage'
 import CountdownTimer from 'components/CountdownTimer'
 import PriceConvert from 'components/converts/PriceConvert'
 import EventCard from 'components/cards/EventCard'
